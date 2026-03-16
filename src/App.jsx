@@ -51,43 +51,113 @@ const HERO_SLIDES = [
   }
 ];
 
-const COMPLETE_MENU_ITEMS = [
+const MENU_DESTAQUES = [
   {
-    id: "home",
     label: "Pacto Global",
+    icon: Globe,
     subItems: [
       { label: "Sobre Nós" },
-      { label: "Princípios" },
-      { label: "Movimentos" },
-      { label: "Plataformas de Ação" },
+      { label: "Rede Brasil" },
       { label: "Governança" },
-      { id: "cop", label: "CoP - Comunicação de Progresso" },
-      { label: "ESG & Agenda 2030" },
-      { label: "Apoiadores Institucionais" }
-    ],
-    icon: Globe,
-    highlight: true
+      { label: "Apoiadores" },
+      { label: "Parceiros" }
+    ]
   },
-  { label: "Agenda de Eventos", icon: Calendar, highlight: true },
-  { label: "Notícias", icon: FileText, highlight: true },
   {
-    label: "Conhecimento",
-    subItems: [{ label: "Publicações" }, { label: "Academy" }, { label: "Cursos & Workshops" }],
-    icon: BookOpen
+    label: "Nossos Eventos",
+    icon: Calendar,
+    subItems: [
+      { label: "Institucionais" },
+      { label: "Temáticos" },
+      { label: "Agenda de Eventos" }
+    ]
   },
-  { label: "Empresas Participantes", icon: Users },
+  {
+    label: "Notícias",
+    icon: FileText,
+    subItems: [
+      { label: "Últimas Notícias" },
+      { label: "Destaques" },
+      { label: "Sala de Imprensa" }
+    ]
+  }
+];
+
+const MENU_EXPLORAR = [
+  {
+    label: "Nossa Agenda",
+    icon: Target,
+    subItems: [
+      { label: "10 Princípios" }, // Typo fix: user asked for "10 Princípio", making it plural for correctness
+      { label: "ODS" },
+      { label: "Ambição 2030" },
+      { label: "Movimentos" },
+      { label: "Plataformas de Ação" }
+    ]
+  },
   {
     label: "Programas",
+    icon: Briefcase,
     subItems: [
       { label: "HUBs ODS & Multiplicadores" },
       { label: "Liderança de Impacto" },
-      { label: "COP30" },
       { label: "Diálogos DH & DEI" },
-      { label: "CFO Coalition" }
-    ],
-    icon: Briefcase
+      { label: "CFO Coalition" },
+      { label: "COPs" }
+    ]
   },
-  { label: "Parceiros", icon: Users }
+  {
+    label: "Conhecimento",
+    icon: BookOpen,
+    subItems: [
+      { label: "Publicações" },
+      { label: "Academy" },
+      { label: "Cursos & Workshops" },
+      { label: "ESG e sustentabilidade corporativa" },
+      { label: "Guias e relatórios" }
+    ]
+  }
+];
+
+const MENU_PARTICIPAR = [
+  {
+    label: "Participação",
+    icon: Users,
+    subItems: [
+      { label: "Quero aderir" },
+      { label: "Benefícios da participação" },
+      { label: "Critérios e requisitos" },
+      { label: "Etapas de adesão" },
+      { label: "FAQ" }
+    ]
+  },
+  {
+    label: "Empresas Participantes",
+    icon: Building2,
+    subItems: [
+      { label: "Quem faz parte" },
+      { label: "Casos e Boas Práticas" }
+    ]
+  },
+  {
+    label: "CoP",
+    icon: FileText,
+    subItems: [
+      { id: "cop", label: "O que é CoP" }, // Link mantido
+      { label: "Como enviar a CoP" },
+      { label: "Prazos e Orientações" },
+      { label: "FAQ" }
+    ]
+  },
+  {
+    label: "Parceria e Patrocínio",
+    icon: LogIn,
+    subItems: [
+      { label: "Quero Patrocinar" },
+      { label: "Quero ser Parceiro" },
+      { label: "Quero Apoiar Iniciativas" }
+    ]
+  }
 ];
 
 // --- COMPONENTES ATÔMICOS ---
@@ -199,67 +269,46 @@ const SuperMenu = ({ isOpen, onClose, onRouteChange }) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-24 pb-8">
-            <div className="lg:col-span-5 space-y-2">
-              <h3 className="text-[#CCB146] text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6 border-b border-white/10 pb-2">Destaques</h3>
-              {COMPLETE_MENU_ITEMS.filter(i => i.highlight).map((item) => (
-                <div key={item.label} className="group">
-                  <button
-                    onClick={() => item.subItems ? toggleExpand(item.label) : handleNav(item.id)}
-                    className="flex items-center justify-between w-full text-left py-2 md:py-3 group-hover:pl-2 transition-all duration-300"
-                  >
-                    <span className="text-xl md:text-3xl lg:text-4xl font-black uppercase text-white group-hover:text-[#CCB146] transition-colors">
-                      {item.label}
-                    </span>
-                    {item.subItems && <ChevronDown className={cn("w-5 h-5 md:w-6 md:h-6 text-white/50 transition-transform", expandedItem === item.label && "rotate-180")} />}
-                  </button>
-
-                  {item.subItems && (
-                    <div className={cn("overflow-hidden transition-all duration-500 ease-in-out pl-4 border-l-2 border-[#CCB146]/30 ml-2", expandedItem === item.label ? "max-h-[500px] py-4 opacity-100" : "max-h-0 opacity-0")}>
-                      {item.subItems.map(sub => (
-                        <button key={sub.label} onClick={(e) => { e.preventDefault(); sub.id ? handleNav(sub.id) : onClose(); }} className="block w-full text-left text-base md:text-lg text-[#AECFE6] hover:text-white font-medium py-1 transition-colors">
-                          {sub.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="lg:col-span-7">
-              <h3 className="text-[#CCB146] text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6 border-b border-white/10 pb-2">Explorar</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-4 md:gap-y-6">
-                {COMPLETE_MENU_ITEMS.filter(i => !i.highlight).map((item) => (
-                  <div key={item.label}>
-                    {item.subItems ? (
-                      <div className="mb-2 md:mb-4">
-                        <button
-                          onClick={() => item.subItems ? toggleExpand(item.label) : handleNav(item.id)}
-                          className="flex items-center gap-3 text-white hover:text-[#CCB146] font-bold uppercase tracking-wide text-xs md:text-sm lg:text-base py-2 transition-colors w-full text-left"
-                        >
-                          <item.icon className="w-4 h-4 md:w-5 md:h-5 text-white opacity-80 shrink-0" />
-                          {item.label}
-                          <ChevronDown className={cn("ml-auto w-3 h-3 md:w-4 md:h-4 transition-transform", expandedItem === item.label && "rotate-180")} />
-                        </button>
-                        <div className={cn("overflow-hidden transition-all duration-300 pl-8 space-y-2", expandedItem === item.label ? "max-h-[300px] pt-2 opacity-100" : "max-h-0 opacity-0")}>
-                          {item.subItems.map(sub => (
-                            <button key={sub.label} onClick={(e) => { e.preventDefault(); sub.id ? handleNav(sub.id) : onClose(); }} className="block w-full text-left text-[#AECFE6] hover:text-white text-[10px] md:text-xs font-medium">
-                              {sub.label}
-                            </button>
-                          ))}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16 pb-8">
+            {[
+              { title: "Destaques", items: MENU_DESTAQUES },
+              { title: "Explorar", items: MENU_EXPLORAR },
+              { title: "Participar", items: MENU_PARTICIPAR }
+            ].map((section, idx) => (
+              <div key={idx} className="flex flex-col space-y-2">
+                <h3 className="text-[#CCB146] text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6 border-b border-white/10 pb-2">{section.title}</h3>
+                <div className="flex flex-col gap-y-4 md:gap-y-6">
+                  {section.items.map((item) => (
+                    <div key={item.label}>
+                      {item.subItems ? (
+                        <div className="mb-2 md:mb-4">
+                          <button
+                            onClick={() => toggleExpand(item.label)}
+                            className="flex items-center gap-3 text-white hover:text-[#CCB146] font-bold uppercase tracking-wide text-xs md:text-sm lg:text-base py-2 transition-colors w-full text-left"
+                          >
+                            {item.icon && <item.icon className="w-4 h-4 md:w-5 md:h-5 text-white opacity-80 shrink-0" />}
+                            {item.label}
+                            <ChevronDown className={cn("ml-auto w-3 h-3 md:w-4 md:h-4 transition-transform", expandedItem === item.label && "rotate-180")} />
+                          </button>
+                          <div className={cn("overflow-hidden transition-all duration-300 pl-8 space-y-2", expandedItem === item.label ? "max-h-[500px] pt-4 opacity-100" : "max-h-0 opacity-0")}>
+                            {item.subItems.map(sub => (
+                              <button key={sub.label} onClick={(e) => { e.preventDefault(); sub.id ? handleNav(sub.id) : onClose(); }} className="block w-full text-left text-[#AECFE6] hover:text-white text-[10px] md:text-xs font-medium py-1">
+                                {sub.label}
+                              </button>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ) : (
-                      <button onClick={() => item.id ? handleNav(item.id) : null} className="flex items-center gap-3 text-white/80 hover:text-white font-bold uppercase tracking-wide text-xs md:text-sm lg:text-base py-2 transition-colors mb-2 md:mb-4 text-left w-full">
-                        <item.icon className="w-4 h-4 md:w-5 md:h-5 text-white opacity-60 shrink-0" />
-                        {item.label}
-                      </button>
-                    )}
-                  </div>
-                ))}
+                      ) : (
+                        <button onClick={() => handleNav(item.id)} className="flex items-center gap-3 text-white hover:text-[#CCB146] font-bold uppercase tracking-wide text-xs md:text-sm lg:text-base py-2 transition-colors w-full text-left">
+                           {item.icon && <item.icon className="w-4 h-4 md:w-5 md:h-5 text-white opacity-80 shrink-0" />}
+                           {item.label}
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
