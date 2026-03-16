@@ -195,7 +195,7 @@ const SuperMenu = ({ isOpen, onClose, onRouteChange }) => {
               {COMPLETE_MENU_ITEMS.filter(i => i.highlight).map((item) => (
                 <div key={item.label} className="group">
                   <button
-                    onClick={() => item.id ? handleNav(item.id) : toggleExpand(item.label)}
+                    onClick={() => item.subItems ? toggleExpand(item.label) : handleNav(item.id)}
                     className="flex items-center justify-between w-full text-left py-2 md:py-3 group-hover:pl-2 transition-all duration-300"
                   >
                     <span className="text-xl md:text-3xl lg:text-4xl font-black uppercase text-white group-hover:text-[#CCB146] transition-colors">
@@ -225,7 +225,7 @@ const SuperMenu = ({ isOpen, onClose, onRouteChange }) => {
                     {item.subItems ? (
                       <div className="mb-2 md:mb-4">
                         <button
-                          onClick={() => item.id ? handleNav(item.id) : toggleExpand(item.label)}
+                          onClick={() => item.subItems ? toggleExpand(item.label) : handleNav(item.id)}
                           className="flex items-center gap-3 text-white hover:text-[#CCB146] font-bold uppercase tracking-wide text-xs md:text-sm lg:text-base py-2 transition-colors w-full text-left"
                         >
                           <item.icon className="w-4 h-4 md:w-5 md:h-5 text-white opacity-80 shrink-0" />
