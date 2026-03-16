@@ -207,7 +207,7 @@ const SuperMenu = ({ isOpen, onClose, onRouteChange }) => {
                   {item.subItems && (
                     <div className={cn("overflow-hidden transition-all duration-500 ease-in-out pl-4 border-l-2 border-[#CCB146]/30 ml-2", expandedItem === item.label ? "max-h-[500px] py-4 opacity-100" : "max-h-0 opacity-0")}>
                       {item.subItems.map(sub => (
-                        <a key={sub} href="#" className="block text-base md:text-lg text-[#AECFE6] hover:text-white font-medium py-1 transition-colors">
+                        <a key={sub} href="#" onClick={(e) => { e.preventDefault(); onClose(); }} className="block text-base md:text-lg text-[#AECFE6] hover:text-white font-medium py-1 transition-colors">
                           {sub}
                         </a>
                       ))}
@@ -234,7 +234,7 @@ const SuperMenu = ({ isOpen, onClose, onRouteChange }) => {
                         </button>
                         <div className={cn("overflow-hidden transition-all duration-300 pl-8 space-y-2", expandedItem === item.label ? "max-h-[300px] pt-2 opacity-100" : "max-h-0 opacity-0")}>
                           {item.subItems.map(sub => (
-                            <a key={sub} href="#" className="block text-[#AECFE6] hover:text-white text-[10px] md:text-xs font-medium">
+                            <a key={sub} href="#" onClick={(e) => { e.preventDefault(); onClose(); }} className="block text-[#AECFE6] hover:text-white text-[10px] md:text-xs font-medium">
                               {sub}
                             </a>
                           ))}
