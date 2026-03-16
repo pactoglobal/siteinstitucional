@@ -344,20 +344,18 @@ const CapsuleHeader = ({ onRouteChange, currentRoute }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isScrolled = scrolled && currentRoute !== 'cop';
-
   return (
     <>
       <SuperMenu isOpen={superMenuOpen} onClose={() => setSuperMenuOpen(false)} onRouteChange={onRouteChange} />
 
       <header className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full",
-        isScrolled ? "bg-[#0B1220] shadow-2xl py-2" : "bg-gradient-to-b from-black/80 to-transparent py-4 md:py-6"
+        "fixed w-full z-50 transition-all duration-500",
+        scrolled ? "bg-[#0B1220] py-3 shadow-[0_10px_30px_rgba(0,0,0,0.3)]" : "bg-transparent py-5"
       )}>
-        <div className="container mx-auto max-w-[1536px] px-4 md:px-8 flex items-center justify-between">
+        <div className="container mx-auto px-4 md:px-8 xl:px-12 flex items-center justify-between">
           
           {/* Logo e Menu Esquerda */}
-          <div className="flex items-center gap-4 md:gap-6 w-1/3">
+          <div className="flex items-center gap-4 md:gap-6 w-1/4 xl:w-1/4">
             <button
               onClick={() => setSuperMenuOpen(true)}
               className="text-white hover:text-[#CCB146] transition-colors p-2 flex items-center gap-2"
@@ -374,30 +372,23 @@ const CapsuleHeader = ({ onRouteChange, currentRoute }) => {
           </div>
 
           {/* Pílula Central (Menu Rápido) */}
-          <div className="hidden lg:flex w-1/3 justify-center">
-            <nav className="flex items-center gap-6 bg-[#0B1220]/60 backdrop-blur-md rounded-full px-8 py-2.5 border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
-              {[ {label: 'Sobre nós', id: null}, {label: 'Notícias', id: null}, {label: 'ESG', id: null} ].map(item => (
-                <button
-                  key={item.label}
-                  onClick={() => item.id ? onRouteChange(item.id) : setSuperMenuOpen(true)}
-                  className="text-white hover:text-[#CCB146] text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap"
-                >
-                  {item.label}
-                </button>
-              ))}
+          <div className="hidden lg:flex w-1/2 xl:w-2/4 justify-center">
+            <nav className="flex items-center gap-4 xl:gap-6 bg-[#0B1220]/60 backdrop-blur-md rounded-full px-6 xl:px-8 py-2.5 border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+              {/* Link Simples */}
+              <button onClick={() => setSuperMenuOpen(true)} className="text-white hover:text-[#CCB146] text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap">
+                Sobre Nós
+              </button>
               
-              {/* Dropdown Conhecimento */}
+              {/* Dropdown Programas */}
               <div className="relative group">
-                <button className="flex items-center gap-1 text-white group-hover:text-[#CCB146] text-[11px] font-bold uppercase tracking-widest transition-colors py-1.5 whitespace-nowrap">
-                  Conhecimento <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+                <button className="flex items-center gap-1 text-white group-hover:text-[#CCB146] text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors py-1.5 whitespace-nowrap">
+                  Programas <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
                 </button>
-                {/* Invisível Bridge Container (Top Padding) p/ Hover persistir com distanciamento real */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-60 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                  {/* O Box Visível com Background */}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
                   <div className="bg-[#1E3250] backdrop-blur-md border border-white/10 rounded-2xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] overflow-hidden transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                      <div className="py-3 flex flex-col">
-                        {['Publicações', 'Academy', 'Cursos & Workshops'].map(sub => (
-                          <button key={sub} onClick={() => setSuperMenuOpen(true)} className="text-left px-6 py-3.5 text-[11px] text-white/70 hover:text-[#CCB146] hover:bg-white/5 transition-colors uppercase tracking-widest font-bold">
+                        {['HUBs ODS & Multiplicadores', 'Liderança de Impacto', 'Diálogos DH & DEI', 'CFO Coalition', 'COPs'].map(sub => (
+                          <button key={sub} onClick={() => setSuperMenuOpen(true)} className="text-left px-5 py-3 text-[10px] xl:text-[11px] text-white/70 hover:text-[#CCB146] hover:bg-white/5 transition-colors uppercase tracking-widest font-bold whitespace-nowrap">
                             {sub}
                           </button>
                         ))}
@@ -405,19 +396,48 @@ const CapsuleHeader = ({ onRouteChange, currentRoute }) => {
                   </div>
                 </div>
               </div>
+
+              {/* Dropdown Conhecimento */}
+              <div className="relative group">
+                <button className="flex items-center gap-1 text-white group-hover:text-[#CCB146] text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors py-1.5 whitespace-nowrap">
+                  Conhecimento <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+                </button>
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                  <div className="bg-[#1E3250] backdrop-blur-md border border-white/10 rounded-2xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] overflow-hidden transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                     <div className="py-3 flex flex-col">
+                        {['Publicações', 'Academy', 'Cursos & Workshops', 'ESG e Sustentabilidade', 'Guias e Relatórios'].map(sub => (
+                          <button key={sub} onClick={() => setSuperMenuOpen(true)} className="text-left px-5 py-3 text-[10px] xl:text-[11px] text-white/70 hover:text-[#CCB146] hover:bg-white/5 transition-colors uppercase tracking-widest font-bold whitespace-nowrap">
+                            {sub}
+                          </button>
+                        ))}
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Links Simples */}
+              {['Eventos', 'Notícias'].map(item => (
+                <button
+                  key={item}
+                  onClick={() => setSuperMenuOpen(true)}
+                  className="text-white hover:text-[#CCB146] text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap"
+                >
+                  {item}
+                </button>
+              ))}
             </nav>
           </div>
 
           {/* Ferramentas Direita */}
-          <div className="flex items-center justify-end gap-2 md:gap-4 w-1/3">
+          <div className="flex items-center justify-end gap-2 md:gap-4 w-1/4 xl:w-1/4">
             <button onClick={() => setSuperMenuOpen(true)} className="text-white hover:text-[#CCB146] transition-colors p-2">
-              <Search className="w-5 h-5 md:w-6 md:h-6" />
+              <Search className="w-4 h-4 md:w-5 md:h-5" />
             </button>
-            <button className="text-white hover:text-[#CCB146] transition-colors p-2">
-              <LogIn className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
-            <Button variant="primary" className="hidden xl:flex text-[10px] px-5 py-2">
+            <Button variant="outline" className="hidden lg:flex text-[9px] px-3 py-2 border-white/20 hover:border-[#CCB146] text-white">
               Área do Participante
+            </Button>
+            <Button variant="primary" className="hidden md:flex text-[9px] px-4 py-2 bg-[#CCB146] hover:bg-[#b09633] text-[#1E3250]">
+              Quero Aderir
             </Button>
           </div>
 
