@@ -342,14 +342,18 @@ const CapsuleHeader = ({ onRouteChange, currentRoute }) => {
                 <button className="flex items-center gap-1 text-white group-hover:text-[#CCB146] text-[11px] font-bold uppercase tracking-widest transition-colors py-1.5 whitespace-nowrap">
                   Conhecimento <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
                 </button>
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-[#1E3250]/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 overflow-hidden">
-                   <div className="py-2 flex flex-col">
-                      {['Publicações', 'Academy', 'Cursos & Workshops'].map(sub => (
-                        <button key={sub} onClick={() => setSuperMenuOpen(true)} className="text-left px-5 py-3 text-[11px] text-white/80 hover:text-white hover:bg-white/10 transition-colors uppercase tracking-widest font-bold">
-                          {sub}
-                        </button>
-                      ))}
-                   </div>
+                {/* Invisível Bridge Container (Top Padding) p/ Hover persistir com distanciamento real */}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-60 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                  {/* O Box Visível com Background */}
+                  <div className="bg-[#1E3250] backdrop-blur-md border border-white/10 rounded-2xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] overflow-hidden transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                     <div className="py-3 flex flex-col">
+                        {['Publicações', 'Academy', 'Cursos & Workshops'].map(sub => (
+                          <button key={sub} onClick={() => setSuperMenuOpen(true)} className="text-left px-6 py-3.5 text-[11px] text-white/70 hover:text-[#CCB146] hover:bg-white/5 transition-colors uppercase tracking-widest font-bold">
+                            {sub}
+                          </button>
+                        ))}
+                     </div>
+                  </div>
                 </div>
               </div>
             </nav>
