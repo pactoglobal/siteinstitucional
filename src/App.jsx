@@ -55,7 +55,16 @@ const COMPLETE_MENU_ITEMS = [
   {
     id: "home",
     label: "Pacto Global",
-    subItems: ["Sobre Nós", "Princípios", "Movimentos", "Plataformas de Ação", "Governança"],
+    subItems: [
+      { label: "Sobre Nós" },
+      { label: "Princípios" },
+      { label: "Movimentos" },
+      { label: "Plataformas de Ação" },
+      { label: "Governança" },
+      { id: "cop", label: "CoP - Comunicação de Progresso" },
+      { label: "ESG & Agenda 2030" },
+      { label: "Apoiadores Institucionais" }
+    ],
     icon: Globe,
     highlight: true
   },
@@ -63,20 +72,21 @@ const COMPLETE_MENU_ITEMS = [
   { label: "Notícias", icon: FileText, highlight: true },
   {
     label: "Conhecimento",
-    subItems: ["Publicações", "Academy", "Cursos & Workshops"],
+    subItems: [{ label: "Publicações" }, { label: "Academy" }, { label: "Cursos & Workshops" }],
     icon: BookOpen
   },
   { label: "Empresas Participantes", icon: Users },
-  { id: "cop", label: "CoP - Comunicação de Progresso", icon: BarChart3 },
-  { label: "ESG & Agenda 2030", icon: Target },
-  { label: "Engaja Pacto", icon: Play },
-  { label: "HUB ODS", icon: Globe },
   {
     label: "Programas",
-    subItems: ["Ambição pelos ODS", "Inova 2030", "Liderança de Impacto", "COP30", "Diálogos DH & DEI", "CFO Coalition"],
+    subItems: [
+      { label: "HUBs ODS & Multiplicadores" },
+      { label: "Liderança de Impacto" },
+      { label: "COP30" },
+      { label: "Diálogos DH & DEI" },
+      { label: "CFO Coalition" }
+    ],
     icon: Briefcase
   },
-  { label: "Apoiadores Institucionais", icon: Building2 },
   { label: "Parceiros", icon: Users }
 ];
 
@@ -207,9 +217,9 @@ const SuperMenu = ({ isOpen, onClose, onRouteChange }) => {
                   {item.subItems && (
                     <div className={cn("overflow-hidden transition-all duration-500 ease-in-out pl-4 border-l-2 border-[#CCB146]/30 ml-2", expandedItem === item.label ? "max-h-[500px] py-4 opacity-100" : "max-h-0 opacity-0")}>
                       {item.subItems.map(sub => (
-                        <a key={sub} href="#" onClick={(e) => { e.preventDefault(); onClose(); }} className="block text-base md:text-lg text-[#AECFE6] hover:text-white font-medium py-1 transition-colors">
-                          {sub}
-                        </a>
+                        <button key={sub.label} onClick={(e) => { e.preventDefault(); sub.id ? handleNav(sub.id) : onClose(); }} className="block w-full text-left text-base md:text-lg text-[#AECFE6] hover:text-white font-medium py-1 transition-colors">
+                          {sub.label}
+                        </button>
                       ))}
                     </div>
                   )}
@@ -234,9 +244,9 @@ const SuperMenu = ({ isOpen, onClose, onRouteChange }) => {
                         </button>
                         <div className={cn("overflow-hidden transition-all duration-300 pl-8 space-y-2", expandedItem === item.label ? "max-h-[300px] pt-2 opacity-100" : "max-h-0 opacity-0")}>
                           {item.subItems.map(sub => (
-                            <a key={sub} href="#" onClick={(e) => { e.preventDefault(); onClose(); }} className="block text-[#AECFE6] hover:text-white text-[10px] md:text-xs font-medium">
-                              {sub}
-                            </a>
+                            <button key={sub.label} onClick={(e) => { e.preventDefault(); sub.id ? handleNav(sub.id) : onClose(); }} className="block w-full text-left text-[#AECFE6] hover:text-white text-[10px] md:text-xs font-medium">
+                              {sub.label}
+                            </button>
                           ))}
                         </div>
                       </div>
