@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, Search, ArrowRight, Globe, ChevronDown, X, Play, BarChart3, Users, LogIn, FileText, BookOpen, Target, Briefcase, Building2, Calendar, ChevronLeft, ChevronRight, MapPin, Landmark, TrendingUp, ShieldCheck, Award, FileDown, UploadCloud, Edit3, MessageCircle } from 'lucide-react';
+import { Menu, Search, ArrowRight, Globe, ChevronDown, X, Play, BarChart3, Users, User, LogIn, FileText, BookOpen, Target, Briefcase, Building2, Calendar, ChevronLeft, ChevronRight, MapPin, Landmark, TrendingUp, ShieldCheck, Award, FileDown, UploadCloud, Edit3, MessageCircle } from 'lucide-react';
 
 /**
  * ARTEFATO FINAL: UN GLOBAL COMPACT DESIGN SYSTEM (v13)
@@ -430,13 +430,13 @@ const CapsuleHeader = ({ onRouteChange, currentRoute }) => {
 
           {/* Ferramentas Direita */}
           <div className="flex items-center justify-end gap-2 md:gap-4 w-1/4 xl:w-1/4">
-            <button onClick={() => setSuperMenuOpen(true)} className="text-white hover:text-[#CCB146] transition-colors p-2">
+            <button onClick={() => setSuperMenuOpen(true)} className="text-white hover:text-[#CCB146] transition-colors p-2" title="Buscar">
               <Search className="w-4 h-4 md:w-5 md:h-5" />
             </button>
-            <Button variant="outline" className="hidden lg:flex text-[9px] px-3 py-2 border-white/20 hover:border-[#CCB146] text-white">
-              Área do Participante
-            </Button>
-            <Button variant="primary" className="hidden md:flex text-[9px] px-4 py-2 bg-[#CCB146] hover:bg-[#b09633] text-[#1E3250]">
+            <button className="text-white hover:text-[#CCB146] transition-colors p-2" title="Área do Participante">
+              <User className="w-4 h-4 md:w-5 md:h-5" />
+            </button>
+            <Button variant="primary" className="hidden md:flex text-[9px] px-4 py-2 bg-[#CCB146] hover:bg-[#b09633] text-[#1E3250] whitespace-nowrap">
               Quero Aderir
             </Button>
           </div>
