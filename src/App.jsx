@@ -810,7 +810,7 @@ const CopPage = () => {
             O principal mecanismo de reporte do Pacto Global da ONU para empresas participantes.
           </h2>
           <p className="text-[#4C6B8B] max-w-3xl mx-auto text-sm md:text-base mb-12">
-            A Comunicação sobre o Progresso (CoP) é um requisito anual obrigatório para empresas participantes. Por meio dela, as organizações reportam suas ações, políticas e resultados relacionados aos Dez Princípios do Pacto Global e sua contribuição para os Objetivos de Desenvolvimento Sustentável (ODS).
+            A Comunicação de Progresso (CoP) é um requisito anual obrigatório para empresas participantes. Por meio dela, as organizações reportam suas ações, políticas e resultados relacionados aos Dez Princípios do Pacto Global e sua contribuição para os Objetivos de Desenvolvimento Sustentável (ODS).
           </p>
 
           {/* Timeline Termômetro */}
@@ -861,7 +861,7 @@ const CopPage = () => {
           <div className="text-center mb-16">
             <span className="inline-block px-3 py-1 text-[10px] md:text-xs font-black uppercase tracking-widest mb-4 rounded-sm bg-[#CCB146]/10 text-[#CCB146] border border-[#CCB146]/20">Vantagens da CoP</span>
             <h2 className="text-3xl md:text-5xl font-black uppercase text-white tracking-tight">Por que reportar a <span className="text-[#AECFE6]">CoP</span>?</h2>
-            <p className="text-[#AECFE6] mt-4 max-w-2xl mx-auto text-sm md:text-base">A Comunicação sobre o Progresso permite que as empresas alcancem maturidade e diferencial competitivo em sustentabilidade.</p>
+            <p className="text-[#AECFE6] mt-4 max-w-2xl mx-auto text-sm md:text-base">A Comunicação de Progresso permite que as empresas alcancem maturidade e diferencial competitivo em sustentabilidade.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -908,7 +908,7 @@ const CopPage = () => {
                 O que é a Comunicação sobre o <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#297D6D] to-[#1E3250]">Progresso</span>?
               </h2>
               <p className="text-[#4C6B8B] text-sm md:text-base mb-6 leading-relaxed">
-                A Comunicação sobre o Progresso (CoP) é o principal mecanismo de reporte do Pacto Global das Nações Unidas. Por meio da CoP, empresas participantes comunicam seus avanços na implementação dos Dez Princípios do Pacto Global e sua contribuição para os Objetivos de Desenvolvimento Sustentável (ODS).
+                A Comunicação de Progresso (CoP) é o principal mecanismo de reporte do Pacto Global das Nações Unidas. Por meio da CoP, empresas participantes comunicam seus avanços na implementação dos Dez Princípios do Pacto Global e sua contribuição para os Objetivos de Desenvolvimento Sustentável (ODS).
               </p>
               <p className="text-[#4C6B8B] text-sm md:text-base mb-6 leading-relaxed">
                 O reporte reúne informações sobre políticas, práticas empresariais e resultados em áreas essenciais para a sustentabilidade corporativa, incluindo:
@@ -1020,7 +1020,7 @@ const CopPage = () => {
                 <h3 className="text-2xl font-black uppercase text-white tracking-tight">Consequências do Não Envio</h3>
               </div>
               <p className="text-[#AECFE6] text-sm md:text-base leading-relaxed mb-6">
-                Empresas que não enviarem sua Comunicação sobre o Progresso dentro do prazo oficial serão classificadas como <strong className="text-red-400">“não comunicativas”</strong> em seu perfil público no site do Pacto Global.
+                Empresas que não enviarem sua Comunicação de Progresso dentro do prazo oficial serão classificadas como <strong className="text-red-400">“não comunicativas”</strong> em seu perfil público no site do Pacto Global.
               </p>
               <div className="bg-white/5 p-5 md:p-6 rounded-xl border-l-4 border-l-red-500">
                 <p className="text-white text-sm md:text-base font-bold mb-2">Risco de Remoção</p>
