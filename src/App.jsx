@@ -63,13 +63,20 @@ const MOCK_EVENTS = [
 ];
 
 
+const PILLAR_ICONS = {
+  'direitos-humanos': Users,
+  'trabalho': Briefcase,
+  'meio-ambiente': Globe,
+  'anticorrupcao': ShieldCheck,
+};
+
 const PILLARS_DATA = [
   {
     id: 'direitos-humanos',
     number: '01',
     title: 'Direitos Humanos',
-    icon: '⚖️',
     color: '#1E3250',
+    accentLight: 'bg-[#1E3250]/10',
     image: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=2070&auto=format&fit=crop',
     description: 'As empresas devem apoiar e respeitar a proteção dos direitos humanos reconhecidos internacionalmente, assegurando sua não participação em violações destes direitos.',
     principles: [
@@ -81,8 +88,8 @@ const PILLARS_DATA = [
     id: 'trabalho',
     number: '02',
     title: 'Trabalho',
-    icon: '🤝',
     color: '#4C6B8B',
+    accentLight: 'bg-[#4C6B8B]/10',
     image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=2070&auto=format&fit=crop',
     description: 'Os princípios de trabalho buscam garantir a liberdade de associação, a eliminação do trabalho forçado e infantil, e o fim da discriminação no emprego.',
     principles: [
@@ -96,8 +103,8 @@ const PILLARS_DATA = [
     id: 'meio-ambiente',
     number: '03',
     title: 'Meio Ambiente',
-    icon: '🌿',
     color: '#297D6D',
+    accentLight: 'bg-[#297D6D]/10',
     image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2560&auto=format&fit=crop',
     description: 'As empresas devem adotar uma abordagem preventiva aos desafios ambientais, desenvolver iniciativas de responsabilidade ambiental e tecnologias ecologicamente corretas.',
     principles: [
@@ -110,8 +117,8 @@ const PILLARS_DATA = [
     id: 'anticorrupcao',
     number: '04',
     title: 'Anticorrupção',
-    icon: '🛡️',
     color: '#6E417A',
+    accentLight: 'bg-[#6E417A]/10',
     image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop',
     description: 'As empresas devem combater a corrupção em todas as suas formas, inclusive extorsão e propina, promovendo uma cultura de integridade e transparência.',
     principles: [
@@ -898,87 +905,101 @@ const EventsListSection = () => {
 };
 
 
-const PillarAccordionItem = ({ pillar, isOpen, onClick }) => (
-  <div className="border-b border-gray-200 last:border-b-0">
+const PillarAccordionItem = ({ pillar, isOpen, onClick }) => {
+  const IconComp = PILLAR_ICONS[pillar.id];
+  return (
+  <div className={`border-b border-gray-200/80 transition-all duration-500 ${isOpen ? 'bg-white rounded-2xl shadow-sm border-transparent mb-4 -mx-4 md:-mx-6' : ''}`}>
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-4 md:gap-6 py-6 md:py-8 text-left group transition-all duration-300"
+      className={`w-full flex items-center gap-5 md:gap-8 text-left group transition-all duration-300 ${isOpen ? 'px-6 md:px-10 pt-8 pb-4' : 'py-7 md:py-8'}`}
     >
-      <span className="text-sm font-bold text-gray-300 tracking-wider w-8 shrink-0">{pillar.number}</span>
-      <h3 className={`text-xl md:text-2xl lg:text-3xl font-bold tracking-tight transition-colors duration-300 ${isOpen ? 'text-un-blue' : 'text-gray-800 group-hover:text-un-blue'}`}>
-        {pillar.title}
-      </h3>
-      <span className="ml-auto text-2xl text-gray-400 group-hover:text-un-blue transition-colors shrink-0">
-        {isOpen ? '—' : '+'}
-      </span>
+      {/* Icon */}
+      <div
+        className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? 'scale-110' : 'group-hover:scale-105'}`}
+        style={{ backgroundColor: isOpen ? pillar.color : `${pillar.color}15` }}
+      >
+        <IconComp className={`w-5 h-5 md:w-6 md:h-6 transition-colors ${isOpen ? 'text-white' : 'text-gray-700'}`} />
+      </div>
+      
+      <div className="flex-1 min-w-0">
+        <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">{pillar.number}</span>
+        <h3 className={`text-lg md:text-2xl lg:text-3xl font-bold tracking-tight transition-colors duration-300 ${isOpen ? 'text-gray-900' : 'text-gray-700 group-hover:text-gray-900'}`}>
+          {pillar.title}
+        </h3>
+      </div>
+      
+      <div className={`w-10 h-10 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? 'border-gray-300 bg-gray-50 rotate-45' : 'border-gray-200 group-hover:border-gray-400'}`}>
+        <span className="text-lg text-gray-500 leading-none font-light">+</span>
+      </div>
     </button>
     
     {isOpen && (
-      <div className="pb-8 animate-fade-in">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
-          {/* Text Content */}
-          <div className="order-2 lg:order-1">
-            <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">{pillar.description}</p>
-            
-            <div className="space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Princípios Universais</h4>
-              {pillar.principles.map(p => (
-                <div key={p.num} className="flex gap-3 items-start group/p">
-                  <span
-                    className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold shrink-0 mt-0.5"
-                    style={{ backgroundColor: pillar.color }}
-                  >
-                    {p.num}
-                  </span>
-                  <p className="text-sm text-gray-600 leading-relaxed">{p.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Image */}
-          <div className="order-1 lg:order-2">
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-lg">
+      <div className="px-6 md:px-10 pb-10 animate-fade-in">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12">
+          {/* Image — takes 2/5 */}
+          <div className="lg:col-span-2">
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
               <img
                 src={pillar.image}
                 alt={pillar.title}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-              <div className="absolute bottom-4 left-4 flex items-center gap-2">
-                <span className="text-3xl">{pillar.icon}</span>
-                <span className="text-white font-bold text-lg uppercase tracking-wider">{pillar.title}</span>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+              <div className="absolute bottom-5 left-5 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 backdrop-blur-md border border-white/20">
+                  <IconComp className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-white font-bold text-sm uppercase tracking-wider">{pillar.title}</span>
               </div>
+            </div>
+          </div>
+          
+          {/* Content — takes 3/5 */}
+          <div className="lg:col-span-3">
+            <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-8">{pillar.description}</p>
+            
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-5 flex items-center gap-2">
+              <span className="w-4 h-px bg-gray-300" />
+              Princípios Universais
+            </h4>
+            <div className="space-y-4">
+              {pillar.principles.map(p => (
+                <div key={p.num} className="flex gap-4 items-start">
+                  <span
+                    className="w-9 h-9 rounded-xl flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-sm"
+                    style={{ backgroundColor: pillar.color }}
+                  >
+                    {p.num}.
+                  </span>
+                  <p className="text-sm text-gray-600 leading-relaxed pt-1.5">{p.text}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
     )}
   </div>
-);
+  );
+};
 
 const PillaresSection = () => {
   const [openPillar, setOpenPillar] = React.useState(0);
 
   return (
-    <section className="py-16 md:py-24 bg-[#F8F9FB]">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-[#F4F6F9] to-[#ECEEF2]">
       <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-4">
-          <div className="max-w-2xl">
-            <span className="text-xs font-bold uppercase tracking-widest text-un-blue-1 mb-3 block">Conheça nossos</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-gray-900 leading-tight">
-              Pilares <span className="text-un-blue">de Atuação</span>
-            </h2>
-            <p className="mt-4 text-gray-500 text-sm md:text-base leading-relaxed max-w-xl">
-              Mais de 80 iniciativas para engajar empresas em qualquer estágio da jornada ESG, alinhados aos ODS e aos nossos quatro pilares de atuação.
-            </p>
-          </div>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">[PILARES]</span>
-        </div>
 
-        {/* Divider */}
-        <div className="w-full h-px bg-gray-200 mb-2" />
+        {/* Section Header */}
+        <div className="mb-12 md:mb-16 max-w-2xl">
+          <span className="text-xs font-bold uppercase tracking-widest text-un-blue-1 mb-3 block">Conheça nossos</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-gray-900 leading-tight">
+            Pilares <span className="text-un-blue">de Atuação</span>
+          </h2>
+          <p className="mt-4 text-gray-500 text-sm md:text-base leading-relaxed">
+            Mais de 80 iniciativas para engajar empresas em qualquer estágio da jornada ESG, alinhados aos ODS e aos nossos quatro pilares de atuação.
+          </p>
+        </div>
 
         {/* Accordion */}
         <div className="mb-16 md:mb-20">
@@ -992,55 +1013,66 @@ const PillaresSection = () => {
           ))}
         </div>
 
-        {/* 10 Principles Bar */}
-        <div className="bg-un-blue rounded-3xl p-8 md:p-12 text-white mb-16 md:mb-20">
-          <div className="flex flex-col lg:flex-row gap-8 items-start">
-            <div className="lg:w-2/5">
-              <span className="text-un-gold text-xs font-bold uppercase tracking-widest mb-3 block">Compromisso obrigatório</span>
-              <h3 className="text-2xl md:text-3xl font-display font-black mb-4">10 Princípios<br/>Universais</h3>
-              <p className="text-white/70 text-sm leading-relaxed">
-                Ao aderir ao Pacto Global da ONU, as empresas assumem o compromisso de seguir os 10 Princípios Universais, que servem como diretrizes fundamentais em quatro áreas essenciais.
+        {/* 10 Principles Bento Bar */}
+        <div className="bg-un-blue rounded-3xl overflow-hidden mb-16 md:mb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-5">
+            {/* Text Column */}
+            <div className="lg:col-span-2 p-8 md:p-12 flex flex-col justify-center">
+              <span className="text-un-gold text-[10px] font-bold uppercase tracking-widest mb-3 block">Compromisso obrigatório</span>
+              <h3 className="text-2xl md:text-3xl font-display font-black text-white mb-4 leading-tight">10 Princípios<br/>Universais</h3>
+              <p className="text-white/60 text-sm leading-relaxed">
+                Ao aderir ao Pacto Global da ONU, as empresas assumem o compromisso de seguir os 10 Princípios Universais — diretrizes fundamentais em quatro áreas essenciais.
               </p>
             </div>
-            <div className="lg:w-3/5 grid grid-cols-2 md:grid-cols-4 gap-3">
-              {PILLARS_DATA.map(pillar => (
-                <div key={pillar.id} className="bg-white/10 rounded-2xl p-4 text-center backdrop-blur-sm border border-white/5 hover:bg-white/15 transition-colors">
-                  <span className="text-3xl mb-2 block">{pillar.icon}</span>
-                  <p className="text-xs font-bold uppercase tracking-wider">{pillar.title}</p>
-                  <p className="text-[10px] text-white/50 mt-1">{pillar.principles.length} princípio{pillar.principles.length > 1 ? 's' : ''}</p>
-                </div>
-              ))}
+            {/* Cards Grid Column */}
+            <div className="lg:col-span-3 p-4 md:p-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {PILLARS_DATA.map(pillar => {
+                  const IC = PILLAR_ICONS[pillar.id];
+                  return (
+                  <div key={pillar.id} className="bg-white/10 hover:bg-white/15 rounded-2xl p-5 flex flex-col items-center text-center backdrop-blur-sm border border-white/5 transition-all duration-300 hover:scale-105 cursor-pointer group">
+                    <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-3 transition-colors" style={{ backgroundColor: `${pillar.color}` }}>
+                      <IC className="w-6 h-6 text-white" />
+                    </div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-white mb-1">{pillar.title}</p>
+                    <p className="text-[10px] text-white/40 font-medium">{pillar.principles.length} princípio{pillar.principles.length > 1 ? 's' : ''}</p>
+                  </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Agenda 2030 / ODS */}
-        <div>
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
-            <div>
+        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm">
+          <div className="flex flex-col lg:flex-row gap-8 mb-10">
+            <div className="lg:w-2/5">
               <span className="text-xs font-bold uppercase tracking-widest text-un-blue-1 mb-3 block">Agenda 2030</span>
-              <h3 className="text-2xl md:text-3xl font-display font-black text-gray-900">17 Objetivos de Desenvolvimento <span className="text-un-blue">Sustentável</span></h3>
+              <h3 className="text-2xl md:text-3xl font-display font-black text-gray-900 mb-4">17 Objetivos de Desenvolvimento <span className="text-un-blue">Sustentável</span></h3>
+              <p className="text-gray-500 text-sm leading-relaxed">
+                Composta por 169 metas e 231 indicadores, é um esforço universal de países, empresas e sociedade civil. Tem em seu cerne <strong className="text-gray-800">"não deixar ninguém para trás"</strong>.
+              </p>
+            </div>
+            <div className="lg:w-3/5 flex items-center">
+              <div className="grid grid-cols-6 sm:grid-cols-9 lg:grid-cols-17 gap-2 w-full">
+                {ODS_COLORS.map((color, idx) => (
+                  <div
+                    key={idx}
+                    className="group relative aspect-square rounded-xl flex flex-col items-center justify-center text-white cursor-pointer transition-all duration-200 hover:scale-110 hover:shadow-md hover:z-10"
+                    style={{ backgroundColor: color }}
+                  >
+                    <span className="text-sm md:text-base font-black leading-none">{idx + 1}</span>
+                    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[9px] px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20 shadow-lg">
+                      {ODS_NAMES[idx]}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-          <p className="text-gray-500 text-sm md:text-base leading-relaxed max-w-2xl mb-8">
-            A Agenda 2030, composta pelos 17 ODS, 169 metas e 231 indicadores, é um esforço conjunto de países, empresas, instituições e sociedade civil. São universais e tem em seu cerne <strong className="text-gray-800">"não deixar ninguém para trás"</strong>.
-          </p>
-          
-          <div className="grid grid-cols-6 sm:grid-cols-9 lg:grid-cols-17 gap-2">
-            {ODS_COLORS.map((color, idx) => (
-              <div
-                key={idx}
-                className="group relative aspect-square rounded-xl flex flex-col items-center justify-center text-white cursor-pointer transition-transform hover:scale-110 hover:shadow-lg"
-                style={{ backgroundColor: color }}
-              >
-                <span className="text-lg md:text-xl font-black">{idx + 1}</span>
-                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[9px] px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                  {ODS_NAMES[idx]}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
+
       </div>
     </section>
   );
