@@ -1275,7 +1275,7 @@ const CopPage = () => {
         <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12 relative z-10 text-center">
           <span className="inline-block px-3 py-1 text-[10px] md:text-xs font-display font-black uppercase tracking-widest mb-6 rounded-sm bg-un-gold/20 text-un-gold border border-un-gold/30">Compliance & Transparência</span>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white uppercase tracking-tighter mb-6">
-            Comunicação de<br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-green to-un-blue-3">Progresso (CoP)</span>
+            Comunicação de<br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-green to-un-blue-3">Progresso <span className="normal-case">(CoP)</span></span>
           </h1>
           <h2 className="text-un-blue-3 font-bold text-xl md:text-2xl mb-4">
             O principal mecanismo de reporte do Pacto Global da ONU para empresas participantes.
