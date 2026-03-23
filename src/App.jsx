@@ -1331,7 +1331,7 @@ const CopPage = () => {
         <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
           <div className="text-center mb-16">
             <span className="inline-block px-3 py-1 text-[10px] md:text-xs font-display font-black uppercase tracking-widest mb-4 rounded-sm bg-un-gold/10 text-un-gold border border-un-gold/20">Vantagens da CoP</span>
-            <h2 className="text-3xl md:text-5xl font-display font-black uppercase text-white tracking-tight">Por que reportar a <span className="text-un-blue-3">CoP</span>?</h2>
+            <h2 className="text-3xl md:text-5xl font-display font-black uppercase text-white tracking-tight">Por que reportar a <span className="text-un-blue-3 normal-case">CoP</span>?</h2>
             <p className="text-un-blue-3 mt-4 max-w-2xl mx-auto text-sm md:text-base">A Comunicação de Progresso permite que as empresas alcancem maturidade e diferencial competitivo em sustentabilidade.</p>
           </div>
           
@@ -1365,6 +1365,10 @@ const CopPage = () => {
               <h3 className="text-white font-bold text-lg mb-3">Insights e Dados</h3>
               <p className="text-un-blue-3 text-sm leading-relaxed">Acesse insights estratégicos por meio de nossas ferramentas exclusivas de visualização de dados da CoP, auxiliando nas tomadas de decisão corporativas a nível de conselho/diretoria.</p>
             </div>
+          </div>
+          
+          <div className="mt-12 text-center">
+            <Button variant="primary" icon={ArrowRight}>Começar a reportar agora</Button>
           </div>
         </div>
       </section>
@@ -1404,7 +1408,7 @@ const CopPage = () => {
             <div className="flex flex-col gap-5">
               <div className="mb-4">
                 <span className="text-un-gold font-bold text-[10px] md:text-xs uppercase tracking-widest mb-2 block">Mecânica de Submissão</span>
-                <h3 className="text-2xl md:text-3xl font-display font-black uppercase text-un-blue tracking-tight">Estrutura da CoP</h3>
+                <h3 className="text-2xl md:text-3xl font-display font-black uppercase text-un-blue tracking-tight">Estrutura da <span className="normal-case">CoP</span></h3>
                 <p className="text-[#4C6B8B] text-sm mt-3">A CoP é submetida por meio da plataforma digital do Pacto Global e possui dois componentes principais, mais uma opção complementar.</p>
               </div>
 
@@ -1443,6 +1447,9 @@ const CopPage = () => {
               </div>
             </div>
           </div>
+          <div className="mt-12 text-center lg:text-left lg:col-start-2">
+            <Button variant="primary" icon={ArrowRight}>Acessar Plataforma CoP</Button>
+          </div>
         </div>
       </section>
 
@@ -1455,7 +1462,7 @@ const CopPage = () => {
                 <div className="w-12 h-12 rounded-full bg-un-blue/10 flex items-center justify-center shrink-0">
                   <Building2 className="w-6 h-6 text-un-blue" />
                 </div>
-                <h3 className="text-2xl font-display font-black uppercase text-un-blue tracking-tight">Quem deve enviar a CoP</h3>
+                <h3 className="text-2xl font-display font-black uppercase text-un-blue tracking-tight">Quem deve enviar a <span className="normal-case">CoP</span></h3>
               </div>
               <p className="text-[#4C6B8B] font-bold text-sm mb-4">Devem enviar a CoP:</p>
               <ul className="space-y-3 mb-6">
@@ -1501,6 +1508,9 @@ const CopPage = () => {
               </div>
             </div>
           </div>
+          <div className="mt-12 text-center">
+            <Button variant="primary" icon={ArrowRight}>Verificar Status da Empresa</Button>
+          </div>
         </div>
       </section>
 
@@ -1533,7 +1543,7 @@ const CopPage = () => {
         <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
           <div className="text-center mb-16">
             <span className="text-un-green font-bold text-[10px] md:text-xs uppercase tracking-widest mb-2 block">O Processo Digital</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black uppercase text-un-blue tracking-tight">Como preparar e enviar sua <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-green to-un-blue">CoP</span></h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black uppercase text-un-blue tracking-tight">Como preparar e enviar sua <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-green to-un-blue normal-case">CoP</span></h2>
             <p className="text-[#4C6B8B] mt-4 max-w-3xl mx-auto text-sm md:text-base">Para realizar a submissão, os participantes navegam através da plataforma digital do Pacto Global. Após a submissão, a CoP será publicada no perfil público da empresa.</p>
           </div>
 
@@ -1569,6 +1579,9 @@ const CopPage = () => {
               <p className="text-[#4C6B8B] text-sm mb-4 px-2">Submeter formalmente o questionário digital ou o relatório de sustentabilidade integrado dentro do período oficial estabelecido pelo Pacto Global.</p>
             </div>
           </div>
+          <div className="mt-16 text-center">
+            <Button variant="primary" icon={ArrowRight}>Acessar Plataforma de Reporte</Button>
+          </div>
         </div>
       </section>
 
@@ -1579,7 +1592,7 @@ const CopPage = () => {
             <div className="lg:w-1/2">
               <span className="text-un-green font-bold text-[10px] md:text-xs uppercase tracking-widest mb-2 block">Insights Globais</span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black uppercase text-un-blue leading-tight mb-6">
-                Visualização de Dados da <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-green to-un-blue">CoP</span>
+                Visualização de Dados da <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-green to-un-blue normal-case">CoP</span>
               </h2>
               <p className="text-[#4C6B8B] text-sm md:text-base mb-6 leading-relaxed">
                 As ferramentas de visualização de dados da CoP permitem analisar informações agregadas reportadas pelas empresas participantes.
@@ -1602,6 +1615,9 @@ const CopPage = () => {
                 <span className="bg-[#F6F8FB] text-un-blue px-3 py-1.5 rounded-full text-xs font-display font-black shadow-sm">2023</span>
                 <span className="bg-[#F6F8FB] text-un-blue px-3 py-1.5 rounded-full text-xs font-display font-black shadow-sm">2024</span>
                 <span className="bg-un-green text-white px-3 py-1.5 rounded-full text-xs font-display font-black shadow-lg shadow-un-green/20">2025</span>
+              </div>
+              <div className="mt-8">
+                <Button variant="primary" icon={ArrowRight}>Acessar Dashboard Completo</Button>
               </div>
             </div>
             <div className="lg:w-1/2 w-full mt-8 lg:mt-0">
@@ -1726,6 +1742,9 @@ const CopPage = () => {
               color="bg-un-blue" 
             />
           </div>
+          <div className="mt-12 text-center">
+            <Button variant="primary" icon={ArrowRight}>Ver todos os Materiais de Apoio</Button>
+          </div>
         </div>
       </section>
 
@@ -1748,6 +1767,9 @@ const CopPage = () => {
                 onClick={() => setOpenFaq(openFaq === index ? null : index)}
               />
             ))}
+          </div>
+          <div className="mt-12 text-center">
+            <Button variant="outline" className="text-un-blue border-un-blue hover:bg-un-blue hover:text-white border-2 border-solid">Ver FAQ Completo</Button>
           </div>
         </div>
       </section>
