@@ -1525,7 +1525,7 @@ const PageHero = ({ title, category, description, image, color = "bg-un-blue" })
 );
 
 const SobrePage = () => (
-  <div className="animate-fade-in">
+  <div className="animate-fade-in bg-[#F6F8FB] min-h-screen pb-20">
     <PageHero 
       category="Iniciativa Especial ONU"
       title="Pacto Global das Nações Unidas"
@@ -1533,184 +1533,143 @@ const SobrePage = () => (
       image="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop"
     />
 
-    {/* Missão e Introdução */}
-    <section className="py-20 md:py-32 bg-white">
-      <div className="container mx-auto px-4 md:px-8 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <SectionHeader 
-              barColor="bg-un-blue"
-              badge="Nossa Missão"
-              title="Transformando o"
-              titleAccent="Mundo pelos Negócios"
-            />
-            <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-              <p>
-                Como uma iniciativa especial do Secretário-Geral da ONU, o <span className="font-bold text-un-blue">Pacto Global das Nações Unidas</span> é uma convocação para que as empresas de todo o mundo alinhem suas operações e estratégias a <span className="font-bold">dez princípios universais</span> nas áreas de direitos humanos, trabalho, meio ambiente e anticorrupção.
+    {/* Bento Grid Redesign */}
+    <section className="py-20 md:py-24">
+      <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-auto">
+          
+          {/* Tile 1: Intro (2x2) */}
+          <div className="lg:col-span-2 lg:row-span-2 bg-un-blue text-white rounded-[2rem] p-8 md:p-12 relative overflow-hidden flex flex-col justify-center shadow-xl shadow-un-blue/10 group">
+            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+            <div className="relative z-10 space-y-6">
+              <span className="inline-block px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-2 text-un-gold">
+                10 Princípios Universais
+              </span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black uppercase leading-[1.1]">
+                Um Chamado <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-gold to-white">Global</span>
+              </h2>
+              <div className="w-16 h-1 bg-un-gold rounded-full my-4"></div>
+              <p className="text-white/95 text-sm md:text-base leading-relaxed">
+                <span className="font-bold text-white">Como uma iniciativa especial do Secretário-Geral da ONU</span>, o Pacto Global das Nações Unidas é uma convocação para que as empresas de todo o mundo alinhem suas operações e estratégias a dez princípios universais nas áreas de direitos humanos, trabalho, meio ambiente e anticorrupção.
               </p>
-              <p>
+              <p className="text-white/80 text-sm md:text-base leading-relaxed">
                 Lançado em 2000, o Pacto Global orienta e apoia a comunidade empresarial global no avanço das metas e valores da ONU por meio de práticas corporativas responsáveis e os 10 Princípios Universais.
               </p>
-              <p>
-                O Pacto Global não é um instrumento regulatório, mas sim uma iniciativa voluntária que fornece diretrizes para a promoção do crescimento sustentável e da cidadania, por meio de lideranças corporativas comprometidas e inovadoras.
-              </p>
-            </div>
-            <div className="mt-10">
-              <Button variant="outline" className="border-un-blue text-un-blue hover:bg-un-blue hover:text-white" icon={Globe}>
-                Visite unglobalcompact.org
-              </Button>
             </div>
           </div>
-          <div className="relative">
-            <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl">
-              <img 
-                src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1970&auto=format&fit=crop" 
-                alt="Equipe Pacto Global" 
-                className="w-full h-full object-cover" 
-              />
-            </div>
-            <div className="absolute -bottom-8 -left-8 bg-un-gold p-8 rounded-3xl shadow-xl max-w-xs animate-slide-up">
-              <p className="text-un-blue font-display font-black text-4xl mb-2">2000</p>
-              <p className="text-un-blue/80 text-xs font-bold uppercase tracking-widest">Ano de fundação pelo Secretário-Geral Kofi Annan</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    {/* Magnitude Global (Grid de Stats) */}
-    <section className="py-20 md:py-32 bg-un-blue relative overflow-hidden text-white">
-      <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
-      <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10 text-center mb-16 md:mb-24">
-        <span className="text-un-gold font-bold text-xs uppercase tracking-[0.3em] mb-4 block">Impacto em Escala</span>
-        <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-black text-white uppercase tracking-tighter leading-tight">
-          A Maior Rede de<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-un-gold to-white">Sustentabilidade do Mundo</span>
-        </h2>
-      </div>
-
-      <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
-          {[
-            { label: "Membros", value: "26k+", icon: Users, sub: "Participantes Globais" },
-            { label: "Países", value: "85+", icon: Globe, sub: "Alcance Geográfico" },
-            { label: "Redes Locais", value: "65+", icon: MapPin, sub: "Engajamento Regional" },
-            { label: "Hubs de Ação", value: "5", icon: Target, sub: "Regiões Estratégicas" }
-          ].map((stat, idx) => (
-            <div key={idx} className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-[2rem] hover:bg-white/10 transition-all duration-300 group">
-              <div className="w-12 h-12 rounded-2xl bg-un-gold/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <stat.icon className="w-6 h-6 text-un-gold" />
-              </div>
-              <p className="text-4xl md:text-5xl font-display font-black text-white mb-2">{stat.value}</p>
-              <p className="text-un-gold text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1">{stat.label}</p>
-              <p className="text-un-blue-3 text-[9px] md:text-[10px] uppercase tracking-wide opacity-60">{stat.sub}</p>
-            </div>
-          ))}
-        </div>
-        
-        <div className="mt-12 p-8 bg-white/5 border border-white/10 rounded-3xl flex flex-col md:flex-row items-center justify-center gap-8 text-center md:text-left">
-           <div className="flex -space-x-4">
-             {[1,2,3,4].map(i => (
-               <div key={i} className="w-12 h-12 rounded-full border-2 border-un-blue overflow-hidden">
-                 <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="Expert" className="w-full h-full object-cover" />
-               </div>
-             ))}
-           </div>
-           <p className="text-un-blue-3 text-sm italic max-w-lg">
-             "Um processo em passos curtos rumo a uma mudança profunda na gestão mundial de negócios." — Kofi Annan
-           </p>
-        </div>
-      </div>
-    </section>
-
-    {/* Rede Brasil */}
-    <section className="py-20 md:py-32 bg-[#F8F9FA]">
-      <div className="container mx-auto px-4 md:px-8 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="order-2 lg:order-1">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white p-8 rounded-[2rem] shadow-xl shadow-un-blue/5 border border-un-blue/5">
-                <p className="text-4xl font-display font-black text-un-blue mb-1">2003</p>
-                <p className="text-un-blue/60 text-[10px] font-bold uppercase tracking-widest">Início no Brasil</p>
-              </div>
-              <div className="bg-un-gold p-8 rounded-[2rem] shadow-xl shadow-un-gold/20">
-                <p className="text-4xl font-display font-black text-un-blue mb-1">2ª</p>
-                <p className="text-un-blue/80 text-[10px] font-bold uppercase tracking-widest">Maior Rede Global</p>
-              </div>
-              <div className="bg-white p-8 rounded-[2rem] shadow-xl shadow-un-blue/5 border border-un-blue/5 col-span-2">
-                <div className="flex items-center gap-4">
-                  <p className="text-5xl font-display font-black text-un-blue">2.000+</p>
-                  <div>
-                    <p className="text-un-blue/60 text-[10px] font-bold uppercase tracking-widest">Participantes</p>
-                    <p className="text-un-blue/40 text-[9px] uppercase tracking-wide">Incluindo mais de 1.000 PMEs</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="order-1 lg:order-2">
-            <SectionHeader 
-              barColor="bg-un-gold"
-              badge="No Brasil"
-              title="Liderando o Impacto"
-              titleAccent="na Rede Brasil"
+          {/* Tile 2: Kofi Annan (1x2) */}
+          <div className="lg:col-span-1 lg:row-span-2 rounded-[2rem] overflow-hidden relative shadow-xl min-h-[350px] lg:min-h-0 bg-un-blue">
+            <img 
+              src={`${import.meta.env.BASE_URL}images/kofi-annan.jpg`} 
+              alt="Kofi Annan" 
+              className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700" 
             />
-            <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-              <p>
-                O Pacto Global da ONU – Rede Brasil foi criado em 2003 e, hoje, é a <span className="font-bold text-un-blue">segunda maior rede local do mundo</span>.
-              </p>
-              <p>
-                Através de mais de <span className="text-un-blue font-bold">60 projetos inovadores</span>, conduzimos a transformação em pautas essenciais para o desenvolvimento do país, alinhando o setor privado aos Objetivos de Desenvolvimento Sustentável.
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-8 pointer-events-none">
+              <p className="text-un-gold font-display font-black text-4xl mb-1 drop-shadow-lg">2000</p>
+              <p className="text-white text-[11px] font-bold uppercase tracking-widest leading-relaxed">
+                Lançado pelo ex-secretário-geral Kofi Annan
               </p>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    {/* Temáticas de Atuação */}
-    <section className="py-20 md:py-32 bg-white">
-      <div className="container mx-auto px-4 md:px-8 lg:px-12 text-center">
-        <SectionHeader 
-          barColor="bg-un-green"
-          badge="Frentes de Trabalho"
-          title="Temas"
-          titleAccent="Prioritários"
-          className="items-center"
-        />
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-12 md:mt-20">
-          {[
-            { t: "Água e Saneamento", i: MapPin, c: "un-blue" },
-            { t: "Oceano", i: Globe, c: "un-blue" },
-            { t: "Resíduos", i: BarChart3, c: "un-green" },
-            { t: "Agricultura", i: Briefcase, c: "un-gold" },
-            { t: "Florestas", i: Globe, c: "un-green" },
-            { t: "Clima", i: Globe, c: "un-blue" },
-            { t: "Direitos Humanos", i: Users, c: "un-purple" },
-            { t: "Trabalho", i: Briefcase, c: "un-blue" },
-            { t: "Anticorrupção", i: ShieldCheck, c: "un-red" },
-            { t: "Comunicação", i: Megaphone, c: "un-blue" }
-          ].map((theme, idx) => (
-            <div key={idx} className="flex flex-col items-center group cursor-default">
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-3xl bg-gray-50 flex items-center justify-center mb-4 group-hover:bg-un-blue/5 transition-colors border border-gray-100 group-hover:border-un-blue/10">
-                <theme.i className={`w-8 h-8 text-${theme.c}`} />
-              </div>
-              <p className="text-xs md:text-sm font-bold text-un-blue uppercase tracking-wider text-center">{theme.t}</p>
+          {/* Tile 3: Global Scale (1x1) */}
+          <div className="lg:col-span-1 bg-white border border-gray-100/50 rounded-[2rem] p-6 md:p-8 flex flex-col justify-center shadow-lg shadow-black/5 hover:-translate-y-1 transition-transform duration-300">
+            <div className="w-12 h-12 rounded-xl bg-un-blue/5 flex items-center justify-center mb-4 text-un-blue">
+              <Users className="w-6 h-6" />
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
+            <p className="text-4xl md:text-5xl font-display font-black text-un-blue mb-1">20k+</p>
+            <p className="text-[#4C6B8B] text-xs font-bold uppercase tracking-widest">Participantes</p>
+            <p className="text-gray-400 text-[9px] uppercase mt-2 tracking-wide font-medium">Maior iniciativa do mundo.</p>
+          </div>
 
-    {/* CTA Final */}
-    <section className="py-20 bg-un-blue relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-un-blue to-black/20"></div>
-      <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10 text-center text-white">
-        <h2 className="text-3xl md:text-4xl font-display font-black text-white uppercase mb-8">Faça parte da mudança</h2>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-           <Button variant="primary" className="bg-un-gold text-un-blue hover:bg-white" icon={ArrowRight}>Quero Aderir</Button>
-           <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">Fale Conosco</Button>
+          {/* Tile 4: Global Reach (1x1) */}
+          <div className="lg:col-span-1 bg-un-gold text-un-blue rounded-[2rem] p-6 md:p-8 flex flex-col justify-center shadow-xl hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden group">
+            <div className="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 transition-transform duration-500">
+              <Globe className="w-40 h-40" />
+            </div>
+            <div className="relative z-10">
+              <p className="text-4xl md:text-5xl font-display font-black mb-1">85</p>
+              <p className="text-un-blue/80 text-xs font-bold uppercase tracking-widest mb-4">Países Ativos</p>
+              <div className="flex flex-wrap gap-2 text-[9px] uppercase font-black tracking-widest text-un-blue">
+                <div className="bg-white/40 px-3 py-1.5 rounded-lg shadow-sm">65 Redes</div>
+                <div className="bg-white/40 px-3 py-1.5 rounded-lg shadow-sm">5 Hubs</div>
+              </div>
+              <p className="text-un-blue/60 text-[8px] uppercase mt-3 tracking-widest font-black leading-tight">
+                9 gerentes em 16 países
+              </p>
+            </div>
+          </div>
+
+          {/* Tile 5: Rede Brasil (2x1) */}
+          <div className="lg:col-span-2 bg-white border border-gray-100 rounded-[2rem] p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-10 shadow-lg shadow-un-blue/5 hover:-translate-y-1 transition-transform duration-300">
+            <div className="text-center md:text-left shrink-0">
+              <p className="text-5xl md:text-6xl font-display font-black text-un-blue mb-1">2003</p>
+              <p className="text-[#4C6B8B] text-[10px] md:text-xs font-bold uppercase tracking-widest">Criação no Brasil</p>
+            </div>
+            <div className="w-px h-16 bg-gray-100 hidden md:block"></div>
+            <div>
+              <p className="text-[#4C6B8B] text-sm md:text-base leading-relaxed mb-4">
+                O <span className="font-bold text-un-blue block md:inline">Pacto Global da ONU – Rede Brasil</span> é hoje a segunda maior rede local do mundo.
+              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                 <div className="bg-un-gold/20 text-un-blue px-4 py-2 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-sm">
+                   <Target className="w-4 h-4" /> 2ª Maior Rede
+                 </div>
+                 <div className="bg-un-green/10 text-un-green px-4 py-2 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-sm">
+                   <Users className="w-4 h-4" /> 2.000+ inscritos
+                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tile 6: Themes (2x2) */}
+          <div className="lg:col-span-2 lg:row-span-2 bg-white border border-gray-100 rounded-[2rem] p-8 md:p-10 shadow-lg shadow-black/5 flex flex-col justify-center">
+            <div className="w-12 h-12 rounded-2xl bg-[#F6F8FB] flex items-center justify-center mb-6 border border-gray-100">
+              <LayoutGrid className="w-6 h-6 text-un-green" />
+            </div>
+            <h3 className="text-2xl md:text-3xl font-display font-black text-un-blue uppercase mb-3">Frentes de Ação</h3>
+            <p className="text-gray-500 text-sm leading-relaxed mb-8">
+              Os mais de <span className="font-bold text-un-blue bg-un-blue/5 px-2 py-0.5 rounded text-base">60 projetos</span> conduzidos no país abrangem sistematicamente os grandes temas prioritários para o desenvolvimento sustentável:
+            </p>
+            <div className="flex flex-wrap gap-2 md:gap-3">
+              {[
+                "Água", "Oceano", "Resíduos", "Agricultura", "Florestas", "Clima", 
+                "Direitos Humanos e Trabalho", "Anticorrupção", "Engajamento", "Comunicação"
+              ].map((theme, idx) => (
+                <span key={idx} className="bg-gray-50 border border-gray-200 text-[#4C6B8B] text-[10px] md:text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl whitespace-nowrap hover:bg-un-blue hover:text-white hover:border-un-blue hover:shadow-md transition-all cursor-default">
+                  {theme}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Tile 7: Socials (2x1) */}
+          <div className="lg:col-span-2 bg-gradient-to-br from-un-green to-[#236a5c] text-white rounded-[2rem] p-8 md:p-10 relative overflow-hidden flex flex-col justify-center group shadow-xl hover:-translate-y-1 transition-transform duration-300 h-full min-h-[240px]">
+            <div className="absolute -top-12 -right-12 w-48 h-48 opacity-10 group-hover:scale-110 group-hover:rotate-12 transition-all duration-700 pointer-events-none">
+               <Globe className="w-full h-full" />
+            </div>
+            <h3 className="text-xl md:text-2xl font-display font-black uppercase mb-6 tracking-wide relative z-10 flex items-center gap-3">
+              <Megaphone className="w-6 h-6 text-un-gold" /> Conecte-se conosco
+            </h3>
+            <div className="flex flex-col sm:flex-row gap-4 relative z-10">
+              <a href="http://www.unglobalcompact.org/" target="_blank" rel="noopener noreferrer" className="bg-black/20 hover:bg-black/40 p-5 rounded-2xl transition-all w-full backdrop-blur-sm border border-white/10 group/btn">
+                <p className="text-[10px] uppercase font-black tracking-widest text-[#A2E2A6] mb-2 flex items-center justify-between">
+                  Global <ArrowRight className="w-3 h-3 opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-1 transition-all" />
+                </p>
+                <p className="font-display font-black text-sm md:text-base mb-1 truncate text-white">unglobalcompact.org</p>
+                <p className="text-xs text-white/70 font-medium tracking-wide">@globalcompact</p>
+              </a>
+              <a href="https://www.pactoglobal.org.br" target="_blank" rel="noopener noreferrer" className="bg-black/20 hover:bg-black/40 p-5 rounded-2xl transition-all w-full backdrop-blur-sm border border-white/10 group/btn">
+                <p className="text-[10px] uppercase font-black tracking-widest text-un-gold mb-2 flex items-center justify-between">
+                  Rede Brasil <ArrowRight className="w-3 h-3 opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-1 transition-all" />
+                </p>
+                <p className="font-display font-black text-sm md:text-base mb-1 truncate text-white">pactoglobal.org.br</p>
+                <p className="text-xs text-white/70 font-medium tracking-wide">@pactoglobalonubr</p>
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
