@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, Search, ArrowRight, Globe, ChevronDown, X, Play, BarChart3, Users, User, LogIn, FileText, BookOpen, Target, Briefcase, Building2, Calendar, ChevronLeft, ChevronRight, MapPin, Landmark, TrendingUp, ShieldCheck, Award, FileDown, UploadCloud, Edit3, MessageCircle, AlertTriangle, Megaphone, Linkedin, Instagram, Youtube } from 'lucide-react';
+import { Menu, Search, ArrowRight, Globe, ChevronDown, X, Play, BarChart3, Users, User, LogIn, FileText, BookOpen, Target, Briefcase, Building2, Calendar, ChevronLeft, ChevronRight, MapPin, Landmark, TrendingUp, ShieldCheck, Award, FileDown, UploadCloud, Edit3, MessageCircle, AlertTriangle, Megaphone, Linkedin, Instagram, Youtube, LayoutGrid } from 'lucide-react';
 
 /**
  * ARTEFATO FINAL: UN GLOBAL COMPACT DESIGN SYSTEM (v13)
