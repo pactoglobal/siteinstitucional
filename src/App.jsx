@@ -408,7 +408,7 @@ const SuperMenu = ({ isOpen, onClose, onRouteChange }) => {
                             className="flex items-center gap-3 text-white hover:text-un-gold font-bold uppercase tracking-wide text-xs md:text-sm lg:text-base py-2 transition-colors w-full text-left"
                           >
                             {item.icon && <item.icon className="w-4 h-4 md:w-5 md:h-5 text-white opacity-80 shrink-0" />}
-                            {item.label}
+                            <span className={item.label === 'CoP' ? 'normal-case' : ''}>{item.label}</span>
                             <ChevronDown className={cn("ml-auto w-3 h-3 md:w-4 md:h-4 transition-transform", expandedItem === item.label && "rotate-180")} />
                           </button>
                           <div className={cn("overflow-hidden transition-all duration-300 pl-8 space-y-2", expandedItem === item.label ? "max-h-[500px] pt-4 opacity-100" : "max-h-0 opacity-0")}>
@@ -422,7 +422,7 @@ const SuperMenu = ({ isOpen, onClose, onRouteChange }) => {
                       ) : (
                         <button onClick={() => handleNav(item.id)} className="flex items-center gap-3 text-white hover:text-un-gold font-bold uppercase tracking-wide text-xs md:text-sm lg:text-base py-2 transition-colors w-full text-left">
                            {item.icon && <item.icon className="w-4 h-4 md:w-5 md:h-5 text-white opacity-80 shrink-0" />}
-                           {item.label}
+                           <span className={item.label === 'CoP' ? 'normal-case' : ''}>{item.label}</span>
                         </button>
                       )}
                     </div>
