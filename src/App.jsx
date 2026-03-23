@@ -1688,17 +1688,15 @@ const CopPage = () => {
                return (
                <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-un-blue/10 border-4 border-white bg-white w-full max-w-[1200px]">
                  {/* Carousel */}
-                 <div className="relative w-full overflow-hidden bg-[#F6F8FB]">
-                   <div className="aspect-[16/9] w-full flex items-center justify-center relative">
-                     {DASH_IMAGES.map((img, idx) => (
-                       <img
-                         key={idx}
-                         src={img.src}
-                         alt={img.alt}
-                         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${dashSlide === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-                       />
-                     ))}
-                   </div>
+                 <div className="relative w-full overflow-hidden bg-[#F6F8FB] grid">
+                   {DASH_IMAGES.map((img, idx) => (
+                     <img
+                       key={idx}
+                       src={img.src}
+                       alt={img.alt}
+                       className={`w-full h-auto object-contain col-start-1 row-start-1 transition-opacity duration-1000 ease-in-out ${dashSlide === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                     />
+                   ))}
                    
                    {/* Gradient overlay for better dot visibility */}
                    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/20 to-transparent z-20 pointer-events-none"></div>
