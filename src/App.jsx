@@ -1676,7 +1676,7 @@ const CopPage = () => {
         <div className="container mx-auto max-w-6xl px-4 md:px-8 lg:px-12 relative z-10 w-full flex justify-center">
              {(() => {
                const DASH_IMAGES = [
-                 { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-1.jpeg`, alt: 'Dashboard CoP - Visão Geral' },
+                 { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-1.png`, alt: 'Dashboard CoP - Visão Geral' },
                  { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-2.png`, alt: 'Dashboard CoP - Indicadores' },
                  { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-3.png`, alt: 'Dashboard CoP - Comparativos' },
                ];
