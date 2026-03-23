@@ -892,83 +892,7 @@ const EventsListSection = () => {
 };
 
 
-const PillarAccordionItem = ({ pillar, isOpen, onClick }) => {
-  const IconComp = PILLAR_ICONS[pillar.id];
-  return (
-  <div className={`border-b border-gray-200/80 transition-all duration-500 ${isOpen ? 'bg-white rounded-2xl shadow-sm border-transparent mb-4 -mx-4 md:-mx-6' : ''}`}>
-    <button
-      onClick={onClick}
-      className={`w-full flex items-center gap-5 md:gap-8 text-left group transition-all duration-300 ${isOpen ? 'px-6 md:px-10 pt-8 pb-4' : 'py-7 md:py-8'}`}
-    >
-      {/* Icon */}
-      <div
-        className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? 'scale-110' : 'group-hover:scale-105'}`}
-        style={{ backgroundColor: isOpen ? pillar.color : `${pillar.color}15` }}
-      >
-        <IconComp className={`w-5 h-5 md:w-6 md:h-6 transition-colors ${isOpen ? 'text-white' : 'text-gray-700'}`} />
-      </div>
-      
-      <div className="flex-1 min-w-0">
-        <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">{pillar.number}</span>
-        <h3 className={`text-lg md:text-2xl lg:text-3xl font-bold tracking-tight transition-colors duration-300 ${isOpen ? 'text-gray-900' : 'text-gray-700 group-hover:text-gray-900'}`}>
-          {pillar.title}
-        </h3>
-      </div>
-      
-      <div className={`w-10 h-10 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? 'border-gray-300 bg-gray-50 rotate-45' : 'border-gray-200 group-hover:border-gray-400'}`}>
-        <span className="text-lg text-gray-500 leading-none font-light">+</span>
-      </div>
-    </button>
-    
-    {isOpen && (
-      <div className="px-6 md:px-10 pb-10 animate-fade-in">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12">
-          {/* Image — takes 2/5 */}
-          <div className="lg:col-span-2">
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
-              <img
-                src={pillar.image}
-                alt={pillar.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-              <div className="absolute bottom-5 left-5 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20 backdrop-blur-md border border-white/20">
-                  <IconComp className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-white font-bold text-sm uppercase tracking-wider">{pillar.title}</span>
-              </div>
-            </div>
-          </div>
-          
-          {/* Content — takes 3/5 */}
-          <div className="lg:col-span-3">
-            <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-8">{pillar.description}</p>
-            
-            <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-5 flex items-center gap-2">
-              <span className="w-4 h-px bg-gray-300" />
-              Princípios Universais
-            </h4>
-            <div className="space-y-4">
-              {pillar.principles.map(p => (
-                <div key={p.num} className="flex gap-4 items-start">
-                  <span
-                    className="w-9 h-9 rounded-xl flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-sm"
-                    style={{ backgroundColor: pillar.color }}
-                  >
-                    {p.num}.
-                  </span>
-                  <p className="text-sm text-gray-600 leading-relaxed pt-1.5">{p.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    )}
-  </div>
-  );
-};
+
 
 const PillaresSection = () => {
   const [openPillar, setOpenPillar] = React.useState(0);
@@ -989,7 +913,7 @@ const PillaresSection = () => {
         </div>
 
         {/* 10 Principles Bento Box (Redesigned) */}
-        <div className="bg-un-blue rounded-[2.5rem] overflow-hidden mb-10 shadow-2xl shadow-un-blue/10">
+        <div className="bg-un-blue rounded-[2.5rem] overflow-hidden mb-16 shadow-2xl shadow-un-blue/10 transition-all duration-500">
           <div className="flex flex-col lg:flex-row">
             {/* Text Column */}
             <div className="lg:w-5/12 p-10 md:p-14 flex flex-col justify-center relative overflow-hidden">
@@ -1013,10 +937,7 @@ const PillaresSection = () => {
                   return (
                   <button 
                     key={pillar.id} 
-                    onClick={() => {
-                      setOpenPillar(isActive ? -1 : idx);
-                      // Opcional: smooth scroll um pouco para baixo se estiver no topo, mas por enquanto só abre o accordion
-                    }}
+                    onClick={() => setOpenPillar(isActive ? -1 : idx)}
                     className={`rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center transition-all duration-300 border-2 group relative overflow-hidden focus:outline-none ${isActive ? 'bg-white/10 border-white/20 shadow-lg scale-[1.02] z-10' : 'bg-white/5 border-transparent hover:bg-white/10 hover:border-white/10'}`}
                   >
                     <div className={`w-14 h-14 md:w-16 md:h-16 rounded-[1.2rem] flex items-center justify-center mb-5 transition-transform duration-300 group-hover:-translate-y-1 ${isActive ? 'shadow-lg shadow-black/20' : ''}`} style={{ backgroundColor: `${pillar.color}` }}>
@@ -1033,18 +954,55 @@ const PillaresSection = () => {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Accordion */}
-        <div className="mb-16 md:mb-20">
-          {PILLARS_DATA.map((pillar, idx) => (
-            <PillarAccordionItem
-              key={pillar.id}
-              pillar={pillar}
-              isOpen={openPillar === idx}
-              onClick={() => setOpenPillar(openPillar === idx ? -1 : idx)}
-            />
-          ))}
+          {/* Expanded Pillar Infobox (Opens Inside the Bento Container) */}
+          {openPillar !== -1 && (
+            <div className="border-t border-white/10 bg-black/20 animate-fade-in transition-all duration-500 p-8 md:p-14">
+               {(() => {
+                 const activePillar = PILLARS_DATA[openPillar];
+                 const ActiveIcon = PILLAR_ICONS[activePillar.id];
+                 return (
+                   <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 md:gap-14">
+                      {/* Left: Image & Pillar Intro */}
+                      <div className="lg:col-span-2 flex flex-col">
+                        <div className="relative rounded-[2rem] overflow-hidden aspect-[4/3] mb-6 shadow-xl">
+                          <img src={activePillar.image} alt={activePillar.title} className="w-full h-full object-cover" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                          <div className="absolute bottom-6 left-6 flex items-center gap-4">
+                            <div className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-md shadow-lg" style={{ backgroundColor: activePillar.color }}>
+                              <ActiveIcon className="w-6 h-6 text-white" />
+                            </div>
+                            <span className="text-white font-display font-black text-xl uppercase tracking-wider">{activePillar.title}</span>
+                          </div>
+                        </div>
+                        <p className="text-white/70 text-sm leading-relaxed font-light">{activePillar.description}</p>
+                      </div>
+
+                      {/* Right: Principles List */}
+                      <div className="lg:col-span-3">
+                        <h4 className="flex items-center gap-3 text-un-gold font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] mb-8">
+                          <span className="w-8 h-[2px] bg-un-gold/50 rounded-full" />
+                          Princípios Relacionados
+                        </h4>
+                        <div className="grid gap-4">
+                          {activePillar.principles.map(p => (
+                            <div key={p.num} className="flex gap-5 items-start bg-white/5 p-5 md:p-6 rounded-2xl border border-white/5 hover:bg-white/10 transition-colors">
+                              <span
+                                className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-display font-black shrink-0 shadow-md text-sm"
+                                style={{ backgroundColor: activePillar.color }}
+                              >
+                                {p.num}
+                              </span>
+                              <p className="text-white/90 text-sm md:text-base leading-relaxed pt-0.5">{p.text}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                   </div>
+                 );
+               })()}
+            </div>
+          )}
         </div>
 
         {/* Agenda 2030 / ODS */}
