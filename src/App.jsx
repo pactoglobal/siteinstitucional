@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, Search, ArrowRight, Globe, ChevronDown, X, Play, BarChart3, Users, User, LogIn, FileText, BookOpen, Target, Briefcase, Building2, Calendar, ChevronLeft, ChevronRight, MapPin, Landmark, TrendingUp, ShieldCheck, Award, FileDown, UploadCloud, Edit3, MessageCircle } from 'lucide-react';
+import { Menu, Search, ArrowRight, Globe, ChevronDown, X, Play, BarChart3, Users, User, LogIn, FileText, BookOpen, Target, Briefcase, Building2, Calendar, ChevronLeft, ChevronRight, MapPin, Landmark, TrendingUp, ShieldCheck, Award, FileDown, UploadCloud, Edit3, MessageCircle, AlertTriangle } from 'lucide-react';
 
 /**
  * ARTEFATO FINAL: UN GLOBAL COMPACT DESIGN SYSTEM (v13)
@@ -1453,63 +1453,104 @@ const CopPage = () => {
         </div>
       </section>
 
-      {/* Quem Deve Enviar e Consequências */}
+      {/* Quem Deve Enviar a CoP */}
       <section className="py-16 md:py-24 bg-[#F6F8FB] border-t border-un-blue/10">
         <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            <div className="bg-white border border-un-blue/10 p-8 rounded-2xl shadow-sm">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+            {/* Quem Envia */}
+            <div className="lg:w-1/2">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 rounded-full bg-un-blue/10 flex items-center justify-center shrink-0">
                   <Building2 className="w-6 h-6 text-un-blue" />
                 </div>
-                <h3 className="text-2xl font-display font-black uppercase text-un-blue tracking-tight">Quem deve enviar a <span className="normal-case">CoP</span></h3>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black uppercase text-un-blue tracking-tight">Quem deve enviar a <span className="normal-case">CoP</span></h2>
               </div>
-              <p className="text-[#4C6B8B] font-bold text-sm mb-4">Devem enviar a CoP:</p>
-              <ul className="space-y-3 mb-6">
-                <li className="flex gap-3 text-sm text-[#4C6B8B]">
-                  <ShieldCheck className="w-5 h-5 text-un-green shrink-0" />
-                  <span>Todas as empresas participantes do Pacto Global que aderiram <strong>antes de 1º de janeiro de 2026</strong>, reportando as ações realizadas durante 2025.</span>
-                </li>
-              </ul>
-              <div className="bg-[#F6F8FB] p-4 rounded-xl border border-un-blue/5">
-                <p className="text-un-blue font-bold text-xs uppercase tracking-widest mb-3">Estão isentas:</p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-2 text-xs text-[#4C6B8B] leading-relaxed">
-                    <div className="w-1.5 h-1.5 rounded-full bg-un-gold mt-1.5 shrink-0"></div>
-                    Organizações não empresariais participantes (universidades, sindicatos, associações, ONGs), que reportam por meio da COE.
+              
+              <div className="bg-white border border-un-blue/10 p-6 md:p-8 rounded-2xl shadow-sm mb-6">
+                <p className="text-[#4C6B8B] font-bold text-sm md:text-base mb-4">A obrigatoriedade de envio abrange:</p>
+                <div className="flex items-start gap-4">
+                  <ShieldCheck className="w-8 h-8 text-un-green shrink-0 mt-1" />
+                  <p className="text-[#4C6B8B] text-sm md:text-base leading-relaxed">
+                    Todas as empresas participantes do Pacto Global que aderiram <strong>antes de 1º de janeiro de 2026</strong>. O preenchimento atual sempre refletirá sobre as ações realizadas durante o ano anterior inteiro (2025).
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Isenções */}
+            <div className="lg:w-1/2 w-full">
+              <div className="bg-white border-2 border-dashed border-un-blue/10 p-6 md:p-8 rounded-3xl h-full flex flex-col justify-center">
+                <p className="text-un-gold font-bold text-xs md:text-sm uppercase tracking-widest mb-6">Organizações Isentas de Envio</p>
+                <ul className="space-y-6">
+                  <li className="flex items-start gap-3 text-sm md:text-base text-[#4C6B8B] leading-relaxed">
+                    <div className="w-2 h-2 rounded-full bg-un-gold mt-2 shrink-0"></div>
+                    <span><strong>Organizações não empresariais</strong> participantes (universidades, sindicatos, associações, ONGs), que reportam por meio da ferramenta COE (Comunicação sobre Engajamento).</span>
                   </li>
-                  <li className="flex items-start gap-2 text-xs text-[#4C6B8B] leading-relaxed">
-                    <div className="w-1.5 h-1.5 rounded-full bg-un-gold mt-1.5 shrink-0"></div>
-                    Empresas que aderiram ao Pacto Global em 2026, que reportarão apenas no ano seguinte.
+                  <li className="flex items-start gap-3 text-sm md:text-base text-[#4C6B8B] leading-relaxed">
+                    <div className="w-2 h-2 rounded-full bg-un-gold mt-2 shrink-0"></div>
+                    <span><strong>Novos aderentes</strong> que ingressaram no Pacto Global em 2026. Estes reportarão apenas no ano seguinte à adesão (2027).</span>
                   </li>
-                  <li className="flex items-start gap-2 text-xs text-[#4C6B8B] leading-relaxed">
-                    <div className="w-1.5 h-1.5 rounded-full bg-un-gold mt-1.5 shrink-0"></div>
-                    Subsidiárias cuja empresa-mãe realiza reporte consolidado (submissão própria é opcional).
+                  <li className="flex items-start gap-3 text-sm md:text-base text-[#4C6B8B] leading-relaxed">
+                    <div className="w-2 h-2 rounded-full bg-un-gold mt-2 shrink-0"></div>
+                    <span><strong>Subsidiárias</strong> cuja empresa-mãe já realiza o reporte consolidado englobando todas as operações (a submissão própria torna-se opcional, não configurando rebaixamento caso não seja enviada).</span>
                   </li>
                 </ul>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="bg-un-blue border border-white/10 p-8 rounded-2xl shadow-xl shadow-un-blue/20">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
-                  <Search className="w-6 h-6 text-red-400" />
-                </div>
-                <h3 className="text-2xl font-display font-black uppercase text-white tracking-tight">Consequências do Não Envio</h3>
+      {/* Consequências do Não Envio */}
+      <section className="py-16 md:py-24 bg-un-blue relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+        <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12 relative z-10">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+            
+            {/* Contexto */}
+            <div className="lg:w-1/2">
+              <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mb-6">
+                <Search className="w-8 h-8 text-red-500" />
               </div>
-              <p className="text-un-blue-3 text-sm md:text-base leading-relaxed mb-6">
-                Empresas que não enviarem sua Comunicação de Progresso dentro do prazo oficial serão classificadas como <strong className="text-red-400">“não comunicativas”</strong> em seu perfil público no site do Pacto Global.
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black uppercase text-white tracking-tight mb-6">Consequências do <span className="text-red-400">Não Envio</span></h2>
+              <p className="text-un-blue-3 text-base md:text-lg leading-relaxed mb-8 font-light">
+                O descumprimento do prazo oficial do pacto reflete na integridade, transparência e status público da organização na iniciativa global.
               </p>
-              <div className="bg-white/5 p-5 md:p-6 rounded-xl border-l-4 border-l-red-500">
-                <p className="text-white text-sm md:text-base font-bold mb-2">Risco de Remoção</p>
-                <p className="text-un-blue-3 text-xs md:text-sm leading-relaxed">
-                  Caso a situação não seja regularizada até 31 de dezembro do mesmo ano, a empresa poderá ser removida da iniciativa a partir de 1º de janeiro do ano seguinte, conforme a política de reporte do Pacto Global.
-                </p>
+              
+              <div className="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm shadow-xl relative overflow-hidden group">
+                <div className="flex items-start gap-4">
+                  <span className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center shrink-0 mt-1">
+                    <span className="w-3 h-3 rounded-full bg-red-400"></span>
+                  </span>
+                  <p className="text-white text-sm md:text-base leading-relaxed">
+                    Empresas que não enviarem sua Comunicação de Progresso na data limite estipulada são publicamente alteradas e classificadas com o rótulo de status <strong className="text-red-400">“Não Comunicativas”</strong> em seu perfil oficial na base do Pacto Global.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="mt-12 text-center">
-            <Button variant="primary" icon={ArrowRight}>Verificar Status da Empresa</Button>
+
+            {/* Risco de Remoção */}
+            <div className="lg:w-1/2 w-full">
+              <div className="bg-gradient-to-br from-red-500/10 to-transparent border border-red-500/20 p-8 md:p-10 rounded-3xl relative overflow-hidden shadow-2xl">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                <h3 className="text-white font-display font-black text-2xl md:text-3xl uppercase tracking-tight mb-4 flex items-center gap-3 relative z-10">
+                  <AlertTriangle className="w-8 h-8 text-red-400" />
+                  Risco de Exclusão (Delisting)
+                </h3>
+                <p className="text-un-blue-3 text-sm md:text-base leading-relaxed mb-8 relative z-10">
+                  Caso a situação de falta de submissão atrase até passar de <strong>31 de dezembro</strong> do mesmo ano do reporte, a empresa será oficialmente submetida ao status de remoção da iniciativa.
+                </p>
+                <div className="bg-black/30 p-5 rounded-xl border-l-4 border-l-red-500 relative z-10 shadow-inner">
+                  <p className="text-red-200 text-sm font-medium leading-relaxed">
+                    A política oficial do Pacto Global determina a remoção da infração sumariante a partir de 1º de janeiro do ano seguinte, com a perda do direito de uso oficial do logotipo em materiais da empresa.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-8 text-center lg:text-left">
+                <Button variant="outline" className="text-white border-white hover:bg-white hover:text-un-blue" icon={ArrowRight}>Verificar Status da Empresa</Button>
+              </div>
+            </div>
+            
           </div>
         </div>
       </section>
