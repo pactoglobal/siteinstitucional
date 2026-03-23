@@ -20,6 +20,13 @@ const cn = (...classes) => classes.filter(Boolean).join(' ');
 
 const ROUTES = {
   home: '#/',
+  sobre: '#/sobre',
+  eventos: '#/eventos',
+  noticias: '#/noticias',
+  agenda: '#/agenda',
+  programas: '#/programas',
+  conhecimento: '#/conhecimento',
+  participar: '#/participar',
   cop:  '#/cop',
 };
 
@@ -222,31 +229,34 @@ const HERO_SLIDES = [
 const MENU_DESTAQUES = [
   {
     label: "Pacto Global",
+    id: "sobre",
     icon: Globe,
     subItems: [
-      { label: "Sobre Nós" },
-      { label: "Rede Brasil" },
-      { label: "Governança" },
-      { label: "Apoiadores" },
-      { label: "Parceiros" }
+      { id: "sobre", label: "Sobre Nós" },
+      { id: "sobre", label: "Rede Brasil" },
+      { id: "sobre", label: "Governança" },
+      { id: "sobre", label: "Apoiadores" },
+      { id: "sobre", label: "Parceiros" }
     ]
   },
   {
     label: "Nossos Eventos",
+    id: "eventos",
     icon: Calendar,
     subItems: [
-      { label: "Institucionais" },
-      { label: "Temáticos" },
-      { label: "Agenda de Eventos" }
+      { id: "eventos", label: "Institucionais" },
+      { id: "eventos", label: "Temáticos" },
+      { id: "eventos", label: "Agenda de Eventos" }
     ]
   },
   {
     label: "Notícias",
+    id: "noticias",
     icon: FileText,
     subItems: [
-      { label: "Últimas Notícias" },
-      { label: "Destaques" },
-      { label: "Sala de Imprensa" }
+      { id: "noticias", label: "Últimas Notícias" },
+      { id: "noticias", label: "Destaques" },
+      { id: "noticias", label: "Sala de Imprensa" }
     ]
   }
 ];
@@ -254,35 +264,38 @@ const MENU_DESTAQUES = [
 const MENU_EXPLORAR = [
   {
     label: "Nossa Agenda",
+    id: "agenda",
     icon: Target,
     subItems: [
-      { label: "10 Princípios" }, // Typo fix: user asked for "10 Princípio", making it plural for correctness
-      { label: "ODS" },
-      { label: "Ambição 2030" },
-      { label: "Movimentos" },
-      { label: "Plataformas de Ação" }
+      { id: "agenda", label: "10 Princípios" }, // Typo fix: user asked for "10 Princípio", making it plural for correctness
+      { id: "agenda", label: "ODS" },
+      { id: "agenda", label: "Ambição 2030" },
+      { id: "agenda", label: "Movimentos" },
+      { id: "agenda", label: "Plataformas de Ação" }
     ]
   },
   {
     label: "Programas",
+    id: "programas",
     icon: Briefcase,
     subItems: [
-      { label: "HUBs ODS & Multiplicadores" },
-      { label: "Liderança de Impacto" },
-      { label: "Diálogos DH & DEI" },
-      { label: "CFO Coalition" },
-      { label: "COPs" }
+      { id: "programas", label: "HUBs ODS & Multiplicadores" },
+      { id: "programas", label: "Liderança de Impacto" },
+      { id: "programas", label: "Diálogos DH & DEI" },
+      { id: "programas", label: "CFO Coalition" },
+      { id: "programas", label: "COPs" }
     ]
   },
   {
     label: "Conhecimento",
+    id: "conhecimento",
     icon: BookOpen,
     subItems: [
-      { label: "Publicações" },
-      { label: "Academy" },
-      { label: "Cursos & Workshops" },
-      { label: "ESG e sustentabilidade corporativa" },
-      { label: "Guias e relatórios" }
+      { id: "conhecimento", label: "Publicações" },
+      { id: "conhecimento", label: "Academy" },
+      { id: "conhecimento", label: "Cursos & Workshops" },
+      { id: "conhecimento", label: "ESG e sustentabilidade corporativa" },
+      { id: "conhecimento", label: "Guias e relatórios" }
     ]
   }
 ];
@@ -290,40 +303,44 @@ const MENU_EXPLORAR = [
 const MENU_PARTICIPAR = [
   {
     label: "Participação",
+    id: "participar",
     icon: Users,
     subItems: [
-      { label: "Quero aderir" },
-      { label: "Benefícios da participação" },
-      { label: "Critérios e requisitos" },
-      { label: "Etapas de adesão" },
-      { label: "FAQ" }
+      { id: "participar", label: "Quero aderir" },
+      { id: "participar", label: "Benefícios da participação" },
+      { id: "participar", label: "Critérios e requisitos" },
+      { id: "participar", label: "Etapas de adesão" },
+      { id: "participar", label: "FAQ" }
     ]
   },
   {
     label: "Empresas Participantes",
+    id: "participar",
     icon: Building2,
     subItems: [
-      { label: "Quem faz parte" },
-      { label: "Casos e Boas Práticas" }
+      { id: "participar", label: "Quem faz parte" },
+      { id: "participar", label: "Casos e Boas Práticas" }
     ]
   },
   {
     label: "CoP",
+    id: "cop",
     icon: FileText,
     subItems: [
       { id: "cop", label: "O que é CoP" }, // Link mantido
-      { label: "Como enviar a CoP" },
-      { label: "Prazos e Orientações" },
-      { label: "FAQ" }
+      { id: "cop", label: "Como enviar a CoP" },
+      { id: "cop", label: "Prazos e Orientações" },
+      { id: "cop", label: "FAQ" }
     ]
   },
   {
     label: "Parceria e Patrocínio",
+    id: "participar",
     icon: LogIn,
     subItems: [
-      { label: "Quero Patrocinar" },
-      { label: "Quero ser Parceiro" },
-      { label: "Quero Apoiar Iniciativas" }
+      { id: "participar", label: "Quero Patrocinar" },
+      { id: "participar", label: "Quero ser Parceiro" },
+      { id: "participar", label: "Quero Apoiar Iniciativas" }
     ]
   }
 ];
@@ -1374,6 +1391,173 @@ const CopFaqItem = ({ question, answer, isOpen, onClick }) => (
   </div>
 );
 
+// --- COMPONENTE: GENERIC PAGE SHELL ---
+
+const PageHero = ({ title, category, description, image, color = "bg-un-blue" }) => (
+  <section className={cn("relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden", color)}>
+    <div className="absolute inset-0 z-0">
+      <img src={image} className="w-full h-full object-cover opacity-20 transition-scale duration-[10s] hover:scale-110" alt={title} />
+      <div className="absolute inset-0 bg-gradient-to-b from-un-blue/80 via-un-blue/50 to-un-blue" />
+    </div>
+    <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12 relative z-10 text-center md:text-left">
+      <div className="max-w-3xl">
+        <span className="inline-block px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-white text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-6 animate-fade-in-up">
+          {category}
+        </span>
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white uppercase leading-[0.9] mb-8 animate-fade-in-up delay-75">
+          {title}
+        </h1>
+        <p className="text-white/70 text-base md:text-xl font-light leading-relaxed mb-10 animate-fade-in-up delay-150">
+          {description}
+        </p>
+      </div>
+    </div>
+  </section>
+);
+
+const SobrePage = () => (
+  <div className="animate-fade-in">
+    <PageHero 
+      category="Pacto Global"
+      title="Sobre Nós"
+      description="Conheça a maior iniciativa de sustentabilidade corporativa do mundo e nossa atuação no Brasil."
+      image="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop"
+    />
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-4xl text-center">
+        <h2 className="text-3xl font-display font-black text-un-blue mb-8 uppercase">Quem Somos</h2>
+        <p className="text-gray-600 text-lg leading-relaxed">
+          O Pacto Global das Nações Unidas é um chamado para as empresas alinharem suas estratégias e operações com dez princípios universais nas áreas de direitos humanos, trabalho, meio ambiente e anticorrupção e tomarem medidas que promovam objetivos sociais.
+        </p>
+      </div>
+    </section>
+  </div>
+);
+
+const EventosPage = () => (
+  <div className="animate-fade-in">
+    <PageHero 
+      category="Agenda 2026"
+      title="Nossos Eventos"
+      description="Participe dos principais fóruns e discussões que estão moldando o futuro dos negócios sustentáveis."
+      image="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop"
+      color="bg-[#1E3250]"
+    />
+    <div className="py-12 bg-gray-50">
+       <EventsListSection />
+    </div>
+  </div>
+);
+
+const NoticiasPage = () => (
+  <div className="animate-fade-in">
+    <PageHero 
+      category="Comunicação"
+      title="Notícias"
+      description="Acompanhe as últimas atualizações, destaques e materiais da nossa sala de imprensa."
+      image="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070&auto=format&fit=crop"
+      color="bg-[#0f2942]"
+    />
+    <NewsSection />
+  </div>
+);
+
+const NossaAgendaPage = () => (
+  <div className="animate-fade-in">
+    <PageHero 
+      category="Nossa Agenda"
+      title="Impacto Global"
+      description="Os Dez Princípios e os Objetivos de Desenvolvimento Sustentável (ODS) no centro da sua estratégia."
+      image="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop"
+      color="bg-[#297D6D]"
+    />
+    <PillaresSection />
+  </div>
+);
+
+const ProgramasPage = () => (
+  <div className="animate-fade-in">
+    <PageHero 
+      category="Ação"
+      title="Programas"
+      description="Iniciativas focadas e plataformas de ação para acelerar o progresso em temas críticos de sustentabilidade."
+      image="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
+      color="bg-[#166088]"
+    />
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-4 md:px-8 lg:px-12 text-center max-w-3xl">
+         <h2 className="text-3xl font-display font-black text-un-blue mb-8 uppercase">Acelerando o Impacto</h2>
+         <p className="text-gray-600">Nossos programas são desenhados para mover empresas de compromissos para ações concretas, utilizando métricas claras e compartilhamento de conhecimento.</p>
+      </div>
+    </section>
+  </div>
+);
+
+const ConhecimentoPage = () => (
+  <div className="animate-fade-in">
+    <PageHero 
+      category="Resources"
+      title="Conhecimento"
+      description="Acesse publicações, cursos, workshops e ferramentas para impulsionar a jornada ESG da sua empresa."
+      image="https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1974&auto=format&fit=crop"
+      color="bg-[#6E417A]"
+    />
+    <section className="py-20 bg-gray-50">
+       <div className="container mx-auto px-4 md:px-8 lg:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+             {['Publicações', 'Academy', 'ESG Corporativo'].map(item => (
+                <div key={item} className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all">
+                   <h3 className="text-xl font-bold text-un-blue mb-4 uppercase tracking-tighter">{item}</h3>
+                   <p className="text-gray-500 text-sm mb-6">Explore nossa curadoria de conteúdos técnicos e práticos para sua organização.</p>
+                   <Button variant="ghost" className="p-0 border-b border-un-blue rounded-none">Acessar Grátis</Button>
+                </div>
+             ))}
+          </div>
+       </div>
+    </section>
+  </div>
+);
+
+const ParticiparPage = () => (
+  <div className="animate-fade-in">
+    <PageHero 
+      category="Junte-se à nós"
+      title="Participação"
+      description="Descubra como sua empresa pode se tornar signatária do Pacto Global e liderar pelo exemplo."
+      image="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1949&auto=format&fit=crop"
+      color="bg-un-green"
+    />
+    <section className="py-20 bg-white">
+       <div className="container mx-auto px-4 md:px-8 lg:px-12 text-center">
+          <h2 className="text-3xl font-display font-black text-un-blue mb-12 uppercase">Por que participar?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+             <div>
+                <div className="w-16 h-16 bg-un-green/10 text-un-green rounded-2xl flex items-center justify-center mx-auto mb-6">
+                   <Award className="w-8 h-8" />
+                </div>
+                <h4 className="font-bold mb-4 uppercase">Credibilidade</h4>
+                <p className="text-sm text-gray-500">Alinhe-se à maior iniciativa de sustentabilidade da ONU.</p>
+             </div>
+             <div>
+                <div className="w-16 h-16 bg-un-blue/10 text-un-blue rounded-2xl flex items-center justify-center mx-auto mb-6">
+                   <TrendingUp className="w-8 h-8" />
+                </div>
+                <h4 className="font-bold mb-4 uppercase">Performance</h4>
+                <p className="text-sm text-gray-500">Melhore seus índices ESG com ferramentas de medição.</p>
+             </div>
+             <div>
+                <div className="w-16 h-16 bg-un-gold/10 text-un-gold rounded-2xl flex items-center justify-center mx-auto mb-6">
+                   <Users className="w-8 h-8" />
+                </div>
+                <h4 className="font-bold mb-4 uppercase">Networking</h4>
+                <p className="text-sm text-gray-500">Conecte-se com mais de 2.000 empresas no Brasil.</p>
+             </div>
+          </div>
+       </div>
+    </section>
+  </div>
+);
+
 const CopPage = () => {
   const [openFaq, setOpenFaq] = useState(null);
   
@@ -2000,6 +2184,13 @@ const App = () => {
 
       <main className="flex-1">
         {currentRoute === 'home' && <HomeContent />}
+        {currentRoute === 'sobre' && <SobrePage />}
+        {currentRoute === 'eventos' && <EventosPage />}
+        {currentRoute === 'noticias' && <NoticiasPage />}
+        {currentRoute === 'agenda' && <NossaAgendaPage />}
+        {currentRoute === 'programas' && <ProgramasPage />}
+        {currentRoute === 'conhecimento' && <ConhecimentoPage />}
+        {currentRoute === 'participar' && <ParticiparPage />}
         {currentRoute === 'cop' && <CopPage />}
       </main>
 
