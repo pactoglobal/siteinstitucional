@@ -1626,102 +1626,121 @@ const CopPage = () => {
       </section>
 
       {/* Visualização de Dados da CoP (Novo bloco) */}
-      <section className="py-16 md:py-24 bg-white border-t border-un-blue/5">
-        <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-            <div className="lg:w-1/2">
-              <span className="text-un-green font-bold text-[10px] md:text-xs uppercase tracking-widest mb-2 block">Insights Globais</span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black uppercase text-un-blue leading-tight mb-6">
-                Visualização de Dados da <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-green to-un-blue normal-case">CoP</span>
-              </h2>
-              <p className="text-[#4C6B8B] text-sm md:text-base mb-6 leading-relaxed">
-                As ferramentas de visualização de dados da CoP permitem analisar informações agregadas reportadas pelas empresas participantes.
-              </p>
-              <h4 className="text-un-blue font-bold text-sm mb-3">Essas ferramentas ajudam a compreender:</h4>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-3 text-sm text-[#4C6B8B]">
-                   <Globe className="w-5 h-5 text-un-gold shrink-0" /> O progresso global na implementação dos Dez Princípios
-                </li>
-                <li className="flex items-center gap-3 text-sm text-[#4C6B8B]">
-                   <TrendingUp className="w-5 h-5 text-un-gold shrink-0" /> Tendências em sustentabilidade corporativa
-                </li>
-                <li className="flex items-center gap-3 text-sm text-[#4C6B8B]">
-                   <BarChart3 className="w-5 h-5 text-un-gold shrink-0" /> Dados comparativos entre empresas e ciclos de reporte
-                </li>
-              </ul>
-              
-              <div className="flex flex-wrap items-center gap-4">
-                <span className="text-un-blue font-bold text-xs uppercase w-full sm:w-auto">Ciclos Disponíveis:</span>
-                <span className="bg-[#F6F8FB] text-un-blue px-3 py-1.5 rounded-full text-xs font-display font-black shadow-sm">2023</span>
-                <span className="bg-[#F6F8FB] text-un-blue px-3 py-1.5 rounded-full text-xs font-display font-black shadow-sm">2024</span>
-                <span className="bg-un-green text-white px-3 py-1.5 rounded-full text-xs font-display font-black shadow-lg shadow-un-green/20">2025</span>
-              </div>
-              <div className="mt-8">
-                <Button variant="primary" icon={ArrowRight}>Acessar Dashboard Completo</Button>
-              </div>
+      <section className="py-16 md:py-24 bg-white border-t border-un-blue/5 text-center">
+        <div className="container mx-auto max-w-5xl px-4 md:px-8 lg:px-12">
+          <span className="text-un-green font-bold text-[10px] md:text-xs uppercase tracking-widest mb-4 block">Insights Globais</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black uppercase text-un-blue leading-tight mb-6">
+            Visualização de Dados da <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-green to-un-blue normal-case">CoP</span>
+          </h2>
+          <p className="text-[#4C6B8B] text-sm md:text-base mb-10 leading-relaxed max-w-3xl mx-auto font-light">
+            As ferramentas de visualização de dados da CoP permitem que empresas globais e locais analisem informações agregadas de relatórios submetidos, ganhando vantagem direcional e mercadológica.
+          </p>
+          
+          {/* Features Grid */}
+          <div className="bg-[#F6F8FB] border border-un-blue/5 p-8 md:p-10 rounded-[2rem] mx-auto mb-10 text-left flex flex-col items-center">
+             <h4 className="text-un-blue font-display font-black uppercase tracking-tight text-xl mb-8">Essas ferramentas ajudam a compreender:</h4>
+             <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+               <li className="bg-white p-6 rounded-2xl border border-un-blue/5 shadow-sm flex flex-col items-center text-center gap-4 hover:-translate-y-1 transition-transform">
+                 <Globe className="w-10 h-10 text-un-gold" />
+                 <span className="text-base font-black font-display uppercase tracking-tight text-un-blue">Progresso Global</span>
+                 <span className="text-sm font-medium text-[#4C6B8B] leading-relaxed">Avanço das metas traçadas na implementação dos Dez Princípios</span>
+               </li>
+               <li className="bg-white p-6 rounded-2xl border border-un-blue/5 shadow-sm flex flex-col items-center text-center gap-4 hover:-translate-y-1 transition-transform">
+                 <TrendingUp className="w-10 h-10 text-un-gold" />
+                 <span className="text-base font-black font-display uppercase tracking-tight text-un-blue">Tendências</span>
+                 <span className="text-sm font-medium text-[#4C6B8B] leading-relaxed">Visão transversal sobre a sustentabilidade corporativa macroeconômica</span>
+               </li>
+               <li className="bg-white p-6 rounded-2xl border border-un-blue/5 shadow-sm flex flex-col items-center text-center gap-4 hover:-translate-y-1 transition-transform">
+                 <BarChart3 className="w-10 h-10 text-un-gold" />
+                 <span className="text-base font-black font-display uppercase tracking-tight text-un-blue">Benchmarking</span>
+                 <span className="text-sm font-medium text-[#4C6B8B] leading-relaxed">Dados e métricas comparativos interligando empresas e ciclos</span>
+               </li>
+             </ul>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12">
+            <div className="flex flex-wrap items-center justify-center gap-3 bg-[#F6F8FB] px-6 py-3 rounded-full border border-un-blue/5">
+              <span className="text-un-blue font-bold text-[10px] md:text-xs uppercase mr-2 opacity-70">Ciclos:</span>
+              <span className="bg-white text-un-blue px-3 py-1 rounded-full text-xs font-display font-black shadow-sm">2023</span>
+              <span className="bg-white text-un-blue px-3 py-1 rounded-full text-xs font-display font-black shadow-sm">2024</span>
+              <span className="bg-un-green text-white px-3 py-1 rounded-full text-xs font-display font-black shadow-md">2025</span>
             </div>
-            <div className="lg:w-1/2 w-full mt-8 lg:mt-0">
-               {(() => {
-                 const DASH_IMAGES = [
-                   { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-1.jpeg`, alt: 'Dashboard CoP - Visão Geral' },
-                   { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-2.png`, alt: 'Dashboard CoP - Indicadores' },
-                   { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-3.png`, alt: 'Dashboard CoP - Comparativos' },
-                 ];
-                 const [dashSlide, setDashSlide] = React.useState(0);
-                 React.useEffect(() => {
-                   const t = setInterval(() => setDashSlide(p => (p + 1) % DASH_IMAGES.length), 4000);
-                   return () => clearInterval(t);
-                 }, []);
-                 return (
-                 <div className="relative rounded-[2rem] overflow-hidden shadow-lg border border-un-blue/10 bg-[#F6F8FB]">
-                   {/* Carousel */}
-                   <div className="relative w-full overflow-hidden bg-white">
+            <Button variant="primary" icon={ArrowRight}>Acessar Dashboard Completo</Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Visualização de Dados da CoP (Dashboard Viewer) */}
+      <section className="py-16 md:py-24 bg-[#F6F8FB] border-t border-un-blue/5 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-white to-transparent opacity-50 h-32 z-0"></div>
+        <div className="container mx-auto max-w-6xl px-4 md:px-8 lg:px-12 relative z-10 w-full flex justify-center">
+             {(() => {
+               const DASH_IMAGES = [
+                 { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-1.jpeg`, alt: 'Dashboard CoP - Visão Geral' },
+                 { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-2.png`, alt: 'Dashboard CoP - Indicadores' },
+                 { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-3.png`, alt: 'Dashboard CoP - Comparativos' },
+               ];
+               const [dashSlide, setDashSlide] = React.useState(0);
+               React.useEffect(() => {
+                 const t = setInterval(() => setDashSlide(p => (p + 1) % DASH_IMAGES.length), 4000);
+                 return () => clearInterval(t);
+               }, []);
+               return (
+               <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-un-blue/10 border-4 border-white bg-white w-full max-w-[1200px]">
+                 {/* Carousel */}
+                 <div className="relative w-full overflow-hidden bg-[#F6F8FB]">
+                   <div className="aspect-[16/9] w-full flex items-center justify-center relative">
                      {DASH_IMAGES.map((img, idx) => (
                        <img
                          key={idx}
                          src={img.src}
                          alt={img.alt}
-                         className={`w-full h-auto transition-all duration-700 ${dashSlide === idx ? 'block opacity-100' : 'hidden opacity-0'}`}
+                         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${dashSlide === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                        />
                      ))}
-                     {/* Dots */}
-                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                       {DASH_IMAGES.map((_, idx) => (
-                         <button
-                           key={idx}
-                           onClick={() => setDashSlide(idx)}
-                           className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${dashSlide === idx ? 'bg-white scale-125 shadow-md' : 'bg-white/50 hover:bg-white/80'}`}
-                         />
-                       ))}
-                     </div>
-                     {/* Arrows */}
-                     <button onClick={() => setDashSlide(p => (p - 1 + DASH_IMAGES.length) % DASH_IMAGES.length)} className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-md hover:bg-white transition-colors z-10">
-                       <ChevronLeft className="w-5 h-5 text-un-blue" />
-                     </button>
-                     <button onClick={() => setDashSlide(p => (p + 1) % DASH_IMAGES.length)} className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-md hover:bg-white transition-colors z-10">
-                       <ChevronRight className="w-5 h-5 text-un-blue" />
-                     </button>
                    </div>
-                   {/* Explorar Dashboard CTA */}
-                   <a href="#" className="flex items-center justify-between p-4 md:p-5 bg-white border-t border-gray-100 hover:bg-un-blue/5 transition-colors group">
-                     <div className="flex items-center gap-3 md:gap-4">
-                       <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-un-gold/20 flex items-center justify-center">
-                         <Target className="w-5 h-5 md:w-6 md:h-6 text-un-gold" />
-                       </div>
-                       <div>
-                         <p className="text-[10px] md:text-xs text-[#4C6B8B] font-bold uppercase tracking-widest">Acesso Público</p>
-                         <p className="text-sm md:text-base font-display font-black text-un-blue">Explorar Dashboard</p>
-                       </div>
-                     </div>
-                     <div className="w-8 h-8 rounded-full bg-un-blue/5 flex items-center justify-center group-hover:bg-un-blue transition-colors">
-                       <ArrowRight className="w-4 h-4 text-un-blue group-hover:text-white transition-colors" />
-                     </div>
-                   </a>
+                   
+                   {/* Gradient overlay for better dot visibility */}
+                   <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/20 to-transparent z-20 pointer-events-none"></div>
+
+                   {/* Dots */}
+                   <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-30">
+                     {DASH_IMAGES.map((_, idx) => (
+                       <button
+                         key={idx}
+                         onClick={() => setDashSlide(idx)}
+                         className={`w-3 h-3 rounded-full transition-all duration-300 ${dashSlide === idx ? 'bg-un-gold scale-125 shadow-md' : 'bg-white hover:bg-white/80'}`}
+                         title={`Ver imagem ${idx + 1}`}
+                         aria-label={`Mudar para o slide ${idx + 1}`}
+                       />
+                     ))}
+                   </div>
+                   {/* Arrows */}
+                   <button onClick={() => setDashSlide(p => (p - 1 + DASH_IMAGES.length) % DASH_IMAGES.length)} className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white transition-transform hover:scale-105 z-30 group" aria-label="Imagem anterior">
+                     <ChevronLeft className="w-6 h-6 text-un-blue group-hover:-translate-x-0.5 transition-transform" />
+                   </button>
+                   <button onClick={() => setDashSlide(p => (p + 1) % DASH_IMAGES.length)} className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white transition-transform hover:scale-105 z-30 group" aria-label="Próxima imagem">
+                     <ChevronRight className="w-6 h-6 text-un-blue group-hover:translate-x-0.5 transition-transform" />
+                   </button>
                  </div>
-                 );
-               })()}
-            </div>
-          </div>
+                 {/* Explorar Dashboard CTA Bar */}
+                 <a href="#" className="flex flex-col sm:flex-row items-center justify-between p-6 md:p-8 bg-white hover:bg-[#F6F8FB] transition-colors group">
+                   <div className="flex items-center gap-5">
+                     <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-un-gold/20 flex items-center justify-center shrink-0">
+                       <Target className="w-6 h-6 md:w-8 md:h-8 text-un-gold group-hover:scale-110 transition-transform" />
+                     </div>
+                     <div className="text-center sm:text-left">
+                       <p className="text-[10px] md:text-sm text-[#4C6B8B] font-bold uppercase tracking-widest mb-1">Acesso Público Restrito</p>
+                       <p className="text-xl md:text-2xl font-display font-black text-un-blue tracking-tight">Explorar Dashboard em Tela Cheia</p>
+                     </div>
+                   </div>
+                   <div className="mt-4 sm:mt-0 w-12 h-12 rounded-full bg-un-blue/5 flex items-center justify-center group-hover:bg-un-blue transition-colors shrink-0">
+                     <ArrowRight className="w-5 h-5 text-un-blue group-hover:text-white transition-colors" />
+                   </div>
+                 </a>
+               </div>
+               );
+             })()}
         </div>
       </section>
 
