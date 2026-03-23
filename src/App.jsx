@@ -372,6 +372,62 @@ const Badge = ({ children, color = "bg-un-gold" }) => (
   </span>
 );
 
+const SectionHeader = ({ 
+  badge, 
+  title, 
+  titleAccent, 
+  description, 
+  barColor = "bg-un-blue", 
+  button,
+  className = "",
+  inverted = false
+}) => (
+  <div className={cn("flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 md:mb-16 gap-8", className)}>
+    <div className="max-w-4xl">
+      <div className="flex items-center gap-4 mb-4">
+        <div className={cn("w-2 h-10 rounded-full", barColor)}></div>
+        {badge && (
+          <span className={cn(
+            "text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] px-3 py-1 rounded-sm backdrop-blur-sm border",
+            inverted 
+              ? "bg-white/10 border-white/20 text-white" 
+              : "bg-un-blue/5 border-un-blue/10 text-un-blue"
+          )}>
+            {badge}
+          </span>
+        )}
+      </div>
+      <h2 className={cn(
+        "text-3xl md:text-5xl lg:text-7xl font-display font-black uppercase tracking-tighter leading-[1.05]",
+        inverted ? "text-white" : "text-gray-900"
+      )}>
+        {title} {titleAccent && <br className="hidden md:block"/>}
+        {titleAccent && (
+          <span className={cn(
+            "text-transparent bg-clip-text bg-gradient-to-r",
+            inverted ? "from-un-gold to-white/90" : "from-un-blue to-un-blue-1"
+          )}>
+            {titleAccent}
+          </span>
+        )}
+      </h2>
+      {description && (
+        <p className={cn(
+          "mt-6 text-sm md:text-base lg:text-lg max-w-2xl leading-relaxed font-light",
+          inverted ? "text-un-blue-3" : "text-gray-600"
+        )}>
+          {description}
+        </p>
+      )}
+    </div>
+    {button && (
+      <div className="shrink-0 flex items-center">
+        {button}
+      </div>
+    )}
+  </div>
+);
+
 const SupporterLogos = ({ className, vertical = false, labelClass = "text-white/50" }) => (
   <div className={cn("flex flex-col items-center", className)}>
     <span className={cn("text-[8px] uppercase tracking-widest mb-2", labelClass)}>Apoiadores Institucionais</span>
@@ -716,26 +772,23 @@ const ImpactSection = () => {
       </div>
 
       <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12 relative z-10">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 md:mb-16 lg:mb-24 gap-6 md:gap-8">
-          <div className="max-w-3xl">
-            <span className="inline-block py-1 px-3 rounded bg-un-green/20 border border-un-green/30 text-un-green text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-4 backdrop-blur-sm">
-              Nossa Magnitude
-            </span>
-            <h2 className="text-2xl md:text-4xl lg:text-6xl font-display font-black text-white uppercase tracking-tight leading-[1.1]">
-              A maior iniciativa de <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-gold to-[#F5E6A3]">sustentabilidade corporativa</span> <br />
-              do mundo.
-            </h2>
-            <p className="mt-4 md:mt-6 text-un-blue-3 text-sm md:text-base lg:text-lg max-w-xl leading-relaxed">
-              Conectando estratégias empresariais aos Dez Princípios Universais. Saiba como podemos apoiar sua empresa nessa jornada de transformação.
-            </p>
-          </div>
-
-          <button className="group flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 bg-transparent border border-white/30 text-white rounded-full hover:bg-white hover:text-un-blue transition-all duration-300">
-            <span className="font-bold uppercase tracking-widest text-[10px] md:text-xs">Saiba Mais</span>
-            <ArrowRight className="w-3 h-3 md:w-4 md:h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-        </div>
+        <SectionHeader 
+          inverted
+          barColor="bg-un-green"
+          badge="Nossa Magnitude"
+          title="A maior iniciativa de"
+          titleAccent="sustentabilidade corporativa do mundo."
+          description="Conectando estratégias empresariais aos Dez Princípios Universais. Saiba como podemos apoiar sua empresa nessa jornada de transformação de impacto global."
+          button={
+            <Button 
+              variant="outline" 
+              className="border-white/30 text-white hover:bg-white hover:text-un-blue shadow-lg"
+              icon={ArrowRight}
+            >
+              Saiba Mais
+            </Button>
+          }
+        />
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8 lg:gap-12 border-t border-white/10 pt-8 md:pt-12">
           {stats.map((stat) => (
@@ -773,7 +826,7 @@ const Tile = ({ size = "small", image, category, title, subtitle, color = "bg-un
   };
 
   return (
-    <div className={cn("group relative overflow-hidden bg-un-blue rounded-xl cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500", gridClass[size])}>
+    <div className={cn("group relative overflow-hidden bg-un-blue rounded-[2rem] cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-700 hover:-translate-y-2", gridClass[size])}>
       <div className="absolute inset-0 overflow-hidden rounded-xl">
         <img
           src={image}
@@ -942,31 +995,40 @@ const EventsListSection = () => {
   return (
   <section className="py-12 md:py-16 bg-[#F8F9FB]">
     <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-      {/* Header row */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-6">
-          <h2 className="text-2xl md:text-3xl font-display font-black text-gray-900">Eventos</h2>
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setActiveTab('upcoming')}
-              className={`text-sm font-bold pb-1 transition-colors relative ${activeTab === 'upcoming' ? 'text-gray-900' : 'text-gray-400 hover:text-gray-700'}`}
+      <SectionHeader 
+        barColor="bg-un-gold"
+        badge="Agenda 2026"
+        title="Nossos"
+        titleAccent="Eventos e Fóruns"
+        description="Participe das discussões que moldam o futuro. Selecione entre os próximos eventos ou visualize nossa cronologia completa de encontros realizados."
+        button={
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 bg-gray-100 p-1.5 rounded-full px-4">
+              <button
+                onClick={() => setActiveTab('upcoming')}
+                className={`text-[10px] uppercase tracking-widest font-black transition-all ${activeTab === 'upcoming' ? 'text-un-blue' : 'text-gray-400 hover:text-gray-600'}`}
+              >
+                Vem aí
+              </button>
+              <div className="w-px h-3 bg-gray-300"></div>
+              <button
+                onClick={() => setActiveTab('past')}
+                className={`text-[10px] uppercase tracking-widest font-black transition-all ${activeTab === 'past' ? 'text-un-blue' : 'text-gray-400 hover:text-gray-600'}`}
+              >
+                Anteriores
+              </button>
+            </div>
+            <Button 
+              variant="outline" 
+              className="hidden md:flex border-gray-300 text-gray-700 hover:border-un-blue hover:text-un-blue"
+              icon={ChevronRight}
+              onClick={() => navigate && navigate('eventos')}
             >
-              Vem aí
-              {activeTab === 'upcoming' && <span className="absolute -bottom-0 left-0 right-0 h-0.5 bg-un-red rounded-full" />}
-            </button>
-            <button
-              onClick={() => setActiveTab('past')}
-              className={`text-sm font-bold pb-1 transition-colors relative ${activeTab === 'past' ? 'text-gray-900' : 'text-gray-400 hover:text-gray-700'}`}
-            >
-              Anteriores
-              {activeTab === 'past' && <span className="absolute -bottom-0 left-0 right-0 h-0.5 bg-un-red rounded-full" />}
-            </button>
+              Ver todos
+            </Button>
           </div>
-        </div>
-        <a href="#" className="hidden md:flex items-center gap-1 text-sm font-bold text-gray-700 hover:text-un-blue transition-colors border border-gray-300 rounded-full px-4 py-2 hover:border-un-blue">
-          Ver todos <ChevronRight className="w-4 h-4" />
-        </a>
-      </div>
+        }
+      />
 
       {/* Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
@@ -993,16 +1055,13 @@ const PillaresSection = () => {
     <section className="py-16 md:py-24 bg-gradient-to-b from-[#F4F6F9] to-[#ECEEF2]">
       <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
 
-        {/* Section Header */}
-        <div className="mb-12 md:mb-16 max-w-2xl">
-          <span className="text-xs font-bold uppercase tracking-widest text-un-blue-1 mb-3 block">Conheça nossos</span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-gray-900 leading-tight">
-            Pilares <span className="text-un-blue">de Atuação</span>
-          </h2>
-          <p className="mt-4 text-gray-500 text-sm md:text-base leading-relaxed">
-            Mais de 80 iniciativas para engajar empresas em qualquer estágio da jornada ESG, alinhados aos ODS e aos nossos quatro pilares de atuação.
-          </p>
-        </div>
+        <SectionHeader 
+          barColor="bg-un-blue"
+          badge="Conheça nossos"
+          title="Pilares"
+          titleAccent="de Atuação"
+          description="Mais de 80 iniciativas para engajar empresas em qualquer estágio da jornada ESG, alinhados aos ODS e aos nossos quatro pilares de atuação."
+        />
 
         {/* 10 Principles Bento Box (Redesigned) */}
         <div className="bg-un-blue rounded-[2.5rem] overflow-hidden mb-16 shadow-2xl shadow-un-blue/10 transition-all duration-500">
@@ -1148,7 +1207,7 @@ const NEWS_DATA = [
   {
     id: 3,
     image: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1949&auto=format&fit=crop',
-    title: 'O poder de ser positivo: Histórias de impacto transformador',
+    title: 'O poder de ser positivo: Notícias de impacto transformador',
     description: 'Ações contínuas em territórios afetados mostram como atitudes sustentáveis geraram mudanças reais e significativas em inúmeras comunidades vulneráveis.',
     category: 'DIREITOS HUMANOS',
     time: '10 min de leitura'
@@ -1175,21 +1234,24 @@ const NewsSection = ({ navigate }) => {
   return (
     <section className="py-16 md:py-24 bg-[#FAFBFC]">
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-screen-2xl">
-        {/* Header */}
-        <div className="flex justify-between items-end mb-10 md:mb-14">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-gray-900 tracking-tight">
-            Notícias
-          </h2>
-          {navigate && (
-            <Button 
-              variant="outline" 
-              className="rounded-full text-[10px] md:text-xs uppercase tracking-widest font-black px-6 py-2 border-un-blue/20 text-un-blue hover:bg-un-blue hover:text-white transition-all shadow-sm"
-              onClick={() => navigate('noticias')}
-            >
-              Ver Todas
-            </Button>
-          )}
-        </div>
+        <SectionHeader 
+          barColor="bg-un-blue"
+          badge="Inovação e Tendências"
+          title="Nossas"
+          titleAccent="Notícias"
+          description="Acompanhe as últimas atualizações, insights e marcos da sustentabilidade corporativa no Brasil e no mundo."
+          button={
+            navigate && (
+              <Button 
+                variant="ghost" 
+                className="hidden md:flex items-center gap-2 text-un-blue hover:text-un-blue-1 font-bold uppercase tracking-widest text-[10px]"
+                onClick={() => navigate('noticias')}
+              >
+                Ver Todas <ArrowRight className="w-3.5 h-3.5" />
+              </Button>
+            )
+          }
+        />
 
         {/* Horizontal scroll container (Carousel) */}
         <div className="flex overflow-x-auto gap-6 md:gap-8 pb-10 snap-x snap-mandatory pt-4 px-4 -mx-4 hide-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
@@ -1197,15 +1259,20 @@ const NewsSection = ({ navigate }) => {
              .hide-scrollbar::-webkit-scrollbar { display: none; }
            `}</style>
            
-           {NEWS_DATA.map(news => (
-             <div key={news.id} className="min-w-[300px] w-[85vw] sm:w-[360px] md:w-[420px] shrink-0 snap-start bg-white rounded-[1.5rem] shadow-sm border border-gray-100/80 flex flex-col overflow-hidden group cursor-pointer hover:shadow-2xl hover:shadow-un-blue/5 transition-all duration-300 hover:-translate-y-1.5 focus:outline-none">
-               {/* Image Cover */}
-               <div className="w-full h-60 md:h-[280px] overflow-hidden relative">
-                 <img src={news.image} alt={news.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                 <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <ArrowRight className="w-4 h-4 text-white -rotate-45" />
-                 </div>
-               </div>
+            {NEWS_DATA.map(news => (
+               <div 
+                key={news.id} 
+                onClick={() => navigate && navigate('noticias')}
+                className="min-w-[300px] w-[85vw] sm:w-[380px] md:w-[440px] shrink-0 snap-start bg-white rounded-[2rem] shadow-sm border border-gray-100/80 flex flex-col overflow-hidden group cursor-pointer hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-2 focus:outline-none"
+              >
+                {/* Image Cover */}
+                <div className="w-full h-64 md:h-[300px] overflow-hidden relative">
+                  <img src={news.image} alt={news.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white text-un-blue flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-xl">
+                     <ArrowRight className="w-5 h-5 -rotate-45" />
+                  </div>
+                </div>
                
                {/* Content */}
                <div className="p-7 md:p-8 flex flex-col flex-1">
@@ -1229,6 +1296,20 @@ const NewsSection = ({ navigate }) => {
              </div>
            ))}
         </div>
+
+        {/* View All Button - Centered Bottom */}
+        {navigate && (
+          <div className="mt-12 md:mt-16 flex justify-center">
+            <Button 
+              variant="primary" 
+              className="px-10 py-4 shadow-xl hover:shadow-un-blue/20"
+              onClick={() => navigate('noticias')}
+              icon={ArrowRight}
+            >
+              Ver Todas as Notícias
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -1245,15 +1326,18 @@ const HomeContent = ({ navigate }) => (
     {/* BENTO GRID SECTION */}
     <section className="py-12 md:py-20 bg-[#F6F8FB]">
       <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12 gap-6">
-          <div className="max-w-xl">
-            <span className="text-un-blue font-bold text-[10px] md:text-xs uppercase tracking-widest mb-2 block">Destaques</span>
-            <h2 className="text-2xl md:text-3xl lg:text-5xl font-display font-black uppercase text-un-blue leading-tight">Acelerando o <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-green to-un-blue">Impacto</span></h2>
-          </div>
-          <div className="flex gap-3">
-            <Button variant="ghost" className="rounded-full border border-un-blue/10 text-[10px] md:text-xs">Ver Tudo</Button>
-          </div>
-        </div>
+        <SectionHeader 
+          barColor="bg-un-green"
+          badge="Destaques"
+          title="Acelerando o"
+          titleAccent="Impacto Regional"
+          description="Explore como as empresas brasileiras estão liderando a mudança através de movimentos estratégicos e coalisões globais."
+          button={
+            <Button variant="ghost" className="text-un-blue hover:text-un-blue-1 font-bold uppercase tracking-widest text-[10px] flex items-center gap-2">
+              Ver Tudo <ArrowRight className="w-3.5 h-3.5" />
+            </Button>
+          }
+        />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-auto">
           <Tile
@@ -2122,7 +2206,7 @@ const CopPage = () => {
             <Tile 
               size="small" 
               category="Dicas" 
-              title="Histórias de Sucesso" 
+              title="Casos de Sucesso" 
               image="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" 
               color="bg-un-blue" 
             />
