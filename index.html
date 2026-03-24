@@ -15,77 +15,9 @@
     href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap"
     rel="stylesheet">
 
-  <!-- Tailwind CDN (garante que funcione independente do PostCSS) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'un-blue': '#1E3250',
-            'un-blue-1': '#4C6B8B',
-            'un-blue-2': '#699CC6',
-            'un-blue-3': '#AECFE6',
-            'un-purple': '#6E417A',
-            'un-green': '#297D6D',
-            'un-gold': '#CCB146',
-            'un-red': '#EC3740',
-            'un-gray': '#F8F9FA'
-          },
-          fontFamily: {
-            sans: ['Roboto', 'system-ui', 'sans-serif'],
-            serif: ['Lora', 'Georgia', 'serif'],
-            display: ['Flama', 'Roboto', 'sans-serif']
-          },
-          gridTemplateColumns: {
-            '17': 'repeat(17, minmax(0, 1fr))',
-          },
-        },
-      },
-    }
-  </script>
-  <style>
-    body {
-      font-family: 'Roboto', system-ui, sans-serif;
-      background-color: #F8F9FA;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    ::-moz-selection {
-      background-color: #CCB146;
-      color: white;
-    }
-
-    ::selection {
-      background-color: #CCB146;
-      color: white;
-    }
-
-    .hover-lift {
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
-    }
-
-    .hover-lift:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px -15px rgba(10, 25, 47, 0.2);
-    }
-
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background-color: #CBD5E1;
-      border-radius: 20px;
-    }
-  </style>
-  <script type="module" crossorigin src="/siteinstitucional/assets/index-BsJ1skTS.js"></script>
-  <link rel="stylesheet" crossorigin href="/siteinstitucional/assets/index-tn0RQdqM.css">
+  <!-- Tailwind CSS will be injected by Vite from src/index.css -->
+  <script type="module" crossorigin src="/siteinstitucional/assets/index-xgLpT-Zb.js"></script>
+  <link rel="stylesheet" crossorigin href="/siteinstitucional/assets/index-BbnDk6ig.css">
 </head>
 
 <body>
