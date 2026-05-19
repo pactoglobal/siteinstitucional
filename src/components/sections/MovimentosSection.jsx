@@ -4,76 +4,16 @@ import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
 
 const MOVIMENTOS = [
-  {
-    id: 'mais-agua',
-    title: '+Água',
-    category: 'Meio Ambiente',
-    color: '#009EDB',
-    image: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'conexao-circular',
-    title: 'Conexão Circular',
-    category: 'Meio Ambiente',
-    color: '#56C02B',
-    image: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'educa2030',
-    title: 'EDUCA2030',
-    category: 'Educação',
-    color: '#FFC300',
-    image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'transparencia',
-    title: 'Transparência 100%',
-    category: 'Anticorrupção',
-    color: '#EC3740',
-    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'raca-prioridade',
-    title: 'Raça é Prioridade',
-    category: 'Direitos Humanos',
-    color: '#8B4513',
-    image: 'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'elas-lideram',
-    title: 'Elas Lideram 2030',
-    category: 'Direitos Humanos',
-    color: '#6E417A',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'mente-foco',
-    title: 'Mente em Foco',
-    category: 'Trabalho',
-    color: '#00689D',
-    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'net-zero',
-    title: 'Ambição Net Zero',
-    category: 'Meio Ambiente',
-    color: '#297D6D',
-    image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'impacto-amazonia',
-    title: 'Impacto Amazônia',
-    category: 'Meio Ambiente',
-    color: '#1A6B3C',
-    image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'salario-digno',
-    title: 'Salário Digno',
-    category: 'Trabalho',
-    color: '#F5A623',
-    image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop',
-  },
+  { id: 'mais-agua',        title: '+Água',              category: 'Meio Ambiente',   color: '#009EDB' },
+  { id: 'conexao-circular', title: 'Conexão Circular',   category: 'Meio Ambiente',   color: '#56C02B' },
+  { id: 'educa2030',        title: 'EDUCA2030',          category: 'Educação',        color: '#FFC300' },
+  { id: 'transparencia',    title: 'Transparência 100%', category: 'Anticorrupção',   color: '#EC3740' },
+  { id: 'raca-prioridade',  title: 'Raça é Prioridade',  category: 'Direitos Humanos',color: '#8B4513' },
+  { id: 'elas-lideram',     title: 'Elas Lideram 2030',  category: 'Direitos Humanos',color: '#6E417A' },
+  { id: 'mente-foco',       title: 'Mente em Foco',      category: 'Trabalho',        color: '#00689D' },
+  { id: 'net-zero',         title: 'Ambição Net Zero',   category: 'Meio Ambiente',   color: '#297D6D' },
+  { id: 'impacto-amazonia', title: 'Impacto Amazônia',   category: 'Meio Ambiente',   color: '#1A6B3C' },
+  { id: 'salario-digno',    title: 'Salário Digno',      category: 'Trabalho',        color: '#F5A623' },
 ];
 
 export const MovimentosSection = () => {
@@ -142,9 +82,10 @@ export const MovimentosSection = () => {
             <div
               key={mov.id}
               className="group relative shrink-0 w-56 h-72 md:w-64 md:h-80 rounded-3xl overflow-hidden cursor-pointer snap-start"
+              style={{ backgroundColor: mov.color }}
             >
               <img
-                src={mov.image}
+                src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
                 alt={mov.title}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
