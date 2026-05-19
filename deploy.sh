@@ -1,3 +1,8 @@
+#!/bin/bash
+set -e
+
+# Garante que o index.html seja o template correto antes do build
+cat > index.html << 'EOF'
 <!doctype html>
 <html lang="pt-BR">
 
@@ -15,8 +20,7 @@
     href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap"
     rel="stylesheet">
 
-  <script type="module" crossorigin src="/siteinstitucional/assets/index-CJ3Ne_9Q.js"></script>
-  <link rel="stylesheet" crossorigin href="/siteinstitucional/assets/index-CL2YLBVI.css">
+  <script type="module" src="/src/main.jsx"></script>
 </head>
 
 <body>
@@ -24,3 +28,13 @@
 </body>
 
 </html>
+EOF
+
+# Build
+npm run build
+
+# Copia os arquivos compilados para a raiz (gh-pages)
+cp dist/index.html index.html
+cp dist/assets/* assets/
+
+echo "✓ Build concluído. Pronto para commit e push."
