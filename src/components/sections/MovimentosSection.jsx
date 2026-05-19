@@ -37,13 +37,15 @@ export const MovimentosSection = () => (
           <a
             key={mov.id}
             href="#"
-            className="group flex items-center justify-center rounded-2xl p-5 md:p-6 transition-all duration-300 cursor-pointer hover:scale-105"
+            className="group flex items-center justify-center rounded-2xl p-4 md:p-5 transition-all duration-300 cursor-pointer hover:scale-105"
           >
-            <img
-              src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
-              alt={mov.id}
-              className="w-full h-auto object-contain max-h-14 transition-transform duration-300"
-            />
+            <div className="w-full h-16 flex items-center justify-center">
+              <img
+                src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
+                alt={mov.id}
+                className="max-w-full max-h-full w-auto h-auto object-contain transition-transform duration-300"
+              />
+            </div>
           </a>
         ))}
       </div>
