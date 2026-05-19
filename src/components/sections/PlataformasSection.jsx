@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Thermometer, ShieldCheck, Leaf, Users, Megaphone, Waves } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
 
 const PLATAFORMAS = [
@@ -8,47 +8,47 @@ const PLATAFORMAS = [
     title: 'Plataforma de Ação pelo Clima',
     description: 'Mobilizando empresas para ambições climáticas alinhadas à ciência e ao Acordo de Paris.',
     color: '#009EDB',
-    icon: '🌡️',
+    Icon: Thermometer,
   },
   {
     id: 'corrupcao',
     title: 'Ação Contra a Corrupção',
     description: 'Fortalecendo a integridade corporativa e práticas transparentes em toda a cadeia de valor.',
     color: '#EC3740',
-    icon: '⚖️',
+    Icon: ShieldCheck,
   },
   {
     id: 'agricultura',
     title: 'Ação pela Agricultura e Florestas',
     description: 'Impulsionando cadeias de suprimentos sustentáveis e proteção dos biomas brasileiros.',
     color: '#56C02B',
-    icon: '🌱',
+    Icon: Leaf,
   },
   {
     id: 'direitos-humanos',
     title: 'Ação pelos Direitos Humanos',
     description: 'Integrando respeito aos direitos humanos nas operações e relações comerciais das empresas.',
     color: '#6E417A',
-    icon: '🤝',
+    Icon: Users,
   },
   {
     id: 'comunicar',
     title: 'Ação Para Comunicar e Engajar',
     description: 'Amplificando narrativas de impacto e engajando stakeholders em torno dos ODS.',
-    color: '#FFC300',
-    icon: '📣',
+    color: '#F5A623',
+    Icon: Megaphone,
   },
   {
     id: 'oceano',
     title: 'Ação pelo Oceano, Água e Resíduos',
     description: 'Protegendo recursos hídricos e ecossistemas marinhos através da ação empresarial coletiva.',
     color: '#00689D',
-    icon: '🌊',
+    Icon: Waves,
   },
 ];
 
 export const PlataformasSection = () => (
-  <section className="py-16 md:py-24 bg-gradient-to-b from-[#F4F6F9] to-[#ECEEF2]">
+  <section className="py-16 md:py-24 bg-white">
     <div className="container mx-auto px-4 md:px-8 lg:px-12">
       <SectionHeader
         barColor="bg-un-blue"
@@ -72,10 +72,10 @@ export const PlataformasSection = () => (
             />
 
             <div
-              className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0 transition-transform duration-300 group-hover:scale-110"
-              style={{ backgroundColor: `${plat.color}15` }}
+              className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
+              style={{ backgroundColor: `${plat.color}18` }}
             >
-              {plat.icon}
+              <plat.Icon className="w-5 h-5" style={{ color: plat.color }} />
             </div>
 
             <div className="flex-1">

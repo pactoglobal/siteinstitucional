@@ -47,7 +47,7 @@ const PUBLICACOES = [
 ];
 
 export const PublicacoesSection = () => (
-  <section className="py-16 md:py-24 bg-white">
+  <section className="py-16 md:py-24 bg-[#F4F6F9]">
     <div className="container mx-auto px-4 md:px-8 lg:px-12">
       <SectionHeader
         barColor="bg-un-gold"

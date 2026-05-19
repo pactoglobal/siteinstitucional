@@ -8,7 +8,7 @@ import { MOCK_EVENTS } from '../../data/constants';
 export const EventsListSection = () => {
   const [activeTab, setActiveTab] = React.useState('upcoming');
   return (
-  <section className="py-12 md:py-16 bg-un-surface">
+  <section className="py-12 md:py-16 bg-[#F4F6F9]">
     <div className="container mx-auto px-4 md:px-8 lg:px-12">
       <SectionHeader 
         barColor="bg-un-gold"
