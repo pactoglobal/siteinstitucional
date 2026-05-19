@@ -17,7 +17,7 @@ const MOVIMENTOS = [
 ];
 
 export const MovimentosSection = () => (
-  <section className="py-16 md:py-24 bg-white">
+  <section className="py-16 md:py-24 bg-[#F4F6F9]">
     <div className="container mx-auto px-4 md:px-8 lg:px-12">
       <SectionHeader
         barColor="bg-un-green"
@@ -37,13 +37,12 @@ export const MovimentosSection = () => (
           <a
             key={mov.id}
             href="#"
-            className="group flex items-center justify-center bg-white border border-gray-100 rounded-2xl p-5 md:p-6 hover:shadow-lg hover:border-transparent transition-all duration-300"
-            style={{ '--hover-color': mov.color }}
+            className="group flex items-center justify-center bg-[#E8ECF2] rounded-2xl p-5 md:p-6 hover:bg-[#1E3250] hover:shadow-xl transition-all duration-300 cursor-pointer"
           >
             <img
               src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
               alt={mov.id}
-              className="w-full h-auto object-contain max-h-14 transition-transform duration-300 group-hover:scale-105"
+              className="w-full h-auto object-contain max-h-14 transition-transform duration-300 group-hover:scale-105 group-hover:brightness-0 group-hover:invert"
             />
           </a>
         ))}
