@@ -4,56 +4,16 @@ import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
 
 const MOVIMENTOS = [
-  {
-    id: 'conexao-circular',
-    span: 2,
-    bg: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'mais-agua',
-    span: 1,
-    bg: 'https://images.unsplash.com/photo-1559825481-12a05cc00344?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'educa2030',
-    span: 1,
-    bg: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'elas-lideram',
-    span: 1,
-    bg: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'mente-foco',
-    span: 1,
-    bg: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'net-zero',
-    span: 1,
-    bg: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'raca-prioridade',
-    span: 1,
-    bg: 'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'salario-digno',
-    span: 1,
-    bg: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'transparencia',
-    span: 2,
-    bg: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'impacto-amazonia',
-    span: 1,
-    bg: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800&auto=format&fit=crop',
-  },
+  { id: 'conexao-circular', color: '#B8922A', span: 2 },
+  { id: 'mais-agua',        color: '#009EDB', span: 1 },
+  { id: 'educa2030',        color: '#C0392B', span: 1 },
+  { id: 'elas-lideram',     color: '#E04B2A', span: 1 },
+  { id: 'mente-foco',       color: '#3A7D44', span: 1 },
+  { id: 'net-zero',         color: '#3A7D44', span: 1 },
+  { id: 'raca-prioridade',  color: '#D81B7E', span: 1 },
+  { id: 'salario-digno',    color: '#8B1A3A', span: 1 },
+  { id: 'transparencia',    color: '#006080', span: 2 },
+  { id: 'impacto-amazonia', color: '#1A6B3C', span: 1 },
 ];
 
 export const MovimentosSection = () => (
@@ -80,25 +40,26 @@ export const MovimentosSection = () => (
           <a
             key={mov.id}
             href="#"
-            className="group relative flex items-center justify-center rounded-2xl overflow-hidden cursor-pointer"
+            className="group relative flex items-center justify-center bg-white rounded-2xl overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300"
             style={{ gridColumn: `span ${mov.span}` }}
           >
-            {/* Background image */}
-            <img
-              src={mov.bg}
-              alt=""
-              aria-hidden="true"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            {/* Top color bar */}
+            <div
+              className="absolute top-0 left-0 right-0 h-1 transition-all duration-300 group-hover:h-1.5"
+              style={{ backgroundColor: mov.color }}
             />
 
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-white/75 group-hover:bg-white/65 transition-colors duration-300" />
+            {/* Subtle color wash on hover */}
+            <div
+              className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] transition-opacity duration-300"
+              style={{ backgroundColor: mov.color }}
+            />
 
             {/* Logo */}
             <img
               src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
               alt={mov.id}
-              className="relative z-10 w-[80%] h-[60%] object-contain transition-transform duration-300 group-hover:scale-[1.04]"
+              className="relative z-10 w-[80%] h-[55%] object-contain transition-transform duration-300 group-hover:scale-[1.04]"
             />
           </a>
         ))}
