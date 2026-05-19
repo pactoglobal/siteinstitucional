@@ -17,16 +17,17 @@ const MOVIMENTOS = [
 ];
 
 export const MovimentosSection = () => (
-  <section className="py-16 md:py-24 bg-[#F4F6F9]">
+  <section className="py-16 md:py-24 bg-un-blue">
     <div className="container mx-auto px-4 md:px-8 lg:px-12">
       <SectionHeader
+        inverted
         barColor="bg-un-green"
         badge="Ambição 2030"
         title="Nossos"
         titleAccent="Movimentos"
         description="Iniciativas estratégicas que mobilizam empresas em torno de causas urgentes, conectando compromisso com ação real."
         button={
-          <Button variant="ghost" className="text-un-blue hover:text-un-blue-1 font-bold uppercase tracking-widest text-[10px] flex items-center gap-2">
+          <Button variant="ghost" className="text-white hover:text-un-blue-3 font-bold uppercase tracking-widest text-[10px] flex items-center gap-2">
             Ver Todos <ArrowRight className="w-3.5 h-3.5" />
           </Button>
         }
