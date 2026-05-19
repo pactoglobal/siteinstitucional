@@ -4,16 +4,16 @@ import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
 
 const MOVIMENTOS = [
-  { id: 'mais-agua',        color: '#009EDB' },
-  { id: 'conexao-circular', color: '#56C02B' },
-  { id: 'educa2030',        color: '#FFC300' },
-  { id: 'transparencia',    color: '#EC3740' },
-  { id: 'raca-prioridade',  color: '#8B4513' },
-  { id: 'elas-lideram',     color: '#E04B2A' },
-  { id: 'mente-foco',       color: '#00689D' },
-  { id: 'net-zero',         color: '#3A7D44' },
-  { id: 'impacto-amazonia', color: '#1A6B3C' },
-  { id: 'salario-digno',    color: '#F5A623' },
+  { id: 'conexao-circular', color: '#B8922A', span: 2 },
+  { id: 'mais-agua',        color: '#009EDB', span: 1 },
+  { id: 'educa2030',        color: '#C0392B', span: 1 },
+  { id: 'elas-lideram',     color: '#E04B2A', span: 1 },
+  { id: 'mente-foco',       color: '#3A7D44', span: 1 },
+  { id: 'net-zero',         color: '#3A7D44', span: 1 },
+  { id: 'raca-prioridade',  color: '#D81B7E', span: 1 },
+  { id: 'salario-digno',    color: '#8B1A3A', span: 1 },
+  { id: 'transparencia',    color: '#006080', span: 2 },
+  { id: 'impacto-amazonia', color: '#1A6B3C', span: 1 },
 ];
 
 export const MovimentosSection = () => (
@@ -32,18 +32,22 @@ export const MovimentosSection = () => (
         }
       />
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
+      {/* Bento grid: 4 cols desktop, 2 cols mobile */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {MOVIMENTOS.map((mov) => (
           <a
             key={mov.id}
             href="#"
-            className="group flex items-center justify-center rounded-2xl transition-all duration-300 cursor-pointer hover:scale-105 overflow-hidden"
-            style={{ aspectRatio: '5/2' }}
+            className="group flex items-center justify-center rounded-2xl bg-white border border-gray-100 hover:shadow-md hover:border-gray-200 transition-all duration-300 cursor-pointer overflow-hidden"
+            style={{
+              aspectRatio: '5/2',
+              gridColumn: `span ${mov.span}`,
+            }}
           >
             <img
               src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
               alt={mov.id}
-              className="w-full h-full object-contain p-3"
+              className="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-[1.03]"
             />
           </a>
         ))}
