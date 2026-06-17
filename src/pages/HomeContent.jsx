@@ -12,10 +12,10 @@ export const HomeContent = ({ navigate }) => (
   <div className="animate-fade-in">
     <HeroCarousel />
     <ImpactSection />
+    <EventsListSection navigate={navigate} />
     <PillaresSection />
     <MovimentosSection />
     <PlataformasSection />
-    <EventsListSection />
     <NewsSection navigate={navigate} />
     <PublicacoesSection />
   </div>
