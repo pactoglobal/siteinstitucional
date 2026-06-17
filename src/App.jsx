@@ -14,7 +14,6 @@ import React, { useEffect } from 'react';
 
 import { useHashRoute } from './hooks/useHashRoute';
 import { CapsuleHeader } from './components/layout/CapsuleHeader';
-import { SponsorsTicker } from './components/layout/SponsorsTicker';
 import { Footer } from './components/layout/Footer';
 import { HomeContent } from './pages/HomeContent';
 import { SobrePage } from './pages/SobrePage';
@@ -35,7 +34,6 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-un-gold selection:text-un-blue flex flex-col">
-      <SponsorsTicker />
       <CapsuleHeader onRouteChange={navigate} currentRoute={currentRoute} />
 
       <main className="flex-1">
