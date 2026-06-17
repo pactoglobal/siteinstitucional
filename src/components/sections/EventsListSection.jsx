@@ -35,12 +35,12 @@ export const EventsListSection = () => {
             Anteriores
           </button>
         </div>
-        <Button 
-          variant="primary" 
+        <Button
+          variant="primary"
           className="hidden md:flex"
           icon={ChevronRight}
         >
-          Quero Aderir
+          Ver Todos
         </Button>
       </div>
 
@@ -54,7 +54,7 @@ export const EventsListSection = () => {
       {/* Mobile CTA */}
       <div className="flex md:hidden justify-center mt-8">
         <Button variant="primary" icon={ChevronRight} className="w-full sm:w-auto">
-          Quero Aderir
+          Ver Todos
         </Button>
       </div>
     </div>
