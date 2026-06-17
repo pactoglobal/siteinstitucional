@@ -36,9 +36,9 @@ export const HeroCarousel = () => {
               <div className={cn("max-w-4xl transition-all duration-1000 delay-300 transform", index === current ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0")}>
                 <Badge color="bg-un-red text-white shadow-lg mb-4 md:mb-6">{slide.badge}</Badge>
 
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-white uppercase leading-[0.9] drop-shadow-2xl mb-4 md:mb-6">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-white uppercase leading-[1.0] drop-shadow-2xl mb-4 md:mb-6">
                   {slide.title}<br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-gold to-white">{slide.subtitle}</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-un-gold to-white inline-block pb-2">{slide.subtitle}</span>
                 </h1>
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6 mt-8">
