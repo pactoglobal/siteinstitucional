@@ -7,6 +7,7 @@ import { PlataformasSection } from '../components/sections/PlataformasSection';
 import { EventsListSection } from '../components/sections/EventsListSection';
 import { NewsSection } from '../components/sections/NewsSection';
 import { PublicacoesSection } from '../components/sections/PublicacoesSection';
+import { ParceirosSection } from '../components/sections/ParceirosSection';
 
 export const HomeContent = ({ navigate }) => (
   <div className="animate-fade-in">
@@ -18,5 +19,6 @@ export const HomeContent = ({ navigate }) => (
     <PlataformasSection />
     <NewsSection navigate={navigate} />
     <PublicacoesSection />
+    <ParceirosSection />
   </div>
 );
