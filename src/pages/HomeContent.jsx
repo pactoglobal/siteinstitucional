@@ -15,7 +15,7 @@ export const HomeContent = ({ navigate }) => (
     <ImpactSection />
     <EventsListSection navigate={navigate} />
     <PillaresSection />
-    <MovimentosSection />
+    <MovimentosSection navigate={navigate} />
     <PlataformasSection />
     <NewsSection navigate={navigate} />
     <PublicacoesSection />

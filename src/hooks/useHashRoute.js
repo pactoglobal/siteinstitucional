@@ -1,30 +1,30 @@
 import { useState, useEffect } from 'react';
-import { ROUTES, HASH_TO_ROUTE } from '../data/constants';
+import { ROUTES, HASH_TO_ROUTE, MOVIMENTO_HASH_PREFIX } from '../data/constants';
+
+const parseHash = (hash, defaultRoute) => {
+  const current = hash || '#/';
+  if (current.startsWith(MOVIMENTO_HASH_PREFIX)) {
+    return { route: 'movimento', param: current.slice(MOVIMENTO_HASH_PREFIX.length) };
+  }
+  return { route: HASH_TO_ROUTE[current] || defaultRoute, param: null };
+};
 
 export const useHashRoute = (defaultRoute = 'home') => {
-  const getRouteFromHash = () => {
-    const hash = window.location.hash || '#/';
-    return HASH_TO_ROUTE[hash] || defaultRoute;
-  };
-
-  const [currentRoute, setCurrentRoute] = useState(getRouteFromHash);
+  const [state, setState] = useState(() => parseHash(window.location.hash, defaultRoute));
 
   useEffect(() => {
-    const onHashChange = () => {
-      setCurrentRoute(getRouteFromHash());
-    };
+    const onHashChange = () => setState(parseHash(window.location.hash, defaultRoute));
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
+  }, [defaultRoute]);
 
-  const navigate = (routeKey) => {
-    const hash = ROUTES[routeKey];
-    if (hash) {
-      window.location.hash = hash;
-    } else {
-      window.location.hash = '#/';
+  const navigate = (routeKey, param) => {
+    if (routeKey === 'movimento' && param) {
+      window.location.hash = `${MOVIMENTO_HASH_PREFIX}${param}`;
+      return;
     }
+    window.location.hash = ROUTES[routeKey] || '#/';
   };
 
-  return { currentRoute, navigate };
+  return { currentRoute: state.route, routeParam: state.param, navigate };
 };

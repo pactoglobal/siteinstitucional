@@ -16,7 +16,7 @@ const MOVIMENTOS = [
   { id: 'impacto-amazonia', color: '#1A6B3C', span: 1 },
 ];
 
-export const MovimentosSection = () => (
+export const MovimentosSection = ({ navigate }) => (
   <section className="py-16 md:py-24 bg-un-blue">
     <div className="container mx-auto px-4 md:px-8 lg:px-12">
       <SectionHeader
@@ -27,7 +27,11 @@ export const MovimentosSection = () => (
         titleAccent="Movimentos"
         description="Iniciativas estratégicas que mobilizam empresas em torno de causas urgentes, conectando compromisso com ação real."
         button={
-          <Button variant="ghost" className="text-white hover:text-un-blue-3 font-bold uppercase tracking-widest text-[10px] flex items-center gap-2">
+          <Button
+            variant="ghost"
+            className="text-white hover:text-un-blue-3 font-bold uppercase tracking-widest text-[10px] flex items-center gap-2"
+            onClick={() => navigate && navigate('ambicao')}
+          >
             Ver Todos <ArrowRight className="w-3.5 h-3.5" />
           </Button>
         }
@@ -38,10 +42,10 @@ export const MovimentosSection = () => (
         style={{ gridAutoRows: '140px' }}
       >
         {MOVIMENTOS.map((mov) => (
-          <a
+          <button
             key={mov.id}
-            href="#"
-            className="group relative flex items-center justify-center bg-white rounded-2xl overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300"
+            onClick={() => navigate && navigate('movimento', mov.id)}
+            className="group relative flex items-center justify-center bg-white rounded-2xl overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-un-gold"
             style={{ gridColumn: `span ${mov.span}` }}
           >
             {/* Top color bar */}
@@ -62,7 +66,7 @@ export const MovimentosSection = () => (
               alt={mov.id}
               className="relative z-10 w-[80%] h-[55%] object-contain transition-transform duration-300 group-hover:scale-[1.04]"
             />
-          </a>
+          </button>
         ))}
       </div>
     </div>

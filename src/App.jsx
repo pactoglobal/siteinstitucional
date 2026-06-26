@@ -24,9 +24,11 @@ import { ProgramasPage } from './pages/ProgramasPage';
 import { ConhecimentoPage } from './pages/ConhecimentoPage';
 import { ParticiparPage } from './pages/ParticiparPage';
 import { CopPage } from './pages/CopPage';
+import { AmbicaoPage } from './pages/AmbicaoPage';
+import { MovimentoPage } from './pages/MovimentoPage';
 
 const App = () => {
-  const { currentRoute, navigate } = useHashRoute('home');
+  const { currentRoute, routeParam, navigate } = useHashRoute('home');
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -46,6 +48,8 @@ const App = () => {
         {currentRoute === 'conhecimento' && <ConhecimentoPage />}
         {currentRoute === 'participar' && <ParticiparPage />}
         {currentRoute === 'cop' && <CopPage />}
+        {currentRoute === 'ambicao' && <AmbicaoPage navigate={navigate} />}
+        {currentRoute === 'movimento' && <MovimentoPage slug={routeParam} navigate={navigate} />}
       </main>
 
       <Footer />
