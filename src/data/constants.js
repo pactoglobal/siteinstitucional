@@ -1,15 +1,16 @@
 import { Globe, Calendar, FileText, Target, Briefcase, BookOpen, Users, Building2, ShieldCheck, LogIn } from 'lucide-react';
 
 export const ROUTES = {
-  home: '#/',
-  sobre: '#/sobre',
-  eventos: '#/eventos',
-  noticias: '#/noticias',
-  agenda: '#/agenda',
-  programas: '#/programas',
-  conhecimento: '#/conhecimento',
-  participar: '#/participar',
-  cop:  '#/cop',
+ home: '#/',
+ sobre: '#/sobre',
+ eventos: '#/eventos',
+ noticias: '#/noticias',
+ agenda: '#/agenda',
+ programas: '#/programas',
+ conhecimento: '#/conhecimento',
+ participar: '#/participar',
+ cop: '#/cop',
+ ambicao: '#/ambicao',
 };
 
 export const HASH_TO_ROUTE = Object.fromEntries(

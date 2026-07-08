@@ -24,6 +24,7 @@ import { ProgramasPage } from './pages/ProgramasPage';
 import { ConhecimentoPage } from './pages/ConhecimentoPage';
 import { ParticiparPage } from './pages/ParticiparPage';
 import { CopPage } from './pages/CopPage';
+import { AmbicaoPage } from './pages/AmbicaoPage'
 
 const App = () => {
   const { currentRoute, navigate } = useHashRoute('home');
@@ -33,24 +34,25 @@ const App = () => {
   }, [currentRoute]);
 
   return (
-    <div className="min-h-screen bg-white font-sans selection:bg-un-gold selection:text-un-blue flex flex-col">
-      <CapsuleHeader onRouteChange={navigate} currentRoute={currentRoute} />
+ <div className="min-h-screen bg-white font-sans selection:bg-un-gold selection:text-un-blue flex flex-col">
+ <CapsuleHeader onRouteChange={navigate} currentRoute={currentRoute} />
 
-      <main className="flex-1">
-        {currentRoute === 'home' && <HomeContent navigate={navigate} />}
-        {currentRoute === 'sobre' && <SobrePage />}
-        {currentRoute === 'eventos' && <EventosPage />}
-        {currentRoute === 'noticias' && <NoticiasPage />}
-        {currentRoute === 'agenda' && <NossaAgendaPage />}
-        {currentRoute === 'programas' && <ProgramasPage />}
-        {currentRoute === 'conhecimento' && <ConhecimentoPage />}
-        {currentRoute === 'participar' && <ParticiparPage />}
-        {currentRoute === 'cop' && <CopPage />}
-      </main>
+ <main className="flex-1">
+ {currentRoute === 'home' && <HomeContent navigate={navigate} />}
+ {currentRoute === 'sobre' && <SobrePage />}
+ {currentRoute === 'eventos' && <EventosPage />}
+ {currentRoute === 'noticias' && <NoticiasPage />}
+ {currentRoute === 'agenda' && <NossaAgendaPage />}
+ {currentRoute === 'programas' && <ProgramasPage />}
+ {currentRoute === 'conhecimento' && <ConhecimentoPage />}
+ {currentRoute === 'participar' && <ParticiparPage />}
+ {currentRoute === 'cop' && <CopPage />}
+ {currentRoute === 'ambicao' && <AmbicaoPage navigate={navigate} />}
+ </main>
 
-      <Footer />
-    </div>
-  );
+ <Footer />
+ </div>
+ );
 };
 
 export default App;
