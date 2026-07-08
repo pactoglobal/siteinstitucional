@@ -33,26 +33,11 @@ const DotGrid = ({ className = '' }) => (
  </svg>
 );
 
-// Wrapper de staged reveal no scroll
-const Reveal = ({ children, delay = 0, className = '' }) => {
- const [ref, isVisible] = useReveal();
- return (
- <div
- ref={ref}
- className={`reveal ${isVisible ? 'is-visible' : ''} ${className}`}
- style={{ '--reveal-delay': `${delay}ms` }}
- >
- {children}
- </div>
- );
-};
-
 const STATS = [
  { value: '10', label: 'Movimentos' },
  { value: '17', label: 'ODS conectados' },
  { value: '2030', label: 'Horizonte' },
 ];
-
 
 const MovementCard = ({ movement, index, navigate, isFeatured = false }) => (
  <button
