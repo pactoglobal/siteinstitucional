@@ -219,11 +219,22 @@ export const MENU_EXPLORAR = [
     id: "agenda",
     icon: Target,
     subItems: [
-      { id: "agenda", label: "10 Princípios" }, // Typo fix: user asked for "10 Princípio", making it plural for correctness
+      { id: "agenda", label: "10 Princípios" },
       { id: "agenda", label: "ODS" },
-      { id: "agenda", label: "Ambição 2030" },
+      { id: "ambicao", label: "Ambição 2030" },
       { id: "agenda", label: "Movimentos" },
       { id: "agenda", label: "Plataformas de Ação" }
+    ]
+  },
+  {
+    label: "Ambição 2030",
+    id: "ambicao",
+    icon: Target,
+    subItems: [
+      { id: "ambicao", label: "Sobre a Ambição" },
+      { id: "ambicao", label: "Movimentos" },
+      { id: "participar", label: "Como Aderir" },
+      { id: "cop", label: "Comunicando Progresso" }
     ]
   },
   {
