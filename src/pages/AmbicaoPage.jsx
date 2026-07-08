@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowRight, ArrowUpRight, Sparkles, Compass, Users, Target, Globe, Calendar } from 'lucide-react';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
-import { useReveal } from '../hooks/useReveal';
+import { Reveal } from '../hooks/useReveal';
 import {
  AMBICAO_DEFINICAO,
  AMBICAO_INTRO,
@@ -53,12 +53,6 @@ const STATS = [
  { value: '2030', label: 'Horizonte' },
 ];
 
-// Componentes para Bento Grid
-const BentoCard = ({ children, className = '', delay = 0 }) => (
- <Reveal delay={delay} className={className}>
- {children}
- </Reveal>
-);
 
 const MovementCard = ({ movement, index, navigate, isFeatured = false }) => (
  <button
@@ -254,7 +248,7 @@ export const AmbicaoPage = ({ navigate }) => (
  {/* Bento Grid - Layout Assimétrico */}
  <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
  {/* Card 1: Definição (8 colunas) */}
- <BentoCard delay={100} className="lg:col-span-8">
+ <Reveal delay={100} className="lg:col-span-8">
  <div className="relative bg-un-blue rounded-3xl p-8 md:p-10 h-full overflow-hidden group">
  <div className="absolute inset-0 grain-overlay opacity-[0.04] mix-blend-overlay pointer-events-none" />
  <div className="absolute top-0 left-0 w-full h-1.5 flex">
@@ -271,10 +265,10 @@ export const AmbicaoPage = ({ navigate }) => (
  </p>
  </div>
  </div>
- </BentoCard>
+ </Reveal>
 
  {/* Card 2: Stats (4 colunas) */}
- <BentoCard delay={150} className="lg:col-span-4">
+ <Reveal delay={150} className="lg:col-span-4">
  <div className="bg-white rounded-3xl p-8 md:p-10 h-full border border-gray-100 shadow-sm">
  <span className="block text-gray-500 text-[9px] font-bold uppercase tracking-widest mb-6">
  Em números
@@ -292,10 +286,10 @@ export const AmbicaoPage = ({ navigate }) => (
  ))}
  </div>
  </div>
- </BentoCard>
+ </Reveal>
 
  {/* Card 3: Como Surgiu (4 colunas) */}
- <BentoCard delay={200} className="lg:col-span-4">
+ <Reveal delay={200} className="lg:col-span-4">
  <div className="bg-white rounded-3xl p-8 md:p-10 h-full border border-gray-100 shadow-sm">
  <span className="block text-un-blue text-[9px] font-bold uppercase tracking-widest mb-6">
  Como Surgiu
@@ -307,10 +301,10 @@ export const AmbicaoPage = ({ navigate }) => (
  {AMBICAO_ORIGEM.description}
  </p>
  </div>
- </BentoCard>
+ </Reveal>
 
  {/* Card 4: Timeline (8 colunas) */}
- <BentoCard delay={250} className="lg:col-span-8">
+ <Reveal delay={250} className="lg:col-span-8">
  <div className="relative bg-un-surface rounded-3xl p-8 md:p-10 h-full border border-gray-100 overflow-hidden">
  <span className="block text-un-gold text-[9px] font-bold uppercase tracking-widest mb-6">
  Linha do Tempo
@@ -329,10 +323,10 @@ export const AmbicaoPage = ({ navigate }) => (
  ))}
  </div>
  </div>
- </BentoCard>
+ </Reveal>
 
  {/* Card 5: Propósito (8 colunas) */}
- <BentoCard delay={300} className="lg:col-span-8">
+ <Reveal delay={300} className="lg:col-span-8">
  <div className="relative bg-gradient-to-br from-un-blue to-un-footer rounded-3xl p-8 md:p-10 h-full overflow-hidden group">
  <div className="absolute inset-0 text-white/[0.04]">
  <DotGrid className="w-full h-full" />
@@ -350,10 +344,10 @@ export const AmbicaoPage = ({ navigate }) => (
  </p>
  </div>
  </div>
- </BentoCard>
+ </Reveal>
 
  {/* Card 6: Pilares (4 colunas) */}
- <BentoCard delay={350} className="lg:col-span-4">
+ <Reveal delay={350} className="lg:col-span-4">
  <div className="bg-white rounded-3xl p-8 md:p-10 h-full border border-gray-100 shadow-sm">
  <span className="block text-un-gold text-[9px] font-bold uppercase tracking-widest mb-6">
  4 Pilares
@@ -376,7 +370,7 @@ export const AmbicaoPage = ({ navigate }) => (
  ))}
  </div>
  </div>
- </BentoCard>
+ </Reveal>
  </div>
  </div>
  </section>
@@ -439,7 +433,7 @@ export const AmbicaoPage = ({ navigate }) => (
  />
  <div className="grid md:grid-cols-5 gap-5 md:gap-6">
  {MODALIDADES.map((mod, i) => (
- <BentoCard
+ <Reveal
  key={mod.id}
  delay={i * 120}
  className={i === 0 ? 'md:col-span-2' : 'md:col-span-3'}
@@ -480,7 +474,7 @@ export const AmbicaoPage = ({ navigate }) => (
  {mod.description}
  </p>
  </div>
- </BentoCard>
+ </Reveal>
  ))}
  </div>
  </div>
@@ -498,7 +492,7 @@ export const AmbicaoPage = ({ navigate }) => (
  />
  <div className="space-y-px bg-gray-200/60 rounded-3xl overflow-hidden border border-gray-100">
  {ESTRUTURA_MOVIMENTOS.map((item, i) => (
- <BentoCard key={item.id} delay={i * 70}>
+ <Reveal key={item.id} delay={i * 70}>
  <div className="group flex flex-col md:flex-row md:items-center gap-4 md:gap-10 bg-white hover:bg-un-surface p-7 md:p-9 transition-colors duration-300">
  <span className="font-display font-black text-4xl md:text-5xl text-un-blue/15 group-hover:text-un-gold transition-colors duration-300 leading-none shrink-0 md:w-24">
  {String(i + 1).padStart(2, '0')}
@@ -510,7 +504,7 @@ export const AmbicaoPage = ({ navigate }) => (
  {item.description}
  </p>
  </div>
- </BentoCard>
+ </Reveal>
  ))}
  </div>
  </div>
@@ -519,7 +513,7 @@ export const AmbicaoPage = ({ navigate }) => (
  {/* ============ CTA ============ */}
  <section className="py-20 md:py-28 bg-un-surface">
  <div className="container mx-auto px-4 md:px-8 lg:px-12">
- <BentoCard>
+ <Reveal>
  <div className="relative bg-un-blue rounded-[2.5rem] p-10 md:p-20 overflow-hidden shadow-2xl">
  {/* Glow de acento */}
  <div
@@ -558,7 +552,7 @@ export const AmbicaoPage = ({ navigate }) => (
  </div>
  </div>
  </div>
- </BentoCard>
+ </Reveal>
  </div>
  </section>
  </div>
