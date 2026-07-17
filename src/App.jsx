@@ -32,7 +32,7 @@ const App = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [currentRoute]);
+  }, [currentRoute, routeParam]);
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-un-gold selection:text-un-blue flex flex-col">

@@ -2,19 +2,14 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
+import { MOVIMENTOS } from '../../data/ambicao2030';
 
-const MOVIMENTOS = [
-  { id: 'conexao-circular', color: '#B8922A', span: 2 },
-  { id: 'mais-agua',        color: '#009EDB', span: 1 },
-  { id: 'educa2030',        color: '#C0392B', span: 1 },
-  { id: 'elas-lideram',     color: '#E04B2A', span: 1 },
-  { id: 'mente-foco',       color: '#3A7D44', span: 1 },
-  { id: 'net-zero',         color: '#3A7D44', span: 1 },
-  { id: 'raca-prioridade',  color: '#D81B7E', span: 1 },
-  { id: 'salario-digno',    color: '#8B1A3A', span: 1 },
-  { id: 'transparencia',    color: '#006080', span: 2 },
-  { id: 'impacto-amazonia', color: '#1A6B3C', span: 1 },
-];
+// Apenas o layout (span do bento) é local — cor, id e nome vêm de ambicao2030.js,
+// a fonte única de dados dos Movimentos (evita divergência entre seções).
+const SPAN_BY_ID = {
+  'conexao-circular': 2,
+  transparencia: 2,
+};
 
 export const MovimentosSection = ({ navigate }) => (
   <section className="py-16 md:py-24 bg-un-blue">
@@ -46,7 +41,7 @@ export const MovimentosSection = ({ navigate }) => (
             key={mov.id}
             onClick={() => navigate && navigate('movimento', mov.id)}
             className="group relative flex items-center justify-center bg-white rounded-2xl overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-un-gold"
-            style={{ gridColumn: `span ${mov.span}` }}
+            style={{ gridColumn: `span ${SPAN_BY_ID[mov.id] ?? 1}` }}
           >
             {/* Top color bar */}
             <div
@@ -63,7 +58,7 @@ export const MovimentosSection = ({ navigate }) => (
             {/* Logo */}
             <img
               src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
-              alt={mov.id}
+              alt={mov.name}
               className="relative z-10 w-[80%] h-[55%] object-contain transition-transform duration-300 group-hover:scale-[1.04]"
             />
           </button>

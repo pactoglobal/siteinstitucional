@@ -53,6 +53,10 @@ const STATS = [
  { value: '2030', label: 'Horizonte' },
 ];
 
+// AMBICAO_PROPOSITO.pillars não carrega ícones (dado é framework-agnostic) —
+// mapeados aqui, na mesma ordem do conteúdo.
+const PROPOSITO_ICONS = [Users, Target, Globe, Calendar];
+
 // Componentes para Bento Grid
 const BentoCard = ({ children, className = '', delay = 0 }) => (
  <Reveal delay={delay} className={className}>
@@ -359,10 +363,12 @@ export const AmbicaoPage = ({ navigate }) => (
  4 Pilares
  </span>
  <div className="grid grid-cols-2 gap-4">
- {AMBICAO_PROPOSITO.pillars.map((pillar) => (
+ {AMBICAO_PROPOSITO.pillars.map((pillar, i) => {
+ const PillarIcon = PROPOSITO_ICONS[i];
+ return (
  <div key={pillar.title} className="flex items-start gap-2">
  <div className="w-8 h-8 rounded-lg bg-un-blue/5 flex items-center justify-center shrink-0">
- <pillar.icon className="w-4 h-4 text-un-blue" />
+ {PillarIcon && <PillarIcon className="w-4 h-4 text-un-blue" />}
  </div>
  <div>
  <p className="font-bold text-xs text-gray-900 uppercase tracking-tight">
@@ -373,7 +379,8 @@ export const AmbicaoPage = ({ navigate }) => (
  </p>
  </div>
  </div>
- ))}
+ );
+ })}
  </div>
  </div>
  </BentoCard>
