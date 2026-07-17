@@ -4,7 +4,6 @@ import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
 import { useReveal } from '../hooks/useReveal';
 import { useScrollSpy } from '../hooks/useScrollSpy';
-import { useMovimentoStats } from '../hooks/useMovimentoStats';
 import { cn } from '../utils/cn';
 import { getMovimento, MOVIMENTOS, MODALIDADES, ESTRUTURA_MOVIMENTOS } from '../data/ambicao2030';
 import { ODS_COLORS, ODS_NAMES } from '../data/constants';
@@ -96,11 +95,9 @@ const MovimentoSubNav = ({ color }) => {
 
 export const MovimentoPage = ({ slug, navigate }) => {
   const mov = getMovimento(slug);
-  const stats = useMovimentoStats(mov?.id);
   if (!mov) return <NotFound navigate={navigate} />;
 
   const outros = MOVIMENTOS.filter((m) => m.id !== mov.id).slice(0, 4);
-  const liveStats = stats.status === 'ready' ? stats.data : null;
 
   return (
     <div className="animate-fade-in">
@@ -152,33 +149,6 @@ export const MovimentoPage = ({ slug, navigate }) => {
           <p className="text-white/90 text-lg md:text-2xl font-light leading-relaxed max-w-3xl">
             {mov.ambicao}
           </p>
-
-          {/* Números ao vivo (Salesforce) — só aparece com a integração
-              configurada e respondendo; nunca um valor de exemplo. */}
-          {liveStats && (liveStats.comprometidas != null || liveStats.embaixadoras != null) && (
-            <div className="flex flex-wrap gap-x-10 gap-y-4 mt-10 pt-8 border-t border-white/15">
-              {liveStats.comprometidas != null && (
-                <div>
-                  <span className="block font-display font-black text-3xl md:text-4xl text-white tabular-nums leading-none">
-                    {liveStats.comprometidas}
-                  </span>
-                  <span className="block text-white/70 text-[10px] font-bold uppercase tracking-widest mt-2">
-                    Empresas comprometidas
-                  </span>
-                </div>
-              )}
-              {liveStats.embaixadoras != null && (
-                <div>
-                  <span className="block font-display font-black text-3xl md:text-4xl text-white tabular-nums leading-none">
-                    {liveStats.embaixadoras}
-                  </span>
-                  <span className="block text-white/70 text-[10px] font-bold uppercase tracking-widest mt-2">
-                    Empresas embaixadoras
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
         </div>
       </section>
 
