@@ -83,14 +83,31 @@ export const SuperMenu = ({ isOpen, onClose, onRouteChange }) => {
                     <div key={item.label}>
                       {item.subItems ? (
                         <div className="mb-2 md:mb-4">
-                          <button
-                            onClick={() => toggleExpand(item.label)}
-                            className="flex items-center gap-3 text-white hover:text-un-gold font-bold uppercase tracking-wide text-xs md:text-sm lg:text-base py-2 transition-colors w-full text-left"
-                          >
-                            {item.icon && <item.icon className="w-4 h-4 md:w-5 md:h-5 text-white opacity-80 shrink-0" />}
-                            <span className={item.label === 'CoP' ? 'normal-case' : ''}>{item.label}</span>
-                            <ChevronDown className={cn("ml-auto w-3 h-3 md:w-4 md:h-4 transition-transform", expandedItem === item.label && "rotate-180")} />
-                          </button>
+                          <div className="flex items-center justify-between group/item">
+                            <button
+                              onClick={() => {
+                                if (item.id) {
+                                  handleNav(item.id);
+                                } else {
+                                  toggleExpand(item.label);
+                                }
+                              }}
+                              className="flex items-center gap-3 text-white hover:text-un-gold font-bold uppercase tracking-wide text-xs md:text-sm lg:text-base py-2 transition-colors text-left flex-1"
+                            >
+                              {item.icon && <item.icon className="w-4 h-4 md:w-5 md:h-5 text-white opacity-80 shrink-0" />}
+                              <span className={item.label === 'CoP' ? 'normal-case' : ''}>{item.label}</span>
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleExpand(item.label);
+                              }}
+                              className="p-2 text-white/50 hover:text-white transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
+                              aria-label={`Expandir ${item.label}`}
+                            >
+                              <ChevronDown className={cn("w-3 h-3 md:w-4 md:h-4 transition-transform duration-300", expandedItem === item.label && "rotate-180")} />
+                            </button>
+                          </div>
                           <div className={cn("overflow-hidden transition-all duration-300 pl-8 space-y-2", expandedItem === item.label ? "max-h-[500px] pt-4 opacity-100" : "max-h-0 opacity-0")}>
                             {item.subItems.map(sub => (
                               <button key={sub.label} onClick={(e) => { e.preventDefault(); sub.id ? handleNav(sub.id) : onClose(); }} className="block w-full text-left text-un-blue-3 hover:text-white text-[10px] md:text-xs font-medium py-1">
