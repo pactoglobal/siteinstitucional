@@ -2,7 +2,10 @@ import React from 'react';
 import { ArrowLeft, ArrowRight, Check, Target } from 'lucide-react';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
-import { getMovimento, MOVIMENTOS, MODALIDADES } from '../data/ambicao2030';
+import { useReveal } from '../hooks/useReveal';
+import { useScrollSpy } from '../hooks/useScrollSpy';
+import { cn } from '../utils/cn';
+import { getMovimento, MOVIMENTOS, MODALIDADES, ESTRUTURA_MOVIMENTOS } from '../data/ambicao2030';
 import { ODS_COLORS, ODS_NAMES } from '../data/constants';
 
 const NotFound = ({ navigate }) => (
@@ -15,6 +18,76 @@ const NotFound = ({ navigate }) => (
   </div>
 );
 
+// Textura de pontos sutil — mesmo padrão usado no hero da Ambição 2030.
+const DotGrid = ({ className = '' }) => (
+  <svg className={className} aria-hidden="true">
+    <defs>
+      <pattern id="movimento-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="1" fill="currentColor" />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#movimento-dots)" />
+  </svg>
+);
+
+// Staged reveal no scroll (mesmo padrão local usado em AmbicaoPage.jsx).
+const Reveal = ({ children, delay = 0, className = '' }) => {
+  const [ref, isVisible] = useReveal();
+  return (
+    <div ref={ref} className={`reveal ${isVisible ? 'is-visible' : ''} ${className}`} style={{ '--reveal-delay': `${delay}ms` }}>
+      {children}
+    </div>
+  );
+};
+
+// Seções ancoradas pela sub-navegação sticky. Definidas fora do componente
+// para manter identidade estável (useScrollSpy depende disso).
+const SUBNAV_SECTIONS = [
+  { id: 'oque-e', label: 'O que é' },
+  { id: 'compromissos', label: 'Compromissos' },
+  { id: 'como-funciona', label: 'Como funciona' },
+  { id: 'engajamento', label: 'Participação' },
+  { id: 'aderir', label: 'Aderir' },
+];
+const SUBNAV_IDS = SUBNAV_SECTIONS.map((s) => s.id);
+
+const MovimentoSubNav = ({ color }) => {
+  const activeId = useScrollSpy(SUBNAV_IDS);
+
+  const handleClick = (e, id) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 84;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  return (
+    <nav
+      aria-label="Seções do Movimento"
+      className="sticky top-14 md:top-[70px] z-30 bg-white/90 backdrop-blur-md border-b border-gray-100"
+    >
+      <div className="container mx-auto px-4 md:px-8 lg:px-12 flex items-center gap-1 md:gap-2 py-2.5 overflow-x-auto">
+        {SUBNAV_SECTIONS.map((s) => (
+          <a
+            key={s.id}
+            href={`#${s.id}`}
+            onClick={(e) => handleClick(e, s.id)}
+            aria-current={activeId === s.id ? 'true' : undefined}
+            className={cn(
+              'whitespace-nowrap text-[11px] font-bold uppercase tracking-widest px-3.5 py-2 rounded-full transition-colors duration-200',
+              activeId === s.id ? 'text-white' : 'text-gray-500 hover:text-gray-800',
+            )}
+            style={activeId === s.id ? { backgroundColor: color } : undefined}
+          >
+            {s.label}
+          </a>
+        ))}
+      </div>
+    </nav>
+  );
+};
+
 export const MovimentoPage = ({ slug, navigate }) => {
   const mov = getMovimento(slug);
   if (!mov) return <NotFound navigate={navigate} />;
@@ -24,11 +97,16 @@ export const MovimentoPage = ({ slug, navigate }) => {
   return (
     <div className="animate-fade-in">
       {/* Hero na cor do Movimento */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden" style={{ backgroundColor: mov.color }}>
+      <section className="relative pt-28 pb-14 md:pt-36 md:pb-20 overflow-hidden" style={{ backgroundColor: mov.color }}>
         <div className="absolute inset-0 z-0">
-          <img src={mov.image} alt={mov.name} className="w-full h-full object-cover opacity-20" />
+          <img src={mov.image} alt="" className="w-full h-full object-cover opacity-20" />
           <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${mov.color}cc, ${mov.color})` }} />
         </div>
+        <div className="absolute inset-0 text-white/[0.06] z-0">
+          <DotGrid className="w-full h-full" />
+        </div>
+        <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none z-0" />
+
         <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
           <button
             onClick={() => navigate('ambicao')}
@@ -36,25 +114,43 @@ export const MovimentoPage = ({ slug, navigate }) => {
           >
             <ArrowLeft className="w-4 h-4" /> Ambição 2030
           </button>
-          <h1 className="sr-only">{mov.name}</h1>
-          <span className="inline-block px-3 py-1 bg-white/15 backdrop-blur-md rounded-full text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-6">
-            Ambição 2030 · Movimento
-          </span>
-          <div className="bg-white rounded-3xl px-8 py-10 md:px-12 md:py-12 inline-flex items-center justify-center shadow-2xl mb-8 max-w-full">
-            <img
-              src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
-              alt={mov.name}
-              className="max-h-20 md:max-h-24 w-auto object-contain"
-            />
+
+          <div className="flex items-center gap-4 mb-7">
+            <span className="inline-block px-3 py-1 bg-white/15 backdrop-blur-md rounded-full text-white text-[10px] font-bold uppercase tracking-[0.2em]">
+              Ambição 2030 · Movimento
+            </span>
+            {mov.ods?.length > 0 && (
+              <span className="hidden sm:inline-flex items-center gap-2 text-white/80 text-[10px] font-bold uppercase tracking-[0.2em]">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
+                ODS {mov.ods.join(', ')} · {mov.ods.map((n) => ODS_NAMES[n - 1]).join(' · ')}
+              </span>
+            )}
           </div>
+
+          <div className="flex flex-wrap items-center gap-5 mb-6">
+            <div className="inline-flex bg-white rounded-xl px-4 py-2.5 shadow-lg">
+              <img
+                src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
+                alt={mov.name}
+                className="h-7 md:h-8 w-auto object-contain"
+              />
+            </div>
+          </div>
+
+          <h1 className="font-display font-black uppercase tracking-tight text-white leading-[0.95] text-4xl md:text-6xl lg:text-7xl mb-6 max-w-4xl">
+            {mov.shortName}
+          </h1>
+
           <p className="text-white/90 text-lg md:text-2xl font-light leading-relaxed max-w-3xl">
             {mov.ambicao}
           </p>
         </div>
       </section>
 
+      <MovimentoSubNav color={mov.color} />
+
       {/* A Ambição */}
-      <section className="py-16 md:py-24 bg-white">
+      <section id="oque-e" className="py-16 md:py-24 bg-white scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <div className="grid lg:grid-cols-3 gap-10 lg:gap-16">
             <div className="lg:col-span-1">
@@ -94,7 +190,7 @@ export const MovimentoPage = ({ slug, navigate }) => {
       </section>
 
       {/* Compromissos */}
-      <section className="py-16 md:py-24 bg-un-surface">
+      <section id="compromissos" className="py-16 md:py-24 bg-un-surface scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <SectionHeader
             barColor="bg-un-blue"
@@ -105,20 +201,24 @@ export const MovimentoPage = ({ slug, navigate }) => {
           />
           <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
             {mov.compromissos.map((c, i) => (
-              <div
-                key={i}
-                className="group flex gap-4 bg-white rounded-2xl p-6 md:p-7 border border-gray-100 hover:shadow-lg transition-all duration-300"
-              >
-                <div
-                  className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: `${mov.color}1A` }}
-                >
-                  <Check className="w-5 h-5" style={{ color: mov.color }} />
+              <Reveal key={i} delay={i * 60}>
+                <div className="group flex gap-4 bg-white rounded-2xl p-6 md:p-7 border border-gray-100 hover:shadow-lg transition-all duration-300 h-full">
+                  <div className="flex flex-col items-center gap-2 shrink-0">
+                    <div
+                      className="w-9 h-9 rounded-xl flex items-center justify-center"
+                      style={{ backgroundColor: `${mov.color}1A` }}
+                    >
+                      <Check className="w-5 h-5" style={{ color: mov.color }} />
+                    </div>
+                    <span className="text-[10px] font-bold text-gray-300 tabular-nums">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                  </div>
+                  <p className="text-gray-700 text-sm md:text-base leading-relaxed font-light self-center">
+                    {c}
+                  </p>
                 </div>
-                <p className="text-gray-700 text-sm md:text-base leading-relaxed font-light">
-                  {c}
-                </p>
-              </div>
+              </Reveal>
             ))}
           </div>
           {mov.nota && (
@@ -127,8 +227,46 @@ export const MovimentoPage = ({ slug, navigate }) => {
         </div>
       </section>
 
+      {/* Como funciona — estrutura compartilhada por todos os Movimentos,
+          na cor deste Movimento */}
+      <section id="como-funciona" className="py-16 md:py-24 bg-white scroll-mt-24">
+        <div className="container mx-auto px-4 md:px-8 lg:px-12">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-2 h-10 rounded-full" style={{ backgroundColor: mov.color }} />
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-500">Como funciona</span>
+          </div>
+          <h2 className="text-2xl md:text-4xl font-display font-black uppercase tracking-tight leading-[1.2] text-gray-900 mb-4 max-w-2xl">
+            A mesma arquitetura de <span style={{ color: mov.color }}>todos os Movimentos</span>
+          </h2>
+          <p className="text-gray-500 text-sm md:text-lg font-light max-w-2xl mb-10 md:mb-14">
+            O {mov.shortName} segue os cinco elementos que organizam todos os Movimentos da Ambição 2030,
+            do compromisso público à governança compartilhada.
+          </p>
+          <div className="space-y-px bg-gray-200/60 rounded-3xl overflow-hidden border border-gray-100">
+            {ESTRUTURA_MOVIMENTOS.map((item, i) => (
+              <Reveal key={item.id} delay={i * 70}>
+                <div className="group flex flex-col md:flex-row md:items-center gap-4 md:gap-10 bg-white p-7 md:p-9 transition-colors duration-300">
+                  <span
+                    className="font-display font-black text-4xl md:text-5xl leading-none shrink-0 md:w-24 transition-colors duration-300"
+                    style={{ color: `${mov.color}26` }}
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <h3 className="font-display font-black text-lg md:text-2xl text-gray-900 tracking-tight shrink-0 md:w-64 leading-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-500 text-sm md:text-base leading-relaxed font-light flex-1">
+                    {item.description}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Modalidades de Engajamento */}
-      <section className="py-16 md:py-24 bg-white">
+      <section id="engajamento" className="py-16 md:py-24 bg-un-surface scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <SectionHeader
             barColor="bg-un-green"
@@ -140,9 +278,9 @@ export const MovimentoPage = ({ slug, navigate }) => {
             {MODALIDADES.map((mod, i) => (
               <div
                 key={mod.id}
-                className="relative bg-un-surface rounded-3xl p-8 md:p-10 border border-gray-100 overflow-hidden"
+                className="relative bg-white rounded-3xl p-8 md:p-10 border border-gray-100 overflow-hidden"
               >
-                <div className="absolute top-0 left-0 right-0 h-1.5" style={{ backgroundColor: mov.color, opacity: i === 0 ? 0.5 : 1 }} />
+                <div className="absolute top-0 left-0 right-0 h-1.5" style={{ backgroundColor: mov.color, opacity: i === 0 ? 0.45 : 1 }} />
                 <h3 className="font-display font-black text-xl md:text-2xl text-gray-900 tracking-tight mb-3">
                   {mod.title}
                 </h3>
@@ -156,7 +294,7 @@ export const MovimentoPage = ({ slug, navigate }) => {
       </section>
 
       {/* CTA + outros movimentos */}
-      <section className="py-16 md:py-24" style={{ backgroundColor: mov.color }}>
+      <section id="aderir" className="py-16 md:py-24 scroll-mt-24" style={{ backgroundColor: mov.color }}>
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-4xl font-display font-black uppercase tracking-tight text-white leading-[1.2] mb-4">
