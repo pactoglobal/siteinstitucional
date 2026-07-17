@@ -1,12 +1,18 @@
 import React from 'react';
-import { ArrowLeft, ArrowRight, Check, Target } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Target, Sparkles, Compass } from 'lucide-react';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
 import { useReveal } from '../hooks/useReveal';
 import { useScrollSpy } from '../hooks/useScrollSpy';
+import { useMovimentoStats } from '../hooks/useMovimentoStats';
 import { cn } from '../utils/cn';
 import { getMovimento, MOVIMENTOS, MODALIDADES, ESTRUTURA_MOVIMENTOS } from '../data/ambicao2030';
 import { ODS_COLORS, ODS_NAMES } from '../data/constants';
+
+// Spans do bento de "Como funciona" — ESTRUTURA_MOVIMENTOS tem sempre
+// exatamente 5 itens, por isso o padrão pode ser fixo (classes literais,
+// para o Tailwind JIT conseguir escanear).
+const COMO_FUNCIONA_SPANS = ['lg:col-span-5', 'lg:col-span-7', 'lg:col-span-4', 'lg:col-span-4', 'lg:col-span-4'];
 
 const NotFound = ({ navigate }) => (
   <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4 pt-32">
@@ -90,9 +96,11 @@ const MovimentoSubNav = ({ color }) => {
 
 export const MovimentoPage = ({ slug, navigate }) => {
   const mov = getMovimento(slug);
+  const stats = useMovimentoStats(mov?.id);
   if (!mov) return <NotFound navigate={navigate} />;
 
   const outros = MOVIMENTOS.filter((m) => m.id !== mov.id).slice(0, 4);
+  const liveStats = stats.status === 'ready' ? stats.data : null;
 
   return (
     <div className="animate-fade-in">
@@ -144,6 +152,33 @@ export const MovimentoPage = ({ slug, navigate }) => {
           <p className="text-white/90 text-lg md:text-2xl font-light leading-relaxed max-w-3xl">
             {mov.ambicao}
           </p>
+
+          {/* Números ao vivo (Salesforce) — só aparece com a integração
+              configurada e respondendo; nunca um valor de exemplo. */}
+          {liveStats && (liveStats.comprometidas != null || liveStats.embaixadoras != null) && (
+            <div className="flex flex-wrap gap-x-10 gap-y-4 mt-10 pt-8 border-t border-white/15">
+              {liveStats.comprometidas != null && (
+                <div>
+                  <span className="block font-display font-black text-3xl md:text-4xl text-white tabular-nums leading-none">
+                    {liveStats.comprometidas}
+                  </span>
+                  <span className="block text-white/70 text-[10px] font-bold uppercase tracking-widest mt-2">
+                    Empresas comprometidas
+                  </span>
+                </div>
+              )}
+              {liveStats.embaixadoras != null && (
+                <div>
+                  <span className="block font-display font-black text-3xl md:text-4xl text-white tabular-nums leading-none">
+                    {liveStats.embaixadoras}
+                  </span>
+                  <span className="block text-white/70 text-[10px] font-bold uppercase tracking-widest mt-2">
+                    Empresas embaixadoras
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
@@ -199,27 +234,42 @@ export const MovimentoPage = ({ slug, navigate }) => {
             titleAccent="Compromissos"
             description="Metas que as empresas se comprometem a alcançar até 2030 ao assinar a Carta de Compromisso deste Movimento."
           />
-          <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
-            {mov.compromissos.map((c, i) => (
-              <Reveal key={i} delay={i * 60}>
-                <div className="group flex gap-4 bg-white rounded-2xl p-6 md:p-7 border border-gray-100 hover:shadow-lg transition-all duration-300 h-full">
-                  <div className="flex flex-col items-center gap-2 shrink-0">
-                    <div
-                      className="w-9 h-9 rounded-xl flex items-center justify-center"
-                      style={{ backgroundColor: `${mov.color}1A` }}
-                    >
-                      <Check className="w-5 h-5" style={{ color: mov.color }} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+            {mov.compromissos.map((c, i) => {
+              const featured = i % 3 === 0;
+              return (
+                <Reveal key={i} delay={i * 60} className={featured ? 'lg:col-span-2' : ''}>
+                  <div
+                    className={cn(
+                      'group relative flex gap-4 h-full rounded-3xl p-6 md:p-8 overflow-hidden transition-all duration-300',
+                      featured ? 'text-white' : 'bg-white border border-gray-100 hover:shadow-lg',
+                    )}
+                    style={featured ? { background: `linear-gradient(135deg, ${mov.color}, ${mov.color}cc)` } : undefined}
+                  >
+                    {featured && <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />}
+                    <div className="relative flex flex-col items-center gap-2 shrink-0">
+                      <div
+                        className={cn('w-9 h-9 rounded-xl flex items-center justify-center', featured && 'bg-white/20')}
+                        style={!featured ? { backgroundColor: `${mov.color}1A` } : undefined}
+                      >
+                        <Check className="w-5 h-5" style={{ color: featured ? '#fff' : mov.color }} />
+                      </div>
+                      <span className={cn('text-[10px] font-bold tabular-nums', featured ? 'text-white/60' : 'text-gray-300')}>
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
                     </div>
-                    <span className="text-[10px] font-bold text-gray-300 tabular-nums">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
+                    <p
+                      className={cn(
+                        'relative text-sm md:text-base leading-relaxed font-light self-center',
+                        featured ? 'text-white/95' : 'text-gray-700',
+                      )}
+                    >
+                      {c}
+                    </p>
                   </div>
-                  <p className="text-gray-700 text-sm md:text-base leading-relaxed font-light self-center">
-                    {c}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </div>
           {mov.nota && (
             <p className="text-gray-400 text-xs mt-6 leading-relaxed max-w-3xl italic">{mov.nota}</p>
@@ -242,25 +292,35 @@ export const MovimentoPage = ({ slug, navigate }) => {
             O {mov.shortName} segue os cinco elementos que organizam todos os Movimentos da Ambição 2030,
             do compromisso público à governança compartilhada.
           </p>
-          <div className="space-y-px bg-gray-200/60 rounded-3xl overflow-hidden border border-gray-100">
-            {ESTRUTURA_MOVIMENTOS.map((item, i) => (
-              <Reveal key={item.id} delay={i * 70}>
-                <div className="group flex flex-col md:flex-row md:items-center gap-4 md:gap-10 bg-white p-7 md:p-9 transition-colors duration-300">
-                  <span
-                    className="font-display font-black text-4xl md:text-5xl leading-none shrink-0 md:w-24 transition-colors duration-300"
-                    style={{ color: `${mov.color}26` }}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5">
+            {ESTRUTURA_MOVIMENTOS.map((item, i) => {
+              const lead = i === 0;
+              return (
+                <Reveal key={item.id} delay={i * 70} className={COMO_FUNCIONA_SPANS[i]}>
+                  <div
+                    className={cn(
+                      'group relative h-full rounded-3xl p-7 md:p-9 overflow-hidden transition-colors duration-300',
+                      lead ? 'text-white' : 'bg-un-surface border border-gray-100',
+                    )}
+                    style={lead ? { background: `linear-gradient(135deg, ${mov.color}, ${mov.color}cc)` } : undefined}
                   >
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="font-display font-black text-lg md:text-2xl text-gray-900 tracking-tight shrink-0 md:w-64 leading-tight">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-500 text-sm md:text-base leading-relaxed font-light flex-1">
-                    {item.description}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+                    {lead && <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />}
+                    <span
+                      className="relative block font-display font-black text-4xl md:text-5xl leading-none mb-5"
+                      style={{ color: lead ? 'rgba(255,255,255,0.3)' : `${mov.color}26` }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <h3 className={cn('relative font-display font-black text-lg md:text-2xl tracking-tight leading-tight mb-3', lead ? 'text-white' : 'text-gray-900')}>
+                      {item.title}
+                    </h3>
+                    <p className={cn('relative text-sm md:text-base leading-relaxed font-light', lead ? 'text-white/85' : 'text-gray-500')}>
+                      {item.description}
+                    </p>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -274,20 +334,38 @@ export const MovimentoPage = ({ slug, navigate }) => {
             title="Modalidades de"
             titleAccent="Engajamento"
           />
-          <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+          <div className="grid md:grid-cols-5 gap-5 md:gap-6">
             {MODALIDADES.map((mod, i) => (
-              <div
-                key={mod.id}
-                className="relative bg-white rounded-3xl p-8 md:p-10 border border-gray-100 overflow-hidden"
-              >
-                <div className="absolute top-0 left-0 right-0 h-1.5" style={{ backgroundColor: mov.color, opacity: i === 0 ? 0.45 : 1 }} />
-                <h3 className="font-display font-black text-xl md:text-2xl text-gray-900 tracking-tight mb-3">
-                  {mod.title}
-                </h3>
-                <p className="text-gray-600 text-sm md:text-base leading-relaxed font-light">
-                  {mod.description}
-                </p>
-              </div>
+              <Reveal key={mod.id} delay={i * 120} className={i === 0 ? 'md:col-span-2' : 'md:col-span-3'}>
+                <div
+                  className={cn(
+                    'group relative h-full rounded-3xl p-8 md:p-10 overflow-hidden transition-all duration-300 hover:-translate-y-1',
+                    i === 0 ? 'bg-white border border-gray-100 hover:shadow-xl' : 'text-white hover:shadow-2xl',
+                  )}
+                  style={i !== 0 ? { background: `linear-gradient(135deg, ${mov.color}, ${mov.color}cc)` } : undefined}
+                >
+                  {i !== 0 && <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />}
+                  <div
+                    className={cn(
+                      'relative w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110',
+                      i !== 0 && 'bg-white/15',
+                    )}
+                    style={i === 0 ? { backgroundColor: `${mov.color}14` } : undefined}
+                  >
+                    {i === 0 ? (
+                      <Sparkles className="w-5 h-5" style={{ color: mov.color }} />
+                    ) : (
+                      <Compass className="w-5 h-5 text-white" />
+                    )}
+                  </div>
+                  <h3 className={cn('relative font-display font-black text-2xl md:text-3xl tracking-tight mb-3', i === 0 ? 'text-gray-900' : 'text-white')}>
+                    {mod.title}
+                  </h3>
+                  <p className={cn('relative text-sm md:text-base leading-relaxed font-light', i === 0 ? 'text-gray-600' : 'text-white/85')}>
+                    {mod.description}
+                  </p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
