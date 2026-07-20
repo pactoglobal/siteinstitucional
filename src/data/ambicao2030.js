@@ -1,5 +1,3 @@
-import { Users, Target, Globe, Calendar } from 'lucide-react';
-
 // ============================================================
 // AMBIÇÃO 2030 — Fonte única de dados
 // ------------------------------------------------------------
@@ -37,10 +35,10 @@ export const AMBICAO_PROPOSITO = {
  description: 
  "Mobilizar o setor empresarial brasileiro para atuar de forma coletiva e individual na implementação da Agenda 2030, gerando impacto positivo mensurável em pessoas, planeta e prosperidade.",
  pillars: [
- { title: "Ação Coletiva", desc: "Empresas unidas por causas comuns", icon: Users },
- { title: "Metas Claras", desc: "Compromissos públicos e mensuráveis", icon: Target },
- { title: "Impacto Nacional", desc: "Transformação em escala Brasil", icon: Globe },
- { title: "Horizonte 2030", desc: "Alinhado com os ODS globais", icon: Calendar }
+ { title: "Ação Coletiva", desc: "Empresas unidas por causas comuns" },
+ { title: "Metas Claras", desc: "Compromissos públicos e mensuráveis" },
+ { title: "Impacto Nacional", desc: "Transformação em escala Brasil" },
+ { title: "Horizonte 2030", desc: "Alinhado com os ODS globais" }
  ]
 };
 

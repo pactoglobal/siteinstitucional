@@ -1,25 +1,34 @@
 import React from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
 import { EventCard } from '../ui/EventCard';
 import { MOCK_EVENTS } from '../../data/constants';
 
-export const EventsListSection = () => {
+export const EventsListSection = ({ navigate }) => {
   const [activeTab, setActiveTab] = React.useState('upcoming');
   return (
-  <section className="py-12 md:py-16 bg-un-surface">
+  <section className="py-12 md:py-16 bg-[#F4F6F9]">
     <div className="container mx-auto px-4 md:px-8 lg:px-12">
-      <SectionHeader 
+      <SectionHeader
         barColor="bg-un-gold"
         badge="Agenda 2026"
         title="Nossos"
         titleAccent="Eventos e Fóruns"
         description="Participe das discussões que moldam o futuro. Selecione entre os próximos eventos ou visualize nossa cronologia completa de encontros realizados."
+        button={
+          <Button
+            variant="ghost"
+            className="font-bold uppercase tracking-widest text-[10px] flex items-center gap-2 text-un-blue hover:text-un-blue-1"
+            onClick={() => navigate && navigate('eventos')}
+          >
+            Ver Todos <ArrowRight className="w-3.5 h-3.5" />
+          </Button>
+        }
       />
 
-      {/* Tabs & CTA aligned with cards grid */}
-      <div className="flex items-center justify-between mb-8">
+      {/* Tabs */}
+      <div className="flex items-center mb-8">
         <div className="flex items-center gap-4 bg-gray-100 p-1.5 rounded-full px-4">
           <button
             onClick={() => setActiveTab('upcoming')}
@@ -35,13 +44,6 @@ export const EventsListSection = () => {
             Anteriores
           </button>
         </div>
-        <Button 
-          variant="primary" 
-          className="hidden md:flex"
-          icon={ChevronRight}
-        >
-          Quero Aderir
-        </Button>
       </div>
 
       {/* Cards Grid */}
@@ -49,13 +51,6 @@ export const EventsListSection = () => {
         {MOCK_EVENTS.map(evt => (
           <EventCard key={evt.id} event={evt} />
         ))}
-      </div>
-
-      {/* Mobile CTA */}
-      <div className="flex md:hidden justify-center mt-8">
-        <Button variant="primary" icon={ChevronRight} className="w-full sm:w-auto">
-          Quero Aderir
-        </Button>
       </div>
     </div>
   </section>

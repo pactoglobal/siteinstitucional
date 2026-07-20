@@ -1,17 +1,19 @@
 import { Globe, Calendar, FileText, Target, Briefcase, BookOpen, Users, Building2, ShieldCheck, LogIn } from 'lucide-react';
 
 export const ROUTES = {
- home: '#/',
- sobre: '#/sobre',
- eventos: '#/eventos',
- noticias: '#/noticias',
- agenda: '#/agenda',
- programas: '#/programas',
- conhecimento: '#/conhecimento',
- participar: '#/participar',
- cop: '#/cop',
- ambicao: '#/ambicao',
+  home: '#/',
+  sobre: '#/sobre',
+  eventos: '#/eventos',
+  noticias: '#/noticias',
+  agenda: '#/agenda',
+  programas: '#/programas',
+  conhecimento: '#/conhecimento',
+  participar: '#/participar',
+  cop:  '#/cop',
+  ambicao: '#/ambicao',
 };
+
+export const MOVIMENTO_HASH_PREFIX = '#/movimento/';
 
 export const HASH_TO_ROUTE = Object.fromEntries(
   Object.entries(ROUTES).map(([key, hash]) => [hash, key])
@@ -219,22 +221,11 @@ export const MENU_EXPLORAR = [
     id: "agenda",
     icon: Target,
     subItems: [
-      { id: "agenda", label: "10 Princípios" },
+      { id: "agenda", label: "10 Princípios" }, // Typo fix: user asked for "10 Princípio", making it plural for correctness
       { id: "agenda", label: "ODS" },
       { id: "ambicao", label: "Ambição 2030" },
-      { id: "agenda", label: "Movimentos" },
-      { id: "agenda", label: "Plataformas de Ação" }
-    ]
-  },
-  {
-    label: "Ambição 2030",
-    id: "ambicao",
-    icon: Target,
-    subItems: [
-      { id: "ambicao", label: "Sobre a Ambição" },
       { id: "ambicao", label: "Movimentos" },
-      { id: "participar", label: "Como Aderir" },
-      { id: "cop", label: "Comunicando Progresso" }
+      { id: "agenda", label: "Plataformas de Ação" }
     ]
   },
   {

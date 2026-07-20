@@ -1,43 +1,4 @@
-import React, { useEffect, Component } from 'react';
-
-// Error Boundary para capturar erros de renderização
-class ErrorBoundary extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, error: null, errorInfo: null };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error('ErrorBoundary caught:', error, errorInfo);
-    this.setState({
-      error: error,
-      errorInfo: errorInfo
-    });
-  }
-
-  render() {
-    if (this.state.hasError) {
-      if (this.props.fallback) {
-        return this.props.fallback;
-      }
-      return (
-        <div style={{ padding: '20px', color: 'red', fontFamily: 'monospace' }}>
-          <h2>Erro ao carregar a página</h2>
-          <details style={{ whiteSpace: 'pre-wrap' }}>
-            <summary>Detalhes do erro</summary>
-            {this.state.error && this.state.error.toString()}
-            {this.state.errorInfo && this.state.errorInfo.componentStack}
-          </details>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
-}
+import React, { useEffect } from 'react';
 
 /**
  * ARTEFATO FINAL: UN GLOBAL COMPACT DESIGN SYSTEM (v13)
@@ -64,13 +25,14 @@ import { ConhecimentoPage } from './pages/ConhecimentoPage';
 import { ParticiparPage } from './pages/ParticiparPage';
 import { CopPage } from './pages/CopPage';
 import { AmbicaoPage } from './pages/AmbicaoPage';
+import { MovimentoPage } from './pages/MovimentoPage';
 
 const App = () => {
-  const { currentRoute, navigate } = useHashRoute('home');
+  const { currentRoute, routeParam, navigate } = useHashRoute('home');
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [currentRoute]);
+  }, [currentRoute, routeParam]);
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-un-gold selection:text-un-blue flex flex-col">
@@ -86,18 +48,8 @@ const App = () => {
         {currentRoute === 'conhecimento' && <ConhecimentoPage />}
         {currentRoute === 'participar' && <ParticiparPage />}
         {currentRoute === 'cop' && <CopPage />}
-        {currentRoute === 'ambicao' && (
-          <ErrorBoundary
-            fallback={
-              <div style={{ padding: '40px', textAlign: 'center', color: '#666' }}>
-                <h2>Erro ao carregar Ambição 2030</h2>
-                <p>O componente falhou ao renderizar.</p>
-              </div>
-            }
-          >
-            <AmbicaoPage navigate={navigate} />
-          </ErrorBoundary>
-        )}
+        {currentRoute === 'ambicao' && <AmbicaoPage navigate={navigate} />}
+        {currentRoute === 'movimento' && <MovimentoPage slug={routeParam} navigate={navigate} />}
       </main>
 
       <Footer />
