@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
 
-export const NEWS_DATA = [
+const NEWS_DATA = [
   {
     id: 1,
     image: 'https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=1965&auto=format&fit=crop',

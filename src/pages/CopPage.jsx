@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown, Calendar, ArrowRight, BarChart3, Target, ShieldCheck, Users, TrendingUp, FileText, BookOpen, Building2, Search, AlertTriangle, MessageCircle, FileDown, UploadCloud, Edit3, Globe, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { Button } from '../components/ui/Button';
@@ -84,6 +84,76 @@ const CopFaqItem = ({ question, answer, isOpen, onClick }) => (
 
 
 
+
+// Carrossel do dashboard da CoP — componente próprio (antes era um IIFE com
+// hooks dentro do JSX, o que viola as rules-of-hooks do React).
+const COP_DASH_IMAGES = [
+  { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-1.png`, alt: 'Dashboard CoP - Visão Geral' },
+  { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-2.png`, alt: 'Dashboard CoP - Indicadores' },
+  { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-3.png`, alt: 'Dashboard CoP - Comparativos' },
+];
+
+const CopDashboardCarousel = () => {
+  const [dashSlide, setDashSlide] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setDashSlide((p) => (p + 1) % COP_DASH_IMAGES.length), 4000);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-un-blue/10 border-4 border-white bg-white w-full max-w-[1200px]">
+      {/* Carousel */}
+      <div className="relative w-full overflow-hidden bg-un-surface grid">
+        {COP_DASH_IMAGES.map((img, idx) => (
+          <img
+            key={idx}
+            src={img.src}
+            alt={img.alt}
+            className={`w-full h-auto object-contain col-start-1 row-start-1 transition-opacity duration-1000 ease-in-out ${dashSlide === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+          />
+        ))}
+
+        {/* Gradient overlay for better dot visibility */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/20 to-transparent z-20 pointer-events-none"></div>
+
+        {/* Dots */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-30">
+          {COP_DASH_IMAGES.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setDashSlide(idx)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${dashSlide === idx ? 'bg-un-gold scale-125 shadow-md' : 'bg-white hover:bg-white/80'}`}
+              title={`Ver imagem ${idx + 1}`}
+              aria-label={`Mudar para o slide ${idx + 1}`}
+            />
+          ))}
+        </div>
+        {/* Arrows */}
+        <button onClick={() => setDashSlide((p) => (p - 1 + COP_DASH_IMAGES.length) % COP_DASH_IMAGES.length)} className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white transition-transform hover:scale-105 z-30 group" aria-label="Imagem anterior">
+          <ChevronLeft className="w-6 h-6 text-un-blue group-hover:-translate-x-0.5 transition-transform" />
+        </button>
+        <button onClick={() => setDashSlide((p) => (p + 1) % COP_DASH_IMAGES.length)} className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white transition-transform hover:scale-105 z-30 group" aria-label="Próxima imagem">
+          <ChevronRight className="w-6 h-6 text-un-blue group-hover:translate-x-0.5 transition-transform" />
+        </button>
+      </div>
+      {/* Explorar Dashboard CTA Bar */}
+      <a href="#" className="flex flex-col sm:flex-row items-center justify-between p-6 md:p-8 bg-white hover:bg-un-surface transition-colors group">
+        <div className="flex items-center gap-5">
+          <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-un-gold/20 flex items-center justify-center shrink-0">
+            <Target className="w-6 h-6 md:w-8 md:h-8 text-un-gold group-hover:scale-110 transition-transform" />
+          </div>
+          <div className="text-center sm:text-left">
+            <p className="text-[10px] md:text-sm text-[#4C6B8B] font-bold uppercase tracking-widest mb-1">Acesso Público Restrito</p>
+            <p className="text-xl md:text-2xl font-display font-black text-un-blue tracking-tight">Explorar Dashboard em Tela Cheia</p>
+          </div>
+        </div>
+        <div className="mt-4 sm:mt-0 w-12 h-12 rounded-full bg-un-blue/5 flex items-center justify-center group-hover:bg-un-blue transition-colors shrink-0">
+          <ArrowRight className="w-5 h-5 text-un-blue group-hover:text-white transition-colors" />
+        </div>
+      </a>
+    </div>
+  );
+};
 
 export const CopPage = () => {
   const [openFaq, setOpenFaq] = useState(null);
@@ -552,71 +622,7 @@ export const CopPage = () => {
       <section className="py-16 md:py-24 bg-un-surface border-t border-un-blue/5 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-white to-transparent opacity-50 h-32 z-0"></div>
         <div className="container mx-auto max-w-6xl px-4 md:px-8 lg:px-12 relative z-10 w-full flex justify-center">
-             {(() => {
-               const DASH_IMAGES = [
-                 { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-1.png`, alt: 'Dashboard CoP - Visão Geral' },
-                 { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-2.png`, alt: 'Dashboard CoP - Indicadores' },
-                 { src: `${import.meta.env.BASE_URL}cop-dashboard/dashboard-3.png`, alt: 'Dashboard CoP - Comparativos' },
-               ];
-               const [dashSlide, setDashSlide] = React.useState(0);
-               React.useEffect(() => {
-                 const t = setInterval(() => setDashSlide(p => (p + 1) % DASH_IMAGES.length), 4000);
-                 return () => clearInterval(t);
-               }, []);
-               return (
-               <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-un-blue/10 border-4 border-white bg-white w-full max-w-[1200px]">
-                 {/* Carousel */}
-                 <div className="relative w-full overflow-hidden bg-un-surface grid">
-                   {DASH_IMAGES.map((img, idx) => (
-                     <img
-                       key={idx}
-                       src={img.src}
-                       alt={img.alt}
-                       className={`w-full h-auto object-contain col-start-1 row-start-1 transition-opacity duration-1000 ease-in-out ${dashSlide === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-                     />
-                   ))}
-                   
-                   {/* Gradient overlay for better dot visibility */}
-                   <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/20 to-transparent z-20 pointer-events-none"></div>
-
-                   {/* Dots */}
-                   <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-30">
-                     {DASH_IMAGES.map((_, idx) => (
-                       <button
-                         key={idx}
-                         onClick={() => setDashSlide(idx)}
-                         className={`w-3 h-3 rounded-full transition-all duration-300 ${dashSlide === idx ? 'bg-un-gold scale-125 shadow-md' : 'bg-white hover:bg-white/80'}`}
-                         title={`Ver imagem ${idx + 1}`}
-                         aria-label={`Mudar para o slide ${idx + 1}`}
-                       />
-                     ))}
-                   </div>
-                   {/* Arrows */}
-                   <button onClick={() => setDashSlide(p => (p - 1 + DASH_IMAGES.length) % DASH_IMAGES.length)} className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white transition-transform hover:scale-105 z-30 group" aria-label="Imagem anterior">
-                     <ChevronLeft className="w-6 h-6 text-un-blue group-hover:-translate-x-0.5 transition-transform" />
-                   </button>
-                   <button onClick={() => setDashSlide(p => (p + 1) % DASH_IMAGES.length)} className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg hover:bg-white transition-transform hover:scale-105 z-30 group" aria-label="Próxima imagem">
-                     <ChevronRight className="w-6 h-6 text-un-blue group-hover:translate-x-0.5 transition-transform" />
-                   </button>
-                 </div>
-                 {/* Explorar Dashboard CTA Bar */}
-                 <a href="#" className="flex flex-col sm:flex-row items-center justify-between p-6 md:p-8 bg-white hover:bg-un-surface transition-colors group">
-                   <div className="flex items-center gap-5">
-                     <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-un-gold/20 flex items-center justify-center shrink-0">
-                       <Target className="w-6 h-6 md:w-8 md:h-8 text-un-gold group-hover:scale-110 transition-transform" />
-                     </div>
-                     <div className="text-center sm:text-left">
-                       <p className="text-[10px] md:text-sm text-[#4C6B8B] font-bold uppercase tracking-widest mb-1">Acesso Público Restrito</p>
-                       <p className="text-xl md:text-2xl font-display font-black text-un-blue tracking-tight">Explorar Dashboard em Tela Cheia</p>
-                     </div>
-                   </div>
-                   <div className="mt-4 sm:mt-0 w-12 h-12 rounded-full bg-un-blue/5 flex items-center justify-center group-hover:bg-un-blue transition-colors shrink-0">
-                     <ArrowRight className="w-5 h-5 text-un-blue group-hover:text-white transition-colors" />
-                   </div>
-                 </a>
-               </div>
-               );
-             })()}
+             <CopDashboardCarousel />
         </div>
       </section>
 

@@ -5,7 +5,9 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  // 'assets' e 'cop-dashboard' são artefatos de build antigos commitados na
+  // raiz (JS/CSS minificado) — não são código-fonte e não devem ser lintados.
+  globalIgnores(['dist', 'assets', 'cop-dashboard']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
