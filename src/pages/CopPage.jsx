@@ -659,7 +659,7 @@ export const CopPage = () => {
               category="Modelo" 
               title="Declaração do CEO" 
               image="https://images.unsplash.com/photo-1554774853-719586f82d77?q=80&w=2070&auto=format&fit=crop" 
-              color="bg-[#6E417A]" 
+              color="bg-un-purple" 
             />
             <Tile 
               size="small" 
@@ -673,7 +673,7 @@ export const CopPage = () => {
               category="Regras" 
               title="Política CoP 2025" 
               image="https://images.unsplash.com/photo-1450101499163-c8848c66cb85?q=80&w=2070&auto=format&fit=crop" 
-              color="bg-[#EC3740]" 
+              color="bg-un-red" 
             />
             <Tile 
               size="small" 

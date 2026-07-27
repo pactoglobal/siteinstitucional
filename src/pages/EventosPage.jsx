@@ -9,7 +9,7 @@ export const EventosPage = () => (
       title="Nossos Eventos"
       description="Participe dos principais fóruns e discussões que estão moldando o futuro dos negócios sustentáveis."
       image="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop"
-      color="bg-[#1E3250]"
+      color="bg-un-blue"
     />
     <div className="py-12 bg-gray-50">
        <EventsListSection />

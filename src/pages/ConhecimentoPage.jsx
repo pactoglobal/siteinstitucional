@@ -9,7 +9,7 @@ export const ConhecimentoPage = () => (
       title="Conhecimento"
       description="Acesse publicações, cursos, workshops e ferramentas para impulsionar a jornada ESG da sua empresa."
       image="https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1974&auto=format&fit=crop"
-      color="bg-[#6E417A]"
+      color="bg-un-purple"
     />
     <section className="py-20 bg-gray-50">
        <div className="container mx-auto px-4 md:px-8 lg:px-12">
