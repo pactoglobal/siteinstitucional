@@ -8,38 +8,54 @@
 // ============================================================
 
 export const AMBICAO_DEFINICAO =
- 'Gerar impacto positivo a partir de compromissos públicos de um grupo de empresas, por meio de ação coletiva e individual, para o alcance dos ODS.';
+ 'Gerar impacto positivo e mensurável a partir de compromissos públicos assumidos por organizações brasileiras em torno dos 18 Objetivos de Desenvolvimento Sustentável — por meio de ação coletiva e individual, na reta final rumo a 2030.';
 
 export const AMBICAO_INTRO =
  'Todas as empresas participantes do Pacto Global da ONU – Rede Brasil podem (e são encorajadas a) assinar os compromissos dos Movimentos da Ambição 2030. Após a assinatura da Carta de Compromisso ao(s) Movimento(s), existem duas modalidades de engajamento.';
 
 // ============================================================
-// NOVO: Seção "O que é Ambição 2030" - Origem e Propósito
+// Seção "O que é Ambição 2030" — Origem, Propósito e Resultados
+// Fatos e números verificados no Relatório Ambição 2030 — Ano 4
+// (fev.–abr. 2026, referente ao ano de 2025).
 // ============================================================
 
 export const AMBICAO_ORIGEM = {
  title: "Como Surgiu",
- description: 
- "A Ambição 2030 nasceu da necessidade de traduzir os Objetivos de Desenvolvimento Sustentável em ação empresarial concreta. Lançada em 2021 pelo Pacto Global da ONU – Rede Brasil, a iniciativa une empresas em torno de 10 causas urgentes, cada uma com metas mensuráveis até 2030.",
+ description:
+ "Lançada em abril de 2022 pelo Pacto Global da ONU – Rede Brasil, a Ambição 2030 nasceu da Década da Ação da ONU — o chamado do Secretário-Geral António Guterres para acelerar o cumprimento da Agenda 2030. A iniciativa convida organizações de todo o país a assumirem compromissos públicos e mensuráveis em torno de 10 causas urgentes, hoje referência nacional em mobilização empresarial para o desenvolvimento sustentável.",
  timeline: [
  { year: "2015", event: "ONU estabelece os 17 ODS como agenda global" },
- { year: "2019", event: "Pacto Global Brasil identifica necessidade de tradução local" },
- { year: "2021", event: "Lançamento oficial da Ambição 2030 com 10 Movimentos" },
- { year: "2024", event: "+1.900 empresas participantes em todo o Brasil" },
- { year: "2030", event: "Meta: Impacto transformador em escala nacional" }
+ { year: "2020", event: "Guterres convoca a Década da Ação da ONU" },
+ { year: "2022", event: "Lançamento oficial da Ambição 2030, em abril" },
+ { year: "2023", event: "Brasil adota o ODS 18 — Igualdade Étnico-Racial" },
+ { year: "2025", event: "389 organizações comprometidas — o ano do amadurecimento" },
+ { year: "2030", event: "Horizonte final da Agenda 2030" },
  ]
 };
 
 export const AMBICAO_PROPOSITO = {
  title: "Nosso Propósito",
- description: 
- "Mobilizar o setor empresarial brasileiro para atuar de forma coletiva e individual na implementação da Agenda 2030, gerando impacto positivo mensurável em pessoas, planeta e prosperidade.",
+ description:
+ "Conectar sustentabilidade à gestão, à governança e à tomada de decisão das organizações brasileiras. Não são agendas isoladas, mas uma lógica integrada de transformação: dez Movimentos temáticos, compromissos mensuráveis e uma só ação coletiva rumo a 2030.",
  pillars: [
  { title: "Ação Coletiva", desc: "Empresas unidas por causas comuns" },
  { title: "Metas Claras", desc: "Compromissos públicos e mensuráveis" },
  { title: "Impacto Nacional", desc: "Transformação em escala Brasil" },
  { title: "Horizonte 2030", desc: "Alinhado com os ODS globais" }
  ]
+};
+
+// Resultados acumulados até dez/2025 — Relatório Ambição 2030, Ano 4.
+export const AMBICAO_RESULTADOS = {
+ title: "Resultados até 2025",
+ period: "Relatório Ambição 2030 — Ano 4",
+ stats: [
+ { value: '389', label: 'Organizações comprometidas' },
+ { value: '751', label: 'Cartas Compromisso assinadas' },
+ { value: '+2 mil', label: 'Compromissos públicos assumidos' },
+ { value: '+2 mi', label: 'Pessoas trabalhadoras impactadas' },
+ ],
+ nota: 'Recomendação média de 9,1 (escala de 0 a 10) entre as organizações participantes.',
 };
 
 // --- Modalidades de engajamento ---

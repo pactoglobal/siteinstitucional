@@ -8,6 +8,7 @@ import {
  AMBICAO_INTRO,
  AMBICAO_ORIGEM,
  AMBICAO_PROPOSITO,
+ AMBICAO_RESULTADOS,
  MODALIDADES,
  ESTRUTURA_MOVIMENTOS,
  MOVIMENTOS,
@@ -258,24 +259,27 @@ export const AmbicaoPage = ({ navigate }) => (
  </div>
  </BentoCard>
 
- {/* Card 2: Stats (4 colunas) */}
+ {/* Card 2: Resultados reais até 2025 (4 colunas) */}
  <BentoCard delay={150} className="lg:col-span-4">
- <div className="bg-white rounded-3xl p-8 md:p-10 h-full border border-gray-100 shadow-sm">
+ <div className="bg-white rounded-3xl p-8 md:p-10 h-full border border-gray-100 shadow-sm flex flex-col">
  <span className="block text-gray-500 text-[9px] font-bold uppercase tracking-widest mb-6">
- Em números
+ {AMBICAO_RESULTADOS.title}
  </span>
- <div className="space-y-6">
- {STATS.map((s) => (
+ <div className="grid grid-cols-2 gap-x-4 gap-y-6">
+ {AMBICAO_RESULTADOS.stats.map((s) => (
  <div key={s.label}>
- <span className="block font-display font-black text-4xl md:text-5xl text-un-blue leading-none">
+ <span className="block font-display font-black text-3xl md:text-4xl text-un-blue leading-none">
  {s.value}
  </span>
- <span className="block text-gray-500 text-xs uppercase tracking-widest mt-2">
+ <span className="block text-gray-500 text-[10px] uppercase tracking-wide mt-2 leading-snug">
  {s.label}
  </span>
  </div>
  ))}
  </div>
+ <p className="text-gray-400 text-[10px] leading-relaxed font-light mt-6 pt-6 border-t border-gray-100">
+ {AMBICAO_RESULTADOS.nota} · {AMBICAO_RESULTADOS.period}
+ </p>
  </div>
  </BentoCard>
 
