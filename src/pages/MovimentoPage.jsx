@@ -133,11 +133,11 @@ export const MovimentoPage = ({ slug, navigate }) => {
           </div>
 
           <div className="flex flex-wrap items-center gap-5 mb-6">
-            <div className="inline-flex bg-white rounded-xl px-4 py-2.5 shadow-lg">
+            <div className="inline-flex items-center justify-center bg-white rounded-xl px-5 py-3 shadow-lg h-14 md:h-16 w-52 md:w-64">
               <img
                 src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
                 alt={mov.name}
-                className="h-7 md:h-8 w-auto object-contain"
+                className="w-full h-full object-contain"
               />
             </div>
           </div>
@@ -367,18 +367,24 @@ export const MovimentoPage = ({ slug, navigate }) => {
             <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest text-center mb-6">
               Outros Movimentos
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-5">
               {outros.map((m) => (
                 <button
                   key={m.id}
                   onClick={() => navigate('movimento', m.id)}
-                  className="group flex items-center justify-center bg-white hover:shadow-xl rounded-2xl px-5 py-6 transition-all duration-300 hover:-translate-y-1"
+                  className="group relative flex items-center justify-center bg-white hover:shadow-xl rounded-2xl h-28 md:h-32 p-4 transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-pointer"
                 >
-                  <img
-                    src={`${import.meta.env.BASE_URL}movimentos/${m.id}.png`}
-                    alt={m.name}
-                    className="max-h-9 max-w-full w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                  <div
+                    className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 group-hover:h-2"
+                    style={{ backgroundColor: m.color }}
                   />
+                  <div className="w-full h-full flex items-center justify-center">
+                    <img
+                      src={`${import.meta.env.BASE_URL}movimentos/${m.id}.png`}
+                      alt={m.name}
+                      className="max-h-12 md:max-h-14 max-w-[85%] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
                 </button>
               ))}
             </div>

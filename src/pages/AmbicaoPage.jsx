@@ -64,62 +64,45 @@ const BentoCard = ({ children, className = '', delay = 0 }) => (
  </Reveal>
 );
 
-const MovementCard = ({ movement, index, navigate, isFeatured = false }) => (
- <button
- onClick={() => navigate('movimento', movement.id)}
- className={`group relative w-full h-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 ${
- isFeatured ? 'lg:col-span-2' : ''
- }`}
- >
- {isFeatured ? (
- <>
- <div
- className="absolute inset-0 transition-all duration-500"
- style={{
- background: `linear-gradient(135deg, ${movement.color} 0%, ${movement.color}cc 100%)`
- }}
- />
- <div className="relative z-10 p-8 md:p-10 h-full flex flex-col justify-between text-left">
- <div>
- <span className="inline-block text-white/80 text-[9px] font-bold uppercase tracking-widest mb-4">
- Movimento {String(index + 1).padStart(2, '0')}
- </span>
- <h3 className="font-display font-black text-2xl md:text-3xl text-white uppercase tracking-tight mb-4">
- {movement.shortName}
- </h3>
- </div>
- <div className="flex items-end justify-between">
- <p className="text-white/90 text-sm md:text-base leading-relaxed font-light max-w-[70%]">
- {movement.ambicao}
- </p>
- <span className="self-end shrink-0 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white group-hover:bg-white group-hover:text-un-blue transition-all duration-300 group-hover:scale-110 group-hover:rotate-45">
- <ArrowUpRight className="w-5 h-5" />
- </span>
- </div>
- </div>
- </>
- ) : (
- <>
- <div className="absolute inset-0 bg-gradient-to-br from-un-surface to-white border border-gray-100" />
- <div className="relative z-10 p-8 h-full flex flex-col justify-between text-left">
- <div>
- <span className="inline-block text-un-blue text-[9px] font-bold uppercase tracking-widest mb-4">
- Movimento {String(index + 1).padStart(2, '0')}
- </span>
- <h3 className="font-display font-black text-xl md:text-2xl text-gray-900 uppercase tracking-tight mb-4">
- {movement.shortName}
- </h3>
- </div>
- <div className="flex items-end justify-between">
- <div className="w-10 h-10 rounded-xl" style={{ backgroundColor: movement.color }} />
- <span className="self-end shrink-0 w-10 h-10 rounded-full bg-un-blue/5 flex items-center justify-center text-un-blue group-hover:bg-un-blue group-hover:text-white transition-all duration-300 group-hover:scale-110">
- <ArrowUpRight className="w-4 h-4" />
- </span>
- </div>
- </div>
- </>
- )}
- </button>
+const MovementCard = ({ movement, index, navigate }) => (
+  <button
+    onClick={() => navigate('movimento', movement.id)}
+    className="group relative flex flex-col justify-between w-full h-56 bg-white rounded-3xl p-6 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1.5 overflow-hidden text-left"
+  >
+    {/* Barra de cor superior */}
+    <div
+      className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 group-hover:h-2"
+      style={{ backgroundColor: movement.color }}
+    />
+
+    <div className="flex items-center justify-between w-full mb-2">
+      <span className="inline-block text-un-blue text-[9px] font-bold uppercase tracking-widest">
+        Movimento {String(index + 1).padStart(2, '0')}
+      </span>
+      <span className="text-[10px] font-bold px-2 py-0.5 rounded text-white" style={{ backgroundColor: movement.color }}>
+        ODS {movement.ods?.join(', ')}
+      </span>
+    </div>
+
+    {/* Conteúdo centralizado do Logo */}
+    <div className="flex-1 flex items-center justify-center py-2 px-2 w-full">
+      <img
+        src={`${import.meta.env.BASE_URL}movimentos/${movement.id}.png`}
+        alt={movement.name}
+        className="max-h-14 md:max-h-16 max-w-[90%] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+      />
+    </div>
+
+    {/* Footer do card com indicador de seta */}
+    <div className="flex items-center justify-between w-full pt-3 border-t border-gray-100">
+      <span className="text-gray-600 text-xs font-medium group-hover:text-un-blue transition-colors truncate max-w-[80%]">
+        Ver compromissos
+      </span>
+      <span className="shrink-0 w-8 h-8 rounded-full bg-un-blue/5 flex items-center justify-center text-un-blue group-hover:bg-un-blue group-hover:text-white transition-all duration-300 group-hover:scale-110">
+        <ArrowUpRight className="w-4 h-4" />
+      </span>
+    </div>
+  </button>
 );
 
 export const AmbicaoPage = ({ navigate }) => (
@@ -400,30 +383,17 @@ export const AmbicaoPage = ({ navigate }) => (
  description="Cada Movimento mobiliza empresas em torno de uma causa urgente, com compromissos concretos a serem alcançados até 2030."
  />
 
- {/* Bento Grid Layout para Movimentos */}
- <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
- {/* Movimentos 0, 3, 6 - Destacados (coloridos) */}
- {[0, 3, 6].map((index) => (
- <MovementCard
- key={MOVIMENTOS[index].id}
- movement={MOVIMENTOS[index]}
- index={index}
- navigate={navigate}
- isFeatured
- />
- ))}
- 
- {/* Movimentos 1, 2, 4, 5, 7, 8, 9 - Normais (brancos) */}
- {[1, 2, 4, 5, 7, 8, 9].map((index) => (
- <MovementCard
- key={MOVIMENTOS[index].id}
- movement={MOVIMENTOS[index]}
- index={index}
- navigate={navigate}
- isFeatured={false}
- />
- ))}
- </div>
+        {/* Grid Layout Uniforme para os 10 Movimentos */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 lg:gap-6">
+          {MOVIMENTOS.map((movement, index) => (
+            <MovementCard
+              key={movement.id}
+              movement={movement}
+              index={index}
+              navigate={navigate}
+            />
+          ))}
+        </div>
 
  {/* Link para ver todos */}
  <div className="text-center mt-12">
