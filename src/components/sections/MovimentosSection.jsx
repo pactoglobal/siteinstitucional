@@ -4,13 +4,6 @@ import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
 import { MOVIMENTOS } from '../../data/ambicao2030';
 
-// Apenas o layout (span do bento) é local — cor, id e nome vêm de ambicao2030.js,
-// a fonte única de dados dos Movimentos (evita divergência entre seções).
-const SPAN_BY_ID = {
-  'conexao-circular': 2,
-  transparencia: 2,
-};
-
 export const MovimentosSection = ({ navigate }) => (
   <section className="py-16 md:py-24 bg-un-blue">
     <div className="container mx-auto px-4 md:px-8 lg:px-12">
@@ -32,20 +25,16 @@ export const MovimentosSection = ({ navigate }) => (
         }
       />
 
-      <div
-        className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
-        style={{ gridAutoRows: '140px' }}
-      >
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
         {MOVIMENTOS.map((mov) => (
           <button
             key={mov.id}
             onClick={() => navigate && navigate('movimento', mov.id)}
-            className="group relative flex items-center justify-center bg-white rounded-2xl overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-un-gold"
-            style={{ gridColumn: `span ${SPAN_BY_ID[mov.id] ?? 1}` }}
+            className="group relative flex items-center justify-center h-28 md:h-32 bg-white rounded-2xl overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-un-gold hover:-translate-y-1"
           >
             {/* Top color bar */}
             <div
-              className="absolute top-0 left-0 right-0 h-1 transition-all duration-300 group-hover:h-1.5"
+              className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 group-hover:h-2"
               style={{ backgroundColor: mov.color }}
             />
 
@@ -55,12 +44,14 @@ export const MovimentosSection = ({ navigate }) => (
               style={{ backgroundColor: mov.color }}
             />
 
-            {/* Logo */}
-            <img
-              src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
-              alt={mov.name}
-              className="relative z-10 w-[80%] h-[55%] object-contain transition-transform duration-300 group-hover:scale-[1.04]"
-            />
+            {/* Logo com proporção uniforme */}
+            <div className="relative z-10 w-full h-full flex items-center justify-center px-4 py-3">
+              <img
+                src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
+                alt={mov.name}
+                className="max-h-12 md:max-h-14 max-w-[85%] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
           </button>
         ))}
       </div>

@@ -157,25 +157,25 @@ export const MOVIMENTOS = [
  ],
  nota: null,
  },
- {
- id: 'impacto-amazonia',
- name: 'Movimento Impacto Amazônia',
- shortName: 'Impacto Amazônia',
- color: '#1A6B3C',
- ods: [15],
- image:
- 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1600&auto=format&fit=crop',
- ambicao:
- 'Engajar o setor empresarial brasileiro no enfrentamento ao desmatamento na Amazônia, por meio de ações individuais, setoriais e intersetoriais que promovam o uso responsável do solo e a preservação da floresta viva.',
- // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
- subtitulo: null,
- coordenacao: null,
- compromissos: [
- 'Garantir que a operação da organização e seus produtos não contribuam com desmatamento.',
- 'Desenvolver ao menos um projeto até 2030 que colabore com a manutenção da floresta viva no território da Amazônia Legal.',
- ],
- nota: null,
- },
+  {
+    id: 'impacto-biomas',
+    name: 'Movimento Impacto Biomas',
+    shortName: 'Impacto Biomas',
+    color: '#1A6B3C',
+    ods: [15],
+    image:
+      'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1600&auto=format&fit=crop',
+    ambicao:
+      'Engajar o setor empresarial brasileiro na conservação e restauração dos biomas brasileiros, por meio de ações que promovam o uso responsável do solo, desmatamento zero e a preservação da biodiversidade.',
+    // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+    subtitulo: null,
+    coordenacao: null,
+    compromissos: [
+      'Garantir que a operação da organização e sua cadeia de valor não contribuam para o desmatamento ou degradação dos biomas.',
+      'Desenvolver projetos estratégicos até 2030 para a conservação e restauração florestal dos biomas brasileiros.',
+    ],
+    nota: null,
+  },
  {
  id: 'transparencia',
  name: 'Movimento Transparência 100%',

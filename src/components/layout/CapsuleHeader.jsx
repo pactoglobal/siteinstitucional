@@ -43,12 +43,19 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute }) => {
           {/* Pílula Central (Menu Rápido) */}
           <div className="hidden lg:flex w-1/2 xl:w-2/4 justify-center">
             <nav className="flex items-center gap-4 xl:gap-6 bg-un-blue/60 backdrop-blur-md rounded-full px-6 xl:px-8 py-2.5 border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
-              {/* Link Simples */}
+              {/* Links Simples */}
               <button 
                 onClick={() => onRouteChange && onRouteChange('sobre')} 
                 className={`text-white hover:text-un-gold text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap ${currentRoute === 'sobre' ? 'text-un-gold' : ''}`}
               >
                 Sobre Nós
+              </button>
+              
+              <button 
+                onClick={() => onRouteChange && onRouteChange('ambicao')} 
+                className={`text-white hover:text-un-gold text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap ${currentRoute === 'ambicao' ? 'text-un-gold' : ''}`}
+              >
+                Ambição 2030
               </button>
               
               {/* Dropdown Programas */}
