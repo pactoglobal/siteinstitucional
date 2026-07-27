@@ -162,14 +162,17 @@ export const MOVIMENTOS = [
  image:
  'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1600&auto=format&fit=crop',
  ambicao:
- 'Engajar o setor empresarial brasileiro para individualmente estabelecer metas baseadas na ciência e coletivamente chegar a uma redução de 2 Gt de CO₂e em emissões acumuladas.',
+ // Meta coletiva atualizada em 2025 (Relatório Ambição 2030 — Ano 4):
+ // alinhada ao Plano Clima e à NDC brasileira, em vez da redução
+ // acumulada de 2 Gt CO₂e anunciada no lançamento do Movimento.
+ 'Engajar o setor empresarial brasileiro na ambição coletiva de contribuir para limitar as emissões líquidas nacionais de gases de efeito estufa em 2030 a 1,2 Gt CO₂e, alinhado ao Plano Clima e à meta climática nacional (NDC brasileira).',
  // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
  subtitulo: null,
  coordenacao: null,
  compromissos: [
- 'Reduzir emissões de GEE de forma alinhada aos critérios da Science Based Targets (SBTi) ou formalizar o compromisso com a SBTi (metas de curto e/ou longo prazos).',
- 'Publicar anualmente inventário de emissões de gases de efeito estufa (GEE).',
- 'Trabalhar com o setor empresarial brasileiro para coletivamente chegar a uma redução de emissões de 2 Gt de CO₂e.',
+ 'Publicar anualmente o inventário de emissões de gases de efeito estufa (GEE) dos Escopos 1, 2 e 3 (recomenda-se validação por terceira parte).',
+ 'Reduzir as emissões de GEE de forma compatível com a ciência climática (recomenda-se utilizar como referência os critérios da Science Based Targets initiative – SBTi) ou formalizar o compromisso com a SBTi, com metas de curto e/ou longo prazo (Net Zero).',
+ 'Conduzir a transição para uma economia de baixo carbono de forma justa e inclusiva, garantindo que os esforços de descarbonização considerem os impactos sociais, promovam a equidade e a criação de oportunidades para pessoas trabalhadoras e comunidades impactadas.',
  ],
  nota: null,
  },
@@ -230,25 +233,30 @@ export const MOVIMENTOS = [
  compromissos: [
  '30% dos cargos de alta liderança ocupados por mulheres até 2025.',
  '50% dos cargos de alta liderança ocupados por mulheres até 2030.',
+ '50% dos cargos de liderança (a partir de coordenação) ocupados por mulheres até 2030, sendo ao menos 25% do total ocupado por mulheres de grupos historicamente sub-representados: negras, indígenas, quilombolas, com deficiência, LGBTQIAP+ (incluindo mulheres trans e travestis) e/ou em situação de refúgio.*',
  ],
- nota: null,
+ nota:
+ '*Compromisso adicional, lançado para o ciclo 2026 — aberto às empresas que optarem por ampliar sua meta com um recorte interseccional.',
  },
  {
  id: 'raca-prioridade',
  name: 'Movimento Raça é Prioridade',
  shortName: 'Raça é Prioridade',
  color: '#D81B7E',
- ods: [10],
+ // Inicialmente alinhado só ao ODS 10; desde 2025 (Relatório Ambição
+ // 2030 — Ano 4) o Movimento também está alinhado ao ODS 18.
+ ods: [10, 18],
  image:
  'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1600&auto=format&fit=crop',
  ambicao:
- 'Mais empresas comprometidas em ter mais pessoas negras* em posição de liderança até 2030.',
+ 'Mais empresas comprometidas em ter mais pessoas negras* em posição de liderança e diversidade étnico-racial na cadeia de fornecimento até 2030.',
  // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
  subtitulo: null,
  coordenacao: null,
  compromissos: [
  '30% de pessoas negras* em posição de liderança até 2025.',
  '50% de pessoas negras* em posição de liderança até 2030.',
+ 'Implementar diversidade étnico-racial* em toda a cadeia de fornecimento: mapeamento de fornecedores liderados por pessoas negras e indígenas, atualização das políticas de compras, ampliação da divulgação de oportunidades e monitoramento de indicadores.',
  ],
  nota:
  '*Negras, indígenas, quilombolas ou pertencentes a outro grupo étnico socialmente vulnerável.',
