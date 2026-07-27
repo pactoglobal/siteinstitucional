@@ -101,11 +101,21 @@ export const MovimentoPage = ({ slug, navigate }) => {
 
   return (
     <div className="animate-fade-in">
-      {/* Hero na cor do Movimento */}
+      {/* Hero do Movimento: imagem em destaque + cor do Movimento.
+          ⚠ mov.image ainda é placeholder (Unsplash) — trocar pelas fotos
+          oficiais de cada Movimento em public/images/movimentos/. */}
       <section className="relative pt-28 pb-14 md:pt-36 md:pb-20 overflow-hidden" style={{ backgroundColor: mov.color }}>
         <div className="absolute inset-0 z-0">
-          <img src={mov.image} alt="" className="w-full h-full object-cover opacity-20" />
-          <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${mov.color}cc, ${mov.color})` }} />
+          <img src={mov.image} alt="" aria-hidden="true" className="w-full h-full object-cover" />
+          {/* Vinheta na cor do Movimento: forte à esquerda (texto), leve à direita (imagem) */}
+          <div
+            className="absolute inset-0"
+            style={{ background: `linear-gradient(100deg, ${mov.color} 0%, ${mov.color}e6 42%, ${mov.color}73 100%)` }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: `linear-gradient(to top, ${mov.color} 0%, transparent 45%)` }}
+          />
         </div>
         <div className="absolute inset-0 text-white/[0.06] z-0">
           <DotGrid className="w-full h-full" />
@@ -142,13 +152,27 @@ export const MovimentoPage = ({ slug, navigate }) => {
             </div>
           </div>
 
-          <h1 className="font-display font-black uppercase tracking-tight text-white leading-[0.95] text-4xl md:text-6xl lg:text-7xl mb-6 max-w-4xl">
+          {/* Título */}
+          <h1 className="font-display font-black uppercase tracking-tight text-white leading-[0.95] text-4xl md:text-6xl lg:text-7xl mb-5 max-w-4xl">
             {mov.shortName}
           </h1>
 
+          {/* Subtítulo — usa o campo dedicado quando houver; senão, a ambição */}
           <p className="text-white/90 text-lg md:text-2xl font-light leading-relaxed max-w-3xl">
-            {mov.ambicao}
+            {mov.subtitulo || mov.ambicao}
           </p>
+
+          {/* Coordenação da plataforma — só renderiza com dado real */}
+          {mov.coordenacao && (
+            <div className="mt-9 pt-7 border-t border-white/20 max-w-3xl">
+              <span className="block text-white/60 text-[10px] font-bold uppercase tracking-[0.25em] mb-2">
+                Coordenação
+              </span>
+              <p className="text-white text-sm md:text-base font-medium leading-relaxed">
+                {mov.coordenacao}
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

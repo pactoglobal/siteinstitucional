@@ -105,6 +105,9 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1538300342682-cf57afb97285?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Impactar a vida de mais de 100 milhões de pessoas, alcançando a universalização do saneamento e a segurança hídrica no país.',
+ // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ subtitulo: null,
+ coordenacao: null,
  compromissos: [
  'Contribuir para que 99% da população brasileira tenha acesso a água potável.*',
  'Contribuir para que 90% da população brasileira tenha esgoto coletado e tratado.*',
@@ -124,6 +127,9 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Assegurar padrões de produção e de consumo sustentáveis, que busquem o uso eficiente de recursos naturais, reduzam o desperdício e minimizem o descarte de resíduos, contribuindo para a redução efetiva de todas as formas de poluição.',
+ // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ subtitulo: null,
+ coordenacao: null,
  compromissos: [
  'Diminuir a geração e/ou valorizar resíduos sólidos no percentual mínimo de 40% até 2030.*',
  'Implementar 3 premissas de circularidade no modelo de negócio da organização até 2030.',
@@ -141,6 +147,9 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Engajar o setor empresarial brasileiro para individualmente estabelecer metas baseadas na ciência e coletivamente chegar a uma redução de 2 Gt de CO₂e em emissões acumuladas.',
+ // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ subtitulo: null,
+ coordenacao: null,
  compromissos: [
  'Reduzir emissões de GEE de forma alinhada aos critérios da Science Based Targets (SBTi) ou formalizar o compromisso com a SBTi (metas de curto e/ou longo prazos).',
  'Publicar anualmente inventário de emissões de gases de efeito estufa (GEE).',
@@ -158,6 +167,9 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Engajar o setor empresarial brasileiro no enfrentamento ao desmatamento na Amazônia, por meio de ações individuais, setoriais e intersetoriais que promovam o uso responsável do solo e a preservação da floresta viva.',
+ // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ subtitulo: null,
+ coordenacao: null,
  compromissos: [
  'Garantir que a operação da organização e seus produtos não contribuam com desmatamento.',
  'Desenvolver ao menos um projeto até 2030 que colabore com a manutenção da floresta viva no território da Amazônia Legal.',
@@ -174,6 +186,9 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Desenvolver instituições eficazes, responsáveis e transparentes em todos os níveis.',
+ // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ subtitulo: null,
+ coordenacao: null,
  compromissos: [
  '100% de transparência nas interações com a administração pública.',
  '100% de integridade na remuneração da alta administração.',
@@ -193,6 +208,9 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Mais empresas comprometidas com o Elas Lideram 2030 e mais mulheres em posição de alta liderança.',
+ // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ subtitulo: null,
+ coordenacao: null,
  compromissos: [
  '30% dos cargos de alta liderança ocupados por mulheres até 2025.',
  '50% dos cargos de alta liderança ocupados por mulheres até 2030.',
@@ -209,6 +227,9 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Mais empresas comprometidas em ter mais pessoas negras* em posição de liderança até 2030.',
+ // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ subtitulo: null,
+ coordenacao: null,
  compromissos: [
  '30% de pessoas negras* em posição de liderança até 2025.',
  '50% de pessoas negras* em posição de liderança até 2030.',
@@ -226,6 +247,9 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  '1.000 empresas com programas estruturantes de saúde mental com impacto positivo em 10 milhões de pessoas trabalhadoras.',
+ // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ subtitulo: null,
+ coordenacao: null,
  compromissos: [
  'Ter um profissional de referência para aconselhamento e atendimento.',
  'Oferecer orientação e manejo de crises.',
@@ -246,6 +270,9 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Garantir 100% de salário digno para pessoas trabalhadoras próprias, contratadas e/ou terceirizadas, e engajar toda a cadeia de suprimentos para desenvolver metas de salário digno.',
+ // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ subtitulo: null,
+ coordenacao: null,
  compromissos: [
  '100% de pessoas trabalhadoras em toda operação da organização com salário digno até 2030.',
  '100% de pessoas trabalhadoras contratadas e/ou terceirizadas com salário digno até 2030.',
@@ -263,6 +290,9 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Promover o avanço da educação para o trabalho, diversa e alinhada à Agenda 2030 e de Direitos Humanos.',
+ // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ subtitulo: null,
+ coordenacao: null,
  compromissos: [
  'Elevar a escolaridade de pessoas trabalhadoras da organização, sobretudo entre grupos mais vulneráveis, como negros, mulheres e pessoas com deficiência, considerando operação e terceiros.',
  'Promover a inclusão produtiva de jovens de 14 a 29 anos, com foco no Jovem Aprendiz, e formação para o desenvolvimento sustentável.',

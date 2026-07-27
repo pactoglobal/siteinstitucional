@@ -14,12 +14,12 @@ import {
 } from '../data/ambicao2030';
 import { ODS_COLORS, ODS_NAMES } from '../data/constants';
 
-// Anel de ODS (conic-gradient) — evoca a roda dos Objetivos
-const odsRing = `conic-gradient(${ODS_COLORS.map((c, i) => {
- const start = (i / ODS_COLORS.length) * 360;
- const end = ((i + 1) / ODS_COLORS.length) * 360;
- return `${c} ${start}deg ${end}deg`;
-}).join(', ')})`;
+// ⚠ PLACEHOLDER — imagem de fundo do hero da Ambição 2030.
+// Substituir pela imagem institucional oficial da RBPG (ex.: foto do
+// Fórum Ambição 2030). Ao trocar por um arquivo local, mover para
+// public/images/ e usar `${import.meta.env.BASE_URL}images/<arquivo>`.
+const AMBICAO_HERO_IMAGE =
+ 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2400&auto=format&fit=crop';
 
 // Camada de textura: malha de pontos sutil
 const DotGrid = ({ className = '' }) => (
@@ -129,45 +129,40 @@ export const AmbicaoPage = ({ navigate }) => (
  <div className="animate-fade-in">
  {/* ============ HERO EDITORIAL ============ */}
  <section className="relative bg-un-blue overflow-hidden pt-32 md:pt-40 pb-20 md:pb-28">
- {/* Glow difuso atrás da roda — profundidade atmosférica */}
+ {/* Imagem de fundo do hero.
+ ⚠ PLACEHOLDER: trocar por imagem institucional oficial da RBPG
+ (ver AMBICAO_HERO_IMAGE no topo do arquivo). */}
+ <img
+ src={AMBICAO_HERO_IMAGE}
+ alt=""
+ aria-hidden="true"
+ className="absolute inset-0 w-full h-full object-cover object-center"
+ />
+
+ {/* Vinheta: escurece à esquerda para o texto e preserva a imagem à direita */}
+ <div className="absolute inset-0 bg-gradient-to-r from-un-blue via-un-blue/90 to-un-blue/40" />
+ <div className="absolute inset-0 bg-gradient-to-t from-un-blue via-transparent to-un-blue/60" />
+
+ {/* Glow de acento — mantém a atmosfera da identidade */}
  <div
  className="absolute -right-20 md:-right-4 top-1/2 -translate-y-1/2 w-[460px] h-[460px] md:w-[720px] md:h-[720px] rounded-full blur-3xl animate-glow pointer-events-none"
- style={{ background: 'radial-gradient(circle, rgba(204,177,70,0.35), transparent 65%)' }}
+ style={{ background: 'radial-gradient(circle, rgba(204,177,70,0.28), transparent 65%)' }}
  />
 
- {/* Roda ODS sangrando pela borda direita */}
- <div className="absolute -right-24 md:-right-12 top-1/2 -translate-y-1/2 w-[440px] h-[440px] md:w-[680px] md:h-[680px] pointer-events-none animate-ring-in">
- {/* Anel externo fino */}
- <div
- className="absolute inset-0 rounded-full border border-white/10"
- style={{ transform: 'scale(1.08)' }}
- />
- <div
- className="w-full h-full rounded-full animate-spin-slow opacity-90"
- style={{
- background: odsRing,
- WebkitMaskImage:
- 'radial-gradient(circle, transparent 30%, black 31%, black 68%, transparent 69%)',
- maskImage:
- 'radial-gradient(circle, transparent 30%, black 31%, black 68%, transparent 69%)',
- }}
- />
- {/* Núcleo com selo "2030" */}
- <div className="absolute inset-0 flex items-center justify-center">
- <span className="font-display font-black text-white/10 text-6xl md:text-8xl tracking-tighter select-none">
- 2030
- </span>
- </div>
- </div>
-
- {/* Vinheta para legibilidade do texto à esquerda */}
- <div className="absolute inset-0 bg-gradient-to-r from-un-blue via-un-blue/95 to-transparent" />
  <div className="absolute inset-0 text-white/[0.05]">
  <DotGrid className="w-full h-full" />
  </div>
  {/* Grão sutil + fade inferior para a próxima seção */}
  <div className="absolute inset-0 grain-overlay opacity-[0.04] mix-blend-overlay pointer-events-none" />
  <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-un-blue to-transparent pointer-events-none" />
+
+ {/* Espectro ODS como filete no rodapé do hero — mantém a referência
+ aos Objetivos sem a roda dominando a composição. */}
+ <div className="absolute bottom-0 inset-x-0 h-1.5 flex z-10">
+ {ODS_COLORS.map((c, i) => (
+ <span key={i} className="flex-1" style={{ backgroundColor: c }} />
+ ))}
+ </div>
 
  <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
  <div className="max-w-3xl">
