@@ -12,7 +12,7 @@ import {
  ESTRUTURA_MOVIMENTOS,
  MOVIMENTOS,
 } from '../data/ambicao2030';
-import { ODS_COLORS } from '../data/constants';
+import { ODS_COLORS, ODS_NAMES } from '../data/constants';
 
 // Anel de ODS (conic-gradient) — evoca a roda dos Objetivos
 const odsRing = `conic-gradient(${ODS_COLORS.map((c, i) => {
@@ -47,9 +47,12 @@ const Reveal = ({ children, delay = 0, className = '' }) => {
  );
 };
 
+// 18 ODS: os 17 da ONU (2015) + o ODS 18 (Igualdade Étnico-Racial),
+// adotado voluntariamente pelo Brasil e anunciado na Assembleia Geral
+// da ONU em 2023. A contagem espelha ODS_COLORS/ODS_NAMES.
 const STATS = [
  { value: '10', label: 'Movimentos' },
- { value: '17', label: 'ODS conectados' },
+ { value: String(ODS_COLORS.length), label: 'ODS conectados' },
  { value: '2030', label: 'Horizonte' },
 ];
 
@@ -388,8 +391,91 @@ export const AmbicaoPage = ({ navigate }) => (
  </div>
  </section>
 
+ {/* ============ OS 18 ODS ============ */}
+ <section id="ods" className="py-20 md:py-28 bg-white scroll-mt-24">
+ <div className="container mx-auto px-4 md:px-8 lg:px-12">
+ <SectionHeader
+ barColor="bg-un-green"
+ badge="Agenda 2030"
+ title="Os 18"
+ titleAccent="Objetivos"
+ description="Os 17 Objetivos de Desenvolvimento Sustentável aprovados pela ONU em 2015, somados ao ODS 18 — Igualdade Étnico-Racial, adotado voluntariamente pelo Brasil."
+ />
+
+ {/* A grade inteira revela como uma unidade — 18 observers para tiles
+ pequenos seria custoso e o pop-in individual fica ruidoso. */}
+ <Reveal>
+ <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2.5 md:gap-3 list-none p-0 m-0">
+ {ODS_NAMES.map((name, i) => {
+ const num = i + 1;
+ return (
+ <li
+ key={num}
+ className="relative aspect-square rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+ >
+ <img
+ src={`${import.meta.env.BASE_URL}ods/ods-${num}.jpg`}
+ alt={`ODS ${num} — ${name}`}
+ loading="lazy"
+ width="160"
+ height="160"
+ className="w-full h-full object-cover"
+ />
+ {num === 18 && (
+ <span
+ className="absolute inset-0 rounded-xl pointer-events-none"
+ style={{ boxShadow: `inset 0 0 0 2px ${ODS_COLORS[17]}` }}
+ aria-hidden="true"
+ />
+ )}
+ </li>
+ );
+ })}
+ </ul>
+ </Reveal>
+
+ {/* Destaque: ODS 18 */}
+ <Reveal delay={120}>
+ <div className="mt-6 md:mt-8 relative overflow-hidden rounded-3xl bg-un-surface border border-gray-100 p-7 md:p-9">
+ <span
+ className="absolute top-0 left-0 bottom-0 w-1.5"
+ style={{ backgroundColor: ODS_COLORS[17] }}
+ aria-hidden="true"
+ />
+ <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-9 pl-2">
+ <img
+ src={`${import.meta.env.BASE_URL}ods/ods-18.jpg`}
+ alt="ODS 18 — Igualdade Étnico Racial"
+ loading="lazy"
+ width="112"
+ height="112"
+ className="w-24 h-24 md:w-28 md:h-28 rounded-2xl object-cover shrink-0 shadow-md"
+ />
+ <div>
+ <span
+ className="inline-block text-[10px] font-bold uppercase tracking-[0.25em] mb-3"
+ style={{ color: ODS_COLORS[17] }}
+ >
+ Contribuição brasileira
+ </span>
+ <h3 className="font-display font-black text-xl md:text-2xl text-gray-900 uppercase tracking-tight mb-3">
+ ODS 18 — Igualdade Étnico-Racial
+ </h3>
+ <p className="text-gray-600 text-sm md:text-base leading-relaxed font-light max-w-3xl">
+ Além dos 17 Objetivos globais, o Brasil adotou voluntariamente um 18º ODS,
+ dedicado ao enfrentamento do racismo estrutural e das desigualdades que atingem
+ sobretudo a população negra e os povos indígenas. É por isso que, na Rede Brasil,
+ a Agenda 2030 é acompanhada a partir de 18 Objetivos.
+ </p>
+ </div>
+ </div>
+ </div>
+ </Reveal>
+ </div>
+ </section>
+
  {/* ============ MOVIMENTOS — BENTO GRID ============ */}
- <section id="movimentos" className="py-20 md:py-28 bg-white">
+ <section id="movimentos" className="py-20 md:py-28 bg-un-surface">
  <div className="container mx-auto px-4 md:px-8 lg:px-12">
  <SectionHeader
  inverted={false}
@@ -435,7 +521,7 @@ export const AmbicaoPage = ({ navigate }) => (
  </section>
 
  {/* ============ MODALIDADES DE ENGAJAMENTO ============ */}
- <section className="py-20 md:py-28 bg-un-surface">
+ <section className="py-20 md:py-28 bg-white">
  <div className="container mx-auto px-4 md:px-8 lg:px-12">
  <SectionHeader
  barColor="bg-un-green"
@@ -494,7 +580,7 @@ export const AmbicaoPage = ({ navigate }) => (
  </section>
 
  {/* ============ ESTRUTURA DOS MOVIMENTOS — FLUXO NUMERADO ============ */}
- <section className="py-20 md:py-28 bg-white">
+ <section className="py-20 md:py-28 bg-un-surface">
  <div className="container mx-auto px-4 md:px-8 lg:px-12">
  <SectionHeader
  barColor="bg-un-blue"
@@ -524,7 +610,7 @@ export const AmbicaoPage = ({ navigate }) => (
  </section>
 
  {/* ============ CTA ============ */}
- <section className="py-20 md:py-28 bg-un-surface">
+ <section className="py-20 md:py-28 bg-white">
  <div className="container mx-auto px-4 md:px-8 lg:px-12">
  <BentoCard>
  <div className="relative bg-un-blue rounded-[2.5rem] p-10 md:p-20 overflow-hidden shadow-2xl">
