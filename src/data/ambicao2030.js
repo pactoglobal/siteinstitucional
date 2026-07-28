@@ -81,6 +81,41 @@ export const MODALIDADES = [
  },
 ];
 
+// --- Formas de engajamento (além das duas modalidades de empresa) ---
+// Espelha o que está publicado nas páginas dos Movimentos em produção.
+export const FORMAS_ENGAJAMENTO = [
+ {
+ id: 'governos',
+ title: 'Governos',
+ description:
+ 'Organizações do poder executivo, legislativo e judiciário, agências reguladoras, ministério público e demais instituições governamentais podem aderir ao Movimento por meio de Termo de Apoio Institucional, apoiando a implementação das ações.',
+ },
+ {
+ id: 'apoiadoras',
+ title: 'Organizações Apoiadoras',
+ description:
+ 'Organizações do terceiro setor, fundações, associações de classe, autarquias e demais instituições não empresariais podem aderir assumindo o compromisso, por apoio institucional ou cooperação técnica.',
+ },
+];
+
+// --- Monitoramento dos compromissos ---
+export const MONITORAMENTO = {
+ title: 'Monitoramento',
+ description:
+ 'O acompanhamento dos compromissos assumidos acontece por dois processos do Pacto Global da ONU – Rede Brasil:',
+ processos: [
+ {
+ title: 'Observatório 2030',
+ description: 'Acompanhamento por meio de dados públicos e relatórios de sustentabilidade.',
+ },
+ {
+ title: 'Formulário anual autodeclaratório',
+ description:
+ 'Preenchido pelas organizações comprometidas, com os indicadores de cada compromisso assumido.',
+ },
+ ],
+};
+
 // --- Estrutura dos Movimentos (5 pilares) ---
 export const ESTRUTURA_MOVIMENTOS = [
  {
@@ -128,9 +163,19 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1538300342682-cf57afb97285?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Impactar a vida de mais de 100 milhões de pessoas, alcançando a universalização do saneamento e a segurança hídrica no país.',
- // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
+ numeros: { comprometidas: 71, respondentes: 57, recomendacao: '8,7' },
+ // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
+ // renderiza na página quando preenchido.
  subtitulo: null,
  coordenacao: null,
+ videoId: null,          // ID do YouTube do vídeo teaser
+ pilares: [],            // eixos de atuação próprios do Movimento
+ comiteConsultivo: [],   // [{ nome, org }]
+ comiteExecutivo: [],    // [{ nome }]
+ embaixadoras: [],       // [{ nome }]
+ parceirasEstrategicas: [], // [{ nome }]
+ recursos: [],           // [{ titulo, url }]
  compromissos: [
  'Contribuir para que 99% da população brasileira tenha acesso a água potável.*',
  'Contribuir para que 90% da população brasileira tenha esgoto coletado e tratado.*',
@@ -150,9 +195,19 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Assegurar padrões de produção e de consumo sustentáveis, que busquem o uso eficiente de recursos naturais, reduzam o desperdício e minimizem o descarte de resíduos, contribuindo para a redução efetiva de todas as formas de poluição.',
- // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
+ numeros: { comprometidas: 74, respondentes: 59, recomendacao: '8,8' },
+ // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
+ // renderiza na página quando preenchido.
  subtitulo: null,
  coordenacao: null,
+ videoId: null,          // ID do YouTube do vídeo teaser
+ pilares: [],            // eixos de atuação próprios do Movimento
+ comiteConsultivo: [],   // [{ nome, org }]
+ comiteExecutivo: [],    // [{ nome }]
+ embaixadoras: [],       // [{ nome }]
+ parceirasEstrategicas: [], // [{ nome }]
+ recursos: [],           // [{ titulo, url }]
  compromissos: [
  'Diminuir a geração e/ou valorizar resíduos sólidos no percentual mínimo de 40% até 2030.*',
  'Implementar 3 premissas de circularidade no modelo de negócio da organização até 2030.',
@@ -173,9 +228,19 @@ export const MOVIMENTOS = [
  // alinhada ao Plano Clima e à NDC brasileira, em vez da redução
  // acumulada de 2 Gt CO₂e anunciada no lançamento do Movimento.
  'Engajar o setor empresarial brasileiro na ambição coletiva de contribuir para limitar as emissões líquidas nacionais de gases de efeito estufa em 2030 a 1,2 Gt CO₂e, alinhado ao Plano Clima e à meta climática nacional (NDC brasileira).',
- // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
+ numeros: { comprometidas: 129, respondentes: 100, recomendacao: '9,0' },
+ // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
+ // renderiza na página quando preenchido.
  subtitulo: null,
  coordenacao: null,
+ videoId: null,          // ID do YouTube do vídeo teaser
+ pilares: [],            // eixos de atuação próprios do Movimento
+ comiteConsultivo: [],   // [{ nome, org }]
+ comiteExecutivo: [],    // [{ nome }]
+ embaixadoras: [],       // [{ nome }]
+ parceirasEstrategicas: [], // [{ nome }]
+ recursos: [],           // [{ titulo, url }]
  compromissos: [
  'Publicar anualmente o inventário de emissões de gases de efeito estufa (GEE) dos Escopos 1, 2 e 3 (recomenda-se validação por terceira parte).',
  'Reduzir as emissões de GEE de forma compatível com a ciência climática (recomenda-se utilizar como referência os critérios da Science Based Targets initiative – SBTi) ou formalizar o compromisso com a SBTi, com metas de curto e/ou longo prazo (Net Zero).',
@@ -193,9 +258,19 @@ export const MOVIMENTOS = [
       'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1600&auto=format&fit=crop',
     ambicao:
       'Engajar o setor empresarial brasileiro na conservação e restauração dos biomas brasileiros, por meio de ações que promovam o uso responsável do solo, desmatamento zero e a preservação da biodiversidade.',
-    // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+    // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
+    numeros: { comprometidas: 15, respondentes: 12, recomendacao: '8,5' },
+    // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
+    // renderiza na página quando preenchido.
     subtitulo: null,
     coordenacao: null,
+    videoId: null,          // ID do YouTube do vídeo teaser
+    pilares: [],            // eixos de atuação próprios do Movimento
+    comiteConsultivo: [],   // [{ nome, org }]
+    comiteExecutivo: [],    // [{ nome }]
+    embaixadoras: [],       // [{ nome }]
+    parceirasEstrategicas: [], // [{ nome }]
+    recursos: [],           // [{ titulo, url }]
     compromissos: [
       'Garantir que a operação da organização e sua cadeia de valor não contribuam para o desmatamento ou degradação dos biomas.',
       'Desenvolver projetos estratégicos até 2030 para a conservação e restauração florestal dos biomas brasileiros.',
@@ -212,9 +287,19 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Desenvolver instituições eficazes, responsáveis e transparentes em todos os níveis.',
- // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
+ numeros: { comprometidas: 81, respondentes: 71, recomendacao: '9,1' },
+ // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
+ // renderiza na página quando preenchido.
  subtitulo: null,
  coordenacao: null,
+ videoId: null,          // ID do YouTube do vídeo teaser
+ pilares: [],            // eixos de atuação próprios do Movimento
+ comiteConsultivo: [],   // [{ nome, org }]
+ comiteExecutivo: [],    // [{ nome }]
+ embaixadoras: [],       // [{ nome }]
+ parceirasEstrategicas: [], // [{ nome }]
+ recursos: [],           // [{ titulo, url }]
  compromissos: [
  '100% de transparência nas interações com a administração pública.',
  '100% de integridade na remuneração da alta administração.',
@@ -234,9 +319,19 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Mais empresas comprometidas com o Elas Lideram 2030 e mais mulheres em posição de alta liderança.',
- // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
+ numeros: { comprometidas: 145, respondentes: 88, recomendacao: '9,5' },
+ // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
+ // renderiza na página quando preenchido.
  subtitulo: null,
  coordenacao: null,
+ videoId: null,          // ID do YouTube do vídeo teaser
+ pilares: [],            // eixos de atuação próprios do Movimento
+ comiteConsultivo: [],   // [{ nome, org }]
+ comiteExecutivo: [],    // [{ nome }]
+ embaixadoras: [],       // [{ nome }]
+ parceirasEstrategicas: [], // [{ nome }]
+ recursos: [],           // [{ titulo, url }]
  compromissos: [
  '30% dos cargos de alta liderança ocupados por mulheres até 2025.',
  '50% dos cargos de alta liderança ocupados por mulheres até 2030.',
@@ -257,9 +352,19 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Mais empresas comprometidas em ter mais pessoas negras* em posição de liderança e diversidade étnico-racial na cadeia de fornecimento até 2030.',
- // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
+ numeros: { comprometidas: 56, respondentes: 37, recomendacao: '9,5' },
+ // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
+ // renderiza na página quando preenchido.
  subtitulo: null,
  coordenacao: null,
+ videoId: null,          // ID do YouTube do vídeo teaser
+ pilares: [],            // eixos de atuação próprios do Movimento
+ comiteConsultivo: [],   // [{ nome, org }]
+ comiteExecutivo: [],    // [{ nome }]
+ embaixadoras: [],       // [{ nome }]
+ parceirasEstrategicas: [], // [{ nome }]
+ recursos: [],           // [{ titulo, url }]
  compromissos: [
  '30% de pessoas negras* em posição de liderança até 2025.',
  '50% de pessoas negras* em posição de liderança até 2030.',
@@ -278,9 +383,19 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  '1.000 empresas com programas estruturantes de saúde mental com impacto positivo em 10 milhões de pessoas trabalhadoras.',
- // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
+ numeros: { comprometidas: 119, respondentes: 77, recomendacao: '9,1' },
+ // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
+ // renderiza na página quando preenchido.
  subtitulo: null,
  coordenacao: null,
+ videoId: null,          // ID do YouTube do vídeo teaser
+ pilares: [],            // eixos de atuação próprios do Movimento
+ comiteConsultivo: [],   // [{ nome, org }]
+ comiteExecutivo: [],    // [{ nome }]
+ embaixadoras: [],       // [{ nome }]
+ parceirasEstrategicas: [], // [{ nome }]
+ recursos: [],           // [{ titulo, url }]
  compromissos: [
  'Ter um profissional de referência para aconselhamento e atendimento.',
  'Oferecer orientação e manejo de crises.',
@@ -301,9 +416,19 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Garantir 100% de salário digno para pessoas trabalhadoras próprias, contratadas e/ou terceirizadas, e engajar toda a cadeia de suprimentos para desenvolver metas de salário digno.',
- // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
+ numeros: { comprometidas: 36, respondentes: 28, recomendacao: '8,9' },
+ // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
+ // renderiza na página quando preenchido.
  subtitulo: null,
  coordenacao: null,
+ videoId: null,          // ID do YouTube do vídeo teaser
+ pilares: [],            // eixos de atuação próprios do Movimento
+ comiteConsultivo: [],   // [{ nome, org }]
+ comiteExecutivo: [],    // [{ nome }]
+ embaixadoras: [],       // [{ nome }]
+ parceirasEstrategicas: [], // [{ nome }]
+ recursos: [],           // [{ titulo, url }]
  compromissos: [
  '100% de pessoas trabalhadoras em toda operação da organização com salário digno até 2030.',
  '100% de pessoas trabalhadoras contratadas e/ou terceirizadas com salário digno até 2030.',
@@ -321,9 +446,19 @@ export const MOVIMENTOS = [
  'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1600&auto=format&fit=crop',
  ambicao:
  'Promover o avanço da educação para o trabalho, diversa e alinhada à Agenda 2030 e de Direitos Humanos.',
- // ⚠ PENDENTE: preencher com dado real da RBPG (não inventar).
+ // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
+ numeros: { comprometidas: 25, respondentes: 24, recomendacao: '9,5' },
+ // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
+ // renderiza na página quando preenchido.
  subtitulo: null,
  coordenacao: null,
+ videoId: null,          // ID do YouTube do vídeo teaser
+ pilares: [],            // eixos de atuação próprios do Movimento
+ comiteConsultivo: [],   // [{ nome, org }]
+ comiteExecutivo: [],    // [{ nome }]
+ embaixadoras: [],       // [{ nome }]
+ parceirasEstrategicas: [], // [{ nome }]
+ recursos: [],           // [{ titulo, url }]
  compromissos: [
  'Elevar a escolaridade de pessoas trabalhadoras da organização, sobretudo entre grupos mais vulneráveis, como negros, mulheres e pessoas com deficiência, considerando operação e terceiros.',
  'Promover a inclusão produtiva de jovens de 14 a 29 anos, com foco no Jovem Aprendiz, e formação para o desenvolvimento sustentável.',

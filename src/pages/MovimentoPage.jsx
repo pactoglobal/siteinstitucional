@@ -1,11 +1,20 @@
-import React from 'react';
-import { ArrowLeft, ArrowRight, Check, Target, Sparkles, Compass } from 'lucide-react';
+import React, { useMemo } from 'react';
+import { ArrowLeft, ArrowRight, Check, Target } from 'lucide-react';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
 import { useReveal } from '../hooks/useReveal';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { cn } from '../utils/cn';
-import { getMovimento, MOVIMENTOS, MODALIDADES, ESTRUTURA_MOVIMENTOS } from '../data/ambicao2030';
+import { getMovimento, MOVIMENTOS, ESTRUTURA_MOVIMENTOS } from '../data/ambicao2030';
+import {
+  MovimentoNumeros,
+  MovimentoVideo,
+  MovimentoPilares,
+  MovimentoGovernanca,
+  MovimentoRede,
+  MovimentoRecursos,
+  MovimentoEngajamento,
+} from '../components/sections/MovimentoSections';
 import { ODS_COLORS, ODS_NAMES } from '../data/constants';
 
 // Spans do bento de "Como funciona" — ESTRUTURA_MOVIMENTOS tem sempre
@@ -45,19 +54,25 @@ const Reveal = ({ children, delay = 0, className = '' }) => {
   );
 };
 
-// Seções ancoradas pela sub-navegação sticky. Definidas fora do componente
-// para manter identidade estável (useScrollSpy depende disso).
-const SUBNAV_SECTIONS = [
-  { id: 'oque-e', label: 'O que é' },
-  { id: 'compromissos', label: 'Compromissos' },
-  { id: 'como-funciona', label: 'Como funciona' },
-  { id: 'engajamento', label: 'Participação' },
-  { id: 'aderir', label: 'Aderir' },
+// Seções possíveis da sub-navegação, na ordem da página. `when` decide se a
+// âncora aparece — blocos sem dado (governança, pilares) não são listados.
+const SUBNAV_ALL = [
+  { id: 'oque-e', label: 'O que é', when: () => true },
+  { id: 'compromissos', label: 'Compromissos', when: () => true },
+  { id: 'numeros', label: 'Números', when: (m) => !!m.numeros?.comprometidas },
+  { id: 'pilares', label: 'Pilares', when: (m) => !!m.pilares?.length },
+  { id: 'como-funciona', label: 'Como funciona', when: () => true },
+  {
+    id: 'governanca',
+    label: 'Governança',
+    when: (m) => !!(m.comiteConsultivo?.length || m.comiteExecutivo?.length),
+  },
+  { id: 'engajamento', label: 'Participação', when: () => true },
+  { id: 'aderir', label: 'Aderir', when: () => true },
 ];
-const SUBNAV_IDS = SUBNAV_SECTIONS.map((s) => s.id);
 
-const MovimentoSubNav = ({ color }) => {
-  const activeId = useScrollSpy(SUBNAV_IDS);
+const MovimentoSubNav = ({ color, sections, ids }) => {
+  const activeId = useScrollSpy(ids);
 
   const handleClick = (e, id) => {
     e.preventDefault();
@@ -73,7 +88,7 @@ const MovimentoSubNav = ({ color }) => {
       className="sticky top-14 md:top-[70px] z-30 bg-white/90 backdrop-blur-md border-b border-gray-100"
     >
       <div className="container mx-auto px-4 md:px-8 lg:px-12 flex items-center gap-1 md:gap-2 py-2.5 overflow-x-auto">
-        {SUBNAV_SECTIONS.map((s) => (
+        {sections.map((s) => (
           <a
             key={s.id}
             href={`#${s.id}`}
@@ -95,6 +110,13 @@ const MovimentoSubNav = ({ color }) => {
 
 export const MovimentoPage = ({ slug, navigate }) => {
   const mov = getMovimento(slug);
+  // Memoizado: useScrollSpy observa a identidade do array de ids.
+  const sections = useMemo(
+    () => (mov ? SUBNAV_ALL.filter((s) => s.when(mov)) : []),
+    [mov],
+  );
+  const sectionIds = useMemo(() => sections.map((s) => s.id), [sections]);
+
   if (!mov) return <NotFound navigate={navigate} />;
 
   const outros = MOVIMENTOS.filter((m) => m.id !== mov.id).slice(0, 4);
@@ -176,10 +198,10 @@ export const MovimentoPage = ({ slug, navigate }) => {
         </div>
       </section>
 
-      <MovimentoSubNav color={mov.color} />
+      <MovimentoSubNav color={mov.color} sections={sections} ids={sectionIds} />
 
       {/* A Ambição */}
-      <section id="oque-e" className="py-16 md:py-24 bg-white scroll-mt-24">
+      <section id="oque-e" className="py-20 md:py-28 bg-white scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <div className="grid lg:grid-cols-3 gap-10 lg:gap-16">
             <div className="lg:col-span-1">
@@ -219,7 +241,7 @@ export const MovimentoPage = ({ slug, navigate }) => {
       </section>
 
       {/* Compromissos */}
-      <section id="compromissos" className="py-16 md:py-24 bg-un-surface scroll-mt-24">
+      <section id="compromissos" className="py-20 md:py-28 bg-white border-t border-gray-100 scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <SectionHeader
             barColor="bg-un-blue"
@@ -236,7 +258,7 @@ export const MovimentoPage = ({ slug, navigate }) => {
                   <div
                     className={cn(
                       'group relative flex gap-4 h-full rounded-3xl p-6 md:p-8 overflow-hidden transition-all duration-300',
-                      featured ? 'text-white' : 'bg-white border border-gray-100 hover:shadow-lg',
+                      featured ? 'text-white' : 'bg-un-surface hover:shadow-md',
                     )}
                     style={featured ? { background: `linear-gradient(135deg, ${mov.color}, ${mov.color}cc)` } : undefined}
                   >
@@ -271,9 +293,16 @@ export const MovimentoPage = ({ slug, navigate }) => {
         </div>
       </section>
 
+      {/* Números reais do ciclo 2025 + monitoramento */}
+      <MovimentoNumeros mov={mov} />
+
+      {/* Vídeo teaser e pilares próprios — condicionais */}
+      <MovimentoVideo mov={mov} />
+      <MovimentoPilares mov={mov} />
+
       {/* Como funciona — estrutura compartilhada por todos os Movimentos,
           na cor deste Movimento */}
-      <section id="como-funciona" className="py-16 md:py-24 bg-white scroll-mt-24">
+      <section id="como-funciona" className="py-20 md:py-28 bg-white border-t border-gray-100 scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <div className="flex items-center gap-3 mb-5">
             <div className="w-2 h-10 rounded-full" style={{ backgroundColor: mov.color }} />
@@ -294,7 +323,7 @@ export const MovimentoPage = ({ slug, navigate }) => {
                   <div
                     className={cn(
                       'group relative h-full rounded-3xl p-7 md:p-9 overflow-hidden transition-colors duration-300',
-                      lead ? 'text-white' : 'bg-un-surface border border-gray-100',
+                      lead ? 'text-white' : 'bg-un-surface',
                     )}
                     style={lead ? { background: `linear-gradient(135deg, ${mov.color}, ${mov.color}cc)` } : undefined}
                   >
@@ -319,54 +348,16 @@ export const MovimentoPage = ({ slug, navigate }) => {
         </div>
       </section>
 
-      {/* Modalidades de Engajamento */}
-      <section id="engajamento" className="py-16 md:py-24 bg-un-surface scroll-mt-24">
-        <div className="container mx-auto px-4 md:px-8 lg:px-12">
-          <SectionHeader
-            barColor="bg-un-green"
-            badge="Como participar"
-            title="Modalidades de"
-            titleAccent="Engajamento"
-          />
-          <div className="grid md:grid-cols-5 gap-5 md:gap-6">
-            {MODALIDADES.map((mod, i) => (
-              <Reveal key={mod.id} delay={i * 120} className={i === 0 ? 'md:col-span-2' : 'md:col-span-3'}>
-                <div
-                  className={cn(
-                    'group relative h-full rounded-3xl p-8 md:p-10 overflow-hidden transition-all duration-300 hover:-translate-y-1',
-                    i === 0 ? 'bg-white border border-gray-100 hover:shadow-xl' : 'text-white hover:shadow-2xl',
-                  )}
-                  style={i !== 0 ? { background: `linear-gradient(135deg, ${mov.color}, ${mov.color}cc)` } : undefined}
-                >
-                  {i !== 0 && <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />}
-                  <div
-                    className={cn(
-                      'relative w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110',
-                      i !== 0 && 'bg-white/15',
-                    )}
-                    style={i === 0 ? { backgroundColor: `${mov.color}14` } : undefined}
-                  >
-                    {i === 0 ? (
-                      <Sparkles className="w-5 h-5" style={{ color: mov.color }} />
-                    ) : (
-                      <Compass className="w-5 h-5 text-white" />
-                    )}
-                  </div>
-                  <h3 className={cn('relative font-display font-black text-2xl md:text-3xl tracking-tight mb-3', i === 0 ? 'text-gray-900' : 'text-white')}>
-                    {mod.title}
-                  </h3>
-                  <p className={cn('relative text-sm md:text-base leading-relaxed font-light', i === 0 ? 'text-gray-600' : 'text-white/85')}>
-                    {mod.description}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Blocos condicionais: só aparecem quando há dado real */}
+      <MovimentoGovernanca mov={mov} />
+      <MovimentoRede mov={mov} />
+      <MovimentoRecursos mov={mov} />
+
+      {/* Formas de engajamento (empresas + governos + OSCs) */}
+      <MovimentoEngajamento mov={mov} />
 
       {/* CTA + outros movimentos */}
-      <section id="aderir" className="py-16 md:py-24 scroll-mt-24" style={{ backgroundColor: mov.color }}>
+      <section id="aderir" className="py-20 md:py-28 scroll-mt-24" style={{ backgroundColor: mov.color }}>
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-4xl font-display font-black uppercase tracking-tight text-white leading-[1.2] mb-4">
