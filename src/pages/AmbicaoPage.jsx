@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, ArrowUpRight, Sparkles, Compass, Users, Target, Globe, Calendar } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Sparkles, Compass } from 'lucide-react';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
 import { useReveal } from '../hooks/useReveal';
@@ -9,6 +9,7 @@ import {
  AMBICAO_ORIGEM,
  AMBICAO_PROPOSITO,
  AMBICAO_RESULTADOS,
+ AMBICAO_CITACAO,
  MODALIDADES,
  ESTRUTURA_MOVIMENTOS,
  MOVIMENTOS,
@@ -56,10 +57,6 @@ const STATS = [
  { value: String(ODS_COLORS.length), label: 'ODS conectados' },
  { value: '2030', label: 'Horizonte' },
 ];
-
-// AMBICAO_PROPOSITO.pillars não carrega ícones (dado é framework-agnostic) —
-// mapeados aqui, na mesma ordem do conteúdo.
-const PROPOSITO_ICONS = [Users, Target, Globe, Calendar];
 
 // Componentes para Bento Grid
 const BentoCard = ({ children, className = '', delay = 0 }) => (
@@ -222,151 +219,185 @@ export const AmbicaoPage = ({ navigate }) => (
  </div>
  </section>
 
- {/* ============ 🆕 NOVO: O QUE É AMBIÇÃO 2030 ============ */}
- <section id="oque-e" className="py-20 md:py-28 bg-un-surface">
+ {/* ============ O QUE É A AMBIÇÃO 2030 ============ */}
+ <section id="oque-e" className="py-20 md:py-32 bg-un-surface scroll-mt-24">
  <div className="container mx-auto px-4 md:px-8 lg:px-12">
- {/* Header da seção */}
+
+ {/* Header editorial: título à esquerda, citação do Conselho à direita,
+ ambos assentados na mesma linha de base. Sem centralização. */}
  <Reveal>
- <div className="text-center mb-16">
- <span className="inline-block text-un-blue text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6">
- Origem e Propósito
+ <div className="grid lg:grid-cols-12 gap-8 lg:gap-6 items-end mb-14 md:mb-24">
+ <div className="lg:col-span-7">
+ <span className="flex items-center gap-3 text-un-blue-1 text-[10px] font-bold uppercase tracking-[0.3em] mb-6">
+ <span className="w-10 h-px bg-un-blue-1/50" /> Origem e Propósito
  </span>
- <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight leading-[1.1] text-gray-900 max-w-4xl mx-auto">
- O que é a <span className="text-un-blue-1">Ambição 2030</span>
+ <h2 className="font-display font-black uppercase tracking-tight text-gray-900 text-4xl md:text-6xl lg:text-[4.75rem] leading-[0.94]">
+ O que é a<br />
+ <span className="text-un-blue-1">Ambição 2030</span>
  </h2>
+ </div>
+ {/* Citação em serif (Lora) — contraponto tipográfico ao display */}
+ <figure className="lg:col-span-5 lg:pb-2 border-l-2 border-un-gold pl-6 md:pl-8">
+ <blockquote className="font-serif italic text-gray-800 text-xl md:text-2xl leading-snug">
+ “{AMBICAO_CITACAO.quote}”
+ </blockquote>
+ <figcaption className="mt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-gray-500">
+ {AMBICAO_CITACAO.author}
+ <span className="block mt-1 font-normal normal-case tracking-normal text-gray-400 text-xs">
+ {AMBICAO_CITACAO.role} · {AMBICAO_RESULTADOS.period}
+ </span>
+ </figcaption>
+ </figure>
  </div>
  </Reveal>
 
- {/* Bento Grid - Layout Assimétrico */}
- <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
- {/* Card 1: Definição (8 colunas) */}
- <BentoCard delay={100} className="lg:col-span-8">
- <div className="relative bg-un-blue rounded-3xl p-8 md:p-10 h-full overflow-hidden group">
- <div className="absolute inset-0 grain-overlay opacity-[0.04] mix-blend-overlay pointer-events-none" />
- <div className="absolute top-0 left-0 w-full h-1.5 flex">
- {ODS_COLORS.slice(0, 8).map((c, i) => (
+ {/* ---- Faixa 1: definição + resultado-herói ---- */}
+ <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 mb-5 lg:mb-6">
+ {/* Definição — peça dominante, tipografia grande */}
+ <BentoCard delay={100} className="lg:col-span-7">
+ <div className="relative bg-un-blue rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between">
+ <div className="absolute inset-0 text-white/[0.05]">
+ <DotGrid className="w-full h-full" />
+ </div>
+ <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />
+ <div className="absolute top-0 left-0 w-full h-1 flex">
+ {ODS_COLORS.map((c, i) => (
  <span key={i} className="flex-1" style={{ backgroundColor: c }} />
  ))}
  </div>
- <div className="relative z-10">
- <span className="inline-block bg-un-gold/10 text-un-gold text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-sm mb-6">
- Definição
- </span>
- <p className="text-white text-xl md:text-2xl lg:text-3xl leading-[1.4] font-light">
+ <p className="relative text-white text-2xl md:text-3xl lg:text-[2.15rem] leading-[1.3] font-light">
  {AMBICAO_DEFINICAO}
  </p>
- </div>
+ <span className="relative mt-10 pt-6 border-t border-white/15 text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em]">
+ Definição
+ </span>
  </div>
  </BentoCard>
 
- {/* Card 2: Resultados reais até 2025 (4 colunas) */}
- <BentoCard delay={150} className="lg:col-span-4">
- <div className="bg-white rounded-3xl p-8 md:p-10 h-full border border-gray-100 shadow-sm flex flex-col">
- <span className="block text-gray-500 text-[9px] font-bold uppercase tracking-widest mb-6">
+ {/* Resultados — um número herói, três de apoio */}
+ <BentoCard delay={180} className="lg:col-span-5">
+ <div className="bg-white rounded-[2rem] p-9 md:p-12 h-full flex flex-col">
+ <span className="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.25em] mb-8">
  {AMBICAO_RESULTADOS.title}
  </span>
- <div className="grid grid-cols-2 gap-x-4 gap-y-6">
- {AMBICAO_RESULTADOS.stats.map((s) => (
- <div key={s.label}>
- <span className="block font-display font-black text-3xl md:text-4xl text-un-blue leading-none">
+ {/* Métrica principal em escala editorial */}
+ <div>
+ <span className="block font-display font-black text-un-blue text-7xl md:text-8xl leading-[0.85] tabular-nums">
+ {AMBICAO_RESULTADOS.stats[0].value}
+ </span>
+ <span className="block text-gray-600 text-sm mt-3 font-medium">
+ {AMBICAO_RESULTADOS.stats[0].label}
+ </span>
+ </div>
+ {/* Apoio: réguas finas, sem caixas */}
+ <dl className="mt-8 divide-y divide-gray-100 border-t border-gray-100">
+ {AMBICAO_RESULTADOS.stats.slice(1).map((s) => (
+ <div key={s.label} className="flex items-baseline justify-between gap-4 py-3.5">
+ <dt className="text-gray-500 text-xs leading-snug">{s.label}</dt>
+ <dd className="font-display font-black text-un-blue text-2xl md:text-[1.7rem] leading-none tabular-nums shrink-0">
  {s.value}
- </span>
- <span className="block text-gray-500 text-[10px] uppercase tracking-wide mt-2 leading-snug">
- {s.label}
- </span>
+ </dd>
  </div>
  ))}
- </div>
- <p className="text-gray-400 text-[10px] leading-relaxed font-light mt-6 pt-6 border-t border-gray-100">
- {AMBICAO_RESULTADOS.nota} · {AMBICAO_RESULTADOS.period}
+ </dl>
+ <p className="text-gray-400 text-[11px] leading-relaxed font-light mt-auto pt-8">
+ {AMBICAO_RESULTADOS.nota}
  </p>
  </div>
  </BentoCard>
+ </div>
 
- {/* Card 3: Como Surgiu (4 colunas) */}
- <BentoCard delay={200} className="lg:col-span-4">
- <div className="bg-white rounded-3xl p-8 md:p-10 h-full border border-gray-100 shadow-sm">
- <span className="block text-un-blue text-[9px] font-bold uppercase tracking-widest mb-6">
- Como Surgiu
+ {/* ---- Faixa 2: origem + linha do tempo em largura total ----
+ Radius menor e régua dourada no topo: é uma faixa documental,
+ não um cartão — diferencia da forma das outras peças. A timeline
+ ocupa as 12 colunas para os 6 marcos caberem sem corte. */}
+ <BentoCard delay={240}>
+ <div className="bg-white rounded-xl border-t-2 border-un-gold p-9 md:p-12 mb-5 lg:mb-6">
+ {/* Origem — eyebrow à esquerda, texto à direita (split editorial) */}
+ <div className="grid lg:grid-cols-12 gap-4 lg:gap-12 pb-10 md:pb-14 border-b border-gray-100">
+ <span className="lg:col-span-4 block text-un-blue-1 text-[10px] font-bold uppercase tracking-[0.25em] lg:pt-1">
+ Como surgiu
  </span>
- <h3 className="font-display font-black text-xl md:text-2xl text-gray-900 mb-4 uppercase tracking-tight">
- {AMBICAO_ORIGEM.title}
- </h3>
- <p className="text-gray-600 text-sm leading-relaxed font-light">
+ <p className="lg:col-span-8 text-gray-600 text-sm md:text-base leading-relaxed font-light max-w-[65ch]">
  {AMBICAO_ORIGEM.description}
  </p>
  </div>
- </BentoCard>
 
- {/* Card 4: Timeline (8 colunas) */}
- <BentoCard delay={250} className="lg:col-span-8">
- <div className="relative bg-un-surface rounded-3xl p-8 md:p-10 h-full border border-gray-100 overflow-hidden">
- <span className="block text-un-gold text-[9px] font-bold uppercase tracking-widest mb-6">
- Linha do Tempo
+ {/* Linha do tempo — 6 marcos em largura total, régua contínua */}
+ <div className="pt-10 md:pt-14">
+ <span className="block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-8">
+ Linha do tempo
  </span>
- <div className="relative pl-6 border-l-2 border-gray-200">
- {AMBICAO_ORIGEM.timeline.map((item, i) => (
- <div key={item.year} className={`relative mb-6 ${i === 0 ? 'mt-0' : 'mt-8'}`}>
- <span className="absolute -left-6 w-3 h-3 rounded-full bg-un-blue border-2 border-white" />
- <span className="absolute -left-12 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+ <ol className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-5 gap-y-9 list-none m-0 p-0">
+ {/* régua contínua atrás dos marcos (só quando em uma única linha) */}
+ <span
+ aria-hidden="true"
+ className="hidden lg:block absolute left-0 right-0 top-[7px] h-px bg-gray-200"
+ />
+ {AMBICAO_ORIGEM.timeline.map((item, i) => {
+ const isLast = i === AMBICAO_ORIGEM.timeline.length - 1;
+ return (
+ <li key={item.year} className="relative">
+ <span
+ className="relative block w-[15px] h-[15px] rounded-full ring-4 ring-white mb-4"
+ style={{ backgroundColor: isLast ? '#CCB146' : '#1E3250' }}
+ />
+ <span className="block font-display font-black text-un-blue text-2xl md:text-[1.75rem] leading-none tabular-nums mb-2">
  {item.year}
  </span>
- <p className="text-gray-800 text-sm md:text-base font-medium">
+ <span className="block text-gray-500 text-[11px] md:text-xs leading-snug pr-2">
  {item.event}
- </p>
- </div>
- ))}
+ </span>
+ </li>
+ );
+ })}
+ </ol>
  </div>
  </div>
  </BentoCard>
 
- {/* Card 5: Propósito (8 colunas) */}
- <BentoCard delay={300} className="lg:col-span-8">
- <div className="relative bg-gradient-to-br from-un-blue to-un-footer rounded-3xl p-8 md:p-10 h-full overflow-hidden group">
+ {/* ---- Faixa 3: propósito + pilares ---- */}
+ <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
+ <BentoCard delay={300} className="lg:col-span-7">
+ <div className="relative bg-gradient-to-br from-un-blue to-un-footer rounded-[2rem] p-9 md:p-12 h-full overflow-hidden">
  <div className="absolute inset-0 text-white/[0.04]">
  <DotGrid className="w-full h-full" />
  </div>
- <div className="absolute inset-0 grain-overlay opacity-[0.04] mix-blend-overlay pointer-events-none" />
- <div className="relative z-10">
- <span className="inline-block bg-white/10 text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-sm mb-6">
- Nosso Propósito
- </span>
- <h3 className="font-display font-black text-2xl md:text-3xl text-white mb-6 uppercase tracking-tight">
+ <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />
+ <div className="relative">
+ <span className="block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-6">
  {AMBICAO_PROPOSITO.title}
- </h3>
- <p className="text-white/80 text-base md:text-lg leading-relaxed font-light">
+ </span>
+ <p className="text-white text-lg md:text-xl lg:text-[1.4rem] leading-[1.45] font-light">
  {AMBICAO_PROPOSITO.description}
  </p>
  </div>
  </div>
  </BentoCard>
 
- {/* Card 6: Pilares (4 colunas) */}
- <BentoCard delay={350} className="lg:col-span-4">
- <div className="bg-white rounded-3xl p-8 md:p-10 h-full border border-gray-100 shadow-sm">
- <span className="block text-un-gold text-[9px] font-bold uppercase tracking-widest mb-6">
- 4 Pilares
+ {/* Pilares — lista numerada com réguas, sem caixas de ícone */}
+ <BentoCard delay={360} className="lg:col-span-5">
+ <div className="bg-white rounded-[2rem] p-9 md:p-12 h-full">
+ <span className="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.25em] mb-7">
+ Quatro pilares
  </span>
- <div className="grid grid-cols-2 gap-4">
- {AMBICAO_PROPOSITO.pillars.map((pillar, i) => {
- const PillarIcon = PROPOSITO_ICONS[i];
- return (
- <div key={pillar.title} className="flex items-start gap-2">
- <div className="w-8 h-8 rounded-lg bg-un-blue/5 flex items-center justify-center shrink-0">
- {PillarIcon && <PillarIcon className="w-4 h-4 text-un-blue" />}
- </div>
+ <ol className="divide-y divide-gray-100 border-t border-gray-100 list-none m-0 p-0">
+ {AMBICAO_PROPOSITO.pillars.map((pillar, i) => (
+ <li key={pillar.title} className="flex gap-5 py-4">
+ <span className="font-display font-black text-lg text-un-gold leading-none tabular-nums pt-0.5 shrink-0">
+ {String(i + 1).padStart(2, '0')}
+ </span>
  <div>
- <p className="font-bold text-xs text-gray-900 uppercase tracking-tight">
+ <p className="font-bold text-sm text-gray-900 tracking-tight">
  {pillar.title}
  </p>
- <p className="text-[10px] text-gray-500 leading-relaxed font-light">
+ <p className="text-xs text-gray-500 leading-relaxed font-light mt-1">
  {pillar.desc}
  </p>
  </div>
- </div>
- );
- })}
- </div>
+ </li>
+ ))}
+ </ol>
  </div>
  </BentoCard>
  </div>

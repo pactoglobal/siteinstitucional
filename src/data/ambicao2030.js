@@ -45,6 +45,13 @@ export const AMBICAO_PROPOSITO = {
  ]
 };
 
+// Citação da Mensagem do Conselho — Relatório Ambição 2030, Ano 4.
+export const AMBICAO_CITACAO = {
+ quote: 'É a década da implementação.',
+ author: 'Rachel Maia',
+ role: 'Presidente do Conselho de Administração',
+};
+
 // Resultados acumulados até dez/2025 — Relatório Ambição 2030, Ano 4.
 export const AMBICAO_RESULTADOS = {
  title: "Resultados até 2025",
