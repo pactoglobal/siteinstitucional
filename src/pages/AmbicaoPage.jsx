@@ -49,6 +49,25 @@ const Reveal = ({ children, delay = 0, className = '' }) => {
  );
 };
 
+// Atmosfera por trás das peças de vidro: sem isto o blur não tem o que
+// refratar e o "vidro" vira apenas um retângulo translúcido.
+const GradientMesh = () => (
+ <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+ <div
+ className="absolute -top-32 -left-24 w-[46rem] h-[46rem] rounded-full blur-3xl opacity-[0.28]"
+ style={{ background: 'radial-gradient(circle, #4C6B8B, transparent 68%)' }}
+ />
+ <div
+ className="absolute top-1/3 -right-40 w-[40rem] h-[40rem] rounded-full blur-3xl opacity-[0.22]"
+ style={{ background: 'radial-gradient(circle, #CCB146, transparent 66%)' }}
+ />
+ <div
+ className="absolute -bottom-40 left-1/3 w-[38rem] h-[38rem] rounded-full blur-3xl opacity-[0.2]"
+ style={{ background: 'radial-gradient(circle, #297D6D, transparent 68%)' }}
+ />
+ </div>
+);
+
 // 18 ODS: os 17 da ONU (2015) + o ODS 18 (Igualdade Étnico-Racial),
 // adotado voluntariamente pelo Brasil e anunciado na Assembleia Geral
 // da ONU em 2023. A contagem espelha ODS_COLORS/ODS_NAMES.
@@ -135,7 +154,9 @@ export const AmbicaoPage = ({ navigate }) => (
  </div>
  {/* Grão sutil + fade inferior para a próxima seção */}
  <div className="absolute inset-0 grain-overlay opacity-[0.04] mix-blend-overlay pointer-events-none" />
- <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-un-blue to-transparent pointer-events-none" />
+ {/* Fade para o un-footer da seção seguinte, não para o un-blue do
+ próprio hero — as duas zonas escuras precisam emendar sem degrau. */}
+ <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-un-footer to-transparent pointer-events-none" />
 
  {/* Espectro ODS como filete no rodapé do hero — mantém a referência
  aos Objetivos sem a roda dominando a composição. */}
@@ -219,31 +240,42 @@ export const AmbicaoPage = ({ navigate }) => (
  </div>
  </section>
 
- {/* ============ O QUE É A AMBIÇÃO 2030 ============ */}
- <section id="oque-e" className="py-20 md:py-32 bg-un-surface scroll-mt-24">
- <div className="container mx-auto px-4 md:px-8 lg:px-12">
+ {/* ============ O QUE É A AMBIÇÃO 2030 ============
+ Continuação da zona escura do hero: é aqui que o vidro faz
+ sentido — há atmosfera atrás para refratar e o contraste do
+ texto sobre escuro fica seguro. */}
+ <section
+ id="oque-e"
+ className="relative py-20 md:py-32 bg-un-footer overflow-hidden scroll-mt-24"
+ >
+ <GradientMesh />
+ <div className="absolute inset-0 text-white/[0.04]">
+ <DotGrid className="w-full h-full" />
+ </div>
+ <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />
+ <div className="container mx-auto px-4 md:px-8 lg:px-12 relative">
 
  {/* Header editorial: título à esquerda, citação do Conselho à direita,
  ambos assentados na mesma linha de base. Sem centralização. */}
  <Reveal>
  <div className="grid lg:grid-cols-12 gap-8 lg:gap-6 items-end mb-14 md:mb-24">
  <div className="lg:col-span-7">
- <span className="flex items-center gap-3 text-un-blue-1 text-[10px] font-bold uppercase tracking-[0.3em] mb-6">
- <span className="w-10 h-px bg-un-blue-1/50" /> Origem e Propósito
+ <span className="flex items-center gap-3 text-un-gold text-[10px] font-bold uppercase tracking-[0.3em] mb-6">
+ <span className="w-10 h-px bg-un-gold/60" /> Origem e Propósito
  </span>
- <h2 className="font-display font-black uppercase tracking-tight text-gray-900 text-4xl md:text-6xl lg:text-[4.75rem] leading-[0.94]">
+ <h2 className="font-display font-black uppercase tracking-tight text-white text-4xl md:text-6xl lg:text-[4.75rem] leading-[0.94]">
  O que é a<br />
- <span className="text-un-blue-1">Ambição 2030</span>
+ <span className="text-un-blue-3">Ambição 2030</span>
  </h2>
  </div>
  {/* Citação em serif (Lora) — contraponto tipográfico ao display */}
  <figure className="lg:col-span-5 lg:pb-2 border-l-2 border-un-gold pl-6 md:pl-8">
- <blockquote className="font-serif italic text-gray-800 text-xl md:text-2xl leading-snug">
+ <blockquote className="font-serif italic text-white text-xl md:text-2xl leading-snug">
  “{AMBICAO_CITACAO.quote}”
  </blockquote>
- <figcaption className="mt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-gray-500">
+ <figcaption className="mt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-un-blue-3">
  {AMBICAO_CITACAO.author}
- <span className="block mt-1 font-normal normal-case tracking-normal text-gray-400 text-xs">
+ <span className="block mt-1 font-normal normal-case tracking-normal text-white/70 text-xs">
  {AMBICAO_CITACAO.role} · {AMBICAO_CITACAO.source}
  </span>
  </figcaption>
@@ -255,12 +287,9 @@ export const AmbicaoPage = ({ navigate }) => (
  <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 mb-5 lg:mb-6">
  {/* Definição — peça dominante, tipografia grande */}
  <BentoCard delay={100} className="lg:col-span-7">
- <div className="relative bg-un-blue rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between">
- <div className="absolute inset-0 text-white/[0.05]">
- <DotGrid className="w-full h-full" />
- </div>
- <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />
- <div className="absolute top-0 left-0 w-full h-1 flex">
+ {/* glass-near: plano da frente, mais opaco */}
+ <div className="glass-near rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between">
+ <div className="absolute top-0 left-0 w-full h-1 flex rounded-t-[2rem] overflow-hidden">
  {ODS_COLORS.map((c, i) => (
  <span key={i} className="flex-1" style={{ backgroundColor: c }} />
  ))}
@@ -276,35 +305,38 @@ export const AmbicaoPage = ({ navigate }) => (
 
  {/* Resultados — um número herói, três de apoio */}
  <BentoCard delay={180} className="lg:col-span-5">
- <div className="bg-white rounded-[2rem] p-9 md:p-12 h-full flex flex-col">
- <span className="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.25em] mb-1.5">
+ <div className="glass rounded-[2rem] p-9 md:p-12 h-full flex flex-col overflow-hidden">
+ <span className="relative block text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em] mb-1.5">
  {AMBICAO_RESULTADOS.title}
  </span>
  {/* Datação própria do bloco de números — não herdar a da citação */}
- <span className="block text-gray-400 text-[11px] font-light tracking-wide mb-8">
+ <span className="relative block text-white/60 text-[11px] font-light tracking-wide mb-8">
  {AMBICAO_RESULTADOS.period}
  </span>
- {/* Métrica principal em escala editorial */}
- <div>
- <span className="block font-display font-black text-un-blue text-7xl md:text-8xl leading-[0.85] tabular-nums">
+ {/* Métrica principal: ouro sobre vidro, com halo sutil */}
+ <div className="relative">
+ <span
+ className="block font-display font-black text-un-gold text-7xl md:text-8xl leading-[0.85] tabular-nums"
+ style={{ textShadow: '0 0 40px rgba(204,177,70,0.28)' }}
+ >
  {AMBICAO_RESULTADOS.stats[0].value}
  </span>
- <span className="block text-gray-600 text-sm mt-3 font-medium">
+ <span className="block text-white text-sm mt-3 font-medium">
  {AMBICAO_RESULTADOS.stats[0].label}
  </span>
  </div>
- {/* Apoio: réguas finas, sem caixas */}
- <dl className="mt-8 divide-y divide-gray-100 border-t border-gray-100">
+ {/* Apoio: réguas finas sobre vidro */}
+ <dl className="relative mt-8 divide-y divide-white/10 border-t border-white/10">
  {AMBICAO_RESULTADOS.stats.slice(1).map((s) => (
  <div key={s.label} className="flex items-baseline justify-between gap-4 py-3.5">
- <dt className="text-gray-500 text-xs leading-snug">{s.label}</dt>
- <dd className="font-display font-black text-un-blue text-2xl md:text-[1.7rem] leading-none tabular-nums shrink-0">
+ <dt className="text-un-blue-3 text-xs leading-snug">{s.label}</dt>
+ <dd className="font-display font-black text-white text-2xl md:text-[1.7rem] leading-none tabular-nums shrink-0">
  {s.value}
  </dd>
  </div>
  ))}
  </dl>
- <p className="text-gray-400 text-[11px] leading-relaxed font-light mt-auto pt-8">
+ <p className="relative text-white/60 text-[11px] leading-relaxed font-light mt-auto pt-8">
  {AMBICAO_RESULTADOS.nota}
  </p>
  </div>
@@ -316,19 +348,19 @@ export const AmbicaoPage = ({ navigate }) => (
  não um cartão — diferencia da forma das outras peças. A timeline
  ocupa as 12 colunas para os 6 marcos caberem sem corte. */}
  <BentoCard delay={240}>
- <div className="bg-white rounded-xl border-t-2 border-un-gold p-9 md:p-12 mb-5 lg:mb-6">
+ <div className="glass-far rounded-xl !border-t-2 !border-t-un-gold p-9 md:p-12 mb-5 lg:mb-6">
  {/* Origem — eyebrow à esquerda, texto à direita (split editorial) */}
- <div className="grid lg:grid-cols-12 gap-4 lg:gap-12 pb-10 md:pb-14 border-b border-gray-100">
- <span className="lg:col-span-4 block text-un-blue-1 text-[10px] font-bold uppercase tracking-[0.25em] lg:pt-1">
+ <div className="relative grid lg:grid-cols-12 gap-4 lg:gap-12 pb-10 md:pb-14 border-b border-white/10">
+ <span className="lg:col-span-4 block text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em] lg:pt-1">
  Como surgiu
  </span>
- <p className="lg:col-span-8 text-gray-600 text-sm md:text-base leading-relaxed font-light max-w-[65ch]">
+ <p className="lg:col-span-8 text-white/75 text-sm md:text-base leading-relaxed font-light max-w-[65ch]">
  {AMBICAO_ORIGEM.description}
  </p>
  </div>
 
  {/* Linha do tempo — 6 marcos em largura total, régua contínua */}
- <div className="pt-10 md:pt-14">
+ <div className="relative pt-10 md:pt-14">
  <span className="block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-8">
  Linha do tempo
  </span>
@@ -336,20 +368,23 @@ export const AmbicaoPage = ({ navigate }) => (
  {/* régua contínua atrás dos marcos (só quando em uma única linha) */}
  <span
  aria-hidden="true"
- className="hidden lg:block absolute left-0 right-0 top-[7px] h-px bg-gray-200"
+ className="hidden lg:block absolute left-0 right-0 top-[7px] h-px bg-white/15"
  />
  {AMBICAO_ORIGEM.timeline.map((item, i) => {
  const isLast = i === AMBICAO_ORIGEM.timeline.length - 1;
  return (
  <li key={item.year} className="relative">
  <span
- className="relative block w-[15px] h-[15px] rounded-full ring-4 ring-white mb-4"
- style={{ backgroundColor: isLast ? '#CCB146' : '#1E3250' }}
+ className="relative block w-[15px] h-[15px] rounded-full ring-4 ring-un-footer mb-4"
+ style={{
+ backgroundColor: isLast ? '#CCB146' : '#AECFE6',
+ boxShadow: isLast ? '0 0 18px rgba(204,177,70,0.6)' : 'none',
+ }}
  />
- <span className="block font-display font-black text-un-blue text-2xl md:text-[1.75rem] leading-none tabular-nums mb-2">
+ <span className="block font-display font-black text-white text-2xl md:text-[1.75rem] leading-none tabular-nums mb-2">
  {item.year}
  </span>
- <span className="block text-gray-500 text-[11px] md:text-xs leading-snug pr-2">
+ <span className="block text-un-blue-3/80 text-[11px] md:text-xs leading-snug pr-2">
  {item.event}
  </span>
  </li>
@@ -363,7 +398,7 @@ export const AmbicaoPage = ({ navigate }) => (
  {/* ---- Faixa 3: propósito + pilares ---- */}
  <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
  <BentoCard delay={300} className="lg:col-span-7">
- <div className="relative bg-gradient-to-br from-un-blue to-un-footer rounded-[2rem] p-9 md:p-12 h-full overflow-hidden">
+ <div className="glass-near rounded-[2rem] p-9 md:p-12 h-full overflow-hidden">
  <div className="absolute inset-0 text-white/[0.04]">
  <DotGrid className="w-full h-full" />
  </div>
@@ -381,21 +416,21 @@ export const AmbicaoPage = ({ navigate }) => (
 
  {/* Pilares — lista numerada com réguas, sem caixas de ícone */}
  <BentoCard delay={360} className="lg:col-span-5">
- <div className="bg-white rounded-[2rem] p-9 md:p-12 h-full">
- <span className="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.25em] mb-7">
+ <div className="glass rounded-[2rem] p-9 md:p-12 h-full overflow-hidden">
+ <span className="relative block text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em] mb-7">
  Quatro pilares
  </span>
- <ol className="divide-y divide-gray-100 border-t border-gray-100 list-none m-0 p-0">
+ <ol className="relative divide-y divide-white/10 border-t border-white/10 list-none m-0 p-0">
  {AMBICAO_PROPOSITO.pillars.map((pillar, i) => (
- <li key={pillar.title} className="flex gap-5 py-4">
- <span className="font-display font-black text-lg text-un-gold leading-none tabular-nums pt-0.5 shrink-0">
+ <li key={pillar.title} className="group flex gap-5 py-4">
+ <span className="font-display font-black text-lg text-un-gold leading-none tabular-nums pt-0.5 shrink-0 transition-transform duration-300 group-hover:scale-110">
  {String(i + 1).padStart(2, '0')}
  </span>
  <div>
- <p className="font-bold text-sm text-gray-900 tracking-tight">
+ <p className="font-bold text-sm text-white tracking-tight">
  {pillar.title}
  </p>
- <p className="text-xs text-gray-500 leading-relaxed font-light mt-1">
+ <p className="text-xs text-un-blue-3/75 leading-relaxed font-light mt-1">
  {pillar.desc}
  </p>
  </div>

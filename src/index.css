@@ -59,6 +59,76 @@
     background-color: #CBD5E1;
     border-radius: 20px;
   }
+
+  /* ============================================================
+     Vidro (glassmorphism) — usar SOMENTE sobre fundo escuro ou
+     imagem. Sobre superfície clara a translucidez derruba o
+     contraste do texto e o efeito perde sentido (não há o que
+     refratar).
+     Três profundidades: .glass-near é o plano da frente (mais
+     opaco), .glass-far o fundo (mais translúcido).
+     ============================================================ */
+  .glass,
+  .glass-near,
+  .glass-far {
+    position: relative;
+    /* Fallback para navegadores sem backdrop-filter: opacidade maior,
+       garantindo legibilidade mesmo sem o blur. */
+    background-color: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.65);
+  }
+
+  /* Fio de luz no topo — é o que faz a peça ler como vidro real,
+     e não como um retângulo translúcido. */
+  .glass::before,
+  .glass-near::before,
+  .glass-far::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.45) 30%,
+      rgba(255, 255, 255, 0.45) 70%,
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .glass-near {
+      background-color: rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(26px) saturate(150%);
+      backdrop-filter: blur(26px) saturate(150%);
+    }
+    .glass {
+      background-color: rgba(255, 255, 255, 0.07);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      backdrop-filter: blur(18px) saturate(140%);
+    }
+    .glass-far {
+      background-color: rgba(255, 255, 255, 0.045);
+      border-color: rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(10px) saturate(130%);
+      backdrop-filter: blur(10px) saturate(130%);
+    }
+  }
+
+  /* Respeita quem pediu menos transparência (macOS/iOS, Windows):
+     troca vidro por superfície sólida. */
+  @media (prefers-reduced-transparency: reduce) {
+    .glass,
+    .glass-near,
+    .glass-far {
+      background-color: #1a2c48;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
 }
 
 @keyframes fadeInUp {
