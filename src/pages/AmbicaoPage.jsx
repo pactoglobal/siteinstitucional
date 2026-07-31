@@ -255,32 +255,50 @@ export const AmbicaoPage = ({ navigate }) => (
  <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />
  <div className="container mx-auto px-4 md:px-8 lg:px-12 relative">
 
- {/* Header editorial: título à esquerda, citação do Conselho à direita,
- ambos assentados na mesma linha de base. Sem centralização. */}
+ {/* Header: só o título. A citação saiu daqui — as duas peças
+ competiam pela mesma atenção na mesma linha de base. */}
  <Reveal>
- <div className="grid lg:grid-cols-12 gap-8 lg:gap-6 items-end mb-14 md:mb-24">
- <div className="lg:col-span-7">
+ <div className="max-w-4xl mb-12 md:mb-16">
  <span className="flex items-center gap-3 text-un-gold text-[10px] font-bold uppercase tracking-[0.3em] mb-6">
  <span className="w-10 h-px bg-un-gold/60" /> Origem e Propósito
  </span>
  <h2 className="font-display font-black uppercase tracking-tight text-white text-4xl md:text-6xl lg:text-[4.75rem] leading-[0.94]">
- O que é a<br />
+ O que é a{' '}
  <span className="text-un-blue-3">Ambição 2030</span>
  </h2>
  </div>
- {/* Citação em serif (Lora) — contraponto tipográfico ao display */}
- <figure className="lg:col-span-5 lg:pb-2 border-l-2 border-un-gold pl-6 md:pl-8">
- <blockquote className="font-serif italic text-white text-xl md:text-2xl leading-snug">
- “{AMBICAO_CITACAO.quote}”
+ </Reveal>
+
+ {/* Citação do Conselho como tese da seção: peça larga, com a
+ aspa em escala tratada como elemento gráfico e a atribuição
+ empilhada (antes era uma linha corrida longa demais). */}
+ <Reveal delay={80}>
+ <figure className="relative mb-14 md:mb-20 pl-14 md:pl-24">
+ {/* Aspa decorativa — âncora visual, não pontuação */}
+ <span
+ aria-hidden="true"
+ className="absolute left-0 top-[-1.5rem] md:top-[-2.75rem] font-serif text-un-gold/25 text-[7rem] md:text-[11rem] leading-none select-none pointer-events-none"
+ >
+ “
+ </span>
+ <blockquote className="relative font-serif italic text-white text-[1.7rem] md:text-4xl lg:text-[2.9rem] leading-[1.22] max-w-[26ch]">
+ {AMBICAO_CITACAO.quote}
  </blockquote>
- <figcaption className="mt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-un-blue-3">
+ <figcaption className="relative mt-7 flex items-start gap-4">
+ <span aria-hidden="true" className="mt-2 w-10 h-px bg-un-gold shrink-0" />
+ <span className="block">
+ <span className="block text-white text-[11px] font-bold uppercase tracking-[0.22em]">
  {AMBICAO_CITACAO.author}
- <span className="block mt-1 font-normal normal-case tracking-normal text-white/70 text-xs">
- {AMBICAO_CITACAO.role} · {AMBICAO_CITACAO.source}
+ </span>
+ <span className="block text-un-blue-3/85 text-xs mt-1.5">
+ {AMBICAO_CITACAO.role}
+ </span>
+ <span className="block text-white/60 text-[11px] mt-0.5">
+ {AMBICAO_CITACAO.source}
+ </span>
  </span>
  </figcaption>
  </figure>
- </div>
  </Reveal>
 
  {/* ---- Faixa 1: definição + resultado-herói ---- */}
