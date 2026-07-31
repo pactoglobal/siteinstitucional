@@ -244,7 +244,7 @@ export const AmbicaoPage = ({ navigate }) => (
  <figcaption className="mt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-gray-500">
  {AMBICAO_CITACAO.author}
  <span className="block mt-1 font-normal normal-case tracking-normal text-gray-400 text-xs">
- {AMBICAO_CITACAO.role} · {AMBICAO_RESULTADOS.period}
+ {AMBICAO_CITACAO.role} · {AMBICAO_CITACAO.source}
  </span>
  </figcaption>
  </figure>
@@ -277,8 +277,12 @@ export const AmbicaoPage = ({ navigate }) => (
  {/* Resultados — um número herói, três de apoio */}
  <BentoCard delay={180} className="lg:col-span-5">
  <div className="bg-white rounded-[2rem] p-9 md:p-12 h-full flex flex-col">
- <span className="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.25em] mb-8">
+ <span className="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.25em] mb-1.5">
  {AMBICAO_RESULTADOS.title}
+ </span>
+ {/* Datação própria do bloco de números — não herdar a da citação */}
+ <span className="block text-gray-400 text-[11px] font-light tracking-wide mb-8">
+ {AMBICAO_RESULTADOS.period}
  </span>
  {/* Métrica principal em escala editorial */}
  <div>

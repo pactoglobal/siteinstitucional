@@ -15,8 +15,11 @@ export const AMBICAO_INTRO =
 
 // ============================================================
 // Seção "O que é Ambição 2030" — Origem, Propósito e Resultados
-// Fatos e números verificados no Relatório Ambição 2030 — Ano 4
-// (fev.–abr. 2026, referente ao ano de 2025).
+// Atenção: as fontes são DIFERENTES por constante — cada uma
+// declara a sua logo abaixo. Origem, propósito e citação vêm do
+// Relatório Ambição 2030 — Ano 4 (fev.–abr. 2026, ref. 2025);
+// os resultados vêm do documento oficial de copy da RBPG, com
+// números de jun/2026, mais recentes que o relatório.
 // ============================================================
 
 export const AMBICAO_ORIGEM = {
@@ -46,23 +49,33 @@ export const AMBICAO_PROPOSITO = {
 };
 
 // Citação da Mensagem do Conselho — Relatório Ambição 2030, Ano 4.
+// `source` é própria da citação: não reaproveitar a data dos números,
+// senão a fala fica datada num período que não é o dela.
 export const AMBICAO_CITACAO = {
  quote: 'É a década da implementação.',
  author: 'Rachel Maia',
  role: 'Presidente do Conselho de Administração',
+ source: 'Relatório Ambição 2030 — Ano 4',
 };
 
-// Resultados acumulados até dez/2025 — Relatório Ambição 2030, Ano 4.
+// Resultados acumulados — números de jun/2026, conforme o documento
+// oficial de copy da RBPG (mais recentes que os do Relatório Ano 4,
+// que fechava em dez/2025 com 389 organizações e 751 cartas).
 export const AMBICAO_RESULTADOS = {
- title: "Resultados até 2025",
- period: "Relatório Ambição 2030 — Ano 4",
+ title: "Em números, hoje",
+ period: "Dados de junho de 2026",
  stats: [
- { value: '389', label: 'Organizações comprometidas' },
- { value: '751', label: 'Cartas Compromisso assinadas' },
+ { value: '401', label: 'Organizações comprometidas' },
+ { value: '788', label: 'Cartas Compromisso assinadas' },
  { value: '+2 mil', label: 'Compromissos públicos assumidos' },
- { value: '+2 mi', label: 'Pessoas trabalhadoras impactadas' },
+ { value: '+2 mi', label: 'Pessoas trabalhadoras impactadas diretamente' },
  ],
- nota: 'Recomendação média de 9,1 (escala de 0 a 10) entre as organizações participantes.',
+ // Métrica de satisfação do Relatório Ano 4 (dez/2025) — período distinto
+ // dos números acima, por isso atribuída separadamente.
+ nota: 'Recomendação média de 9,1 (escala de 0 a 10) entre as organizações participantes, no 4º ciclo de indicadores.',
+ // Alcance internacional — documento oficial de copy da RBPG.
+ alcance:
+ 'A iniciativa já ultrapassou fronteiras: inspirou ações semelhantes do Pacto Global da ONU em outros países, reafirmando o Brasil como referência nessa agenda.',
 };
 
 // --- Modalidades de engajamento ---
