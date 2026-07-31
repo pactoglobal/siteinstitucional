@@ -18,6 +18,29 @@
     }
   }
 
+  /* Flama font-face — local WOFF2 */
+  @font-face {
+    font-family: 'Flama';
+    src: url('/fonts/Flama-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Flama';
+    src: url('/fonts/Flama-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Flama';
+    src: url('/fonts/Flama-Basic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
   body {
     font-family: 'Roboto', system-ui, sans-serif;
     background-color: #F8F9FA;

@@ -167,35 +167,50 @@ export const AmbicaoPage = ({ navigate }) => (
  </div>
 
  <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
- <div className="max-w-3xl">
- <span
- className="inline-flex items-center gap-2 text-un-gold text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-8 animate-fade-in-up"
- style={{ animationDelay: '0ms' }}
- >
- <span className="w-8 h-px bg-un-gold" /> Pacto Global da ONU · Rede Brasil
- </span>
+   <div className="max-w-3xl">
+     <span
+       className="inline-flex items-center gap-2 text-un-gold text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-8 animate-fade-in-up"
+       style={{ animationDelay: '0ms' }}
+     >
+       <span className="w-8 h-px bg-un-gold" /> Pacto Global da ONU · Rede Brasil
+     </span>
 
- <h1
- className="font-display font-black uppercase leading-[0.9] mb-8 animate-fade-in-up"
- style={{ animationDelay: '90ms' }}
- >
- <span className="block text-5xl md:text-7xl lg:text-[8.5rem] text-white tracking-tight">
- Ambição
- </span>
- <span
- className="block text-6xl md:text-8xl lg:text-[10rem] tracking-tight"
- style={{ color: 'transparent', WebkitTextStroke: '2px #CCB146' }}
- >
- 2030
- </span>
- </h1>
+     <h1
+           className="font-display font-black uppercase leading-[0.9] mb-8 animate-fade-in-up"
+           style={{ animationDelay: '90ms' }}
+         >
+           <span className="block text-5xl md:text-7xl lg:text-[8.5rem] text-white tracking-tight">
+             Ambição
+           </span>
+           {/* 2030 — preenchido com gradiente suave do espectro ODS (cores oficiais ONU) */}
+           <span
+             className="block text-6xl md:text-8xl lg:text-[10rem] tracking-tight font-black"
+             style={{
+               background: 'linear-gradient(90deg, #E5243B 0%, #FF6B3A 15%, #FCC30B 30%, #4C9F38 50%, #26BDE2 70%, #00689D 85%, #6E417A 100%)',
+               WebkitBackgroundClip: 'text',
+               WebkitTextFillColor: 'transparent',
+               backgroundClip: 'text',
+               backgroundSize: '200% 100%',
+               animation: 'odsGradientShift 8s ease-in-out infinite',
+             }}
+           >
+             2030
+           </span>
+         </h1>
 
- <p
- className="text-white/80 text-lg md:text-2xl font-light leading-relaxed max-w-2xl mb-10 animate-fade-in-up"
- style={{ animationDelay: '180ms' }}
- >
- {AMBICAO_DEFINICAO}
- </p>
+         <style jsx global>{`
+           @keyframes odsGradientShift {
+             0%, 100% { background-position: 0% 50%; }
+             50% { background-position: 100% 50%; }
+           }
+         `}</style>
+
+     <p
+       className="text-white/80 text-lg md:text-2xl font-light leading-relaxed max-w-2xl mb-10 animate-fade-in-up"
+       style={{ animationDelay: '180ms' }}
+     >
+       {AMBICAO_DEFINICAO}
+     </p>
 
  {/* Stat row editorial */}
  <div
