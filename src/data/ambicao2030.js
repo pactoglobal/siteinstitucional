@@ -240,7 +240,7 @@ export const MOVIMENTOS = [
  // Meta coletiva atualizada em 2025 (Relatório Ambição 2030 — Ano 4):
  // alinhada ao Plano Clima e à NDC brasileira, em vez da redução
  // acumulada de 2 Gt CO₂e anunciada no lançamento do Movimento.
- 'Engajar o setor empresarial brasileiro na ambição coletiva de contribuir para limitar as emissões líquidas nacionais de gases de efeito estufa em 2030 a 1,2 Gt CO₂e, alinhado ao Plano Clima e à meta climática nacional (NDC brasileira).',
+ 'Engajar o setor empresarial brasileiro para individualmente estabelecer metas baseadas na ciência com ambição coletiva de contribuir para limitar as emissões líquidas nacionais de gases de efeito estufa em 2030 a 1,2 Gt CO₂e.',
  // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
  numeros: { comprometidas: 129, respondentes: 100, recomendacao: '9,0' },
  // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
@@ -270,7 +270,7 @@ export const MOVIMENTOS = [
     image:
       'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1600&auto=format&fit=crop',
     ambicao:
-      'Engajar o setor empresarial brasileiro na conservação e restauração dos biomas brasileiros, por meio de ações que promovam o uso responsável do solo, desmatamento zero e a preservação da biodiversidade.',
+      'Mover o setor empresarial brasileiro para combater o desmatamento, promover a conservação dos biomas brasileiros, por meio de ações individuais, setoriais e intersetoriais.',
     // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
     numeros: { comprometidas: 15, respondentes: 12, recomendacao: '8,5' },
     // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
@@ -331,7 +331,7 @@ export const MOVIMENTOS = [
  image:
  'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1600&auto=format&fit=crop',
  ambicao:
- 'Mais empresas comprometidas com o Elas Lideram 2030 e mais mulheres em posição de alta liderança.',
+ 'Ampliar o número de empresas comprometidas com o Movimento e aumentar a presença de mais mulheres em posição de liderança e alta liderança.',
  // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
  numeros: { comprometidas: 145, respondentes: 88, recomendacao: '9,5' },
  // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
@@ -364,7 +364,7 @@ export const MOVIMENTOS = [
  image:
  'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1600&auto=format&fit=crop',
  ambicao:
- 'Mais empresas comprometidas em ter mais pessoas negras* em posição de liderança e diversidade étnico-racial na cadeia de fornecimento até 2030.',
+ 'Ampliar o número de empresas comprometidas em ter mais pessoas negras, indígenas, quilombolas ou pertencentes a outro grupo étnico socialmente vulnerável em posição de liderança e diversidade étnico-racial na cadeia de fornecimento até 2030.',
  // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
  numeros: { comprometidas: 56, respondentes: 37, recomendacao: '9,5' },
  // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
@@ -395,7 +395,7 @@ export const MOVIMENTOS = [
  image:
  'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=1600&auto=format&fit=crop',
  ambicao:
- '1.000 empresas com programas estruturantes de saúde mental com impacto positivo em 10 milhões de pessoas trabalhadoras.',
+ 'Engajar mais empresas com programas estruturados de saúde mental e gerar impacto positivo na vida das suas pessoas trabalhadoras, por meio de avaliação, ações proativas de prevenção e tratamento.',
  // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
  numeros: { comprometidas: 119, respondentes: 77, recomendacao: '9,1' },
  // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
@@ -428,7 +428,7 @@ export const MOVIMENTOS = [
  image:
  'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600&auto=format&fit=crop',
  ambicao:
- 'Garantir 100% de salário digno para pessoas trabalhadoras próprias, contratadas e/ou terceirizadas, e engajar toda a cadeia de suprimentos para desenvolver metas de salário digno.',
+ 'Engajar o setor empresarial para pagar salário digno para pessoas trabalhadoras próprias, contratadas e terceirizadas, e promover o engajamento da cadeia de fornecimento para desenvolver metas de salário digno.',
  // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
  numeros: { comprometidas: 36, respondentes: 28, recomendacao: '8,9' },
  // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
@@ -458,7 +458,7 @@ export const MOVIMENTOS = [
  image:
  'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1600&auto=format&fit=crop',
  ambicao:
- 'Promover o avanço da educação para o trabalho, diversa e alinhada à Agenda 2030 e de Direitos Humanos.',
+ 'Promover o avanço da Educação para o trabalho, diversa e alinhada à Agenda 2030 e aos Direitos Humanos.',
  // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
  numeros: { comprometidas: 25, respondentes: 24, recomendacao: '9,5' },
  // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
