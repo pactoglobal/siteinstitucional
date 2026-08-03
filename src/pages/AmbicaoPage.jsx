@@ -176,34 +176,22 @@ export const AmbicaoPage = ({ navigate }) => (
      </span>
 
      <h1
-           className="font-display font-black uppercase leading-[0.9] mb-8 animate-fade-in-up"
-           style={{ animationDelay: '90ms' }}
-         >
-           <span className="block text-5xl md:text-7xl lg:text-[8.5rem] text-white tracking-tight">
-             Ambição
-           </span>
-           {/* 2030 — preenchido com gradiente suave do espectro ODS (cores oficiais ONU) */}
-           <span
-             className="block text-6xl md:text-8xl lg:text-[10rem] tracking-tight font-black"
-             style={{
-               background: 'linear-gradient(90deg, #E5243B 0%, #FF6B3A 15%, #FCC30B 30%, #4C9F38 50%, #26BDE2 70%, #00689D 85%, #6E417A 100%)',
-               WebkitBackgroundClip: 'text',
-               WebkitTextFillColor: 'transparent',
-               backgroundClip: 'text',
-               backgroundSize: '200% 100%',
-               animation: 'odsGradientShift 8s ease-in-out infinite',
-             }}
-           >
-             2030
-           </span>
-         </h1>
-
-         <style jsx global>{`
-           @keyframes odsGradientShift {
-             0%, 100% { background-position: 0% 50%; }
-             50% { background-position: 100% 50%; }
-           }
-         `}</style>
+       className="font-display font-black uppercase leading-[0.9] mb-8 animate-fade-in-up"
+       style={{ animationDelay: '90ms' }}
+     >
+       <span className="block text-5xl md:text-7xl lg:text-[8.5rem] text-white tracking-tight">
+         Ambição
+       </span>
+       {/* Sólido em ouro, no mesmo corpo do "Ambição". Duas tentativas
+           anteriores não sobreviveram à foto: o vazado (text-stroke de
+           2px) tinha o contorno brigando com a imagem, e o gradiente ODS
+           só entregava metade do espectro — os glifos ocupam ~50% da
+           largura do bloco, então os stops finais (#00689D, #6E417A)
+           caíam no vazio à direita e nunca apareciam no texto. */}
+       <span className="block text-5xl md:text-7xl lg:text-[8.5rem] text-un-gold tracking-tight">
+         2030
+       </span>
+     </h1>
 
      <p
        className="text-white/80 text-lg md:text-2xl font-light leading-relaxed max-w-2xl mb-10 animate-fade-in-up"
