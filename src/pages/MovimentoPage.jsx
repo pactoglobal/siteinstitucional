@@ -386,20 +386,51 @@ export const MovimentoPage = ({ slug, navigate }) => {
                 <button
                   key={m.id}
                   onClick={() => navigate('movimento', m.id)}
-                  className="group relative flex items-center justify-center bg-white hover:shadow-xl rounded-2xl h-28 md:h-32 p-4 md:p-5 transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-pointer"
+                  className="group relative flex flex-col justify-between h-36 md:h-44 bg-white rounded-2xl md:rounded-3xl p-4 md:p-5 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-un-gold hover:-translate-y-1.5 overflow-hidden text-left cursor-pointer"
                 >
-                  {/* Cor do Movimento no hover */}
+                  {/* Top Brand Color Bar */}
                   <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-300"
+                    className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 group-hover:h-2"
                     style={{ backgroundColor: m.color }}
                   />
-                  <div className="relative z-10 w-full h-full flex items-center justify-center px-4 py-3">
+
+                  {/* Subtle Hover Background Tint */}
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 pointer-events-none"
+                    style={{ backgroundColor: m.color }}
+                  />
+
+                  {/* Header: ODS Pill */}
+                  <div className="relative z-10 flex items-center justify-end w-full">
+                    <span
+                      className="text-[9px] font-black uppercase px-2 py-0.5 rounded-full text-white tracking-wider shadow-sm"
+                      style={{ backgroundColor: m.color }}
+                    >
+                      ODS {m.ods?.join(', ')}
+                    </span>
+                  </div>
+
+                  {/* Logo Centralizado */}
+                  <div className="relative z-10 flex-1 flex items-center justify-center w-full my-2 px-2">
                     <img
                       src={`${import.meta.env.BASE_URL}movimentos/${m.id}.png`}
                       alt={m.name}
                       loading="lazy"
-                      className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-auto max-h-12 md:max-h-14 object-contain transition-transform duration-300 group-hover:scale-105"
                     />
+                  </div>
+
+                  {/* Footer com Seta de Ação */}
+                  <div className="relative z-10 flex items-center justify-between w-full pt-2 border-t border-gray-100/80">
+                    <span className="text-[11px] font-semibold text-gray-500 group-hover:text-un-blue transition-colors truncate">
+                      Ver detalhes
+                    </span>
+                    <span
+                      className="w-6 h-6 rounded-full flex items-center justify-center text-white transition-transform duration-300 group-hover:translate-x-1 shadow-sm"
+                      style={{ backgroundColor: m.color }}
+                    >
+                      <ArrowRight className="w-3 h-3" />
+                    </span>
                   </div>
                 </button>
               ))}

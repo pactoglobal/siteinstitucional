@@ -87,33 +87,60 @@ const BentoCard = ({ children, className = '', delay = 0 }) => (
 // 2 por fileira: 10 Movimentos fecham em 5 fileiras exatas, sem card órfão.
 // Também é o que dá o logo maior — o canvas único (691×142) é ditado pelo
 // lockup mais largo ("Transparência 100%"), então a altura do tipo depende
-const MovementCard = ({ movement, navigate }) => (
+const MovementCard = ({ movement, index, navigate }) => (
   <button
     onClick={() => navigate('movimento', movement.id)}
-    className="group relative flex flex-col justify-between w-full lg:w-[calc(50%-0.75rem)] h-44 md:h-52 bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1.5 overflow-hidden text-left cursor-pointer"
+    className="group relative flex flex-col justify-between w-full lg:w-[calc(50%-0.75rem)] min-h-[220px] bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-un-gold hover:-translate-y-1.5 overflow-hidden text-left cursor-pointer"
   >
-    {/* Cor do Movimento entra no hover */}
+    {/* Top Brand Color Bar */}
     <div
-      className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-300 pointer-events-none"
+      className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 group-hover:h-2"
       style={{ backgroundColor: movement.color }}
     />
 
-    {/* Logo normalizado (691x142) de tamanho uniforme */}
-    <div className="relative flex-1 flex items-center justify-center w-full px-2">
+    {/* Subtle Hover Background Tint */}
+    <div
+      className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 pointer-events-none"
+      style={{ backgroundColor: movement.color }}
+    />
+
+    {/* Card Header: Number & ODS Pill */}
+    <div className="relative z-10 flex items-center justify-between w-full mb-3">
+      <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+        Movimento {String(index + 1).padStart(2, '0')}
+      </span>
+      <span
+        className="text-[9px] font-black uppercase px-2.5 py-0.5 rounded-full text-white tracking-wider shadow-sm"
+        style={{ backgroundColor: movement.color }}
+      >
+        ODS {movement.ods?.join(', ')}
+      </span>
+    </div>
+
+    {/* Logo Centralizado */}
+    <div className="relative z-10 flex-1 flex items-center justify-center w-full my-2 px-2">
       <img
         src={`${import.meta.env.BASE_URL}movimentos/${movement.id}.png`}
         alt={movement.name}
         loading="lazy"
-        className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+        className="w-full h-auto max-h-16 md:max-h-20 object-contain transition-transform duration-300 group-hover:scale-105"
       />
     </div>
 
-    {/* Footer do card com indicador de seta */}
-    <div className="relative flex items-center justify-between w-full pt-4 border-t border-gray-100">
-      <span className="text-gray-600 text-sm font-medium group-hover:text-un-blue transition-colors truncate max-w-[80%]">
-        Ver compromissos
+    {/* Compromisso / Teaser */}
+    <p className="relative z-10 text-xs md:text-sm text-gray-600 font-light line-clamp-2 my-2 leading-relaxed">
+      {movement.ambicao}
+    </p>
+
+    {/* Footer do Card */}
+    <div className="relative z-10 flex items-center justify-between w-full pt-4 border-t border-gray-100">
+      <span className="text-gray-700 text-xs font-bold group-hover:text-un-blue transition-colors uppercase tracking-wider">
+        Ver compromissos 2030
       </span>
-      <span className="shrink-0 w-9 h-9 rounded-full bg-un-blue/5 flex items-center justify-center text-un-blue group-hover:bg-un-blue group-hover:text-white transition-all duration-300 group-hover:scale-110">
+      <span
+        className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 shadow-sm"
+        style={{ backgroundColor: movement.color }}
+      >
         <ArrowUpRight className="w-4 h-4" />
       </span>
     </div>
@@ -550,10 +577,11 @@ export const AmbicaoPage = ({ navigate }) => (
         {/* A largura de cada card vem do próprio MovementCard. Com 2 por
             fileira as 5 fileiras fecham exatas — nenhuma sobra a centrar. */}
         <div className="flex flex-wrap justify-center gap-6">
-          {MOVIMENTOS.map((movement) => (
+          {MOVIMENTOS.map((movement, index) => (
             <MovementCard
               key={movement.id}
               movement={movement}
+              index={index}
               navigate={navigate}
             />
           ))}
