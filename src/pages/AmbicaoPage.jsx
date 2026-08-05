@@ -84,15 +84,14 @@ const BentoCard = ({ children, className = '', delay = 0 }) => (
  </Reveal>
 );
 
-// 3 por fileira. Os 10 Movimentos deixam uma última fileira de 1: no grid ela
-// encostaria à esquerda, então o container é flex-wrap com justify-center.
-// Por que 3 e não 4: os PNGs agora têm canvas único (691×142), ditado pelo
-// lockup mais largo ("Transparência 100%"). Numa caixa de 4 colunas (236px) o
-// tipo cairia para ~39px de altura; com 3 colunas (338px) fica ~53px.
+// 2 por fileira: 10 Movimentos fecham em 5 fileiras exatas, sem card órfão.
+// Também é o que dá o logo maior — o canvas único (691×142) é ditado pelo
+// lockup mais largo ("Transparência 100%"), então a altura do tipo depende
+// direto da largura da caixa: ~39px com 4 colunas, ~53px com 3, ~85px com 2.
 const MovementCard = ({ movement, navigate }) => (
   <button
     onClick={() => navigate('movimento', movement.id)}
-    className="group relative flex flex-col justify-between w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] h-52 md:h-56 bg-white rounded-3xl p-5 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1.5 overflow-hidden text-left"
+    className="group relative flex flex-col justify-between w-full lg:w-[calc(50%-0.75rem)] h-44 md:h-52 bg-white rounded-3xl p-5 md:p-7 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1.5 overflow-hidden text-left"
   >
     {/* Cor do Movimento só no hover — sem barra fixa no topo. O logo já é
         colorido e traz o nome, então não precisa de rótulo nem de faixa. */}
@@ -555,8 +554,8 @@ export const AmbicaoPage = ({ navigate }) => (
  description="Cada Movimento mobiliza empresas em torno de uma causa urgente, com compromissos concretos a serem alcançados até 2030."
  />
 
-        {/* A largura de cada card vem do próprio MovementCard;
-            justify-center centra a última fileira (1 card). */}
+        {/* A largura de cada card vem do próprio MovementCard. Com 2 por
+            fileira as 5 fileiras fecham exatas — nenhuma sobra a centrar. */}
         <div className="flex flex-wrap justify-center gap-6">
           {MOVIMENTOS.map((movement) => (
             <MovementCard
