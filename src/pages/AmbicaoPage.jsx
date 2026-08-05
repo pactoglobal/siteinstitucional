@@ -90,30 +90,31 @@ const BentoCard = ({ children, className = '', delay = 0 }) => (
 const MovementCard = ({ movement, navigate }) => (
   <button
     onClick={() => navigate('movimento', movement.id)}
-    className="group relative flex flex-col justify-between w-full h-32 md:h-36 bg-white rounded-2xl p-3.5 md:p-4 border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1 overflow-hidden text-left cursor-pointer"
+    className="group relative flex flex-col justify-between w-full lg:w-[calc(50%-0.75rem)] h-44 md:h-52 bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1.5 overflow-hidden text-left cursor-pointer"
   >
+    {/* Cor do Movimento entra no hover */}
     <div
       className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-300 pointer-events-none"
       style={{ backgroundColor: movement.color }}
     />
 
-    {/* Logo com altura rigorosamente uniforme e proporcional */}
-    <div className="relative flex-1 flex items-center justify-center w-full py-1">
+    {/* Logo normalizado (691x142) de tamanho uniforme */}
+    <div className="relative flex-1 flex items-center justify-center w-full px-2">
       <img
         src={`${import.meta.env.BASE_URL}movimentos/${movement.id}.png`}
         alt={movement.name}
         loading="lazy"
-        className="h-10 md:h-12 w-auto max-w-[85%] object-contain transition-transform duration-300 group-hover:scale-105"
+        className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
       />
     </div>
 
     {/* Footer do card com indicador de seta */}
-    <div className="relative flex items-center justify-between w-full pt-2 border-t border-gray-100">
-      <span className="text-gray-600 text-xs font-medium group-hover:text-un-blue transition-colors truncate max-w-[80%]">
+    <div className="relative flex items-center justify-between w-full pt-4 border-t border-gray-100">
+      <span className="text-gray-600 text-sm font-medium group-hover:text-un-blue transition-colors truncate max-w-[80%]">
         Ver compromissos
       </span>
-      <span className="shrink-0 w-7 h-7 rounded-full bg-un-blue/5 flex items-center justify-center text-un-blue group-hover:bg-un-blue group-hover:text-white transition-all duration-300 group-hover:scale-110">
-        <ArrowUpRight className="w-3.5 h-3.5" />
+      <span className="shrink-0 w-9 h-9 rounded-full bg-un-blue/5 flex items-center justify-center text-un-blue group-hover:bg-un-blue group-hover:text-white transition-all duration-300 group-hover:scale-110">
+        <ArrowUpRight className="w-4 h-4" />
       </span>
     </div>
   </button>

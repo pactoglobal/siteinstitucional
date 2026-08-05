@@ -381,24 +381,24 @@ export const MovimentoPage = ({ slug, navigate }) => {
             <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest text-center mb-6">
               Outros Movimentos
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3.5 md:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-5">
               {outros.map((m) => (
                 <button
                   key={m.id}
                   onClick={() => navigate('movimento', m.id)}
-                  className="group relative flex items-center justify-center bg-white hover:shadow-xl rounded-2xl h-22 md:h-26 p-3 transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-pointer"
+                  className="group relative flex items-center justify-center bg-white hover:shadow-xl rounded-2xl h-28 md:h-32 p-4 md:p-5 transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-pointer"
                 >
-                  {/* Cor do Movimento só no hover */}
+                  {/* Cor do Movimento no hover */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-300"
                     style={{ backgroundColor: m.color }}
                   />
-                  <div className="relative z-10 w-full h-full flex items-center justify-center">
+                  <div className="relative z-10 w-full h-full flex items-center justify-center px-4 py-3">
                     <img
                       src={`${import.meta.env.BASE_URL}movimentos/${m.id}.png`}
                       alt={m.name}
                       loading="lazy"
-                      className="h-10 md:h-12 w-auto max-w-[80%] object-contain transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
                 </button>
