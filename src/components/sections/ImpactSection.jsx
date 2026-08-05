@@ -31,7 +31,6 @@ export const ImpactSection = () => {
       <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
         <SectionHeader 
           inverted
-          barColor="bg-un-green"
           badge="Nossa Magnitude"
           title="A maior iniciativa de"
           titleAccent="sustentabilidade corporativa do mundo."

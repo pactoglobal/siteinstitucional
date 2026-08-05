@@ -244,7 +244,6 @@ export const MovimentoPage = ({ slug, navigate }) => {
       <section id="compromissos" className="py-20 md:py-28 bg-white border-t border-gray-100 scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <SectionHeader
-            barColor="bg-un-blue"
             badge="Carta de Compromisso"
             title="Nossos"
             titleAccent="Compromissos"
@@ -389,15 +388,19 @@ export const MovimentoPage = ({ slug, navigate }) => {
                   onClick={() => navigate('movimento', m.id)}
                   className="group relative flex items-center justify-center bg-white hover:shadow-xl rounded-2xl h-28 md:h-32 p-4 transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-pointer"
                 >
+                  {/* Cor do Movimento só no hover (sem barra fixa no topo) */}
                   <div
-                    className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 group-hover:h-2"
+                    className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-300"
                     style={{ backgroundColor: m.color }}
                   />
-                  <div className="w-full h-full flex items-center justify-center">
+                  <div className="relative z-10 w-full h-full flex items-center justify-center">
                     <img
                       src={`${import.meta.env.BASE_URL}movimentos/${m.id}.png`}
                       alt={m.name}
-                      className="max-h-12 md:max-h-14 max-w-[85%] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                      width="691"
+                      height="142"
+                      loading="lazy"
+                      className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
                 </button>

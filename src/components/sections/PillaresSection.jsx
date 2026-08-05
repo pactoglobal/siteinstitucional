@@ -11,7 +11,6 @@ export const PillaresSection = () => {
       <div className="container mx-auto px-4 md:px-8 lg:px-12">
 
         <SectionHeader 
-          barColor="bg-un-blue"
           badge="Conheça nossos"
           title="Pilares"
           titleAccent="de Atuação"

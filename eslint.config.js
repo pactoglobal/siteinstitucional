@@ -7,7 +7,15 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 export default defineConfig([
   // 'assets' e 'cop-dashboard' são artefatos de build antigos commitados na
   // raiz (JS/CSS minificado) — não são código-fonte e não devem ser lintados.
-  globalIgnores(['dist', 'assets', 'cop-dashboard']),
+  // Os padrões precisam ser recursivos: 'dist' sozinho só casa na raiz, e
+  // worktrees do git em .claude/ têm o próprio dist/ — sem '**/' o lint
+  // tentava analisar bundle minificado e cuspia ~100 erros falsos.
+  globalIgnores([
+    '**/dist/**',
+    '**/assets/**',
+    '**/cop-dashboard/**',
+    '.claude/worktrees/**',
+  ]),
   {
     files: ['**/*.{js,jsx}'],
     extends: [

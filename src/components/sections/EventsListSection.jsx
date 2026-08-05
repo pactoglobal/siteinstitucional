@@ -11,7 +11,6 @@ export const EventsListSection = ({ navigate }) => {
   <section className="py-12 md:py-16 bg-[#F4F6F9]">
     <div className="container mx-auto px-4 md:px-8 lg:px-12">
       <SectionHeader
-        barColor="bg-un-gold"
         badge="Agenda 2026"
         title="Nossos"
         titleAccent="Eventos e Fóruns"

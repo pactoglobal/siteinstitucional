@@ -2,30 +2,28 @@ import React from 'react';
 import { cn } from '../../utils/cn';
 
 export const SectionHeader = ({
-  badge, 
-  title, 
-  titleAccent, 
-  description, 
-  barColor = "bg-un-blue", 
+  badge,
+  title,
+  titleAccent,
+  description,
   button,
   className = "",
   inverted = false
 }) => (
   <div className={cn("flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 md:mb-14 lg:mb-16 gap-8", className)}>
     <div className="max-w-4xl">
-      <div className="flex items-center gap-5 mb-5">
-        <div className={cn("w-2 h-10 md:h-14 rounded-full", barColor)}></div>
-        {badge && (
-          <span className={cn(
-            "text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-sm backdrop-blur-sm border",
-            inverted 
-              ? "bg-white/10 border-white/20 text-white" 
-              : "bg-un-blue/5 border-un-blue/10 text-un-blue"
-          )}>
-            {badge}
-          </span>
-        )}
-      </div>
+      {/* Sem a pílula colorida à esquerda: o chip do badge já ancora o bloco,
+          e a barra repetida em 13 seções virava maneirismo, não hierarquia. */}
+      {badge && (
+        <span className={cn(
+          "inline-block mb-5 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-sm backdrop-blur-sm border",
+          inverted
+            ? "bg-white/10 border-white/20 text-white"
+            : "bg-un-blue/5 border-un-blue/10 text-un-blue"
+        )}>
+          {badge}
+        </span>
+      )}
       <h2 className={cn(
         "text-3xl md:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight leading-[1.2] mb-0 pb-0",
         inverted ? "text-white" : "text-gray-900"

@@ -84,42 +84,40 @@ const BentoCard = ({ children, className = '', delay = 0 }) => (
  </Reveal>
 );
 
-// Largura via flex-basis (não grid): com 10 Movimentos, 4 por fileira deixa
-// uma última fileira de 2. No grid ela ficaria encostada à esquerda; no
-// flex-wrap com justify-center ela centraliza e a composição fecha.
-const MovementCard = ({ movement, index, navigate }) => (
+// 3 por fileira. Os 10 Movimentos deixam uma última fileira de 1: no grid ela
+// encostaria à esquerda, então o container é flex-wrap com justify-center.
+// Por que 3 e não 4: os PNGs agora têm canvas único (691×142), ditado pelo
+// lockup mais largo ("Transparência 100%"). Numa caixa de 4 colunas (236px) o
+// tipo cairia para ~39px de altura; com 3 colunas (338px) fica ~53px.
+const MovementCard = ({ movement, navigate }) => (
   <button
     onClick={() => navigate('movimento', movement.id)}
-    className="group relative flex flex-col justify-between w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] h-64 md:h-72 bg-white rounded-3xl p-5 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1.5 overflow-hidden text-left"
+    className="group relative flex flex-col justify-between w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] h-52 md:h-56 bg-white rounded-3xl p-5 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1.5 overflow-hidden text-left"
   >
-    {/* Barra de cor superior — única marcação cromática do Movimento no card */}
+    {/* Cor do Movimento só no hover — sem barra fixa no topo. O logo já é
+        colorido e traz o nome, então não precisa de rótulo nem de faixa. */}
     <div
-      className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 group-hover:h-2"
+      className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-300 pointer-events-none"
       style={{ backgroundColor: movement.color }}
     />
 
-    <span className="block text-un-blue text-[9px] font-bold uppercase tracking-widest mb-2">
-      Movimento {String(index + 1).padStart(2, '0')}
-    </span>
-
-    {/* Logo. Os PNGs foram recortados na arte (antes tinham ~60% de moldura
-        branca embutida num canvas 900×300, em quantidades desiguais — o que
-        fazia logos de mesmo tamanho de caixa parecerem tamanhos diferentes).
-        Agora a largura da caixa é o único limite: o max-h é folgado de
-        propósito, para nunca competir com ela.
-        Sem width/height: cada arquivo tem proporção própria (3,6:1 a 5,8:1)
-        e a altura do card já reserva o espaço, então não há layout shift. */}
-    <div className="flex-1 flex items-center justify-center py-2 w-full">
+    {/* Logo. Os 10 arquivos têm canvas idêntico (691×142) com a arte
+        normalizada na mesma altura e centrada — é isso que garante tamanho
+        igual entre eles. Como a proporção é a mesma para todos, basta
+        w-full: nada de max-w/max-h competindo com a caixa. */}
+    <div className="relative flex-1 flex items-center justify-center w-full">
       <img
         src={`${import.meta.env.BASE_URL}movimentos/${movement.id}.png`}
         alt={movement.name}
+        width="691"
+        height="142"
         loading="lazy"
-        className="w-full max-h-28 object-contain transition-transform duration-300 group-hover:scale-105"
+        className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
       />
     </div>
 
     {/* Footer do card com indicador de seta */}
-    <div className="flex items-center justify-between w-full pt-3 border-t border-gray-100">
+    <div className="relative flex items-center justify-between w-full pt-3 border-t border-gray-100">
       <span className="text-gray-600 text-sm font-medium group-hover:text-un-blue transition-colors truncate max-w-[80%]">
         Ver compromissos
       </span>
@@ -315,11 +313,6 @@ export const AmbicaoPage = ({ navigate }) => (
  <BentoCard delay={100} className="lg:col-span-7">
  {/* glass-near: plano da frente, mais opaco */}
  <div className="glass-near rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between">
- <div className="absolute top-0 left-0 w-full h-1 flex rounded-t-[2rem] overflow-hidden">
- {ODS_COLORS.map((c, i) => (
- <span key={i} className="flex-1" style={{ backgroundColor: c }} />
- ))}
- </div>
  <p className="relative text-white text-2xl md:text-3xl lg:text-[2.15rem] leading-[1.3] font-light">
  {AMBICAO_DEFINICAO}
  </p>
@@ -473,7 +466,6 @@ export const AmbicaoPage = ({ navigate }) => (
  <section id="ods" className="py-20 md:py-28 bg-white scroll-mt-24">
  <div className="container mx-auto px-4 md:px-8 lg:px-12">
  <SectionHeader
- barColor="bg-un-green"
  badge="Agenda 2030"
  title="Os 18"
  titleAccent="Objetivos"
@@ -557,21 +549,19 @@ export const AmbicaoPage = ({ navigate }) => (
  <div className="container mx-auto px-4 md:px-8 lg:px-12">
  <SectionHeader
  inverted={false}
- barColor="bg-un-gold"
  badge="Ambição 2030"
  title="Os 10"
  titleAccent="Movimentos"
  description="Cada Movimento mobiliza empresas em torno de uma causa urgente, com compromissos concretos a serem alcançados até 2030."
  />
 
-        {/* 4 por fileira; a largura de cada card vem do próprio MovementCard.
-            justify-center centra a última fileira (2 cards). */}
+        {/* A largura de cada card vem do próprio MovementCard;
+            justify-center centra a última fileira (1 card). */}
         <div className="flex flex-wrap justify-center gap-6">
-          {MOVIMENTOS.map((movement, index) => (
+          {MOVIMENTOS.map((movement) => (
             <MovementCard
               key={movement.id}
               movement={movement}
-              index={index}
               navigate={navigate}
             />
           ))}
@@ -590,7 +580,6 @@ export const AmbicaoPage = ({ navigate }) => (
  <section className="py-20 md:py-28 bg-white">
  <div className="container mx-auto px-4 md:px-8 lg:px-12">
  <SectionHeader
- barColor="bg-un-green"
  badge="Como participar"
  title="Modalidades de"
  titleAccent="Engajamento"
@@ -649,7 +638,6 @@ export const AmbicaoPage = ({ navigate }) => (
  <section className="py-20 md:py-28 bg-un-surface">
  <div className="container mx-auto px-4 md:px-8 lg:px-12">
  <SectionHeader
- barColor="bg-un-blue"
  badge="Como funciona"
  title="Estrutura dos"
  titleAccent="Movimentos"

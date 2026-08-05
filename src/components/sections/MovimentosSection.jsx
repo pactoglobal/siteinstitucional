@@ -9,7 +9,6 @@ export const MovimentosSection = ({ navigate }) => (
     <div className="container mx-auto px-4 md:px-8 lg:px-12">
       <SectionHeader
         inverted
-        barColor="bg-un-green"
         badge="Ambição 2030"
         title="Nossos"
         titleAccent="Movimentos"
@@ -32,24 +31,24 @@ export const MovimentosSection = ({ navigate }) => (
             onClick={() => navigate && navigate('movimento', mov.id)}
             className="group relative flex items-center justify-center h-28 md:h-32 bg-white rounded-2xl overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-un-gold hover:-translate-y-1"
           >
-            {/* Top color bar */}
+            {/* A cor do Movimento entra só no hover, como banho suave — sem
+                barra fixa no topo. O logo já é colorido e carrega a
+                identidade sozinho. */}
             <div
-              className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 group-hover:h-2"
+              className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-300"
               style={{ backgroundColor: mov.color }}
             />
 
-            {/* Subtle color wash on hover */}
-            <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] transition-opacity duration-300"
-              style={{ backgroundColor: mov.color }}
-            />
-
-            {/* Logo com proporção uniforme */}
+            {/* Logo: os PNGs foram recortados na arte, então a largura da
+                caixa é o único limite e o max-h fica folgado. */}
             <div className="relative z-10 w-full h-full flex items-center justify-center px-4 py-3">
               <img
                 src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
                 alt={mov.name}
-                className="max-h-12 md:max-h-14 max-w-[85%] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                width="691"
+                height="142"
+                loading="lazy"
+                className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </div>
           </button>

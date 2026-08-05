@@ -88,7 +88,6 @@ export const SobrePage = () => (
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
         
         <SectionHeader 
-          barColor="bg-un-gold" 
           badge="No Brasil" 
           title="O Pacto Global" 
           titleAccent="Crescendo Juntos" 
