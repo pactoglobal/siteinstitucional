@@ -84,41 +84,43 @@ const BentoCard = ({ children, className = '', delay = 0 }) => (
  </Reveal>
 );
 
+// Largura via flex-basis (não grid): com 10 Movimentos, 4 por fileira deixa
+// uma última fileira de 2. No grid ela ficaria encostada à esquerda; no
+// flex-wrap com justify-center ela centraliza e a composição fecha.
 const MovementCard = ({ movement, index, navigate }) => (
   <button
     onClick={() => navigate('movimento', movement.id)}
-    className="group relative flex flex-col justify-between w-full h-56 bg-white rounded-3xl p-6 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1.5 overflow-hidden text-left"
+    className="group relative flex flex-col justify-between w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] h-64 md:h-72 bg-white rounded-3xl p-6 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1.5 overflow-hidden text-left"
   >
-    {/* Barra de cor superior */}
+    {/* Barra de cor superior — única marcação cromática do Movimento no card */}
     <div
       className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 group-hover:h-2"
       style={{ backgroundColor: movement.color }}
     />
 
-    <div className="flex items-center justify-between w-full mb-2">
-      <span className="inline-block text-un-blue text-[9px] font-bold uppercase tracking-widest">
-        Movimento {String(index + 1).padStart(2, '0')}
-      </span>
-      <span className="text-[10px] font-bold px-2 py-0.5 rounded text-white" style={{ backgroundColor: movement.color }}>
-        ODS {movement.ods?.join(', ')}
-      </span>
-    </div>
+    <span className="block text-un-blue text-[9px] font-bold uppercase tracking-widest mb-2">
+      Movimento {String(index + 1).padStart(2, '0')}
+    </span>
 
-    {/* Conteúdo centralizado do Logo */}
-    <div className="flex-1 flex items-center justify-center py-2 px-2 w-full">
+    {/* Logo. Os PNGs são 900×300 (3:1), então a largura é o limite real:
+        sem max-w apertado o logo usa toda a caixa e a altura sobra. */}
+    <div className="flex-1 flex items-center justify-center py-3 w-full">
       <img
         src={`${import.meta.env.BASE_URL}movimentos/${movement.id}.png`}
         alt={movement.name}
-        className="max-h-14 md:max-h-16 max-w-[90%] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+        width="900"
+        height="300"
+        loading="lazy"
+        className="w-full max-w-full max-h-24 md:max-h-28 object-contain transition-transform duration-300 group-hover:scale-105"
       />
     </div>
 
     {/* Footer do card com indicador de seta */}
     <div className="flex items-center justify-between w-full pt-3 border-t border-gray-100">
-      <span className="text-gray-600 text-xs font-medium group-hover:text-un-blue transition-colors truncate max-w-[80%]">
+      <span className="text-gray-600 text-sm font-medium group-hover:text-un-blue transition-colors truncate max-w-[80%]">
         Ver compromissos
       </span>
-      <span className="shrink-0 w-8 h-8 rounded-full bg-un-blue/5 flex items-center justify-center text-un-blue group-hover:bg-un-blue group-hover:text-white transition-all duration-300 group-hover:scale-110">
+      <span className="shrink-0 w-9 h-9 rounded-full bg-un-blue/5 flex items-center justify-center text-un-blue group-hover:bg-un-blue group-hover:text-white transition-all duration-300 group-hover:scale-110">
         <ArrowUpRight className="w-4 h-4" />
       </span>
     </div>
@@ -559,8 +561,9 @@ export const AmbicaoPage = ({ navigate }) => (
  description="Cada Movimento mobiliza empresas em torno de uma causa urgente, com compromissos concretos a serem alcançados até 2030."
  />
 
-        {/* Grid Layout Uniforme para os 10 Movimentos */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 lg:gap-6">
+        {/* 4 por fileira; a largura de cada card vem do próprio MovementCard.
+            justify-center centra a última fileira (2 cards). */}
+        <div className="flex flex-wrap justify-center gap-6">
           {MOVIMENTOS.map((movement, index) => (
             <MovementCard
               key={movement.id}
