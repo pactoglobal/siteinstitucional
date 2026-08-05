@@ -90,7 +90,7 @@ const BentoCard = ({ children, className = '', delay = 0 }) => (
 const MovementCard = ({ movement, index, navigate }) => (
   <button
     onClick={() => navigate('movimento', movement.id)}
-    className="group relative flex flex-col justify-between w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] h-64 md:h-72 bg-white rounded-3xl p-6 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1.5 overflow-hidden text-left"
+    className="group relative flex flex-col justify-between w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] h-64 md:h-72 bg-white rounded-3xl p-5 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1.5 overflow-hidden text-left"
   >
     {/* Barra de cor superior — única marcação cromática do Movimento no card */}
     <div
@@ -102,16 +102,19 @@ const MovementCard = ({ movement, index, navigate }) => (
       Movimento {String(index + 1).padStart(2, '0')}
     </span>
 
-    {/* Logo. Os PNGs são 900×300 (3:1), então a largura é o limite real:
-        sem max-w apertado o logo usa toda a caixa e a altura sobra. */}
-    <div className="flex-1 flex items-center justify-center py-3 w-full">
+    {/* Logo. Os PNGs foram recortados na arte (antes tinham ~60% de moldura
+        branca embutida num canvas 900×300, em quantidades desiguais — o que
+        fazia logos de mesmo tamanho de caixa parecerem tamanhos diferentes).
+        Agora a largura da caixa é o único limite: o max-h é folgado de
+        propósito, para nunca competir com ela.
+        Sem width/height: cada arquivo tem proporção própria (3,6:1 a 5,8:1)
+        e a altura do card já reserva o espaço, então não há layout shift. */}
+    <div className="flex-1 flex items-center justify-center py-2 w-full">
       <img
         src={`${import.meta.env.BASE_URL}movimentos/${movement.id}.png`}
         alt={movement.name}
-        width="900"
-        height="300"
         loading="lazy"
-        className="w-full max-w-full max-h-24 md:max-h-28 object-contain transition-transform duration-300 group-hover:scale-105"
+        className="w-full max-h-28 object-contain transition-transform duration-300 group-hover:scale-105"
       />
     </div>
 
