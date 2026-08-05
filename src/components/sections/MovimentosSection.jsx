@@ -24,31 +24,26 @@ export const MovimentosSection = ({ navigate }) => (
         }
       />
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 md:gap-4">
         {MOVIMENTOS.map((mov) => (
           <button
             key={mov.id}
             onClick={() => navigate && navigate('movimento', mov.id)}
-            className="group relative flex items-center justify-center h-28 md:h-32 bg-white rounded-2xl overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-un-gold hover:-translate-y-1"
+            className="group relative flex items-center justify-center h-22 md:h-26 bg-white rounded-2xl overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-un-gold hover:-translate-y-1"
           >
-            {/* A cor do Movimento entra só no hover, como banho suave — sem
-                barra fixa no topo. O logo já é colorido e carrega a
-                identidade sozinho. */}
+            {/* A cor do Movimento entra só no hover, como banho suave */}
             <div
               className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-300"
               style={{ backgroundColor: mov.color }}
             />
 
-            {/* Logo: os PNGs foram recortados na arte, então a largura da
-                caixa é o único limite e o max-h fica folgado. */}
-            <div className="relative z-10 w-full h-full flex items-center justify-center px-4 py-3">
+            {/* Logo com altura rigorosamente uniforme e proporcional */}
+            <div className="relative z-10 w-full h-full flex items-center justify-center p-3">
               <img
                 src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
                 alt={mov.name}
-                width="691"
-                height="142"
                 loading="lazy"
-                className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                className="h-10 md:h-12 w-auto max-w-[80%] object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </div>
           </button>

@@ -87,41 +87,33 @@ const BentoCard = ({ children, className = '', delay = 0 }) => (
 // 2 por fileira: 10 Movimentos fecham em 5 fileiras exatas, sem card órfão.
 // Também é o que dá o logo maior — o canvas único (691×142) é ditado pelo
 // lockup mais largo ("Transparência 100%"), então a altura do tipo depende
-// direto da largura da caixa: ~39px com 4 colunas, ~53px com 3, ~85px com 2.
 const MovementCard = ({ movement, navigate }) => (
   <button
     onClick={() => navigate('movimento', movement.id)}
-    className="group relative flex flex-col justify-between w-full lg:w-[calc(50%-0.75rem)] h-44 md:h-52 bg-white rounded-3xl p-5 md:p-7 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1.5 overflow-hidden text-left"
+    className="group relative flex flex-col justify-between w-full h-32 md:h-36 bg-white rounded-2xl p-3.5 md:p-4 border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 hover:-translate-y-1 overflow-hidden text-left cursor-pointer"
   >
-    {/* Cor do Movimento só no hover — sem barra fixa no topo. O logo já é
-        colorido e traz o nome, então não precisa de rótulo nem de faixa. */}
     <div
       className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-300 pointer-events-none"
       style={{ backgroundColor: movement.color }}
     />
 
-    {/* Logo. Os 10 arquivos têm canvas idêntico (691×142) com a arte
-        normalizada na mesma altura e centrada — é isso que garante tamanho
-        igual entre eles. Como a proporção é a mesma para todos, basta
-        w-full: nada de max-w/max-h competindo com a caixa. */}
-    <div className="relative flex-1 flex items-center justify-center w-full">
+    {/* Logo com altura rigorosamente uniforme e proporcional */}
+    <div className="relative flex-1 flex items-center justify-center w-full py-1">
       <img
         src={`${import.meta.env.BASE_URL}movimentos/${movement.id}.png`}
         alt={movement.name}
-        width="691"
-        height="142"
         loading="lazy"
-        className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+        className="h-10 md:h-12 w-auto max-w-[85%] object-contain transition-transform duration-300 group-hover:scale-105"
       />
     </div>
 
     {/* Footer do card com indicador de seta */}
-    <div className="relative flex items-center justify-between w-full pt-3 border-t border-gray-100">
-      <span className="text-gray-600 text-sm font-medium group-hover:text-un-blue transition-colors truncate max-w-[80%]">
+    <div className="relative flex items-center justify-between w-full pt-2 border-t border-gray-100">
+      <span className="text-gray-600 text-xs font-medium group-hover:text-un-blue transition-colors truncate max-w-[80%]">
         Ver compromissos
       </span>
-      <span className="shrink-0 w-9 h-9 rounded-full bg-un-blue/5 flex items-center justify-center text-un-blue group-hover:bg-un-blue group-hover:text-white transition-all duration-300 group-hover:scale-110">
-        <ArrowUpRight className="w-4 h-4" />
+      <span className="shrink-0 w-7 h-7 rounded-full bg-un-blue/5 flex items-center justify-center text-un-blue group-hover:bg-un-blue group-hover:text-white transition-all duration-300 group-hover:scale-110">
+        <ArrowUpRight className="w-3.5 h-3.5" />
       </span>
     </div>
   </button>

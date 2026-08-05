@@ -381,14 +381,14 @@ export const MovimentoPage = ({ slug, navigate }) => {
             <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest text-center mb-6">
               Outros Movimentos
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3.5 md:gap-4">
               {outros.map((m) => (
                 <button
                   key={m.id}
                   onClick={() => navigate('movimento', m.id)}
-                  className="group relative flex items-center justify-center bg-white hover:shadow-xl rounded-2xl h-28 md:h-32 p-4 transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-pointer"
+                  className="group relative flex items-center justify-center bg-white hover:shadow-xl rounded-2xl h-22 md:h-26 p-3 transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-pointer"
                 >
-                  {/* Cor do Movimento só no hover (sem barra fixa no topo) */}
+                  {/* Cor do Movimento só no hover */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-300"
                     style={{ backgroundColor: m.color }}
@@ -397,10 +397,8 @@ export const MovimentoPage = ({ slug, navigate }) => {
                     <img
                       src={`${import.meta.env.BASE_URL}movimentos/${m.id}.png`}
                       alt={m.name}
-                      width="691"
-                      height="142"
                       loading="lazy"
-                      className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                      className="h-10 md:h-12 w-auto max-w-[80%] object-contain transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
                 </button>
