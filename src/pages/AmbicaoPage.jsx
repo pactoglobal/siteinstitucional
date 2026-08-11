@@ -23,12 +23,13 @@ import {
 } from '../components/sections/AmbicaoSections';
 import { ODS_COLORS, ODS_NAMES } from '../data/constants';
 
-// ⚠ PLACEHOLDER — imagem de fundo do hero da Ambição 2030.
-// Substituir pela imagem institucional oficial da RBPG (ex.: foto do
-// Fórum Ambição 2030). Ao trocar por um arquivo local, mover para
-// public/images/ e usar `${import.meta.env.BASE_URL}images/<arquivo>`.
-const AMBICAO_HERO_IMAGE =
- 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2400&auto=format&fit=crop';
+// Imagens institucionais para o slider automático de fundo do Hero (transição suave sem marcadores)
+const HERO_SLIDES = [
+  'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2400&auto=format&fit=crop', // Liderança e Governança
+  'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=2400&auto=format&fit=crop', // Conservação dos Biomas
+  'https://images.unsplash.com/photo-1538300342682-cf57afb97285?q=80&w=2400&auto=format&fit=crop', // Gestão de Água e Saneamento
+  'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=2400&auto=format&fit=crop', // Energia Limpa e Clima
+];
 
 // Camada de textura: malha de pontos sutil
 const DotGrid = ({ className = '' }) => (
@@ -155,152 +156,157 @@ const MovementCard = ({ movement, index, navigate }) => (
 );
 
 export const AmbicaoPage = ({ navigate }) => {
- // Parallax do hero: a foto sobe mais devagar que o texto ao rolar.
- // scrub liga a timeline à posição do scroll (não ao tempo), então o
- // movimento acompanha o dedo em vez de tocar sozinho. Só transform —
- // nada que force layout.
- const heroRef = useGsap(({ gsap, raiz }) => {
- const foto = raiz.querySelector('[data-anim="hero-foto"]');
- const conteudo = raiz.querySelector('[data-anim="hero-conteudo"]');
- if (foto) {
- gsap.to(foto, {
- yPercent: 14,
- ease: 'none',
- scrollTrigger: { trigger: raiz, start: 'top top', end: 'bottom top', scrub: true },
- });
- }
- if (conteudo) {
- gsap.to(conteudo, {
- yPercent: -6,
- opacity: 0.35,
- ease: 'none',
- scrollTrigger: { trigger: raiz, start: 'top top', end: 'bottom top', scrub: true },
- });
- }
- }, []);
+  // Slider automático de fundo do Hero (transição suave de imagens sem marcadores)
+  const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
 
- return (
- <div className="animate-fade-in">
- {/* ============ HERO EDITORIAL ============ */}
- <section
- ref={heroRef}
- className="relative bg-un-blue overflow-hidden pt-32 md:pt-40 pb-20 md:pb-28"
- >
- {/* Imagem de fundo do hero.
- ⚠ PLACEHOLDER: trocar por imagem institucional oficial da RBPG
- (ver AMBICAO_HERO_IMAGE no topo do arquivo).
- scale-110 dá folga para o parallax deslocar sem descobrir a borda. */}
- <img
- data-anim="hero-foto"
- src={AMBICAO_HERO_IMAGE}
- alt=""
- aria-hidden="true"
- className="absolute inset-0 w-full h-full object-cover object-center scale-110 will-change-transform"
- />
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlideIndex((prevIndex) => (prevIndex + 1) % HERO_SLIDES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
- {/* Vinheta: escurece à esquerda para o texto e preserva a imagem à direita */}
- <div className="absolute inset-0 bg-gradient-to-r from-un-blue via-un-blue/90 to-un-blue/40" />
- <div className="absolute inset-0 bg-gradient-to-t from-un-blue via-transparent to-un-blue/60" />
+  // Parallax do hero
+  const heroRef = useGsap(({ gsap, raiz }) => {
+    const foto = raiz.querySelector('[data-anim="hero-foto"]');
+    const conteudo = raiz.querySelector('[data-anim="hero-conteudo"]');
+    if (foto) {
+      gsap.to(foto, {
+        yPercent: 14,
+        ease: 'none',
+        scrollTrigger: { trigger: raiz, start: 'top top', end: 'bottom top', scrub: true },
+      });
+    }
+    if (conteudo) {
+      gsap.to(conteudo, {
+        yPercent: -6,
+        opacity: 0.35,
+        ease: 'none',
+        scrollTrigger: { trigger: raiz, start: 'top top', end: 'bottom top', scrub: true },
+      });
+    }
+  }, []);
 
- {/* Glow de acento — mantém a atmosfera da identidade */}
- <div
- className="absolute -right-20 md:-right-4 top-1/2 -translate-y-1/2 w-[460px] h-[460px] md:w-[720px] md:h-[720px] rounded-full blur-3xl animate-glow pointer-events-none"
- style={{ background: 'radial-gradient(circle, rgba(204,177,70,0.28), transparent 65%)' }}
- />
+  return (
+    <div className="animate-fade-in">
+      {/* ============ HERO EDITORIAL ============ */}
+      <section
+        ref={heroRef}
+        className="relative bg-un-blue overflow-hidden pt-32 md:pt-40 pb-20 md:pb-28"
+      >
+        {/* Slider de imagens de fundo do Hero (sem marcadores, transição suave cross-fade) */}
+        {HERO_SLIDES.map((slideUrl, idx) => (
+          <img
+            key={slideUrl}
+            data-anim={idx === 0 ? "hero-foto" : undefined}
+            src={slideUrl}
+            alt=""
+            aria-hidden="true"
+            className={`absolute inset-0 w-full h-full object-cover object-center scale-110 will-change-transform transition-opacity duration-1000 ease-in-out ${
+              idx === currentSlideIndex ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          />
+        ))}
 
- <div className="absolute inset-0 text-white/[0.05]">
- <DotGrid className="w-full h-full" />
- </div>
- {/* Grão sutil + fade inferior para a próxima seção */}
- <div className="absolute inset-0 grain-overlay opacity-[0.04] mix-blend-overlay pointer-events-none" />
- {/* Fade para o un-footer da seção seguinte, não para o un-blue do
- próprio hero — as duas zonas escuras precisam emendar sem degrau. */}
- <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-un-footer to-transparent pointer-events-none" />
+        {/* Vinheta */}
+        <div className="absolute inset-0 bg-gradient-to-r from-un-blue via-un-blue/90 to-un-blue/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-un-blue via-transparent to-un-blue/60" />
 
- {/* Espectro ODS como filete no rodapé do hero — mantém a referência
- aos Objetivos sem a roda dominando a composição. */}
- <div className="absolute bottom-0 inset-x-0 h-1.5 flex z-10">
- {ODS_COLORS.map((c, i) => (
- <span key={i} className="flex-1" style={{ backgroundColor: c }} />
- ))}
- </div>
+        {/* Glow de acento */}
+        <div
+          className="absolute -right-20 md:-right-4 top-1/2 -translate-y-1/2 w-[460px] h-[460px] md:w-[720px] md:h-[720px] rounded-full blur-3xl animate-glow pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(204,177,70,0.28), transparent 65%)' }}
+        />
 
- <div data-anim="hero-conteudo" className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10 will-change-transform">
-   <div className="max-w-3xl">
-     <span
-       className="inline-flex items-center gap-2 text-un-gold text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-8 animate-fade-in-up"
-       style={{ animationDelay: '0ms' }}
-     >
-       <span className="w-8 h-px bg-un-gold" /> Pacto Global da ONU · Rede Brasil
-     </span>
+        <div className="absolute inset-0 text-white/[0.05]">
+          <DotGrid className="w-full h-full" />
+        </div>
+        <div className="absolute inset-0 grain-overlay opacity-[0.04] mix-blend-overlay pointer-events-none" />
+        <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-un-footer to-transparent pointer-events-none" />
 
-     <h1
-       className="font-display font-black uppercase leading-[0.9] mb-8 animate-fade-in-up"
-       style={{ animationDelay: '90ms' }}
-     >
-       <span className="block text-5xl md:text-7xl lg:text-[8.5rem] text-white tracking-tight">
-         Ambição
-       </span>
-       {/* Sólido em ouro, no mesmo corpo do "Ambição". Duas tentativas
-           anteriores não sobreviveram à foto: o vazado (text-stroke de
-           2px) tinha o contorno brigando com a imagem, e o gradiente ODS
-           só entregava metade do espectro — os glifos ocupam ~50% da
-           largura do bloco, então os stops finais (#00689D, #6E417A)
-           caíam no vazio à direita e nunca apareciam no texto. */}
-       <span className="block text-5xl md:text-7xl lg:text-[8.5rem] text-un-gold tracking-tight">
-         2030
-       </span>
-     </h1>
+        {/* Espectro ODS */}
+        <div className="absolute bottom-0 inset-x-0 h-1.5 flex z-10">
+          {ODS_COLORS.map((c, i) => (
+            <span key={i} className="flex-1" style={{ backgroundColor: c }} />
+          ))}
+        </div>
 
-     <p
-       className="text-white/80 text-lg md:text-2xl font-light leading-relaxed max-w-2xl mb-10 animate-fade-in-up"
-       style={{ animationDelay: '180ms' }}
-     >
-       {AMBICAO_DEFINICAO}
-     </p>
+        <div data-anim="hero-conteudo" className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10 will-change-transform">
+          <div className="max-w-3xl">
+            <span
+              className="inline-flex items-center gap-2 text-un-gold text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-8 animate-fade-in-up"
+              style={{ animationDelay: '0ms' }}
+            >
+              <span className="w-8 h-px bg-un-gold" /> Pacto Global da ONU · Rede Brasil
+            </span>
 
- {/* Stat row editorial */}
- <div
- className="flex flex-wrap items-center gap-8 md:gap-12 mb-10 animate-fade-in-up"
- style={{ animationDelay: '260ms' }}
- >
- {STATS.map((s, i) => (
- <div key={s.label} className="flex flex-col relative">
- {i > 0 && (
- <span className="hidden md:block absolute -left-6 top-1 bottom-1 w-px bg-white/15" />
- )}
- <span className="font-display font-black text-3xl md:text-5xl text-white leading-none">
- {s.value}
- </span>
- <span className="text-un-blue-3 text-[10px] md:text-xs uppercase tracking-widest mt-2 font-bold">
- {s.label}
- </span>
- </div>
- ))}
- </div>
+            <h1
+              className="font-display font-black uppercase leading-[0.9] mb-8 animate-fade-in-up"
+              style={{ animationDelay: '90ms' }}
+            >
+              <span className="block text-5xl md:text-7xl lg:text-[8.5rem] text-white tracking-tight">
+                Ambição
+              </span>
+              <span className="block text-5xl md:text-7xl lg:text-[8.5rem] text-un-gold tracking-tight">
+                2030
+              </span>
+            </h1>
 
- <div
- className="flex flex-col sm:flex-row gap-4 animate-fade-in-up"
- style={{ animationDelay: '340ms' }}
- >
- <Button variant="primary" icon={ArrowRight} onClick={() => navigate('participar')}>
- Quero Aderir
- </Button>
- <a
- href="#oque-e"
- onClick={(e) => {
- e.preventDefault();
- document.querySelector('#oque-e')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
- }}
- className="group inline-flex items-center gap-2 min-h-[44px] text-white/70 hover:text-white text-[11px] font-bold uppercase tracking-widest transition-colors px-2 py-3 cursor-pointer"
- >
- Descobrir a Ambição
- <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
- </a>
- </div>
- </div>
- </div>
- </section>
+            <p
+              className="text-white/80 text-lg md:text-2xl font-light leading-relaxed max-w-2xl mb-10 animate-fade-in-up"
+              style={{ animationDelay: '180ms' }}
+            >
+              {AMBICAO_DEFINICAO}
+            </p>
+
+            {/* Stat row editorial */}
+            <div
+              className="flex flex-wrap items-center gap-8 md:gap-12 mb-10 animate-fade-in-up"
+              style={{ animationDelay: '260ms' }}
+            >
+              {STATS.map((s, i) => (
+                <div key={s.label} className="flex flex-col relative">
+                  {i > 0 && (
+                    <span className="hidden md:block absolute -left-6 top-1 bottom-1 w-px bg-white/15" />
+                  )}
+                  <span className="font-display font-black text-3xl md:text-5xl text-white leading-none">
+                    {s.value}
+                  </span>
+                  <span className="text-un-blue-3 text-[10px] md:text-xs uppercase tracking-widest mt-2 font-bold">
+                    {s.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div
+              className="flex flex-col sm:flex-row gap-4 animate-fade-in-up items-stretch sm:items-center"
+              style={{ animationDelay: '340ms' }}
+            >
+              {/* Botão Quero Aderir em Ouro Sólido */}
+              <button
+                onClick={() => navigate('participar')}
+                className="group inline-flex items-center justify-center gap-3 bg-un-gold text-un-blue font-bold uppercase tracking-wider text-xs md:text-sm px-8 py-4 rounded-full shadow-xl shadow-un-gold/20 hover:bg-white hover:text-un-blue hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-un-gold focus:ring-offset-2 focus:ring-offset-un-blue"
+              >
+                <span>Quero Aderir</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
+
+              <a
+                href="#oque-e"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector('#oque-e')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+                className="group inline-flex items-center justify-center gap-2 min-h-[44px] text-white/80 hover:text-white text-[11px] font-bold uppercase tracking-widest transition-colors px-4 py-3 cursor-pointer"
+              >
+                Descobrir a Ambição
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
  {/* ============ O CHAMADO ============
  Abertura narrativa (texto oficial da RBPG). Entra entre o hero e
@@ -355,178 +361,195 @@ export const AmbicaoPage = ({ navigate }) => {
  <figcaption className="relative mt-7 flex items-start gap-4">
  <span aria-hidden="true" className="mt-2 w-10 h-px bg-un-gold shrink-0" />
  <span className="block">
- <span className="block text-white text-[11px] font-bold uppercase tracking-[0.22em]">
- {AMBICAO_CITACAO.author}
- </span>
- <span className="block text-un-blue-3/85 text-xs mt-1.5">
- {AMBICAO_CITACAO.role}
- </span>
- <span className="block text-white/60 text-[11px] mt-0.5">
- {AMBICAO_CITACAO.source}
- </span>
- </span>
- </figcaption>
- </figure>
- </Reveal>
+              <span className="block text-white text-[11px] font-bold uppercase tracking-[0.22em]">
+                {AMBICAO_CITACAO.author}
+              </span>
+              <span className="block text-un-blue-3/85 text-xs mt-1.5">
+                {AMBICAO_CITACAO.role}
+              </span>
+              <span className="block text-white/60 text-[11px] mt-0.5">
+                {AMBICAO_CITACAO.source}
+              </span>
+            </span>
+          </figcaption>
+        </figure>
+      </Reveal>
 
- {/* ---- Faixa 1: definição + resultado-herói ---- */}
- <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 mb-5 lg:mb-6">
-  {/* Definição — peça dominante com imagem institucional de fundo */}
-  <BentoCard delay={100} className="lg:col-span-7">
-    <div className="group relative glass-near rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between min-h-[360px]">
-      <img
-        src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop"
-        alt="Liderança empresarial e Agenda 2030"
-        className="absolute inset-0 w-full h-full object-cover opacity-20 transition-all duration-700 group-hover:scale-105 group-hover:opacity-30 mix-blend-luminosity"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-un-footer via-un-footer/90 to-un-footer/60 pointer-events-none" />
+  {/* ---- Faixa 1: definição + resultado-herói ---- */}
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 mb-5 lg:mb-6">
+    {/* Definição — peça dominante com imagem institucional de fundo e eixos estruturados */}
+    <BentoCard delay={100} className="lg:col-span-7">
+      <div className="group relative glass-near rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between">
+        <img
+          src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop"
+          alt="Liderança empresarial e Agenda 2030"
+          className="absolute inset-0 w-full h-full object-cover opacity-20 transition-all duration-700 group-hover:scale-105 group-hover:opacity-30 mix-blend-luminosity"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-un-footer via-un-footer/90 to-un-footer/60 pointer-events-none" />
 
-      <div className="relative z-10">
-        <span className="inline-block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-4">
-          Definição
+        <div className="relative z-10">
+          <span className="inline-block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-4">
+            Definição
+          </span>
+          <p className="text-white text-xl md:text-2xl lg:text-[1.75rem] leading-[1.35] font-light mb-8">
+            {AMBICAO_DEFINICAO}
+          </p>
+
+          {/* Três eixos de apoio da Definição */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6 border-t border-white/10">
+            <div className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
+              <span className="block font-display font-black text-un-gold text-xs uppercase tracking-wider mb-1">
+                Compromissos
+              </span>
+              <p className="text-white/70 text-[11px] leading-relaxed font-light">
+                Metas públicas e mensuráveis até 2030.
+              </p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
+              <span className="block font-display font-black text-un-gold text-xs uppercase tracking-wider mb-1">
+                Transformação
+              </span>
+              <p className="text-white/70 text-[11px] leading-relaxed font-light">
+                Mudança nas organizações e cadeias de valor.
+              </p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
+              <span className="block font-display font-black text-un-gold text-xs uppercase tracking-wider mb-1">
+                18 ODS
+              </span>
+              <p className="text-white/70 text-[11px] leading-relaxed font-light">
+                Conexão com a agenda global de sustentabilidade.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="relative z-10 mt-8 pt-6 border-t border-white/15 flex items-center justify-between">
+          <span className="text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em]">
+            Estratégia Empresarial do Pacto Global da ONU
+          </span>
+          <span className="text-white/60 text-xs font-light">Impacto Coletivo & Individual</span>
+        </div>
+      </div>
+    </BentoCard>
+
+    {/* Resultados — um número herói, três de apoio */}
+    <BentoCard delay={180} className="lg:col-span-5">
+      <div className="glass rounded-[2rem] p-9 md:p-12 h-full flex flex-col overflow-hidden">
+        <span className="relative block text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em] mb-1.5">
+          {AMBICAO_RESULTADOS.title}
         </span>
-        <p className="text-white text-xl md:text-2xl lg:text-[1.85rem] leading-[1.35] font-light">
-          {AMBICAO_DEFINICAO}
+        <span className="relative block text-white/60 text-[11px] font-light tracking-wide mb-8">
+          {AMBICAO_RESULTADOS.period}
+        </span>
+        <div className="relative">
+          <ContadorAnimado
+            valor={AMBICAO_RESULTADOS.stats[0].value}
+            className="block font-display font-black text-un-gold text-7xl md:text-8xl leading-[0.85] tabular-nums"
+            style={{ textShadow: '0 0 40px rgba(204,177,70,0.28)' }}
+          />
+          <span className="block text-white text-sm mt-3 font-medium">
+            {AMBICAO_RESULTADOS.stats[0].label}
+          </span>
+        </div>
+        <dl className="relative mt-8 divide-y divide-white/10 border-t border-white/10">
+          {AMBICAO_RESULTADOS.stats.slice(1).map((s) => (
+            <div key={s.label} className="flex items-baseline justify-between gap-4 py-3.5">
+              <dt className="text-un-blue-3 text-xs leading-snug">{s.label}</dt>
+              <dd className="font-display font-black text-white text-2xl md:text-[1.7rem] leading-none tabular-nums shrink-0">
+                {s.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        {AMBICAO_RESULTADOS.alcance && (
+          <div className="relative mt-8 pt-7 border-t border-un-gold/30">
+            <p className="text-white text-sm md:text-[0.95rem] leading-relaxed font-light mb-4">
+              A iniciativa já ultrapassou fronteiras: inspirou o{' '}
+              <a
+                href="https://forwardfaster.unglobalcompact.org/home"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 font-bold text-un-gold hover:text-white underline decoration-un-gold/60 underline-offset-4 transition-colors"
+              >
+                Forward Faster
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>{' '}
+              do Pacto Global da ONU, reafirmando o Brasil como referência nessa agenda.
+            </p>
+
+            <a
+              href="https://forwardfaster.unglobalcompact.org/home"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/10 hover:bg-un-gold hover:text-un-blue text-xs font-bold uppercase tracking-wider text-white border border-white/20 transition-all duration-300 shadow-sm"
+            >
+              <span>Conheça a iniciativa Forward Faster</span>
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </div>
+        )}
+        <p className="relative text-white/60 text-[11px] leading-relaxed font-light mt-auto pt-8">
+          {AMBICAO_RESULTADOS.nota}
+        </p>
+      </div>
+    </BentoCard>
+  </div>
+
+  {/* ---- Faixa 2: origem + linha do tempo em largura total ---- */}
+  <BentoCard delay={240}>
+    <div className="glass-far rounded-xl !border-t-2 !border-t-un-gold p-9 md:p-12 mb-5 lg:mb-6">
+      <div className="relative grid lg:grid-cols-12 gap-4 lg:gap-12 pb-10 md:pb-14 border-b border-white/10">
+        <span className="lg:col-span-4 block text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em] lg:pt-1">
+          Como surgiu
+        </span>
+        <p className="lg:col-span-8 text-white/75 text-sm md:text-base leading-relaxed font-light max-w-[65ch]">
+          {AMBICAO_ORIGEM.description}
         </p>
       </div>
 
-      <div className="relative z-10 mt-8 pt-6 border-t border-white/15 flex items-center justify-between">
-        <span className="text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em]">
-          Estratégia Empresarial do Pacto Global da ONU
+      <div className="relative pt-10 md:pt-14">
+        <span className="block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-8">
+          Linha do tempo
         </span>
-        <span className="text-white/60 text-xs font-light">Impacto Coletivo & Individual</span>
+        <ol className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-9 list-none m-0 p-0">
+          <span
+            aria-hidden="true"
+            className="hidden lg:block absolute left-0 right-0 top-[7px] h-px bg-white/15"
+          />
+          {AMBICAO_ORIGEM.timeline.map((item, i) => {
+            const isLast = i === AMBICAO_ORIGEM.timeline.length - 1;
+            return (
+              <li key={item.year} className="relative">
+                <span
+                  className="relative block w-[15px] h-[15px] rounded-full ring-4 ring-un-footer mb-4"
+                  style={{
+                    backgroundColor: isLast ? '#CCB146' : '#AECFE6',
+                    boxShadow: isLast ? '0 0 18px rgba(204,177,70,0.6)' : 'none',
+                  }}
+                />
+                <span className="block font-display font-black text-white text-2xl md:text-[1.75rem] leading-none tabular-nums mb-2">
+                  {item.year}
+                </span>
+                <span className="block text-un-blue-3/80 text-[11px] md:text-xs leading-snug pr-2">
+                  {item.event}
+                </span>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </div>
   </BentoCard>
 
- {/* Resultados — um número herói, três de apoio */}
- <BentoCard delay={180} className="lg:col-span-5">
- <div className="glass rounded-[2rem] p-9 md:p-12 h-full flex flex-col overflow-hidden">
- <span className="relative block text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em] mb-1.5">
- {AMBICAO_RESULTADOS.title}
- </span>
- {/* Datação própria do bloco de números — não herdar a da citação */}
- <span className="relative block text-white/60 text-[11px] font-light tracking-wide mb-8">
- {AMBICAO_RESULTADOS.period}
- </span>
- {/* Métrica principal: ouro sobre vidro, com halo sutil */}
- <div className="relative">
- <ContadorAnimado
- valor={AMBICAO_RESULTADOS.stats[0].value}
- className="block font-display font-black text-un-gold text-7xl md:text-8xl leading-[0.85] tabular-nums"
- style={{ textShadow: '0 0 40px rgba(204,177,70,0.28)' }}
- />
- <span className="block text-white text-sm mt-3 font-medium">
- {AMBICAO_RESULTADOS.stats[0].label}
- </span>
- </div>
- {/* Apoio: réguas finas sobre vidro */}
- <dl className="relative mt-8 divide-y divide-white/10 border-t border-white/10">
- {AMBICAO_RESULTADOS.stats.slice(1).map((s) => (
- <div key={s.label} className="flex items-baseline justify-between gap-4 py-3.5">
- <dt className="text-un-blue-3 text-xs leading-snug">{s.label}</dt>
- <dd className="font-display font-black text-white text-2xl md:text-[1.7rem] leading-none tabular-nums shrink-0">
- {s.value}
- </dd>
- </div>
- ))}
- </dl>
-  {/* Alcance internacional — destaque para o Forward Faster */}
-  {AMBICAO_RESULTADOS.alcance && (
-    <div className="relative mt-8 pt-7 border-t border-un-gold/30">
-      <p className="text-white text-sm md:text-[0.95rem] leading-relaxed font-light mb-4">
-        A iniciativa já ultrapassou fronteiras: inspirou o{' '}
-        <a
-          href="https://forwardfaster.unglobalcompact.org/home"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 font-bold text-un-gold hover:text-white underline decoration-un-gold/60 underline-offset-4 transition-colors"
-        >
-          Forward Faster
-          <ArrowUpRight className="w-3.5 h-3.5" />
-        </a>{' '}
-        do Pacto Global da ONU, reafirmando o Brasil como referência nessa agenda.
-      </p>
-
-      {/* CTA Badge de Redirecionamento */}
-      <a
-        href="https://forwardfaster.unglobalcompact.org/home"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/10 hover:bg-un-gold hover:text-un-blue text-xs font-bold uppercase tracking-wider text-white border border-white/20 transition-all duration-300 shadow-sm"
-      >
-        <span>Conheça a iniciativa Forward Faster</span>
-        <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-      </a>
-    </div>
-  )}
- <p className="relative text-white/60 text-[11px] leading-relaxed font-light mt-auto pt-8">
- {AMBICAO_RESULTADOS.nota}
- </p>
- </div>
- </BentoCard>
- </div>
-
- {/* ---- Faixa 2: origem + linha do tempo em largura total ----
- Radius menor e régua dourada no topo: é uma faixa documental,
- não um cartão — diferencia da forma das outras peças. A timeline
- ocupa as 12 colunas para os 6 marcos caberem sem corte. */}
- <BentoCard delay={240}>
- <div className="glass-far rounded-xl !border-t-2 !border-t-un-gold p-9 md:p-12 mb-5 lg:mb-6">
- {/* Origem — eyebrow à esquerda, texto à direita (split editorial) */}
- <div className="relative grid lg:grid-cols-12 gap-4 lg:gap-12 pb-10 md:pb-14 border-b border-white/10">
- <span className="lg:col-span-4 block text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em] lg:pt-1">
- Como surgiu
- </span>
- <p className="lg:col-span-8 text-white/75 text-sm md:text-base leading-relaxed font-light max-w-[65ch]">
- {AMBICAO_ORIGEM.description}
- </p>
- </div>
-
- {/* Linha do tempo — marcos em largura total, régua contínua */}
- <div className="relative pt-10 md:pt-14">
- <span className="block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-8">
- Linha do tempo
- </span>
- <ol className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-9 list-none m-0 p-0">
- {/* régua contínua atrás dos marcos (só quando em uma única linha) */}
- <span
- aria-hidden="true"
- className="hidden lg:block absolute left-0 right-0 top-[7px] h-px bg-white/15"
- />
- {AMBICAO_ORIGEM.timeline.map((item, i) => {
- const isLast = i === AMBICAO_ORIGEM.timeline.length - 1;
- return (
- <li key={item.year} className="relative">
- <span
- className="relative block w-[15px] h-[15px] rounded-full ring-4 ring-un-footer mb-4"
- style={{
- backgroundColor: isLast ? '#CCB146' : '#AECFE6',
- boxShadow: isLast ? '0 0 18px rgba(204,177,70,0.6)' : 'none',
- }}
- />
- <span className="block font-display font-black text-white text-2xl md:text-[1.75rem] leading-none tabular-nums mb-2">
- {item.year}
- </span>
- <span className="block text-un-blue-3/80 text-[11px] md:text-xs leading-snug pr-2">
- {item.event}
- </span>
- </li>
- );
- })}
- </ol>
- </div>
- </div>
- </BentoCard>
-
- {/* ---- Faixa 3: propósito + pilares ---- */}
+  {/* ---- Faixa 3: propósito + pilares ---- */}
   <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
     <BentoCard delay={300} className="lg:col-span-7">
-      <div className="group relative glass-near rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between min-h-[360px]">
+      <div className="group relative glass-near rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between">
         <img
           src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1600&auto=format&fit=crop"
           alt="Desenvolvimento Sustentável e Impacto Social"
-          className="absolute inset-0 w-full h-full object-cover opacity-20 transition-all duration-700 group-hover:scale-105 group-hover:opacity-30 mix-blend-luminosity"
+          className="absolute inset-0 w-full h-full object-cover opacity-15 transition-all duration-700 group-hover:scale-105 group-hover:opacity-25 mix-blend-luminosity"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-un-footer via-un-footer/90 to-un-footer/60 pointer-events-none" />
         <div className="absolute inset-0 text-white/[0.04] pointer-events-none">
@@ -534,27 +557,47 @@ export const AmbicaoPage = ({ navigate }) => {
         </div>
 
         <div className="relative z-10">
-          <span className="block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-6">
+          <span className="block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-4">
             {AMBICAO_PROPOSITO.title}
           </span>
-          <p className="text-white text-lg md:text-xl lg:text-[1.45rem] leading-[1.5] font-light">
+          <p className="text-white text-lg md:text-xl lg:text-[1.35rem] leading-[1.5] font-light mb-8">
             {AMBICAO_PROPOSITO.description}
           </p>
+
+          {/* Destaques estruturais do Propósito sem a menção às três palavras */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
+              <span className="block font-display font-black text-un-gold text-xs uppercase tracking-wider mb-1">
+                Atuação Coletiva
+              </span>
+              <p className="text-white/70 text-xs leading-relaxed font-light">
+                Mobilização conjunta entre o setor empresarial brasileiro, governo e sociedade civil.
+              </p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10">
+              <span className="block font-display font-black text-un-gold text-xs uppercase tracking-wider mb-1">
+                Impacto Mensurável
+              </span>
+              <p className="text-white/70 text-xs leading-relaxed font-light">
+                Compromissos públicos com metas auditáveis e reporte contínuo de indicadores.
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div className="relative z-10 mt-8 pt-6 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
+        <div className="relative z-10 mt-8 pt-6 border-t border-white/15 flex items-center justify-between">
           <span className="text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em]">
             Transformação Sistêmica & Sustentável
           </span>
-          <span className="text-un-gold text-xs font-semibold tracking-wide">
-            Pessoas · Planeta · Prosperidade
+          <span className="text-white/50 text-xs font-light tracking-wide">
+            Agenda 2030 no Brasil
           </span>
         </div>
       </div>
     </BentoCard>
 
- {/* Pilares — lista numerada com título 'MAS COMO ELE SE SUSTENTA?' */}
- <BentoCard delay={360} className="lg:col-span-5">
+    {/* Pilares — lista numerada com título 'MAS COMO ELE SE SUSTENTA?' */}
+    <BentoCard delay={360} className="lg:col-span-5">
  <div className="glass rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between">
  <div className="relative">
  <span className="block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-2">
