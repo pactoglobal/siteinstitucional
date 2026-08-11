@@ -30,8 +30,7 @@ export const AMBICAO_INTRO =
 export const AMBICAO_CHAMADO = {
  eyebrow: 'O Chamado',
  paragrafos: [
- 'Em 2020, o mundo entrou na Década da Ação. Foi um chamado do Secretário-Geral da ONU, António Guterres, para que governos, organizações, empresas e sociedade civil evoluíssem da discussão da Agenda 2030 para a implementação.',
- 'O Brasil respondeu com a Ambição 2030, lançada em abril de 2022, que convida organizações do país inteiro a assumirem compromissos públicos, mensuráveis e de alto impacto, vinculados aos Objetivos de Desenvolvimento Sustentável.',
+ 'Em 2020, o mundo entrou na Década da Ação. Foi um chamado do Secretário-Geral da ONU, António Guterres, para que governos, organizações, empresas e sociedade civil evoluíssem da discussão da Agenda 2030 para implementação O Brasil respondeu com a Ambição 2030 lançada em abril de 2022, que convida organizações do país inteiro a assumirem compromissos públicos, mensuráveis e de alto impacto, vinculados aos Objetivos de Desenvolvimento Sustentável.',
  'Ela é composta por dez Movimentos temáticos, com metas e indicadores reportados ano após ano.',
  ],
  // Frase de fecho — recebe tratamento tipográfico próprio na página.
@@ -61,18 +60,8 @@ export const AMBICAO_ORIGEM = {
  "Lançada em abril de 2022 pelo Pacto Global da ONU – Rede Brasil, a Ambição 2030 nasceu da Década da Ação da ONU — o chamado do Secretário-Geral António Guterres para acelerar o cumprimento da Agenda 2030. A iniciativa convida organizações de todo o país a assumirem compromissos públicos e mensuráveis em torno de 10 causas urgentes, hoje referência nacional em mobilização empresarial para o desenvolvimento sustentável.",
  timeline: [
  { year: "2015", event: "ONU estabelece os 17 ODS como agenda global" },
- { year: "2020", event: "Guterres convoca a Década da Ação da ONU" },
- { year: "2022", event: "Lançamento oficial da Ambição 2030, em abril, com 10 Movimentos" },
- // 2025, não 2023: o marco é a implementação pelo Pacto Global — a
- // proposição do ODS 18 pelo Brasil é anterior, não confundir os dois.
- // Os dois fatos de 2025 vêm num único marco de propósito: a timeline é
- // renderizada como faixa horizontal com o ano em destaque, e dois
- // marcos "2025" lado a lado leem como erro de duplicação.
- {
- year: "2025",
- event:
- "Pacto Global implementa o ODS 18 — Igualdade Étnico-Racial; a rede chega a 389 organizações comprometidas",
- },
+ { year: "2020", event: "Guterres convoca a Década da Ação" },
+ { year: "2022", event: "Lançamento oficial da Ambição 2030, com 10 Movimentos" },
  { year: "2030", event: "Horizonte final — o que resta a cumprir" },
  ]
 };
@@ -81,7 +70,7 @@ export const AMBICAO_ORIGEM = {
 // ("SUGESTÃO_PÁGINA_AMBIÇÃO 2030"), seção NOSSO PROPÓSITO.
 export const AMBICAO_PROPOSITO = {
  title: "Nosso Propósito",
- subtitle: "Mas como ele se sustenta?",
+ subtitle: "MAS COMO ELE SE SUSTENTA?",
  description:
  "Mobilizar o setor empresarial brasileiro, o governo e a sociedade civil para atuar, de forma coletiva e individual, na implementação da Agenda 2030 — gerando impacto positivo mensurável em pessoas, planeta e prosperidade.",
  pillars: [
@@ -106,28 +95,19 @@ export const AMBICAO_CITACAO = {
 // oficial de copy da RBPG (mais recentes que os do Relatório Ano 4,
 // que fechava em dez/2025 com 389 organizações e 751 cartas).
 export const AMBICAO_RESULTADOS = {
- title: "Em números, hoje",
- period: "Dados de junho de 2026",
- // Os 6 itens de "Em números, hoje" do documento oficial, na ordem dele.
- // Movimentos e ODS também aparecem no hero — repetir aqui é intencional:
- // é assim que o documento apresenta a escala, num bloco só.
- stats: [
- { value: '401', label: 'Organizações comprometidas' },
- { value: '788', label: 'Cartas Compromisso assinadas' },
- { value: '+2 mil', label: 'Compromissos públicos assumidos' },
- { value: '+2 mi', label: 'Pessoas trabalhadoras impactadas diretamente' },
- { value: '10', label: 'Movimentos temáticos' },
- { value: '18', label: 'ODS conectados' },
- ],
- // Métrica de satisfação do Relatório Ano 4 (dez/2025) — período distinto
- // dos números acima, por isso atribuída separadamente.
- nota: 'Recomendação média de 9,1 (escala de 0 a 10) entre as organizações participantes, no 4º ciclo de indicadores.',
- // Alcance internacional — documento oficial de copy da RBPG.
- // Nomear o Forward Faster: a versão anterior dizia "ações semelhantes
- // em outros países", que é vago e perde a força do fato — a iniciativa
- // brasileira inspirou um programa global específico e nomeável.
- alcance:
- 'A iniciativa já ultrapassou fronteiras: inspirou o Forward Faster do Pacto Global da ONU, reafirmando o Brasil como referência nessa agenda.',
+  title: "O QUE É — DEFINIÇÃO E ESCALA",
+  period: "Em números, hoje:",
+  stats: [
+    { value: '10', label: 'Movimentos temáticos' },
+    { value: '18', label: 'ODS conectados*' },
+    { value: '401', label: 'organizações comprometidas (jun/2026)' },
+    { value: '788', label: 'cartas compromisso assinadas' },
+    { value: '+2.000', label: 'compromissos públicos assumidos' },
+    { value: '+2 milhões', label: 'de pessoas trabalhadoras impactadas diretamente' },
+  ],
+  nota: 'Recomendação média de 9,1 (escala de 0 a 10) entre as organizações participantes, no 4º ciclo de indicadores.',
+  alcance:
+    'A iniciativa já ultrapassou fronteiras: inspirou o Forward Faster do Pacto Global da ONU, reafirmando o Brasil como referência nessa agenda.',
 };
 
 // --- Modalidades de engajamento ---
