@@ -371,18 +371,33 @@ export const AmbicaoPage = ({ navigate }) => {
 
  {/* ---- Faixa 1: definição + resultado-herói ---- */}
  <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 mb-5 lg:mb-6">
- {/* Definição — peça dominante, tipografia grande */}
- <BentoCard delay={100} className="lg:col-span-7">
- {/* glass-near: plano da frente, mais opaco */}
- <div className="glass-near rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between">
- <p className="relative text-white text-2xl md:text-3xl lg:text-[2.15rem] leading-[1.3] font-light">
- {AMBICAO_DEFINICAO}
- </p>
- <span className="relative mt-10 pt-6 border-t border-white/15 text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em]">
- Definição
- </span>
- </div>
- </BentoCard>
+  {/* Definição — peça dominante com imagem institucional de fundo */}
+  <BentoCard delay={100} className="lg:col-span-7">
+    <div className="group relative glass-near rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between min-h-[360px]">
+      <img
+        src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop"
+        alt="Liderança empresarial e Agenda 2030"
+        className="absolute inset-0 w-full h-full object-cover opacity-20 transition-all duration-700 group-hover:scale-105 group-hover:opacity-30 mix-blend-luminosity"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-un-footer via-un-footer/90 to-un-footer/60 pointer-events-none" />
+
+      <div className="relative z-10">
+        <span className="inline-block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-4">
+          Definição
+        </span>
+        <p className="text-white text-xl md:text-2xl lg:text-[1.85rem] leading-[1.35] font-light">
+          {AMBICAO_DEFINICAO}
+        </p>
+      </div>
+
+      <div className="relative z-10 mt-8 pt-6 border-t border-white/15 flex items-center justify-between">
+        <span className="text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em]">
+          Estratégia Empresarial do Pacto Global da ONU
+        </span>
+        <span className="text-white/60 text-xs font-light">Impacto Coletivo & Individual</span>
+      </div>
+    </div>
+  </BentoCard>
 
  {/* Resultados — um número herói, três de apoio */}
  <BentoCard delay={180} className="lg:col-span-5">
@@ -519,23 +534,20 @@ export const AmbicaoPage = ({ navigate }) => {
  <p className="text-white text-lg md:text-xl lg:text-[1.4rem] leading-[1.45] font-light">
  {AMBICAO_PROPOSITO.description}
  </p>
- {/* Subtítulo do documento oficial: faz a ponte para a
- arquitetura que sustenta cada Movimento, logo abaixo. */}
- {AMBICAO_PROPOSITO.subtitle && (
- <p className="mt-9 pt-7 border-t border-white/15 font-serif italic text-un-blue-3 text-xl md:text-2xl leading-snug">
- {AMBICAO_PROPOSITO.subtitle}
- </p>
- )}
  </div>
  </div>
  </BentoCard>
 
- {/* Pilares — lista numerada com réguas, sem caixas de ícone */}
+ {/* Pilares — lista numerada com título 'MAS COMO ELE SE SUSTENTA?' */}
  <BentoCard delay={360} className="lg:col-span-5">
- <div className="glass rounded-[2rem] p-9 md:p-12 h-full overflow-hidden">
- <span className="relative block text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em] mb-7">
- Quatro pilares
+ <div className="glass rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between">
+ <div className="relative">
+ <span className="block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-2">
+ {AMBICAO_PROPOSITO.subtitle}
  </span>
+ <h3 className="text-white font-display font-black text-xl md:text-2xl uppercase tracking-tight mb-6">
+ Quatro pilares de sustentação
+ </h3>
  <ol className="relative divide-y divide-white/10 border-t border-white/10 list-none m-0 p-0">
  {AMBICAO_PROPOSITO.pillars.map((pillar, i) => (
  <li key={pillar.title} className="group flex gap-5 py-4">
@@ -553,6 +565,7 @@ export const AmbicaoPage = ({ navigate }) => {
  </li>
  ))}
  </ol>
+ </div>
  </div>
  </BentoCard>
  </div>

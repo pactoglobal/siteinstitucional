@@ -88,7 +88,7 @@ export const AMBICAO_PROPOSITO = {
 export const AMBICAO_CITACAO = {
  quote: 'É a década da implementação.',
  author: 'Rachel Maia',
- role: 'Presidente do Conselho de Administração',
+ role: 'Ex-Presidente do Conselho de Administração',
  source: 'Relatório Ambição 2030 — Ano 4',
 };
 
