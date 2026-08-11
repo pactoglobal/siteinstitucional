@@ -520,23 +520,38 @@ export const AmbicaoPage = ({ navigate }) => {
  </BentoCard>
 
  {/* ---- Faixa 3: propósito + pilares ---- */}
- <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
- <BentoCard delay={300} className="lg:col-span-7">
- <div className="glass-near rounded-[2rem] p-9 md:p-12 h-full overflow-hidden">
- <div className="absolute inset-0 text-white/[0.04]">
- <DotGrid className="w-full h-full" />
- </div>
- <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />
- <div className="relative">
- <span className="block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-6">
- {AMBICAO_PROPOSITO.title}
- </span>
- <p className="text-white text-lg md:text-xl lg:text-[1.4rem] leading-[1.45] font-light">
- {AMBICAO_PROPOSITO.description}
- </p>
- </div>
- </div>
- </BentoCard>
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
+    <BentoCard delay={300} className="lg:col-span-7">
+      <div className="group relative glass-near rounded-[2rem] p-9 md:p-12 h-full overflow-hidden flex flex-col justify-between min-h-[360px]">
+        <img
+          src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1600&auto=format&fit=crop"
+          alt="Desenvolvimento Sustentável e Impacto Social"
+          className="absolute inset-0 w-full h-full object-cover opacity-20 transition-all duration-700 group-hover:scale-105 group-hover:opacity-30 mix-blend-luminosity"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-un-footer via-un-footer/90 to-un-footer/60 pointer-events-none" />
+        <div className="absolute inset-0 text-white/[0.04] pointer-events-none">
+          <DotGrid className="w-full h-full" />
+        </div>
+
+        <div className="relative z-10">
+          <span className="block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-6">
+            {AMBICAO_PROPOSITO.title}
+          </span>
+          <p className="text-white text-lg md:text-xl lg:text-[1.45rem] leading-[1.5] font-light">
+            {AMBICAO_PROPOSITO.description}
+          </p>
+        </div>
+
+        <div className="relative z-10 mt-8 pt-6 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
+          <span className="text-un-blue-3 text-[10px] font-bold uppercase tracking-[0.25em]">
+            Transformação Sistêmica & Sustentável
+          </span>
+          <span className="text-un-gold text-xs font-semibold tracking-wide">
+            Pessoas · Planeta · Prosperidade
+          </span>
+        </div>
+      </div>
+    </BentoCard>
 
  {/* Pilares — lista numerada com título 'MAS COMO ELE SE SUSTENTA?' */}
  <BentoCard delay={360} className="lg:col-span-5">
