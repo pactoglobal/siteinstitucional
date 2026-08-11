@@ -118,8 +118,11 @@ export const AMBICAO_RESULTADOS = {
  // dos números acima, por isso atribuída separadamente.
  nota: 'Recomendação média de 9,1 (escala de 0 a 10) entre as organizações participantes, no 4º ciclo de indicadores.',
  // Alcance internacional — documento oficial de copy da RBPG.
+ // Nomear o Forward Faster: a versão anterior dizia "ações semelhantes
+ // em outros países", que é vago e perde a força do fato — a iniciativa
+ // brasileira inspirou um programa global específico e nomeável.
  alcance:
- 'A iniciativa já ultrapassou fronteiras: inspirou ações semelhantes do Pacto Global da ONU em outros países, reafirmando o Brasil como referência nessa agenda.',
+ 'A iniciativa já ultrapassou fronteiras: inspirou o Forward Faster do Pacto Global da ONU, reafirmando o Brasil como referência nessa agenda.',
 };
 
 // --- Modalidades de engajamento ---
