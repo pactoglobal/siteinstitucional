@@ -62,7 +62,7 @@ export const AMBICAO_ORIGEM = {
  timeline: [
  { year: "2015", event: "ONU estabelece os 17 ODS como agenda global" },
  { year: "2020", event: "Guterres convoca a Década da Ação da ONU" },
- { year: "2022", event: "Lançamento oficial da Ambição 2030, em abril" },
+ { year: "2022", event: "Lançamento oficial da Ambição 2030, em abril, com 10 Movimentos" },
  // 2025, não 2023: o marco é a implementação pelo Pacto Global — a
  // proposição do ODS 18 pelo Brasil é anterior, não confundir os dois.
  // Os dois fatos de 2025 vêm num único marco de propósito: a timeline é
@@ -73,7 +73,7 @@ export const AMBICAO_ORIGEM = {
  event:
  "Pacto Global implementa o ODS 18 — Igualdade Étnico-Racial; a rede chega a 389 organizações comprometidas",
  },
- { year: "2030", event: "Horizonte final da Agenda 2030" },
+ { year: "2030", event: "Horizonte final — o que resta a cumprir" },
  ]
 };
 
@@ -108,11 +108,16 @@ export const AMBICAO_CITACAO = {
 export const AMBICAO_RESULTADOS = {
  title: "Em números, hoje",
  period: "Dados de junho de 2026",
+ // Os 6 itens de "Em números, hoje" do documento oficial, na ordem dele.
+ // Movimentos e ODS também aparecem no hero — repetir aqui é intencional:
+ // é assim que o documento apresenta a escala, num bloco só.
  stats: [
  { value: '401', label: 'Organizações comprometidas' },
  { value: '788', label: 'Cartas Compromisso assinadas' },
  { value: '+2 mil', label: 'Compromissos públicos assumidos' },
  { value: '+2 mi', label: 'Pessoas trabalhadoras impactadas diretamente' },
+ { value: '10', label: 'Movimentos temáticos' },
+ { value: '18', label: 'ODS conectados' },
  ],
  // Métrica de satisfação do Relatório Ano 4 (dez/2025) — período distinto
  // dos números acima, por isso atribuída separadamente.
@@ -176,40 +181,53 @@ export const MONITORAMENTO = {
  ],
 };
 
-// --- Estrutura dos Movimentos (5 pilares) ---
+// --- Estrutura dos Movimentos ---
+// O documento oficial de copy descreve TRÊS camadas: Jornada, Governança e
+// Compromissos — nesta ordem, e é ela que a lista abaixo abre. Os dois
+// últimos itens (Ambição e Pilares de Atuação) são complemento da RBPG, não
+// do documento; `camada: false` os distingue para a página poder rotular as
+// três camadas sem prometer que são cinco.
+export const ESTRUTURA_MOVIMENTOS_INTRO =
+ 'Cada Movimento é sustentado pela mesma arquitetura de três camadas:';
+
 export const ESTRUTURA_MOVIMENTOS = [
  {
- id: 'ambicao',
- title: 'Ambição 2030',
- description:
- 'Inspiração que coletivamente almejamos alcançar ao contribuir para a realização dos ODS.',
- },
- {
- id: 'compromissos',
- title: 'Compromissos das Empresas',
- description:
- 'Metas com as quais as empresas se comprometem a realizar até 2030, por meio da assinatura da Carta de Compromisso pelo CEO. Uma forma poderosa de impulsionar empresas com vantagem competitiva rumo à transformação social.',
- },
- {
- id: 'pilares',
- title: 'Pilares de Atuação',
- description:
- 'Eixos de ação e caminhos dos Movimentos, que buscam organizar e sistematizar a forma de atuação e trabalho das empresas para alcançar os compromissos assumidos.',
- },
- {
  id: 'jornada',
- title: 'Jornada dos Movimentos',
+ title: 'Jornada',
+ camada: true,
  description:
- 'Cursos e formações oferecidos às empresas — treinamentos, workshops, lives, seminários e encontros — para acelerar o conhecimento das temáticas dos Movimentos e planejar a entrega dos compromissos. A jornada é gratuita e aberta a todas as empresas comprometidas.',
+ 'Cursos, treinamentos, lives e workshops, gratuitos e abertos a toda empresa comprometida, para acelerar conhecimento e planejar a entrega dos compromissos. Também entram seminários e encontros ao longo do ano.',
  },
  {
  id: 'governanca',
  title: 'Governança',
+ camada: true,
  // Texto conforme a instrução "USAR" do documento oficial de copy da RBPG.
  // A versão anterior descrevia coordenação bipartite com uma empresa
  // coordenadora — o documento manda explicitamente deletar essa formulação.
  description:
- 'Um Comitê Consultivo que reúne as principais referências nacionais de cada pauta e Empresas Embaixadoras (por 2 anos, com possibilidade de renovação). A coordenação de cada Movimento é responsabilidade da equipe técnica da área de Impacto do Pacto Global da ONU – Rede Brasil, especializada em cada um dos temas.',
+ 'Um Comitê Consultivo que reúne as principais referências nacionais de cada pauta e Empresas Embaixadoras (por 2 anos, com possibilidade de renovação). A coordenação de cada Movimento é responsabilidade da equipe técnica da área de Impacto, especializada em cada um dos temas.',
+ },
+ {
+ id: 'compromissos',
+ title: 'Compromissos',
+ camada: true,
+ description:
+ 'Metas com prazo até 2030, assinadas pelo CEO na Carta de Compromisso. Uma forma poderosa de impulsionar empresas com vantagem competitiva rumo à transformação social.',
+ },
+ {
+ id: 'ambicao',
+ title: 'Ambição 2030',
+ camada: false,
+ description:
+ 'Inspiração que coletivamente almejamos alcançar ao contribuir para a realização dos ODS.',
+ },
+ {
+ id: 'pilares',
+ title: 'Pilares de Atuação',
+ camada: false,
+ description:
+ 'Eixos de ação e caminhos dos Movimentos, que buscam organizar e sistematizar a forma de atuação e trabalho das empresas para alcançar os compromissos assumidos.',
  },
 ];
 

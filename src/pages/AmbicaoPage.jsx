@@ -13,6 +13,7 @@ import {
  AMBICAO_CITACAO,
  MODALIDADES,
  ESTRUTURA_MOVIMENTOS,
+ ESTRUTURA_MOVIMENTOS_INTRO,
  MOVIMENTOS,
 } from '../data/ambicao2030';
 import {
@@ -327,7 +328,7 @@ export const AmbicaoPage = ({ navigate }) => {
  <Reveal>
  <div className="max-w-4xl mb-12 md:mb-16">
  <span className="flex items-center gap-3 text-un-gold text-[10px] font-bold uppercase tracking-[0.3em] mb-6">
- <span className="w-10 h-px bg-un-gold/60" /> Origem e Propósito
+ <span className="w-10 h-px bg-un-gold/60" /> Definição e escala
  </span>
  <h2 className="font-display font-black uppercase tracking-tight text-white text-4xl md:text-6xl lg:text-[4.75rem] leading-[0.94]">
  O que é a{' '}
@@ -415,6 +416,14 @@ export const AmbicaoPage = ({ navigate }) => {
  </div>
  ))}
  </dl>
+ {/* Alcance internacional — estava nos dados mas nunca havia sido
+ renderizado. Ganha destaque próprio: é o fato mais forte do
+ bloco, não uma nota de rodapé. */}
+ {AMBICAO_RESULTADOS.alcance && (
+ <p className="relative mt-8 pt-7 border-t border-un-gold/30 text-white text-sm md:text-[0.95rem] leading-relaxed font-light">
+ {AMBICAO_RESULTADOS.alcance}
+ </p>
+ )}
  <p className="relative text-white/60 text-[11px] leading-relaxed font-light mt-auto pt-8">
  {AMBICAO_RESULTADOS.nota}
  </p>
@@ -710,18 +719,28 @@ export const AmbicaoPage = ({ navigate }) => {
  badge="Como funciona"
  title="Estrutura dos"
  titleAccent="Movimentos"
- description="Cinco elementos organizam a forma como as empresas atuam e entregam seus compromissos."
+ description={ESTRUTURA_MOVIMENTOS_INTRO}
  />
  <div className="space-y-px bg-gray-200/60 rounded-3xl overflow-hidden border border-gray-100">
  {ESTRUTURA_MOVIMENTOS.map((item, i) => (
  <BentoCard key={item.id} delay={i * 70}>
  <div className="group flex flex-col md:flex-row md:items-center gap-4 md:gap-10 bg-white hover:bg-un-surface p-7 md:p-9 transition-colors duration-300">
+ {/* As três camadas do documento oficial são numeradas 01–03; os
+ dois complementos da RBPG entram sem número, para a numeração
+ não contradizer o "arquitetura de três camadas" do texto. */}
  <span className="font-display font-black text-4xl md:text-5xl text-un-blue/15 group-hover:text-un-gold transition-colors duration-300 leading-none shrink-0 md:w-24">
- {String(i + 1).padStart(2, '0')}
+ {item.camada ? String(i + 1).padStart(2, '0') : '—'}
  </span>
- <h3 className="font-display font-black text-lg md:text-2xl text-gray-900 tracking-tight shrink-0 md:w-72 leading-tight">
+ <div className="shrink-0 md:w-72">
+ <h3 className="font-display font-black text-lg md:text-2xl text-gray-900 tracking-tight leading-tight">
  {item.title}
  </h3>
+ {!item.camada && (
+ <span className="block mt-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-un-blue-1">
+ Complemento
+ </span>
+ )}
+ </div>
  <p className="text-gray-500 text-sm md:text-base leading-relaxed font-light flex-1">
  {item.description}
  </p>
