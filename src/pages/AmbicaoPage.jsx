@@ -75,8 +75,8 @@ const GradientMesh = () => (
 );
 
 // 18 ODS: os 17 da ONU (2015) + o ODS 18 (Igualdade Étnico-Racial),
-// adotado voluntariamente pelo Brasil e anunciado na Assembleia Geral
-// da ONU em 2023. A contagem espelha ODS_COLORS/ODS_NAMES.
+// de proposição brasileira, implementado pelo Pacto Global em 2025.
+// A contagem espelha ODS_COLORS/ODS_NAMES.
 const STATS = [
  { value: '10', label: 'Movimentos' },
  { value: String(ODS_COLORS.length), label: 'ODS conectados' },
@@ -536,7 +536,7 @@ export const AmbicaoPage = ({ navigate }) => {
  badge="Agenda 2030"
  title="Os 18"
  titleAccent="Objetivos"
- description="Os 17 Objetivos de Desenvolvimento Sustentável aprovados pela ONU em 2015, somados ao ODS 18 — Igualdade Étnico-Racial, adotado voluntariamente pelo Brasil."
+ description="Os 17 Objetivos de Desenvolvimento Sustentável aprovados pela ONU em 2015, somados ao ODS 18 — Igualdade Étnico-Racial, de proposição brasileira e implementado pelo Pacto Global em 2025."
  />
 
  {/* A grade inteira revela como uma unidade — 18 observers para tiles
@@ -599,10 +599,11 @@ export const AmbicaoPage = ({ navigate }) => {
  ODS 18 — Igualdade Étnico-Racial
  </h3>
  <p className="text-gray-600 text-sm md:text-base leading-relaxed font-light max-w-3xl">
- Além dos 17 Objetivos globais, o Brasil adotou voluntariamente um 18º ODS,
- dedicado ao enfrentamento do racismo estrutural e das desigualdades que atingem
- sobretudo a população negra e os povos indígenas. É por isso que, na Rede Brasil,
- a Agenda 2030 é acompanhada a partir de 18 Objetivos.
+ Além dos 17 Objetivos globais, um 18º ODS de proposição brasileira foi
+ implementado pelo Pacto Global em 2025, dedicado ao enfrentamento do racismo
+ estrutural e das desigualdades que atingem sobretudo a população negra e os
+ povos indígenas. É por isso que, na Rede Brasil, a Agenda 2030 é acompanhada
+ a partir de 18 Objetivos.
  </p>
  </div>
  </div>

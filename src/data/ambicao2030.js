@@ -63,8 +63,16 @@ export const AMBICAO_ORIGEM = {
  { year: "2015", event: "ONU estabelece os 17 ODS como agenda global" },
  { year: "2020", event: "Guterres convoca a Década da Ação da ONU" },
  { year: "2022", event: "Lançamento oficial da Ambição 2030, em abril" },
- { year: "2023", event: "Brasil adota o ODS 18 — Igualdade Étnico-Racial" },
- { year: "2025", event: "389 organizações comprometidas — o ano do amadurecimento" },
+ // 2025, não 2023: o marco é a implementação pelo Pacto Global — a
+ // proposição do ODS 18 pelo Brasil é anterior, não confundir os dois.
+ // Os dois fatos de 2025 vêm num único marco de propósito: a timeline é
+ // renderizada como faixa horizontal com o ano em destaque, e dois
+ // marcos "2025" lado a lado leem como erro de duplicação.
+ {
+ year: "2025",
+ event:
+ "Pacto Global implementa o ODS 18 — Igualdade Étnico-Racial; a rede chega a 389 organizações comprometidas",
+ },
  { year: "2030", event: "Horizonte final da Agenda 2030" },
  ]
 };
