@@ -62,6 +62,7 @@ export const AMBICAO_ORIGEM = {
  { year: "2015", event: "ONU estabelece os 17 ODS como agenda global" },
  { year: "2020", event: "Guterres convoca a Década da Ação" },
  { year: "2022", event: "Lançamento oficial da Ambição 2030, com 10 Movimentos" },
+ { year: "2025", event: "Pacto Global da ONU - Rede Brasil incorpora o ODS 18 para engajar o setor privado na justiça racial e no trabalho decente" },
  { year: "2030", event: "Horizonte final — o que resta a cumprir" },
  ]
 };

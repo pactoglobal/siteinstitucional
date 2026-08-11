@@ -468,12 +468,12 @@ export const AmbicaoPage = ({ navigate }) => {
  </p>
  </div>
 
- {/* Linha do tempo — 6 marcos em largura total, régua contínua */}
+ {/* Linha do tempo — marcos em largura total, régua contínua */}
  <div className="relative pt-10 md:pt-14">
  <span className="block text-un-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-8">
  Linha do tempo
  </span>
- <ol className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-5 gap-y-9 list-none m-0 p-0">
+ <ol className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-9 list-none m-0 p-0">
  {/* régua contínua atrás dos marcos (só quando em uma única linha) */}
  <span
  aria-hidden="true"
