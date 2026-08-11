@@ -22,6 +22,39 @@ export const AMBICAO_INTRO =
 // números de jun/2026, mais recentes que o relatório.
 // ============================================================
 
+// ============================================================
+// O CHAMADO — abertura narrativa da página.
+// Texto oficial do documento de copy da RBPG
+// ("SUGESTÃO_PÁGINA_AMBIÇÃO 2030", seção O CHAMADO).
+// ============================================================
+export const AMBICAO_CHAMADO = {
+ eyebrow: 'O Chamado',
+ paragrafos: [
+ 'Em 2020, o mundo entrou na Década da Ação. Foi um chamado do Secretário-Geral da ONU, António Guterres, para que governos, organizações, empresas e sociedade civil evoluíssem da discussão da Agenda 2030 para a implementação.',
+ 'O Brasil respondeu com a Ambição 2030, lançada em abril de 2022, que convida organizações do país inteiro a assumirem compromissos públicos, mensuráveis e de alto impacto, vinculados aos Objetivos de Desenvolvimento Sustentável.',
+ 'Ela é composta por dez Movimentos temáticos, com metas e indicadores reportados ano após ano.',
+ ],
+ // Frase de fecho — recebe tratamento tipográfico próprio na página.
+ destaque:
+ 'A Ambição 2030 é uma estratégia empresarial de impacto coletivo capaz de induzir mudança estrutural dentro das organizações e ao redor delas.',
+};
+
+// ============================================================
+// COMO FAZER PARTE — fecho da página.
+// Texto oficial do documento de copy da RBPG.
+// ============================================================
+export const AMBICAO_COMO_FAZER_PARTE = {
+ eyebrow: 'Como fazer parte',
+ titulo: 'A Ambição 2030 é uma convocação e o momento de responder a ela é agora.',
+ descricao:
+ 'Nesta fase decisiva da Agenda 2030, o que diferencia uma organização é a capacidade de transformar compromisso em entrega.',
+ chamadas: ['Faça parte.', 'Assuma compromissos.', 'Gere impacto real.'],
+ cta: {
+ label: 'Saiba como aderir aqui!',
+ href: 'https://www.pactoglobal.org.br/como-aderir',
+ },
+};
+
 export const AMBICAO_ORIGEM = {
  title: "Como Surgiu",
  description:
@@ -36,10 +69,13 @@ export const AMBICAO_ORIGEM = {
  ]
 };
 
+// Propósito — texto oficial do documento de copy da RBPG
+// ("SUGESTÃO_PÁGINA_AMBIÇÃO 2030"), seção NOSSO PROPÓSITO.
 export const AMBICAO_PROPOSITO = {
  title: "Nosso Propósito",
+ subtitle: "Mas como ele se sustenta?",
  description:
- "Conectar sustentabilidade à gestão, à governança e à tomada de decisão das organizações brasileiras. Não são agendas isoladas, mas uma lógica integrada de transformação: dez Movimentos temáticos, compromissos mensuráveis e uma só ação coletiva rumo a 2030.",
+ "Mobilizar o setor empresarial brasileiro, o governo e a sociedade civil para atuar, de forma coletiva e individual, na implementação da Agenda 2030 — gerando impacto positivo mensurável em pessoas, planeta e prosperidade.",
  pillars: [
  { title: "Ação Coletiva", desc: "Empresas unidas por causas comuns" },
  { title: "Metas Claras", desc: "Compromissos públicos e mensuráveis" },
@@ -158,8 +194,11 @@ export const ESTRUTURA_MOVIMENTOS = [
  {
  id: 'governanca',
  title: 'Governança',
+ // Texto conforme a instrução "USAR" do documento oficial de copy da RBPG.
+ // A versão anterior descrevia coordenação bipartite com uma empresa
+ // coordenadora — o documento manda explicitamente deletar essa formulação.
  description:
- 'Comitê Consultivo formado por principais referências nacionais sobre o tema (membros convidados), Empresas Embaixadoras (por 2 anos, com possibilidade de renovação) e o Pacto Global da ONU – Rede Brasil (permanente).',
+ 'Um Comitê Consultivo que reúne as principais referências nacionais de cada pauta e Empresas Embaixadoras (por 2 anos, com possibilidade de renovação). A coordenação de cada Movimento é responsabilidade da equipe técnica da área de Impacto do Pacto Global da ONU – Rede Brasil, especializada em cada um dos temas.',
  },
 ];
 
@@ -190,13 +229,13 @@ export const MOVIMENTOS = [
  parceirasEstrategicas: [], // [{ nome }]
  recursos: [],           // [{ titulo, url }]
  compromissos: [
- 'Contribuir para que 99% da população brasileira tenha acesso a água potável.*',
- 'Contribuir para que 90% da população brasileira tenha esgoto coletado e tratado.*',
+ 'Contribuir para que 99% da população brasileira tenha acesso a água potável.',
+ 'Contribuir para que 90% da população brasileira tenha esgoto coletado e tratado.',
  'Desenvolver pelo menos um projeto que altere positivamente a quantidade, qualidade e regime de vazões de uma bacia hidrográfica nacional sob estresse hídrico.',
  'Aumentar em 25% a eficiência do uso da água nos processos produtivos, assegurando retiradas menores e sustentáveis de recursos hídricos da natureza.',
  ],
  nota:
- '*Os compromissos focados em saneamento terão como linha de chegada 2033, a fim de caminharmos lado a lado com o novo marco legal do saneamento.',
+ 'Os compromissos focados em saneamento terão como linha de chegada 2033, a fim de caminharmos lado a lado com o novo marco legal do saneamento.',
  },
  {
  id: 'conexao-circular',
@@ -207,7 +246,7 @@ export const MOVIMENTOS = [
  image:
  'https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?q=80&w=1600&auto=format&fit=crop',
  ambicao:
- 'Assegurar padrões de produção e de consumo sustentáveis, que busquem o uso eficiente de recursos naturais, reduzam o desperdício e minimizem o descarte de resíduos, contribuindo para a redução efetiva de todas as formas de poluição.',
+ 'Assegurar padrões de produção e de consumo sustentáveis, que busquem o uso eficiente de recursos naturais, reduzam o desperdício e minimizem o descarte de resíduos para o meio ambiente, contribuindo para a redução efetiva de todas as formas de poluição.',
  // Dados de engajamento — Relatório Ambição 2030, Ano 4 (ciclo 2025).
  numeros: { comprometidas: 74, respondentes: 59, recomendacao: '8,8' },
  // ⚠ PENDENTE: dados que só a RBPG tem (não inventar). Cada bloco só
@@ -222,11 +261,11 @@ export const MOVIMENTOS = [
  parceirasEstrategicas: [], // [{ nome }]
  recursos: [],           // [{ titulo, url }]
  compromissos: [
- 'Diminuir a geração e/ou valorizar resíduos sólidos no percentual mínimo de 40% até 2030.*',
+ 'Diminuir a geração e/ou valorizar resíduos sólidos no percentual mínimo de 40% até 2030.',
  'Implementar 3 premissas de circularidade no modelo de negócio da organização até 2030.',
- 'Valorizar resíduos orgânicos no percentual mínimo de 33% até 2030, promovendo menor emissão de gases de efeito estufa.*',
+ 'Valorizar resíduos orgânicos no percentual mínimo de 33% até 2030, promovendo menor emissão de gases de efeito estufa.',
  ],
- nota: '*Das organizações listadas.',
+ nota: 'Das organizações listadas.',
  },
  {
  id: 'net-zero',
@@ -348,10 +387,10 @@ export const MOVIMENTOS = [
  compromissos: [
  '30% dos cargos de alta liderança ocupados por mulheres até 2025.',
  '50% dos cargos de alta liderança ocupados por mulheres até 2030.',
- '50% dos cargos de liderança (a partir de coordenação) ocupados por mulheres até 2030, sendo ao menos 25% do total ocupado por mulheres de grupos historicamente sub-representados: negras, indígenas, quilombolas, com deficiência, LGBTQIAP+ (incluindo mulheres trans e travestis) e/ou em situação de refúgio.*',
+ '50% dos cargos de liderança (a partir de coordenação) ocupados por mulheres até 2030, sendo ao menos 25% do total ocupado por mulheres de grupos historicamente sub-representados: negras, indígenas, quilombolas, com deficiência, LGBTQIAP+ (incluindo mulheres trans e travestis) e/ou em situação de refúgio.',
  ],
  nota:
- '*Compromisso adicional, lançado para o ciclo 2026 — aberto às empresas que optarem por ampliar sua meta com um recorte interseccional.',
+ 'Compromisso adicional, lançado para o ciclo 2026 — aberto às empresas que optarem por ampliar sua meta com um recorte interseccional.',
  },
  {
  id: 'raca-prioridade',
@@ -379,12 +418,12 @@ export const MOVIMENTOS = [
  parceirasEstrategicas: [], // [{ nome }]
  recursos: [],           // [{ titulo, url }]
  compromissos: [
- '30% de pessoas negras* em posição de liderança até 2025.',
- '50% de pessoas negras* em posição de liderança até 2030.',
- 'Implementar diversidade étnico-racial* em toda a cadeia de fornecimento: mapeamento de fornecedores liderados por pessoas negras e indígenas, atualização das políticas de compras, ampliação da divulgação de oportunidades e monitoramento de indicadores.',
+ '30% de pessoas negras em posição de liderança até 2025.',
+ '50% de pessoas negras em posição de liderança até 2030.',
+ 'Implementar diversidade étnico-racial em toda a cadeia de fornecimento: mapeamento de fornecedores liderados por pessoas negras e indígenas, atualização das políticas de compras, ampliação da divulgação de oportunidades e monitoramento de indicadores.',
  ],
  nota:
- '*Negras, indígenas, quilombolas ou pertencentes a outro grupo étnico socialmente vulnerável.',
+ 'Negras, indígenas, quilombolas ou pertencentes a outro grupo étnico socialmente vulnerável.',
  },
  {
  id: 'mente-foco',

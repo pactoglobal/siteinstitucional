@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight, Sparkles, Compass } from 'lucide-react';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
 import { useReveal } from '../hooks/useReveal';
+import { useGsap } from '../hooks/useGsap';
 import {
  AMBICAO_DEFINICAO,
  AMBICAO_INTRO,
@@ -14,6 +15,11 @@ import {
  ESTRUTURA_MOVIMENTOS,
  MOVIMENTOS,
 } from '../data/ambicao2030';
+import {
+ ChamadoSection,
+ ComoFazerParteSection,
+ ContadorAnimado,
+} from '../components/sections/AmbicaoSections';
 import { ODS_COLORS, ODS_NAMES } from '../data/constants';
 
 // ⚠ PLACEHOLDER — imagem de fundo do hero da Ambição 2030.
@@ -147,18 +153,48 @@ const MovementCard = ({ movement, index, navigate }) => (
   </button>
 );
 
-export const AmbicaoPage = ({ navigate }) => (
+export const AmbicaoPage = ({ navigate }) => {
+ // Parallax do hero: a foto sobe mais devagar que o texto ao rolar.
+ // scrub liga a timeline à posição do scroll (não ao tempo), então o
+ // movimento acompanha o dedo em vez de tocar sozinho. Só transform —
+ // nada que force layout.
+ const heroRef = useGsap(({ gsap, raiz }) => {
+ const foto = raiz.querySelector('[data-anim="hero-foto"]');
+ const conteudo = raiz.querySelector('[data-anim="hero-conteudo"]');
+ if (foto) {
+ gsap.to(foto, {
+ yPercent: 14,
+ ease: 'none',
+ scrollTrigger: { trigger: raiz, start: 'top top', end: 'bottom top', scrub: true },
+ });
+ }
+ if (conteudo) {
+ gsap.to(conteudo, {
+ yPercent: -6,
+ opacity: 0.35,
+ ease: 'none',
+ scrollTrigger: { trigger: raiz, start: 'top top', end: 'bottom top', scrub: true },
+ });
+ }
+ }, []);
+
+ return (
  <div className="animate-fade-in">
  {/* ============ HERO EDITORIAL ============ */}
- <section className="relative bg-un-blue overflow-hidden pt-32 md:pt-40 pb-20 md:pb-28">
+ <section
+ ref={heroRef}
+ className="relative bg-un-blue overflow-hidden pt-32 md:pt-40 pb-20 md:pb-28"
+ >
  {/* Imagem de fundo do hero.
  ⚠ PLACEHOLDER: trocar por imagem institucional oficial da RBPG
- (ver AMBICAO_HERO_IMAGE no topo do arquivo). */}
+ (ver AMBICAO_HERO_IMAGE no topo do arquivo).
+ scale-110 dá folga para o parallax deslocar sem descobrir a borda. */}
  <img
+ data-anim="hero-foto"
  src={AMBICAO_HERO_IMAGE}
  alt=""
  aria-hidden="true"
- className="absolute inset-0 w-full h-full object-cover object-center"
+ className="absolute inset-0 w-full h-full object-cover object-center scale-110 will-change-transform"
  />
 
  {/* Vinheta: escurece à esquerda para o texto e preserva a imagem à direita */}
@@ -188,7 +224,7 @@ export const AmbicaoPage = ({ navigate }) => (
  ))}
  </div>
 
- <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
+ <div data-anim="hero-conteudo" className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10 will-change-transform">
    <div className="max-w-3xl">
      <span
        className="inline-flex items-center gap-2 text-un-gold text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-8 animate-fade-in-up"
@@ -264,6 +300,12 @@ export const AmbicaoPage = ({ navigate }) => (
  </div>
  </div>
  </section>
+
+ {/* ============ O CHAMADO ============
+ Abertura narrativa (texto oficial da RBPG). Entra entre o hero e
+ o bloco escuro: dá um respiro claro antes do vidro e é onde a
+ página conta a origem em prosa, antes de virar dado. */}
+ <ChamadoSection />
 
  {/* ============ O QUE É A AMBIÇÃO 2030 ============
  Continuação da zona escura do hero: é aqui que o vidro faz
@@ -353,12 +395,11 @@ export const AmbicaoPage = ({ navigate }) => (
  </span>
  {/* Métrica principal: ouro sobre vidro, com halo sutil */}
  <div className="relative">
- <span
+ <ContadorAnimado
+ valor={AMBICAO_RESULTADOS.stats[0].value}
  className="block font-display font-black text-un-gold text-7xl md:text-8xl leading-[0.85] tabular-nums"
  style={{ textShadow: '0 0 40px rgba(204,177,70,0.28)' }}
- >
- {AMBICAO_RESULTADOS.stats[0].value}
- </span>
+ />
  <span className="block text-white text-sm mt-3 font-medium">
  {AMBICAO_RESULTADOS.stats[0].label}
  </span>
@@ -448,6 +489,13 @@ export const AmbicaoPage = ({ navigate }) => (
  <p className="text-white text-lg md:text-xl lg:text-[1.4rem] leading-[1.45] font-light">
  {AMBICAO_PROPOSITO.description}
  </p>
+ {/* Subtítulo do documento oficial: faz a ponte para a
+ arquitetura que sustenta cada Movimento, logo abaixo. */}
+ {AMBICAO_PROPOSITO.subtitle && (
+ <p className="mt-9 pt-7 border-t border-white/15 font-serif italic text-un-blue-3 text-xl md:text-2xl leading-snug">
+ {AMBICAO_PROPOSITO.subtitle}
+ </p>
+ )}
  </div>
  </div>
  </BentoCard>
@@ -683,50 +731,10 @@ export const AmbicaoPage = ({ navigate }) => (
  </div>
  </section>
 
- {/* ============ CTA ============ */}
- <section className="py-20 md:py-28 bg-white">
- <div className="container mx-auto px-4 md:px-8 lg:px-12">
- <BentoCard>
- <div className="relative bg-un-blue rounded-[2.5rem] p-10 md:p-20 overflow-hidden shadow-2xl">
- {/* Glow de acento */}
- <div
- className="absolute -top-16 -right-10 w-72 h-72 rounded-full blur-3xl opacity-40 pointer-events-none"
- style={{ background: 'radial-gradient(circle, rgba(204,177,70,0.5), transparent 70%)' }}
- />
- {/* Espectro ODS na base */}
- <div className="absolute bottom-0 left-0 right-0 h-1.5 flex">
- {ODS_COLORS.map((c, i) => (
- <span key={i} className="flex-1" style={{ backgroundColor: c }} />
- ))}
+ {/* ============ COMO FAZER PARTE ============
+ Substitui o CTA genérico anterior ("Sua empresa na Ambição 2030"):
+ a copy e o destino do botão agora vêm do documento oficial da RBPG. */}
+ <ComoFazerParteSection />
  </div>
- <div className="absolute inset-0 text-white/[0.05]">
- <DotGrid className="w-full h-full" />
- </div>
- <div className="absolute inset-0 grain-overlay opacity-[0.04] mix-blend-overlay pointer-events-none" />
- <div className="relative z-10 max-w-2xl">
- <h2 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tight text-white leading-[1.1] mb-5">
- Sua empresa na <span className="text-un-gold">Ambição 2030</span>
- </h2>
- <p className="text-un-blue-3 text-base md:text-xl font-light mb-9 leading-relaxed">
- Assine a Carta de Compromisso e some sua empresa ao movimento coletivo rumo aos Objetivos
- de Desenvolvimento Sustentável.
- </p>
- <div className="flex flex-col sm:flex-row gap-4">
- <Button variant="primary" icon={ArrowRight} onClick={() => navigate('participar')}>
- Quero Aderir
- </Button>
- <Button
- variant="outline"
- className="border-white/30 text-white hover:bg-white hover:text-un-blue"
- onClick={() => navigate('home')}
- >
- Voltar ao início
- </Button>
- </div>
- </div>
- </div>
- </BentoCard>
- </div>
- </section>
- </div>
-);
+ );
+};
