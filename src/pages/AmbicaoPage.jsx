@@ -416,14 +416,35 @@ export const AmbicaoPage = ({ navigate }) => {
  </div>
  ))}
  </dl>
- {/* Alcance internacional — estava nos dados mas nunca havia sido
- renderizado. Ganha destaque próprio: é o fato mais forte do
- bloco, não uma nota de rodapé. */}
- {AMBICAO_RESULTADOS.alcance && (
- <p className="relative mt-8 pt-7 border-t border-un-gold/30 text-white text-sm md:text-[0.95rem] leading-relaxed font-light">
- {AMBICAO_RESULTADOS.alcance}
- </p>
- )}
+  {/* Alcance internacional — destaque para o Forward Faster */}
+  {AMBICAO_RESULTADOS.alcance && (
+    <div className="relative mt-8 pt-7 border-t border-un-gold/30">
+      <p className="text-white text-sm md:text-[0.95rem] leading-relaxed font-light mb-4">
+        A iniciativa já ultrapassou fronteiras: inspirou o{' '}
+        <a
+          href="https://forwardfaster.unglobalcompact.org/home"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 font-bold text-un-gold hover:text-white underline decoration-un-gold/60 underline-offset-4 transition-colors"
+        >
+          Forward Faster
+          <ArrowUpRight className="w-3.5 h-3.5" />
+        </a>{' '}
+        do Pacto Global da ONU, reafirmando o Brasil como referência nessa agenda.
+      </p>
+
+      {/* CTA Badge de Redirecionamento */}
+      <a
+        href="https://forwardfaster.unglobalcompact.org/home"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/10 hover:bg-un-gold hover:text-un-blue text-xs font-bold uppercase tracking-wider text-white border border-white/20 transition-all duration-300 shadow-sm"
+      >
+        <span>Conheça a iniciativa Forward Faster</span>
+        <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      </a>
+    </div>
+  )}
  <p className="relative text-white/60 text-[11px] leading-relaxed font-light mt-auto pt-8">
  {AMBICAO_RESULTADOS.nota}
  </p>
