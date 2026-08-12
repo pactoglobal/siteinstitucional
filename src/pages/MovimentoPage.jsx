@@ -123,76 +123,109 @@ export const MovimentoPage = ({ slug, navigate }) => {
 
   return (
     <div className="animate-fade-in">
-      {/* Hero do Movimento: imagem em destaque + cor do Movimento.
-          ⚠ mov.image ainda é placeholder (Unsplash) — trocar pelas fotos
-          oficiais de cada Movimento em public/images/movimentos/. */}
-      <section className="relative pt-28 pb-14 md:pt-36 md:pb-20 overflow-hidden" style={{ backgroundColor: mov.color }}>
+      {/* ============ HERO EDITORIAL DO MOVIMENTO ============ */}
+      <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden" style={{ backgroundColor: mov.color }}>
+        {/* Foto em destaque + Vinheta & Glow Temático */}
         <div className="absolute inset-0 z-0">
-          <img src={mov.image} alt="" aria-hidden="true" className="w-full h-full object-cover" />
-          {/* Vinheta na cor do Movimento: forte à esquerda (texto), leve à direita (imagem) */}
+          <img src={mov.image} alt="" aria-hidden="true" className="w-full h-full object-cover scale-105" />
           <div
             className="absolute inset-0"
-            style={{ background: `linear-gradient(100deg, ${mov.color} 0%, ${mov.color}e6 42%, ${mov.color}73 100%)` }}
+            style={{ background: `linear-gradient(110deg, ${mov.color} 0%, ${mov.color}e6 48%, ${mov.color}80 100%)` }}
           />
           <div
             className="absolute inset-0"
-            style={{ background: `linear-gradient(to top, ${mov.color} 0%, transparent 45%)` }}
+            style={{ background: `linear-gradient(to top, ${mov.color} 0%, transparent 60%)` }}
           />
         </div>
+
+        {/* Glow de acento na cor do movimento */}
+        <div
+          className="absolute -right-20 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-3xl opacity-40 pointer-events-none z-0"
+          style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.4), transparent 70%)' }}
+        />
+
         <div className="absolute inset-0 text-white/[0.06] z-0">
           <DotGrid className="w-full h-full" />
         </div>
-        <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none z-0" />
+        <div className="absolute inset-0 grain-overlay opacity-[0.04] mix-blend-overlay pointer-events-none z-0" />
 
         <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
           <button
             onClick={() => navigate('ambicao')}
-            className="inline-flex items-center gap-2 text-white/70 hover:text-white text-[11px] font-bold uppercase tracking-widest mb-8 transition-colors"
+            className="group inline-flex items-center gap-2 text-white/80 hover:text-white text-[11px] font-bold uppercase tracking-widest mb-8 transition-colors cursor-pointer"
           >
-            <ArrowLeft className="w-4 h-4" /> Ambição 2030
+            <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
+            <span>Voltar para Ambição 2030</span>
           </button>
 
-          <div className="flex items-center gap-4 mb-7">
-            <span className="inline-block px-3 py-1 bg-white/15 backdrop-blur-md rounded-full text-white text-[10px] font-bold uppercase tracking-[0.2em]">
-              Ambição 2030 · Movimento
+          <div className="flex flex-wrap items-center gap-3 mb-6">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white/15 backdrop-blur-md rounded-full text-white text-[10px] font-bold uppercase tracking-[0.2em] border border-white/20 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-un-gold animate-pulse" />
+              Ambição 2030 · Movimento Oficial
             </span>
             {mov.ods?.length > 0 && (
-              <span className="hidden sm:inline-flex items-center gap-2 text-white/80 text-[10px] font-bold uppercase tracking-[0.2em]">
-                <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-black/20 backdrop-blur-md rounded-full text-white/90 text-[10px] font-bold uppercase tracking-[0.2em] border border-white/10">
                 ODS {mov.ods.join(', ')} · {mov.ods.map((n) => ODS_NAMES[n - 1]).join(' · ')}
               </span>
             )}
           </div>
 
-          <div className="flex flex-wrap items-center gap-5 mb-6">
-            <div className="inline-flex items-center justify-center bg-white rounded-xl px-5 py-3 shadow-lg h-14 md:h-16 w-52 md:w-64">
+          <div className="flex flex-wrap items-center gap-6 mb-8">
+            <div className="inline-flex items-center justify-center bg-white rounded-2xl px-6 py-4 shadow-2xl h-16 md:h-20 w-60 md:w-72 border border-white/40">
               <img
                 src={`${import.meta.env.BASE_URL}movimentos/${mov.id}.png`}
                 alt={mov.name}
                 className="w-full h-full object-contain"
               />
             </div>
+
+            {/* Quick Stat Pill em vidro */}
+            {mov.numeros?.comprometidas && (
+              <div className="hidden md:flex items-center gap-4 px-6 py-3.5 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 text-white">
+                <div>
+                  <span className="block font-display font-black text-2xl leading-none">
+                    {mov.numeros.comprometidas}
+                  </span>
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-white/70">
+                    Empresas Comprometidas
+                  </span>
+                </div>
+                {mov.numeros.recomendacao && (
+                  <>
+                    <div className="w-px h-8 bg-white/20" />
+                    <div>
+                      <span className="block font-display font-black text-2xl leading-none text-un-gold">
+                        {mov.numeros.recomendacao}
+                      </span>
+                      <span className="text-[10px] uppercase font-bold tracking-wider text-white/70">
+                        NPS Média
+                      </span>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Título */}
-          <h1 className="font-display font-black uppercase tracking-tight text-white leading-[0.95] text-4xl md:text-6xl lg:text-7xl mb-5 max-w-4xl">
+          <h1 className="font-display font-black uppercase tracking-tight text-white leading-[0.92] text-4xl md:text-6xl lg:text-7xl mb-6 max-w-4xl drop-shadow-sm">
             {mov.shortName}
           </h1>
 
-          {/* Subtítulo — usa o campo dedicado quando houver; senão, a ambição */}
-          <p className="text-white/90 text-lg md:text-2xl font-light leading-relaxed max-w-3xl">
+          {/* Subtítulo */}
+          <p className="text-white/90 text-lg md:text-2xl font-light leading-relaxed max-w-3xl mb-8">
             {mov.subtitulo || mov.ambicao}
           </p>
 
-          {/* Coordenação da plataforma — só renderiza com dado real */}
+          {/* Coordenação */}
           {mov.coordenacao && (
-            <div className="mt-9 pt-7 border-t border-white/20 max-w-3xl">
-              <span className="block text-white/60 text-[10px] font-bold uppercase tracking-[0.25em] mb-2">
-                Coordenação
+            <div className="pt-6 border-t border-white/20 max-w-3xl flex items-center gap-3">
+              <span className="text-white/60 text-[10px] font-bold uppercase tracking-[0.25em]">
+                Coordenação:
               </span>
-              <p className="text-white text-sm md:text-base font-medium leading-relaxed">
+              <span className="text-white text-sm font-medium">
                 {mov.coordenacao}
-              </p>
+              </span>
             </div>
           )}
         </div>
@@ -200,94 +233,136 @@ export const MovimentoPage = ({ slug, navigate }) => {
 
       <MovimentoSubNav color={mov.color} sections={sections} ids={sectionIds} />
 
-      {/* A Ambição */}
-      <section id="oque-e" className="py-20 md:py-28 bg-white scroll-mt-24">
+      {/* ============ A AMBIÇÃO — BENTO GLASS CARD ============ */}
+      <section id="oque-e" className="py-20 md:py-28 bg-slate-50/50 scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
-          <div className="grid lg:grid-cols-3 gap-10 lg:gap-16">
-            <div className="lg:col-span-1">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-2 h-10 rounded-full" style={{ backgroundColor: mov.color }} />
-                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-500">A Ambição</span>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-display font-black uppercase tracking-tight leading-[1.2] text-gray-900">
-                Onde queremos <span style={{ color: mov.color }}>chegar</span>
-              </h2>
-            </div>
-            <div className="lg:col-span-2 flex flex-col justify-center">
-              <Target className="w-8 h-8 mb-5" style={{ color: mov.color }} />
-              <p className="text-gray-700 text-lg md:text-2xl leading-relaxed font-light">
-                {mov.ambicao}
-              </p>
-              {mov.ods?.length > 0 && (
-                <div className="flex items-center gap-3 mt-8 pt-8 border-t border-gray-100">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">ODS relacionados</span>
-                  <div className="flex gap-2">
-                    {mov.ods.map((n) => (
-                      <span
-                        key={n}
-                        title={ODS_NAMES[n - 1]}
-                        className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-display font-black text-sm"
-                        style={{ backgroundColor: ODS_COLORS[n - 1] }}
-                      >
-                        {n}
-                      </span>
-                    ))}
-                  </div>
+          <div className="relative glass-near rounded-[2.5rem] p-9 md:p-14 border border-slate-200/80 bg-white shadow-xl overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-2" style={{ backgroundColor: mov.color }} />
+            
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+              <div className="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-slate-100 pb-8 lg:pb-0 lg:pr-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-3 h-3 rounded-full" style={{ backgroundColor: mov.color }} />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400">
+                    Onde Queremos Chegar
+                  </span>
                 </div>
-              )}
+                <h2 className="text-3xl md:text-4xl font-display font-black uppercase tracking-tight leading-[1.1] text-slate-900 mb-4">
+                  A Ambição <span style={{ color: mov.color }}>2030</span>
+                </h2>
+                <p className="text-slate-500 text-xs md:text-sm leading-relaxed font-light">
+                  A meta coletiva do setor privado para acelerar a transformação sustentável do Brasil.
+                </p>
+              </div>
+
+              <div className="lg:col-span-8">
+                <div className="relative pl-6 md:pl-8 border-l-4" style={{ borderColor: mov.color }}>
+                  <Target className="w-8 h-8 mb-4 opacity-80" style={{ color: mov.color }} />
+                  <p className="text-slate-800 text-xl md:text-2xl lg:text-[1.65rem] leading-[1.4] font-light tracking-tight">
+                    "{mov.ambicao}"
+                  </p>
+                </div>
+
+                {mov.ods?.length > 0 && (
+                  <div className="flex flex-wrap items-center gap-3 mt-8 pt-6 border-t border-slate-100">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                      ODS prioritários conectados:
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {mov.ods.map((n) => (
+                        <span
+                          key={n}
+                          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-white font-display font-black text-xs shadow-sm"
+                          style={{ backgroundColor: ODS_COLORS[n - 1] }}
+                        >
+                          <span>ODS {n}</span>
+                          <span className="font-sans font-normal opacity-90 text-[10px]">
+                            {ODS_NAMES[n - 1]}
+                          </span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Compromissos */}
-      <section id="compromissos" className="py-20 md:py-28 bg-white border-t border-gray-100 scroll-mt-24">
+      {/* ============ COMPROMISSOS — BENTO GRID ============ */}
+      <section id="compromissos" className="py-20 md:py-28 bg-white border-t border-slate-100 scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <SectionHeader
             badge="Carta de Compromisso"
             title="Nossos"
             titleAccent="Compromissos"
-            description="Metas que as empresas se comprometem a alcançar até 2030 ao assinar a Carta de Compromisso deste Movimento."
+            description="Metas públicas que as organizações assumem ao aderir formalmente ao Movimento."
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {mov.compromissos.map((c, i) => {
-              const featured = i % 3 === 0;
+              const featured = i === 0;
               return (
                 <Reveal key={i} delay={i * 60} className={featured ? 'lg:col-span-2' : ''}>
                   <div
                     className={cn(
-                      'group relative flex gap-4 h-full rounded-3xl p-6 md:p-8 overflow-hidden transition-all duration-300',
-                      featured ? 'text-white' : 'bg-un-surface hover:shadow-md',
+                      'group relative flex flex-col justify-between h-full rounded-[2rem] p-8 md:p-10 overflow-hidden transition-all duration-500 hover:-translate-y-1.5',
+                      featured
+                        ? 'text-white shadow-2xl'
+                        : 'bg-slate-50/80 border border-slate-200/80 hover:bg-white hover:shadow-xl hover:border-slate-300',
                     )}
-                    style={featured ? { background: `linear-gradient(135deg, ${mov.color}, ${mov.color}cc)` } : undefined}
+                    style={featured ? { background: `linear-gradient(135deg, ${mov.color}, ${mov.color}d9)` } : undefined}
                   >
                     {featured && <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />}
-                    <div className="relative flex flex-col items-center gap-2 shrink-0">
+                    
+                    <div className="relative z-10 flex items-center justify-between mb-6">
                       <div
-                        className={cn('w-9 h-9 rounded-xl flex items-center justify-center', featured && 'bg-white/20')}
-                        style={!featured ? { backgroundColor: `${mov.color}1A` } : undefined}
+                        className={cn(
+                          'w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm',
+                          featured ? 'bg-white/20 backdrop-blur-md' : 'bg-white border border-slate-200',
+                        )}
+                        style={!featured ? { color: mov.color } : undefined}
                       >
                         <Check className="w-5 h-5" style={{ color: featured ? '#fff' : mov.color }} />
                       </div>
-                      <span className={cn('text-[10px] font-bold tabular-nums', featured ? 'text-white/60' : 'text-gray-300')}>
-                        {String(i + 1).padStart(2, '0')}
+                      <span
+                        className={cn(
+                          'font-display font-black text-sm tracking-wider tabular-nums px-3 py-1 rounded-full',
+                          featured ? 'bg-white/15 text-white' : 'bg-slate-200/60 text-slate-500',
+                        )}
+                      >
+                        META {String(i + 1).padStart(2, '0')}
                       </span>
                     </div>
+
                     <p
                       className={cn(
-                        'relative text-sm md:text-base leading-relaxed font-light self-center',
-                        featured ? 'text-white/95' : 'text-gray-700',
+                        'relative z-10 text-base md:text-lg leading-relaxed font-light my-2',
+                        featured ? 'text-white' : 'text-slate-800',
                       )}
                     >
                       {c}
                     </p>
+
+                    <div className="relative z-10 mt-6 pt-5 border-t border-current/10 flex items-center justify-between text-xs">
+                      <span className={featured ? 'text-white/70' : 'text-slate-400'}>
+                        {featured ? 'Compromisso Principal' : 'Meta Auditável'}
+                      </span>
+                      <span className={cn('font-bold uppercase tracking-wider text-[10px]', featured ? 'text-un-gold' : '')} style={!featured ? { color: mov.color } : undefined}>
+                        Horizonte 2030
+                      </span>
+                    </div>
                   </div>
                 </Reveal>
               );
             })}
           </div>
+
           {mov.nota && (
-            <p className="text-gray-400 text-xs mt-6 leading-relaxed max-w-3xl italic">{mov.nota}</p>
+            <p className="text-slate-400 text-xs mt-8 leading-relaxed max-w-3xl italic bg-slate-50 p-4 rounded-xl border border-slate-100">
+              * Nota: {mov.nota}
+            </p>
           )}
         </div>
       </section>
@@ -299,44 +374,45 @@ export const MovimentoPage = ({ slug, navigate }) => {
       <MovimentoVideo mov={mov} />
       <MovimentoPilares mov={mov} />
 
-      {/* Como funciona — estrutura compartilhada por todos os Movimentos,
-          na cor deste Movimento */}
-      <section id="como-funciona" className="py-20 md:py-28 bg-white border-t border-gray-100 scroll-mt-24">
+      {/* ============ COMO FUNCIONA — ARQUITETURA BENTO ============ */}
+      <section id="como-funciona" className="py-20 md:py-28 bg-slate-50/60 border-t border-slate-100 scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-2 h-10 rounded-full" style={{ backgroundColor: mov.color }} />
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-500">Como funciona</span>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-3 h-3 rounded-full" style={{ backgroundColor: mov.color }} />
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400">
+              Metodologia Padronizada
+            </span>
           </div>
-          <h2 className="text-2xl md:text-4xl font-display font-black uppercase tracking-tight leading-[1.2] text-gray-900 mb-4 max-w-2xl">
+          <h2 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tight text-slate-900 mb-4 max-w-3xl">
             A mesma arquitetura de <span style={{ color: mov.color }}>todos os Movimentos</span>
           </h2>
-          <p className="text-gray-500 text-sm md:text-lg font-light max-w-2xl mb-10 md:mb-14">
-            O {mov.shortName} segue os cinco elementos que organizam todos os Movimentos da Ambição 2030,
-            do compromisso público à governança compartilhada.
+          <p className="text-slate-500 text-base md:text-lg font-light max-w-2xl mb-12">
+            O {mov.shortName} segue a estrutura de cinco pilares que organiza a Ambição 2030, do engajamento ao reporte contínuo.
           </p>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5">
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
             {ESTRUTURA_MOVIMENTOS.map((item, i) => {
               const lead = i === 0;
               return (
                 <Reveal key={item.id} delay={i * 70} className={COMO_FUNCIONA_SPANS[i]}>
                   <div
                     className={cn(
-                      'group relative h-full rounded-3xl p-7 md:p-9 overflow-hidden transition-colors duration-300',
-                      lead ? 'text-white' : 'bg-un-surface',
+                      'group relative h-full rounded-[2rem] p-8 md:p-10 overflow-hidden transition-all duration-300 hover:-translate-y-1',
+                      lead ? 'text-white shadow-2xl' : 'bg-white border border-slate-200/80 hover:shadow-xl',
                     )}
-                    style={lead ? { background: `linear-gradient(135deg, ${mov.color}, ${mov.color}cc)` } : undefined}
+                    style={lead ? { background: `linear-gradient(135deg, ${mov.color}, ${mov.color}d9)` } : undefined}
                   >
                     {lead && <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />}
                     <span
-                      className="relative block font-display font-black text-4xl md:text-5xl leading-none mb-5"
-                      style={{ color: lead ? 'rgba(255,255,255,0.3)' : `${mov.color}26` }}
+                      className="relative block font-display font-black text-5xl md:text-6xl leading-none mb-6"
+                      style={{ color: lead ? 'rgba(255,255,255,0.3)' : `${mov.color}33` }}
                     >
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <h3 className={cn('relative font-display font-black text-lg md:text-2xl tracking-tight leading-tight mb-3', lead ? 'text-white' : 'text-gray-900')}>
+                    <h3 className={cn('relative font-display font-black text-xl md:text-2xl tracking-tight leading-tight mb-3', lead ? 'text-white' : 'text-slate-900')}>
                       {item.title}
                     </h3>
-                    <p className={cn('relative text-sm md:text-base leading-relaxed font-light', lead ? 'text-white/85' : 'text-gray-500')}>
+                    <p className={cn('relative text-sm md:text-base leading-relaxed font-light', lead ? 'text-white/90' : 'text-slate-500')}>
                       {item.description}
                     </p>
                   </div>
@@ -355,62 +431,67 @@ export const MovimentoPage = ({ slug, navigate }) => {
       {/* Formas de engajamento (empresas + governos + OSCs) */}
       <MovimentoEngajamento mov={mov} />
 
-      {/* CTA + outros movimentos */}
-      <section id="aderir" className="py-20 md:py-28 scroll-mt-24" style={{ backgroundColor: mov.color }}>
-        <div className="container mx-auto px-4 md:px-8 lg:px-12">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-4xl font-display font-black uppercase tracking-tight text-white leading-[1.2] mb-4">
-              Comprometa-se com o <span className="text-white/80">{mov.shortName}</span>
+      {/* ============ CTA DE ADESÃO + OUTROS MOVIMENTOS ============ */}
+      <section id="aderir" className="relative py-20 md:py-28 overflow-hidden scroll-mt-24" style={{ backgroundColor: mov.color }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
+        <div className="absolute inset-0 text-white/[0.04]">
+          <DotGrid className="w-full h-full" />
+        </div>
+
+        <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="inline-block text-un-gold text-[10px] font-bold uppercase tracking-[0.3em] mb-4">
+              Faça Parte
+            </span>
+            <h2 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tight text-white leading-[1.1] mb-6">
+              Comprometa-se com o <span className="text-un-gold">{mov.shortName}</span>
             </h2>
-            <p className="text-white/80 text-base md:text-lg font-light max-w-2xl mx-auto mb-8">
-              Assine a Carta de Compromisso e contribua para uma ambição coletiva rumo a 2030.
+            <p className="text-white/85 text-base md:text-xl font-light leading-relaxed mb-8">
+              Assine a Carta de Compromisso e integre a maior rede empresarial de impacto sustentável do país.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                variant="outline"
-                className="border-white/40 text-white hover:bg-white hover:!text-gray-900"
-                icon={ArrowRight}
-                onClick={() => navigate('participar')}
-              >
-                Quero Aderir
-              </Button>
-            </div>
+            <button
+              onClick={() => navigate('participar')}
+              className="inline-flex items-center justify-center gap-3 bg-un-gold text-un-blue font-bold uppercase tracking-wider text-sm px-9 py-4 rounded-full shadow-2xl shadow-black/20 hover:bg-white hover:text-un-blue hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+            >
+              <span>Quero Aderir Agora</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
 
-          <div className="border-t border-white/15 pt-12">
-            <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest text-center mb-6">
-              Outros Movimentos
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-5">
+          <div className="border-t border-white/20 pt-14">
+            <div className="flex items-center justify-between mb-8">
+              <span className="text-white/70 text-[10px] font-bold uppercase tracking-widest">
+                Explore Outros Movimentos da Ambição 2030
+              </span>
+              <button
+                onClick={() => navigate('ambicao')}
+                className="text-white text-xs font-bold uppercase tracking-wider hover:underline"
+              >
+                Ver todos (10)
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
               {outros.map((m) => (
                 <button
                   key={m.id}
                   onClick={() => navigate('movimento', m.id)}
-                  className="group relative flex flex-col justify-between h-36 md:h-44 bg-white rounded-2xl md:rounded-3xl p-4 md:p-5 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-un-gold hover:-translate-y-1.5 overflow-hidden text-left cursor-pointer"
+                  className="group relative flex flex-col justify-between h-40 md:h-48 bg-white rounded-2xl md:rounded-3xl p-5 border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1.5 overflow-hidden text-left cursor-pointer"
                 >
-                  {/* Top Brand Color Bar */}
                   <div
-                    className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 group-hover:h-2"
+                    className="absolute top-0 left-0 right-0 h-2 transition-all duration-300 group-hover:h-2.5"
                     style={{ backgroundColor: m.color }}
                   />
 
-                  {/* Subtle Hover Background Tint */}
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 pointer-events-none"
-                    style={{ backgroundColor: m.color }}
-                  />
-
-                  {/* Header: ODS Pill */}
-                  <div className="relative z-10 flex items-center justify-end w-full">
+                  <div className="relative z-10 flex items-center justify-between w-full">
                     <span
-                      className="text-[9px] font-black uppercase px-2 py-0.5 rounded-full text-white tracking-wider shadow-sm"
+                      className="text-[9px] font-black uppercase px-2.5 py-0.5 rounded-full text-white tracking-wider shadow-sm"
                       style={{ backgroundColor: m.color }}
                     >
                       ODS {m.ods?.join(', ')}
                     </span>
                   </div>
 
-                  {/* Logo Centralizado */}
                   <div className="relative z-10 flex-1 flex items-center justify-center w-full my-2 px-2">
                     <img
                       src={`${import.meta.env.BASE_URL}movimentos/${m.id}.png`}
@@ -420,9 +501,8 @@ export const MovimentoPage = ({ slug, navigate }) => {
                     />
                   </div>
 
-                  {/* Footer com Seta de Ação */}
-                  <div className="relative z-10 flex items-center justify-between w-full pt-2 border-t border-gray-100/80">
-                    <span className="text-[11px] font-semibold text-gray-500 group-hover:text-un-blue transition-colors truncate">
+                  <div className="relative z-10 flex items-center justify-between w-full pt-2 border-t border-slate-100">
+                    <span className="text-[11px] font-semibold text-slate-500 group-hover:text-slate-900 transition-colors truncate">
                       Ver detalhes
                     </span>
                     <span
