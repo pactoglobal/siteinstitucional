@@ -47,7 +47,7 @@ export const BlocoHeader = ({ color, eyebrow, title, titleAccent, description, i
     >
       {title}{' '}
       {titleAccent && (
-        <span style={{ color: inverted ? '#CCB146' : color }}>{titleAccent}</span>
+        <span style={{ color: inverted ? '#ffffff' : color }}>{titleAccent}</span>
       )}
     </h2>
     {description && (
