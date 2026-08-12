@@ -18,7 +18,7 @@ export const HomeContent = ({ navigate }) => (
     <MovimentosSection navigate={navigate} />
     <PlataformasSection />
     <NewsSection navigate={navigate} />
-    <PublicacoesSection />
+    <PublicacoesSection navigate={navigate} />
     <ParceirosSection />
   </div>
 );

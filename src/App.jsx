@@ -18,7 +18,10 @@ import { Footer } from './components/layout/Footer';
 import { HomeContent } from './pages/HomeContent';
 import { SobrePage } from './pages/SobrePage';
 import { EventosPage } from './pages/EventosPage';
+import { EventoPage } from './pages/EventoPage';
 import { NoticiasPage } from './pages/NoticiasPage';
+import { NoticiaPage } from './pages/NoticiaPage';
+import { PublicacoesPage } from './pages/PublicacoesPage';
 import { NossaAgendaPage } from './pages/NossaAgendaPage';
 import { ProgramasPage } from './pages/ProgramasPage';
 import { ConhecimentoPage } from './pages/ConhecimentoPage';
@@ -42,7 +45,10 @@ const App = () => {
         {currentRoute === 'home' && <HomeContent navigate={navigate} />}
         {currentRoute === 'sobre' && <SobrePage />}
         {currentRoute === 'eventos' && <EventosPage />}
+        {currentRoute === 'evento' && <EventoPage slug={routeParam} navigate={navigate} />}
         {currentRoute === 'noticias' && <NoticiasPage />}
+        {currentRoute === 'noticia' && <NoticiaPage slug={routeParam} navigate={navigate} />}
+        {currentRoute === 'publicacoes' && <PublicacoesPage />}
         {currentRoute === 'agenda' && <NossaAgendaPage />}
         {currentRoute === 'programas' && <ProgramasPage />}
         {currentRoute === 'conhecimento' && <ConhecimentoPage />}
