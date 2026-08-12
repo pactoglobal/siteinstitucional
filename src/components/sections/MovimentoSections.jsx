@@ -396,6 +396,13 @@ export const MovimentoRede = ({ mov }) => {
   );
 };
 
+const RECURSO_COVERS = [
+  'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=800&auto=format&fit=crop',
+];
+
 /** Publicações e materiais do Movimento. */
 export const MovimentoRecursos = ({ mov }) => {
   if (!mov.recursos?.length) return null;
@@ -410,25 +417,62 @@ export const MovimentoRecursos = ({ mov }) => {
         />
         <Reveal>
           <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 list-none m-0 p-0">
-            {mov.recursos.map((r) => (
-              <li key={r.titulo}>
-                <a
-                  href={r.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col justify-between h-full bg-slate-50/80 border border-slate-200/80 rounded-3xl p-8 transition-all duration-300 hover:bg-white hover:-translate-y-1.5 hover:shadow-2xl"
-                >
-                  <FileText className="w-7 h-7 mb-6" style={{ color: mov.color }} />
-                  <span className="font-bold text-base md:text-lg text-slate-900 leading-snug">
-                    {r.titulo}
-                  </span>
-                  <span className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 group-hover:text-slate-900 transition-colors">
-                    Acessar Material
-                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </span>
-                </a>
-              </li>
-            ))}
+            {mov.recursos.map((r, i) => {
+              const coverImg = r.capa || mov.metaImage || mov.image || RECURSO_COVERS[i % RECURSO_COVERS.length];
+              return (
+                <li key={r.titulo}>
+                  <a
+                    href={r.url || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex flex-col justify-between h-full bg-white border border-slate-200/80 rounded-[2.5rem] overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-slate-300"
+                  >
+                    {/* Capa Visual da Publicação (Nítida com gradiente e badge) */}
+                    <div className="relative h-52 sm:h-60 w-full overflow-hidden bg-slate-900">
+                      <img
+                        src={coverImg}
+                        alt={r.titulo}
+                        className="w-full h-full object-cover scale-100 group-hover:scale-108 transition-transform duration-700 opacity-90"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
+
+                      {/* Badge do Tipo de Material */}
+                      <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-slate-900 text-[10px] font-black uppercase tracking-wider shadow-md">
+                        <FileText className="w-3.5 h-3.5" style={{ color: mov.color }} />
+                        <span>{r.tipo || 'Publicação Oficial'}</span>
+                      </div>
+
+                      {/* Identificação do Movimento no rodapé da capa */}
+                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white/90">
+                        <span className="truncate pr-2 font-display font-bold uppercase tracking-wider text-[11px] text-white">
+                          {mov.name}
+                        </span>
+                        <span className="shrink-0 px-2.5 py-0.5 rounded-md bg-white/20 backdrop-blur-md text-[10px] font-bold text-white border border-white/30">
+                          PDF
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Conteúdo Informativo */}
+                    <div className="p-8 flex flex-col justify-between flex-1 bg-white">
+                      <h3 className="font-display font-black text-lg md:text-xl text-slate-900 leading-snug group-hover:text-slate-800 transition-colors mb-6">
+                        {r.titulo}
+                      </h3>
+
+                      <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
+                        <span
+                          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest transition-colors"
+                          style={{ color: mov.color }}
+                        >
+                          <span>Acessar Material</span>
+                          <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </Reveal>
       </div>
