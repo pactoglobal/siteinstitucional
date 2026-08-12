@@ -210,18 +210,19 @@ export const MovimentoVideo = ({ mov }) => {
 export const MovimentoPilares = ({ mov }) => {
   if (!mov.pilares?.length) return null;
   return (
-    <section id="pilares" className="py-24 md:py-36 bg-white border-t border-slate-100 scroll-mt-24">
+    <section id="pilares" className="py-24 md:py-36 bg-slate-900 text-white border-t border-slate-800 scroll-mt-24">
       <div className="container mx-auto px-4 md:px-8 lg:px-12">
         <BlocoHeader
           color={mov.color}
           eyebrow="Como trabalhamos"
           title="Pilares de"
           titleAccent="atuação"
+          inverted={true}
         />
         <Reveal>
           <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 list-none m-0 p-0">
             {mov.pilares.map((p, i) => (
-              <li key={p.title ?? p} className="relative bg-slate-50/80 border border-slate-200/80 rounded-3xl p-8 overflow-hidden transition-all duration-300 hover:bg-white hover:shadow-xl">
+              <li key={p.title ?? p} className="relative bg-slate-800/90 border border-slate-700/80 rounded-3xl p-8 overflow-hidden transition-all duration-300 hover:bg-slate-800 hover:border-slate-500 shadow-2xl">
                 <span className="absolute left-0 top-0 bottom-0 w-2" style={{ backgroundColor: mov.color }} />
                 <span
                   className="block font-display font-black text-base tabular-nums mb-4"
@@ -229,11 +230,11 @@ export const MovimentoPilares = ({ mov }) => {
                 >
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <p className="font-bold text-base text-slate-900 leading-snug">
+                <p className="font-bold text-base text-white leading-snug">
                   {p.title ?? p}
                 </p>
                 {p.desc && (
-                  <p className="text-xs md:text-sm text-slate-500 leading-relaxed font-light mt-3">{p.desc}</p>
+                  <p className="text-xs md:text-sm text-slate-300 leading-relaxed font-light mt-3">{p.desc}</p>
                 )}
               </li>
             ))}
@@ -409,54 +410,30 @@ export const MovimentoRecursos = ({ mov }) => {
 
 /** Modalidades de empresa + formas de engajamento de governos e OSCs. */
 export const MovimentoEngajamento = ({ mov }) => (
-  <section id="engajamento" className="py-24 md:py-36 bg-white border-t border-slate-100 scroll-mt-24">
-    <div className="container mx-auto px-4 md:px-8 lg:px-12">
+  <section id="engajamento" className="py-24 md:py-36 text-white scroll-mt-24 relative overflow-hidden" style={{ backgroundColor: mov.color }}>
+    <div className="absolute inset-0 bg-black/15 pointer-events-none" />
+    <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
       <BlocoHeader
-        color={mov.color}
+        color="#fff"
         eyebrow="Como participar"
         title="Formas de"
         titleAccent="engajamento"
         description="Empresas de todos os portes assinam a Carta de Compromisso. Governos e sociedade civil também participam ativamente."
+        inverted={true}
       />
 
       {/* Duas modalidades de empresa — assimetria Bento 2:3 */}
       <div className="grid md:grid-cols-5 gap-8 md:gap-10 mb-8">
         {MODALIDADES.map((mod, i) => (
           <Reveal key={mod.id} delay={i * 120} className={i === 0 ? 'md:col-span-2' : 'md:col-span-3'}>
-            <div
-              className={cn(
-                'group relative h-full rounded-[3rem] p-10 md:p-14 overflow-hidden transition-all duration-300 hover:-translate-y-1.5',
-                i === 0
-                  ? 'bg-slate-50/80 border border-slate-200/80'
-                  : 'text-white shadow-2xl',
-              )}
-              style={i !== 0 ? { background: `linear-gradient(135deg, ${mov.color}, ${mov.color}d9)` } : undefined}
-            >
-              {i !== 0 && (
-                <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />
-              )}
-              <span
-                className={cn(
-                  'relative block text-xs font-bold uppercase tracking-[0.25em] mb-6',
-                  i === 0 ? 'text-slate-400' : 'text-white/80',
-                )}
-              >
+            <div className="group relative h-full rounded-[3rem] p-10 md:p-14 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 bg-white text-slate-900 shadow-2xl border border-white/40">
+              <span className="relative block text-xs font-bold uppercase tracking-[0.25em] mb-6 text-slate-400">
                 {i === 0 ? 'Jornada de Aprendizado' : 'Protagonismo & Liderança'}
               </span>
-              <h3
-                className={cn(
-                  'relative font-display font-black text-2xl md:text-4xl tracking-tight mb-5',
-                  i === 0 ? 'text-slate-900' : 'text-white',
-                )}
-              >
+              <h3 className="relative font-display font-black text-2xl md:text-4xl tracking-tight mb-5 text-slate-900">
                 {mod.title}
               </h3>
-              <p
-                className={cn(
-                  'relative text-base md:text-lg leading-relaxed font-light',
-                  i === 0 ? 'text-slate-600' : 'text-white/90',
-                )}
-              >
+              <p className="relative text-base md:text-lg leading-relaxed font-light text-slate-600">
                 {mod.description}
               </p>
             </div>
@@ -466,7 +443,7 @@ export const MovimentoEngajamento = ({ mov }) => (
 
       {/* Governos e organizações apoiadoras */}
       <Reveal delay={240}>
-        <div className="rounded-[2.5rem] border-t-4 border-un-gold bg-slate-50/80 border border-slate-200/80 p-10 md:p-16">
+        <div className="rounded-[2.5rem] bg-white text-slate-900 border border-white/40 p-10 md:p-16 shadow-2xl">
           <span className="block text-xs font-bold uppercase tracking-[0.22em] text-slate-400 mb-8">
             Atores Não-Empresariais
           </span>
@@ -477,7 +454,7 @@ export const MovimentoEngajamento = ({ mov }) => (
                   <Check className="w-5 h-5 shrink-0" style={{ color: mov.color }} />
                   {f.title}
                 </dt>
-                <dd className="text-sm md:text-base text-slate-500 leading-relaxed font-light m-0">
+                <dd className="text-sm md:text-base text-slate-600 leading-relaxed font-light m-0">
                   {f.description}
                 </dd>
               </div>

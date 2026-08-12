@@ -304,70 +304,70 @@ export const MovimentoPage = ({ slug, navigate }) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {mov.compromissos.map((c, i) => {
               const featured = i === 0;
-              return (
-                <Reveal key={i} delay={i * 60} className={featured ? 'lg:col-span-2' : ''}>
-                  <div
-                    className={cn(
-                      'group relative flex flex-col justify-between h-full rounded-[2.5rem] p-9 md:p-12 lg:p-14 overflow-hidden transition-all duration-500 hover:-translate-y-2',
-                      featured
-                        ? 'text-white shadow-2xl'
-                        : 'bg-slate-50/80 border border-slate-200/80 hover:bg-white hover:shadow-2xl hover:border-slate-300',
-                    )}
-                    style={featured ? { backgroundColor: mov.color } : undefined}
-                  >
-                    {/* Imagem de Fundo Temática na Meta 01 (Solicitada pelo Usuário) */}
-                    {featured && (
-                      <div className="absolute inset-0 z-0">
+              if (featured) {
+                return (
+                  <Reveal key={i} delay={i * 60} className="lg:col-span-2">
+                    <div
+                      className="group relative grid grid-cols-1 md:grid-cols-12 gap-8 h-full rounded-[2.5rem] p-9 md:p-12 overflow-hidden transition-all duration-500 hover:-translate-y-2 text-white shadow-2xl"
+                      style={{ backgroundColor: mov.color }}
+                    >
+                      <div className="md:col-span-7 flex flex-col justify-between relative z-10">
+                        <div>
+                          <div className="flex items-center justify-between mb-6">
+                            <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white/20 shadow-sm">
+                              <Check className="w-6 h-6 text-white" />
+                            </div>
+                            <span className="font-display font-black text-xs md:text-sm tracking-wider tabular-nums px-4 py-1.5 rounded-full bg-white/20 text-white border border-white/30">
+                              META 01
+                            </span>
+                          </div>
+
+                          <p className="text-lg md:text-xl lg:text-2xl leading-relaxed font-medium text-white my-4">
+                            {c}
+                          </p>
+                        </div>
+
+                        <div className="mt-8 pt-6 border-t border-white/20 flex items-center justify-between text-xs md:text-sm">
+                          <span className="text-white/90 font-medium">Compromisso Principal</span>
+                          <span className="font-bold uppercase tracking-wider text-xs text-white">Horizonte 2030</span>
+                        </div>
+                      </div>
+
+                      {/* Imagem Temática 100% Nítida sem blur e sem filtros confusos */}
+                      <div className="md:col-span-5 relative h-64 md:h-full min-h-[220px] rounded-2xl overflow-hidden shadow-lg border border-white/30">
                         <img
                           src={mov.metaImage || mov.image}
-                          alt=""
-                          aria-hidden="true"
-                          className="w-full h-full object-cover scale-105 transition-transform duration-700 group-hover:scale-110 opacity-30 mix-blend-overlay"
+                          alt={mov.name}
+                          className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700 opacity-100"
                         />
-                        <div
-                          className="absolute inset-0"
-                          style={{
-                            background: `linear-gradient(135deg, ${mov.color}f2 0%, ${mov.color}d9 60%, ${mov.color}bf 100%)`,
-                          }}
-                        />
-                        <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />
                       </div>
-                    )}
-                    
-                    <div className="relative z-10 flex items-center justify-between mb-8">
+                    </div>
+                  </Reveal>
+                );
+              }
+
+              return (
+                <Reveal key={i} delay={i * 60}>
+                  <div className="group relative flex flex-col justify-between h-full rounded-[2.5rem] p-9 md:p-12 bg-white border border-slate-200/80 hover:shadow-2xl hover:border-slate-300 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center justify-between mb-8">
                       <div
-                        className={cn(
-                          'w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm',
-                          featured ? 'bg-white/20 backdrop-blur-md' : 'bg-white border border-slate-200',
-                        )}
-                        style={!featured ? { color: mov.color } : undefined}
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center bg-slate-50 border border-slate-200 shadow-sm"
+                        style={{ color: mov.color }}
                       >
-                        <Check className="w-6 h-6" style={{ color: featured ? '#fff' : mov.color }} />
+                        <Check className="w-6 h-6" style={{ color: mov.color }} />
                       </div>
-                      <span
-                        className={cn(
-                          'font-display font-black text-xs md:text-sm tracking-wider tabular-nums px-4 py-1.5 rounded-full',
-                          featured ? 'bg-white/20 text-white backdrop-blur-md border border-white/30' : 'bg-slate-200/70 text-slate-600',
-                        )}
-                      >
+                      <span className="font-display font-black text-xs md:text-sm tracking-wider tabular-nums px-4 py-1.5 rounded-full bg-slate-100 text-slate-700">
                         META {String(i + 1).padStart(2, '0')}
                       </span>
                     </div>
 
-                    <p
-                      className={cn(
-                        'relative z-10 text-lg md:text-xl lg:text-2xl leading-relaxed font-light my-4',
-                        featured ? 'text-white drop-shadow-sm font-medium' : 'text-slate-800',
-                      )}
-                    >
+                    <p className="text-lg md:text-xl leading-relaxed font-light text-slate-800 my-4">
                       {c}
                     </p>
 
-                    <div className="relative z-10 mt-8 pt-6 border-t border-current/10 flex items-center justify-between text-xs md:text-sm">
-                      <span className={featured ? 'text-white/80 font-medium' : 'text-slate-400'}>
-                        {featured ? 'Compromisso Principal' : 'Meta Auditável'}
-                      </span>
-                      <span className={cn('font-bold uppercase tracking-wider text-xs', featured ? 'text-white' : '')} style={!featured ? { color: mov.color } : undefined}>
+                    <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between text-xs md:text-sm">
+                      <span className="text-slate-400 font-medium">Meta Auditável</span>
+                      <span className="font-bold uppercase tracking-wider text-xs" style={{ color: mov.color }}>
                         Horizonte 2030
                       </span>
                     </div>
