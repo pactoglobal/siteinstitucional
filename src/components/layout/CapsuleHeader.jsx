@@ -52,12 +52,12 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute, routeParam }) => {
           <div className="hidden lg:flex w-1/2 xl:w-2/4 justify-center">
             <nav
               className={cn(
-                'flex items-center gap-4 xl:gap-6 backdrop-blur-md rounded-full px-6 xl:px-8 py-2.5 transition-all duration-300 shadow-xl',
+                'flex items-center gap-4 xl:gap-6 backdrop-blur-md rounded-full px-6 xl:px-8 py-2.5 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.15)]',
                 mov
-                  ? 'border border-white shadow-black/20'
+                  ? 'border border-white/25'
                   : 'bg-un-blue/60 border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]',
               )}
-              style={mov ? { backgroundColor: mov.color } : undefined}
+              style={mov ? { backgroundColor: `${mov.color}80` } : undefined}
             >
               {/* Links Simples */}
               <button 
