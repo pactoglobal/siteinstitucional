@@ -251,9 +251,14 @@ export const MovimentoPage = ({ slug, navigate }) => {
                 <h2 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tight leading-[1.05] text-slate-900 mb-6">
                   A Ambição <span style={{ color: mov.color }}>2030</span>
                 </h2>
-                <p className="text-slate-500 text-sm md:text-base leading-relaxed font-light">
+                <p className="text-slate-500 text-sm md:text-base leading-relaxed font-light mb-6">
                   A meta coletiva do setor privado para acelerar a transformação sustentável do Brasil.
                 </p>
+
+                {/* Foto Temática Nítida */}
+                <div className="relative h-44 rounded-2xl overflow-hidden shadow-md border border-slate-200 hidden sm:block">
+                  <img src={mov.image} alt="" className="w-full h-full object-cover scale-105" />
+                </div>
               </div>
 
               <div className="lg:col-span-8">

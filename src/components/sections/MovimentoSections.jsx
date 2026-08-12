@@ -206,36 +206,64 @@ export const MovimentoVideo = ({ mov }) => {
   );
 };
 
+const PILAR_IMAGES = [
+  'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800&auto=format&fit=crop',
+];
+
 /** Pilares de atuação próprios do Movimento. */
 export const MovimentoPilares = ({ mov }) => {
   if (!mov.pilares?.length) return null;
   return (
-    <section id="pilares" className="py-24 md:py-36 bg-slate-900 text-white border-t border-slate-800 scroll-mt-24">
-      <div className="container mx-auto px-4 md:px-8 lg:px-12">
+    <section id="pilares" className="py-24 md:py-36 bg-slate-100/90 border-t border-slate-200/80 scroll-mt-24 relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
         <BlocoHeader
           color={mov.color}
           eyebrow="Como trabalhamos"
           title="Pilares de"
-          titleAccent="atuação"
-          inverted={true}
+          titleAccent="Atuação"
         />
         <Reveal>
           <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 list-none m-0 p-0">
             {mov.pilares.map((p, i) => (
-              <li key={p.title ?? p} className="relative bg-slate-800/90 border border-slate-700/80 rounded-3xl p-8 overflow-hidden transition-all duration-300 hover:bg-slate-800 hover:border-slate-500 shadow-2xl">
-                <span className="absolute left-0 top-0 bottom-0 w-2" style={{ backgroundColor: mov.color }} />
-                <span
-                  className="block font-display font-black text-base tabular-nums mb-4"
-                  style={{ color: mov.color }}
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <p className="font-bold text-base text-white leading-snug">
-                  {p.title ?? p}
-                </p>
-                {p.desc && (
-                  <p className="text-xs md:text-sm text-slate-300 leading-relaxed font-light mt-3">{p.desc}</p>
-                )}
+              <li
+                key={p.title ?? p}
+                className="group relative bg-white/90 backdrop-blur-md border border-white/80 rounded-3xl p-8 overflow-hidden shadow-xl hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 flex flex-col justify-between"
+              >
+                {/* Background Image no Card sem interferir na leitura (Glassmorphism com imagem) */}
+                <div className="absolute inset-0 z-0 overflow-hidden">
+                  <img
+                    src={PILAR_IMAGES[i % PILAR_IMAGES.length]}
+                    alt=""
+                    aria-hidden="true"
+                    className="w-full h-full object-cover opacity-[0.14] group-hover:opacity-25 scale-100 group-hover:scale-110 transition-all duration-700 pointer-events-none"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/95 via-white/85 to-white/95" />
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-6">
+                    <span
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center font-display font-black text-sm tracking-wider shadow-md text-white"
+                      style={{ backgroundColor: mov.color }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
+                      Pilar {i + 1}
+                    </span>
+                  </div>
+
+                  <p className="font-display font-black text-xl text-slate-900 leading-snug mb-3">
+                    {p.title ?? p}
+                  </p>
+                  {p.desc && (
+                    <p className="text-xs md:text-sm text-slate-600 leading-relaxed font-light mt-2">{p.desc}</p>
+                  )}
+                </div>
               </li>
             ))}
           </ol>
