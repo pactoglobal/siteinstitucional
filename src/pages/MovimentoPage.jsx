@@ -313,9 +313,26 @@ export const MovimentoPage = ({ slug, navigate }) => {
                         ? 'text-white shadow-2xl'
                         : 'bg-slate-50/80 border border-slate-200/80 hover:bg-white hover:shadow-2xl hover:border-slate-300',
                     )}
-                    style={featured ? { background: `linear-gradient(135deg, ${mov.color}, ${mov.color}d9)` } : undefined}
+                    style={featured ? { backgroundColor: mov.color } : undefined}
                   >
-                    {featured && <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />}
+                    {/* Imagem de Fundo Temática na Meta 01 (Solicitada pelo Usuário) */}
+                    {featured && (
+                      <div className="absolute inset-0 z-0">
+                        <img
+                          src={mov.metaImage || mov.image}
+                          alt=""
+                          aria-hidden="true"
+                          className="w-full h-full object-cover scale-105 transition-transform duration-700 group-hover:scale-110 opacity-30 mix-blend-overlay"
+                        />
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            background: `linear-gradient(135deg, ${mov.color}f2 0%, ${mov.color}d9 60%, ${mov.color}bf 100%)`,
+                          }}
+                        />
+                        <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />
+                      </div>
+                    )}
                     
                     <div className="relative z-10 flex items-center justify-between mb-8">
                       <div
@@ -330,7 +347,7 @@ export const MovimentoPage = ({ slug, navigate }) => {
                       <span
                         className={cn(
                           'font-display font-black text-xs md:text-sm tracking-wider tabular-nums px-4 py-1.5 rounded-full',
-                          featured ? 'bg-white/15 text-white' : 'bg-slate-200/70 text-slate-600',
+                          featured ? 'bg-white/20 text-white backdrop-blur-md border border-white/30' : 'bg-slate-200/70 text-slate-600',
                         )}
                       >
                         META {String(i + 1).padStart(2, '0')}
@@ -340,14 +357,14 @@ export const MovimentoPage = ({ slug, navigate }) => {
                     <p
                       className={cn(
                         'relative z-10 text-lg md:text-xl lg:text-2xl leading-relaxed font-light my-4',
-                        featured ? 'text-white' : 'text-slate-800',
+                        featured ? 'text-white drop-shadow-sm font-medium' : 'text-slate-800',
                       )}
                     >
                       {c}
                     </p>
 
                     <div className="relative z-10 mt-8 pt-6 border-t border-current/10 flex items-center justify-between text-xs md:text-sm">
-                      <span className={featured ? 'text-white/70' : 'text-slate-400'}>
+                      <span className={featured ? 'text-white/80 font-medium' : 'text-slate-400'}>
                         {featured ? 'Compromisso Principal' : 'Meta Auditável'}
                       </span>
                       <span className={cn('font-bold uppercase tracking-wider text-xs', featured ? 'text-un-gold' : '')} style={!featured ? { color: mov.color } : undefined}>

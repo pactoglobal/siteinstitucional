@@ -1,8 +1,9 @@
-import React from 'react';
-import { Check, FileText, ArrowUpRight, Users2, ClipboardList } from 'lucide-react';
+import React, { useState } from 'react';
+import { Check, FileText, ArrowUpRight, Users2, ClipboardList, Eye, Building2 } from 'lucide-react';
 import { useReveal } from '../../hooks/useReveal';
 import { cn } from '../../utils/cn';
 import { MODALIDADES, FORMAS_ENGAJAMENTO, MONITORAMENTO } from '../../data/ambicao2030';
+import { EmpresasModal } from '../ui/EmpresasModal';
 
 // ============================================================
 // Blocos das páginas de Movimento.
@@ -62,100 +63,122 @@ export const BlocoHeader = ({ color, eyebrow, title, titleAccent, description, i
   </div>
 );
 
-/** Números de engajamento do Movimento (Relatório Ambição 2030 — Ano 4). */
+/** Números de engajamento do Movimento com composição circular e Modal de Empresas. */
 export const MovimentoNumeros = ({ mov }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const n = mov.numeros;
   if (!n?.comprometidas) return null;
 
-  const apoio = [
-    { value: n.respondentes, label: 'Organizações que responderam ao 4º ciclo de indicadores' },
-    { value: n.recomendacao, label: 'Nota média de recomendação (NPS do Movimento)' },
-  ].filter((x) => x.value != null);
-
   return (
-    <section id="numeros" className="py-24 md:py-36 bg-white border-t border-slate-100 scroll-mt-24">
-      <div className="container mx-auto px-4 md:px-8 lg:px-12">
-        <BlocoHeader
-          color={mov.color}
-          eyebrow="Onde estamos"
-          title="Em"
-          titleAccent="números"
-          description="Dados oficiais do 4º ciclo de coleta de indicadores da Ambição 2030 (2025/2026)."
-        />
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
-          {/* Métrica protagonista, na cor do Movimento */}
-          <Reveal className="lg:col-span-5">
-            <div
-              className="relative h-full rounded-[3rem] p-10 md:p-16 overflow-hidden text-white shadow-2xl flex flex-col justify-between"
-              style={{ background: `linear-gradient(135deg, ${mov.color}, ${mov.color}cc)` }}
-            >
-              <div className="absolute inset-0 grain-overlay opacity-[0.05] mix-blend-overlay pointer-events-none" />
-              <div className="relative z-10">
-                <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-white/90 mb-8 px-4 py-1.5 bg-white/15 backdrop-blur-md rounded-full border border-white/20">
-                  Adesão Oficial
-                </span>
-                <span
-                  className="block font-display font-black text-8xl md:text-9xl lg:text-[10rem] leading-[0.85] tabular-nums"
-                  style={{ textShadow: '0 0 40px rgba(255,255,255,0.3)' }}
-                >
-                  {n.comprometidas}
-                </span>
-              </div>
-              <div className="relative z-10 mt-10 pt-8 border-t border-white/20">
-                <span className="block text-white text-lg md:text-xl font-light leading-relaxed">
-                  organizações brasileiras assinaram a Carta de Compromisso deste Movimento.
-                </span>
-              </div>
-            </div>
-          </Reveal>
+    <>
+      <section id="numeros" className="py-24 md:py-36 bg-white border-t border-slate-100 scroll-mt-24">
+        <div className="container mx-auto px-4 md:px-8 lg:px-12">
+          <BlocoHeader
+            color={mov.color}
+            eyebrow="Onde estamos"
+            title="Principais"
+            titleAccent="números"
+            description="Dados oficiais do 4º ciclo de coleta de indicadores da Ambição 2030 (2025/2026)."
+          />
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Composição visual circular com ícone + imagem temática (Estilo Oficial Pacto) */}
+            <Reveal className="lg:col-span-6">
+              <div className="relative flex items-center justify-center p-4">
+                {/* Glow de fundo */}
+                <div
+                  className="absolute w-72 h-72 rounded-full blur-3xl opacity-20 pointer-events-none"
+                  style={{ backgroundColor: mov.color }}
+                />
 
-          {/* Apoio + monitoramento, em réguas Bento */}
-          <Reveal delay={120} className="lg:col-span-7">
-            <div className="h-full rounded-[3rem] bg-slate-50/80 border border-slate-200/80 p-10 md:p-16 flex flex-col justify-between">
-              <div>
-                <span className="block text-xs font-bold uppercase tracking-[0.22em] text-slate-400 mb-8">
-                  Engajamento & Indicadores
-                </span>
-                <dl className="divide-y divide-slate-200/80 border-t border-slate-200/80">
-                  {apoio.map((s) => (
-                    <div key={s.label} className="flex items-baseline justify-between gap-6 py-6">
-                      <dt className="text-slate-600 text-base md:text-lg font-light">{s.label}</dt>
-                      <dd
-                        className="font-display font-black text-4xl md:text-5xl leading-none tabular-nums shrink-0"
-                        style={{ color: mov.color }}
-                      >
-                        {s.value}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
+                {/* Círculo Principal de Foto com Moldura dupla */}
+                <div className="relative w-72 h-72 sm:w-96 sm:h-96 md:w-[26rem] md:h-[26rem] rounded-full p-2.5 bg-white shadow-2xl border-4" style={{ borderColor: `${mov.color}40` }}>
+                  <div className="w-full h-full rounded-full overflow-hidden relative">
+                    <img
+                      src={mov.image}
+                      alt={mov.name}
+                      className="w-full h-full object-cover scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  </div>
 
-              {/* Monitoramento — como o compromisso é acompanhado */}
-              <div className="mt-10 pt-10 border-t border-slate-200/80">
-                <span className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-slate-500 mb-6">
-                  <ClipboardList className="w-5 h-5" style={{ color: mov.color }} />
-                  {MONITORAMENTO.title}
-                </span>
-                <p className="text-slate-500 text-sm md:text-base font-light leading-relaxed mb-8">
-                  {MONITORAMENTO.description}
-                </p>
-                <ul className="grid sm:grid-cols-2 gap-6 list-none m-0 p-0">
-                  {MONITORAMENTO.processos.map((p) => (
-                    <li key={p.title} className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
-                      <p className="font-bold text-base text-slate-900 mb-2">{p.title}</p>
-                      <p className="text-xs md:text-sm text-slate-500 leading-relaxed font-light">
-                        {p.description}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
+                  {/* Badge circular com o ícone do movimento */}
+                  <div
+                    className="absolute -left-3 top-1/4 w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-2xl flex items-center justify-center text-white"
+                    style={{ backgroundColor: mov.color }}
+                  >
+                    <Building2 className="w-9 h-9 sm:w-10 sm:h-10" />
+                  </div>
+                </div>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
+
+            {/* Painel de Métricas + Botão do Modal de Empresas Comprometidas */}
+            <Reveal delay={120} className="lg:col-span-6">
+              <div className="space-y-8 bg-slate-50/80 rounded-[3rem] p-10 md:p-14 border border-slate-200/80 shadow-xl">
+                {/* Métrica 1: Empresas Comprometidas + Botão com Modal */}
+                <div className="pb-8 border-b border-slate-200/80">
+                  <span className="block font-display font-black text-6xl md:text-7xl lg:text-8xl text-slate-900 leading-none mb-2">
+                    {n.comprometidas}
+                  </span>
+                  <div className="flex flex-wrap items-center justify-between gap-4">
+                    <span className="text-lg md:text-xl font-bold text-slate-700">
+                      Empresas Comprometidas
+                    </span>
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-xs font-bold uppercase tracking-wider shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                      style={{ backgroundColor: mov.color }}
+                    >
+                      <Eye className="w-4 h-4" />
+                      <span>Empresas</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Métricas secundárias */}
+                <div className="grid sm:grid-cols-2 gap-8 pt-2">
+                  <div>
+                    <span className="block font-display font-black text-4xl md:text-5xl text-slate-800 leading-none mb-2">
+                      {n.apoiadoras || 14}
+                    </span>
+                    <span className="text-sm font-medium text-slate-500">
+                      Organizações Apoiadoras
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className="block font-display font-black text-4xl md:text-5xl text-slate-800 leading-none mb-2">
+                      {n.governos || 2}
+                    </span>
+                    <span className="text-sm font-medium text-slate-500">
+                      Governos
+                    </span>
+                  </div>
+                </div>
+
+                {/* Rodapé informativo */}
+                {n.recomendacao && (
+                  <div className="pt-6 border-t border-slate-200/80 flex items-center justify-between text-xs text-slate-500">
+                    <span>NPS Média do Movimento:</span>
+                    <span className="font-display font-black text-lg text-slate-800">
+                      {n.recomendacao} / 10
+                    </span>
+                  </div>
+                )}
+              </div>
+            </Reveal>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Modal de Empresas Comprometidas */}
+      <EmpresasModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        movimento={mov}
+      />
+    </>
   );
 };
 
