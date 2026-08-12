@@ -4,10 +4,11 @@ import { cn } from '../../utils/cn';
 import { Button } from '../ui/Button';
 import { SuperMenu } from './SuperMenu';
 import { HEADER_PROGRAMAS, HEADER_CONHECIMENTO } from '../../data/constants';
+import { getMovimento } from '../../data/ambicao2030';
 
 // --- COMPONENTE: CAPSULE HEADER (RED BULL STYLE) ---
 
-export const CapsuleHeader = ({ onRouteChange, currentRoute }) => {
+export const CapsuleHeader = ({ onRouteChange, currentRoute, routeParam }) => {
   const [scrolled, setScrolled] = useState(false);
   const [superMenuOpen, setSuperMenuOpen] = useState(false);
 
@@ -17,14 +18,21 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const mov = currentRoute === 'movimento' && routeParam ? getMovimento(routeParam) : null;
+
   return (
     <>
       <SuperMenu isOpen={superMenuOpen} onClose={() => setSuperMenuOpen(false)} onRouteChange={onRouteChange} />
 
-      <header className={cn(
-        "fixed w-full z-50 transition-all duration-500",
-        scrolled ? "bg-un-blue py-3 shadow-[0_10px_30px_rgba(0,0,0,0.3)]" : "bg-transparent py-5"
-      )}>
+      <header
+        className={cn(
+          'fixed w-full z-50 transition-all duration-500',
+          scrolled ? 'py-3 shadow-[0_10px_30px_rgba(0,0,0,0.3)]' : 'bg-transparent py-5',
+        )}
+        style={{
+          backgroundColor: scrolled ? (mov ? mov.color : '#002B49') : 'transparent',
+        }}
+      >
         <div className="container mx-auto px-4 md:px-8 lg:px-12 flex items-center justify-between">
           
           {/* Logo e Menu Esquerda */}

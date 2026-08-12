@@ -36,7 +36,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-un-gold selection:text-un-blue flex flex-col">
-      <CapsuleHeader onRouteChange={navigate} currentRoute={currentRoute} />
+      <CapsuleHeader onRouteChange={navigate} currentRoute={currentRoute} routeParam={routeParam} />
 
       <main className="flex-1">
         {currentRoute === 'home' && <HomeContent navigate={navigate} />}
