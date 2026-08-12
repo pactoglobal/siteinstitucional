@@ -152,6 +152,16 @@
       backdrop-filter: none;
     }
   }
+
+  /* Trilhos horizontais (carrosséis, filtros no mobile) sem barra visível */
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @keyframes fadeInUp {
