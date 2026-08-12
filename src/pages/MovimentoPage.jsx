@@ -367,7 +367,7 @@ export const MovimentoPage = ({ slug, navigate }) => {
                       <span className={featured ? 'text-white/80 font-medium' : 'text-slate-400'}>
                         {featured ? 'Compromisso Principal' : 'Meta Auditável'}
                       </span>
-                      <span className={cn('font-bold uppercase tracking-wider text-xs', featured ? 'text-un-gold' : '')} style={!featured ? { color: mov.color } : undefined}>
+                      <span className={cn('font-bold uppercase tracking-wider text-xs', featured ? 'text-white' : '')} style={!featured ? { color: mov.color } : undefined}>
                         Horizonte 2030
                       </span>
                     </div>
