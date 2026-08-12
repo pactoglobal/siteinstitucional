@@ -27,7 +27,7 @@ const Reveal = ({ children, delay = 0, className = '' }) => {
 
 /** Cabeçalho de bloco: régua na cor do Movimento + eyebrow + título. */
 export const BlocoHeader = ({ color, eyebrow, title, titleAccent, description, inverted = false }) => (
-  <div className="mb-14 md:mb-20 max-w-4xl">
+  <div className="mb-8 md:mb-12 max-w-4xl">
     <div className="flex items-center gap-3.5 mb-5">
       <span className="w-10 h-0.5 rounded-full" style={{ backgroundColor: color }} />
       <span
@@ -71,7 +71,7 @@ export const MovimentoNumeros = ({ mov }) => {
 
   return (
     <>
-      <section id="numeros" className="py-24 md:py-36 bg-white border-t border-slate-100 scroll-mt-24">
+      <section id="numeros" className="py-12 md:py-20 bg-white border-t border-slate-100 scroll-mt-24">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <BlocoHeader
             color={mov.color}
@@ -152,10 +152,35 @@ export const MovimentoNumeros = ({ mov }) => {
                       {n.governos || 2}
                     </span>
                     <span className="text-sm font-medium text-slate-500">
-                      Governos
+                      Governos Integrados
                     </span>
                   </div>
                 </div>
+
+                {/* Métrica de Empresas Embaixadoras (Solicitada pelo Usuário) */}
+                {mov.embaixadoras?.length > 0 && (
+                  <div className="pt-6 border-t border-slate-200/80">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                        Empresas Embaixadoras ({mov.embaixadoras.length})
+                      </span>
+                      <span className="text-xs font-bold text-slate-600 uppercase tracking-widest">
+                        Protagonismo C-Level
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {mov.embaixadoras.map((emb) => (
+                        <span
+                          key={emb.nome}
+                          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-200 text-slate-800 shadow-sm"
+                        >
+                          <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: mov.color }} />
+                          <span>{emb.nome}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Rodapé informativo */}
                 {n.recomendacao && (
@@ -186,7 +211,7 @@ export const MovimentoNumeros = ({ mov }) => {
 export const MovimentoVideo = ({ mov }) => {
   if (!mov.videoId) return null;
   return (
-    <section className="py-24 md:py-36 bg-white border-t border-slate-100">
+    <section className="py-12 md:py-20 bg-white border-t border-slate-100">
       <div className="container mx-auto px-4 md:px-8 lg:px-12">
         <BlocoHeader color={mov.color} eyebrow="Assista" title="Vídeo" titleAccent="teaser" />
         <Reveal>
@@ -218,7 +243,7 @@ const PILAR_IMAGES = [
 export const MovimentoPilares = ({ mov }) => {
   if (!mov.pilares?.length) return null;
   return (
-    <section id="pilares" className="py-24 md:py-36 bg-slate-100/90 border-t border-slate-200/80 scroll-mt-24 relative overflow-hidden">
+    <section id="pilares" className="py-12 md:py-20 bg-slate-100/90 border-t border-slate-200/80 scroll-mt-24 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
         <BlocoHeader
           color={mov.color}
@@ -289,7 +314,7 @@ export const MovimentoGovernanca = ({ mov }) => {
       .toUpperCase();
 
   return (
-    <section id="governanca" className="py-24 md:py-36 bg-white border-t border-slate-100 scroll-mt-24">
+    <section id="governanca" className="py-12 md:py-20 bg-white border-t border-slate-100 scroll-mt-24">
       <div className="container mx-auto px-4 md:px-8 lg:px-12">
         <BlocoHeader
           color={mov.color}
@@ -360,7 +385,7 @@ export const MovimentoRede = ({ mov }) => {
   if (!grupos.length) return null;
 
   return (
-    <section className="py-24 md:py-36 bg-white border-t border-slate-100">
+    <section className="py-12 md:py-20 bg-white border-t border-slate-100">
       <div className="container mx-auto px-4 md:px-8 lg:px-12">
         <BlocoHeader
           color={mov.color}
@@ -407,7 +432,7 @@ const RECURSO_COVERS = [
 export const MovimentoRecursos = ({ mov }) => {
   if (!mov.recursos?.length) return null;
   return (
-    <section className="py-24 md:py-36 bg-white border-t border-slate-100">
+    <section className="py-12 md:py-20 bg-white border-t border-slate-100">
       <div className="container mx-auto px-4 md:px-8 lg:px-12">
         <BlocoHeader
           color={mov.color}
@@ -482,7 +507,7 @@ export const MovimentoRecursos = ({ mov }) => {
 
 /** Modalidades de empresa + formas de engajamento de governos e OSCs. */
 export const MovimentoEngajamento = ({ mov }) => (
-  <section id="engajamento" className="py-24 md:py-36 text-white scroll-mt-24 relative overflow-hidden" style={{ backgroundColor: mov.color }}>
+  <section id="engajamento" className="py-12 md:py-20 text-white scroll-mt-24 relative overflow-hidden" style={{ backgroundColor: mov.color }}>
     <div className="absolute inset-0 bg-black/15 pointer-events-none" />
     <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
       <BlocoHeader
