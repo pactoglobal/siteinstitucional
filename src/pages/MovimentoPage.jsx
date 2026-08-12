@@ -161,7 +161,7 @@ export const MovimentoPage = ({ slug, navigate }) => {
 
           <div className="flex flex-wrap items-center gap-4 mb-8">
             <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/15 backdrop-blur-md rounded-full text-white text-[11px] font-bold uppercase tracking-[0.22em] border border-white/20 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-un-gold animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
               Ambição 2030 · Movimento Oficial
             </span>
             {mov.ods?.length > 0 && (
@@ -195,7 +195,7 @@ export const MovimentoPage = ({ slug, navigate }) => {
                   <>
                     <div className="w-px h-10 bg-white/20" />
                     <div>
-                      <span className="block font-display font-black text-3xl leading-none text-un-gold">
+                      <span className="block font-display font-black text-3xl leading-none text-white">
                         {mov.numeros.recomendacao}
                       </span>
                       <span className="text-[10px] uppercase font-bold tracking-wider text-white/70">
@@ -458,21 +458,21 @@ export const MovimentoPage = ({ slug, navigate }) => {
 
         <div className="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-20">
-            <span className="inline-block text-un-gold text-xs font-bold uppercase tracking-[0.3em] mb-6">
+            <span className="inline-block text-white/90 text-xs font-bold uppercase tracking-[0.3em] px-5 py-2 bg-white/15 backdrop-blur-md rounded-full border border-white/25 shadow-sm mb-6">
               Faça Parte
             </span>
             <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-white leading-[1.05] mb-8">
-              Comprometa-se com o <span className="text-un-gold">{mov.shortName}</span>
+              Comprometa-se com o {mov.shortName}
             </h2>
-            <p className="text-white/85 text-lg md:text-2xl font-light leading-relaxed mb-10">
+            <p className="text-white/90 text-lg md:text-2xl font-light leading-relaxed mb-10 max-w-3xl mx-auto">
               Assine a Carta de Compromisso e integre a maior rede empresarial de impacto sustentável do país.
             </p>
             <button
               onClick={() => navigate('participar')}
-              className="inline-flex items-center justify-center gap-3 bg-un-gold text-un-blue font-bold uppercase tracking-wider text-sm md:text-base px-10 py-5 rounded-full shadow-2xl shadow-black/20 hover:bg-white hover:text-un-blue hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+              className="inline-flex items-center justify-center gap-3.5 bg-white text-slate-900 font-display font-black uppercase tracking-wider text-sm md:text-base px-10 py-5 rounded-full shadow-2xl shadow-black/30 hover:bg-slate-100 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
             >
               <span>Quero Aderir Agora</span>
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5 text-slate-900" />
             </button>
           </div>
 
