@@ -24,11 +24,17 @@ export function useReveal({ threshold = 0.15, rootMargin = '0px 0px -10% 0px', o
     if (!node) return;
     if (typeof IntersectionObserver === 'undefined' || prefersReducedMotion()) return;
 
+    // Safety fallback: garante visibilidade mesmo se IntersectionObserver não disparar
+    const fallbackTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, 400);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
+            clearTimeout(fallbackTimer);
             if (once) observer.unobserve(entry.target);
           } else if (!once) {
             setIsVisible(false);
@@ -39,7 +45,10 @@ export function useReveal({ threshold = 0.15, rootMargin = '0px 0px -10% 0px', o
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
   }, [threshold, rootMargin, once]);
 
   return [ref, isVisible];

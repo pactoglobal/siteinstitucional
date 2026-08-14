@@ -36,6 +36,7 @@ npm run build
 # Copia os arquivos compilados para a raiz (gh-pages)
 mkdir -p assets
 cp dist/index.html index.html
+cp dist/index.html 404.html
 cp dist/assets/* assets/
 
 echo "✓ Build concluído. Pronto para commit e push."
