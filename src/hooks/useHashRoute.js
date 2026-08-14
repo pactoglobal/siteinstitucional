@@ -2,11 +2,24 @@ import { useState, useEffect } from 'react';
 import { ROUTES, HASH_TO_ROUTE, MOVIMENTO_HASH_PREFIX } from '../data/constants';
 
 const parseHash = (hash, defaultRoute) => {
-  const current = hash || '#/';
-  if (current.startsWith(MOVIMENTO_HASH_PREFIX)) {
-    return { route: 'movimento', param: current.slice(MOVIMENTO_HASH_PREFIX.length) };
+  // Extrai o identificador limpo tanto do hash (ex: #/ambicao -> ambicao) quanto do pathname
+  const rawHash = (hash || '').replace(/^#\/?/, '');
+  const path = (window.location.pathname || '')
+    .replace(/^\/siteinstitucional\/?/, '')
+    .replace(/^\//, '');
+
+  const target = rawHash || path;
+
+  if (target.startsWith('movimento/')) {
+    return { route: 'movimento', param: target.slice('movimento/'.length) };
   }
-  return { route: HASH_TO_ROUTE[current] || defaultRoute, param: null };
+
+  // Corresponde a rotas conhecidas (ex: 'ambicao', 'sobre', 'cop', etc.)
+  const routeKey = Object.keys(ROUTES).find(
+    (key) => key === target || ROUTES[key] === `#/${target}` || ROUTES[key] === `#${target}`
+  );
+
+  return { route: routeKey || defaultRoute, param: null };
 };
 
 export const useHashRoute = (defaultRoute = 'home') => {

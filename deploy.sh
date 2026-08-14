@@ -34,6 +34,7 @@ EOF
 npm run build
 
 # Copia os arquivos compilados para a raiz (gh-pages)
+mkdir -p assets
 cp dist/index.html index.html
 cp dist/assets/* assets/
 

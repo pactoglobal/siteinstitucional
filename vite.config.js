@@ -4,7 +4,17 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/siteinstitucional/',
+  base: './',
+  server: {
+    host: '0.0.0.0',
+    port: 5180,
+    strictPort: true,
+    allowedHosts: true,
+    cors: true,
+    fs: {
+      strict: false
+    }
+  },
   build: {
     rollupOptions: {
       output: {
