@@ -85,6 +85,13 @@ export const ContadorAnimado = ({ valor, className = '', style }) => {
 // estreita e a frase-tese em corpo grande, revelada por máscara.
 // ============================================================
 export const ChamadoSection = () => {
+  // A copy oficial já chegou em dois formatos diferentes (lista de parágrafos
+  // e texto único em `description`). Normalizamos aqui para que uma edição em
+  // ambicao2030.js mude o texto sem derrubar a página inteira.
+  const { eyebrow, title, description, paragrafos, destaque } = AMBICAO_CHAMADO;
+  const corpo = paragrafos ?? (description ? [description] : []);
+  const tese = destaque ?? title;
+
   // REGRA DESTA PÁGINA: nenhuma copy institucional depende do GSAP para
   // ficar visível. O texto usa o Reveal do projeto (IntersectionObserver +
   // CSS), que já degrada para o estado final se o JS falhar. O GSAP entra
@@ -119,12 +126,12 @@ export const ChamadoSection = () => {
               className="inline-flex items-center gap-3 text-un-blue text-[10px] md:text-xs font-bold uppercase tracking-[0.3em]"
             >
               <span data-anim="filete" className="w-10 h-px bg-un-gold" />
-              {AMBICAO_CHAMADO.eyebrow}
+              {eyebrow}
             </span>
           </div>
 
           <div className="lg:col-span-9 max-w-3xl">
-            {AMBICAO_CHAMADO.paragrafos.map((p, i) => (
+            {corpo.map((p, i) => (
               <Reveal key={i} delay={i * 90}>
                 <p className="text-gray-700 text-lg md:text-2xl font-light leading-[1.55] mb-6 md:mb-8">
                   {p}
@@ -138,7 +145,7 @@ export const ChamadoSection = () => {
                 "ORGANIZAÇÕES" encostavam na linha seguinte. */}
             <Reveal delay={280} className="mt-4 md:mt-8">
               <p className="font-display font-black uppercase text-un-blue text-2xl md:text-[2.1rem] lg:text-[2.6rem] leading-[1.24] tracking-tight border-l-2 border-un-gold pl-6 md:pl-9">
-                {AMBICAO_CHAMADO.destaque}
+                {tese}
               </p>
             </Reveal>
           </div>
@@ -154,7 +161,13 @@ export const ChamadoSection = () => {
 export const ComoFazerParteSection = () => {
   // Sem GSAP aqui pelo mesmo motivo do Chamado: é copy oficial.
 
-  const { eyebrow, titulo, descricao, chamadas, cta } = AMBICAO_COMO_FAZER_PARTE;
+  // Mesma normalização do Chamado: aceita tanto o formato antigo (chamadas
+  // soltas + cta) quanto o atual (passos numerados), sem quebrar a página.
+  const { eyebrow, title, titulo, description, descricao, passos, chamadas, cta } =
+    AMBICAO_COMO_FAZER_PARTE;
+  const heading = titulo ?? title;
+  const texto = descricao ?? description;
+  const etapas = passos ?? (chamadas ?? []).map((c) => ({ titulo: c }));
 
   return (
     <section
@@ -180,37 +193,53 @@ export const ComoFazerParteSection = () => {
           id="fazer-parte-titulo"
           className="font-display font-black uppercase tracking-tight text-white text-3xl md:text-5xl lg:text-[3.4rem] leading-[1.2] max-w-4xl mb-8"
         >
-          {titulo}
+          {heading}
         </h2>
 
         <p className="text-un-blue-3 text-base md:text-xl font-light leading-relaxed max-w-2xl mb-12">
-          {descricao}
+          {texto}
         </p>
 
-        {/* As três chamadas em escada: cada uma entra por baixo da anterior */}
-        <div className="flex flex-col gap-1 md:gap-2 mb-14">
-          {chamadas.map((c, i) => (
-            <Reveal key={c} delay={i * 110}>
-              <span
-                className="block font-display font-black uppercase tracking-tight text-2xl md:text-4xl lg:text-[3.1rem] leading-[1.22]"
-                style={{ color: i === chamadas.length - 1 ? '#CCB146' : '#FFFFFF' }}
-              >
-                {c}
-              </span>
-            </Reveal>
+        {/* As etapas em escada: cada uma entra por baixo da anterior */}
+        <ol className="flex flex-col gap-7 md:gap-9 mb-14 list-none m-0 p-0">
+          {etapas.map((etapa, i) => (
+            <li key={etapa.titulo}>
+              <Reveal delay={i * 110}>
+                <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8">
+                  {etapa.numero && (
+                    <span className="font-display font-black text-un-gold/70 text-3xl md:text-4xl leading-none tabular-nums shrink-0 md:w-20">
+                      {etapa.numero}
+                    </span>
+                  )}
+                  <div>
+                    <span className="block font-display font-black uppercase tracking-tight text-white text-xl md:text-3xl lg:text-[2.4rem] leading-[1.22]">
+                      {etapa.titulo}
+                    </span>
+                    {etapa.descricao && (
+                      <p className="mt-2 text-un-blue-3 text-sm md:text-base font-light leading-relaxed max-w-2xl">
+                        {etapa.descricao}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </Reveal>
+            </li>
           ))}
-        </div>
+        </ol>
 
-        {/* Link externo: destino fora da SPA, então é <a>, não Button */}
-        <a
-          href={cta.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex items-center gap-4 bg-un-gold text-un-blue font-bold uppercase tracking-widest text-xs md:text-sm px-8 py-5 rounded-full transition-transform duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-un-blue"
-        >
-          {cta.label}
-          <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-        </a>
+        {/* Link externo: destino fora da SPA, então é <a>, não Button.
+            Só renderiza quando a RBPG informar o destino — nunca inventamos URL. */}
+        {cta?.href && (
+          <a
+            href={cta.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-4 bg-un-gold text-un-blue font-bold uppercase tracking-widest text-xs md:text-sm px-8 py-5 rounded-full transition-transform duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-un-blue"
+          >
+            {cta.label}
+            <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+          </a>
+        )}
       </div>
     </section>
   );

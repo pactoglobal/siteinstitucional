@@ -531,8 +531,13 @@ export const AmbicaoPage = ({ navigate }) => {
                 <span className="block font-display font-black text-white text-2xl md:text-[1.75rem] leading-none tabular-nums mb-2">
                   {item.year}
                 </span>
+                {item.title && (
+                  <span className="block font-bold text-white/90 text-xs md:text-sm leading-snug pr-2 mb-1">
+                    {item.title}
+                  </span>
+                )}
                 <span className="block text-un-blue-3/80 text-[11px] md:text-xs leading-snug pr-2">
-                  {item.event}
+                  {item.description ?? item.event}
                 </span>
               </li>
             );
@@ -811,23 +816,23 @@ export const AmbicaoPage = ({ navigate }) => {
  badge="Como funciona"
  title="Estrutura dos"
  titleAccent="Movimentos"
- description={ESTRUTURA_MOVIMENTOS_INTRO}
+ description={ESTRUTURA_MOVIMENTOS_INTRO.description}
  />
  <div className="space-y-px bg-gray-200/60 rounded-3xl overflow-hidden border border-gray-100">
  {ESTRUTURA_MOVIMENTOS.map((item, i) => (
  <BentoCard key={item.id} delay={i * 70}>
  <div className="group flex flex-col md:flex-row md:items-center gap-4 md:gap-10 bg-white hover:bg-un-surface p-7 md:p-9 transition-colors duration-300">
- {/* As três camadas do documento oficial são numeradas 01–03; os
- dois complementos da RBPG entram sem número, para a numeração
- não contradizer o "arquitetura de três camadas" do texto. */}
+ {/* Etapas metodológicas entram numeradas. Um item marcado
+ explicitamente com camada:false é complemento e fica sem
+ número, para a contagem não contradizer o texto oficial. */}
  <span className="font-display font-black text-4xl md:text-5xl text-un-blue/15 group-hover:text-un-gold transition-colors duration-300 leading-none shrink-0 md:w-24">
- {item.camada ? String(i + 1).padStart(2, '0') : '—'}
+ {item.camada === false ? '—' : String(i + 1).padStart(2, '0')}
  </span>
  <div className="shrink-0 md:w-72">
  <h3 className="font-display font-black text-lg md:text-2xl text-gray-900 tracking-tight leading-tight">
  {item.title}
  </h3>
- {!item.camada && (
+ {item.camada === false && (
  <span className="block mt-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-un-blue-1">
  Complemento
  </span>

@@ -180,7 +180,10 @@ export const AMBICAO_ORIGEM = {
     { year: '2015', title: 'Criação dos ODS', description: 'Assinatura da Agenda 2030 por 193 países membros da ONU.' },
     { year: '2020', title: 'Década da Ação', description: 'Convocação do Secretário-Geral da ONU para acelerar soluções sustentáveis.' },
     { year: '2022', title: 'Lançamento Ambição 2030', description: 'Rede Brasil lança os primeiros Movimentos temáticos com metas de alto impacto.' },
-    { year: '2025', title: 'Incorporação do ODS 18', description: 'Rede Brasil adota o ODS 18 para Justiça Racial e Trabalho Decente.' },
+    // ODS 18: proposição brasileira, implementado pelo Pacto Global em 2025.
+    // O ator e o tema precisam bater com o bloco de destaque dos ODS e com o
+    // SectionHeader da mesma página — as três menções já divergiram antes.
+    { year: '2025', title: 'Implementação do ODS 18', description: 'Pacto Global implementa o ODS 18 — Igualdade Étnico-Racial, de proposição brasileira.' },
   ],
 };
 
@@ -212,7 +215,7 @@ export const AMBICAO_CHAMADO = {
     { ano: '2015', texto: 'ONU estabelece os 17 Objetivos de Desenvolvimento Sustentável como agenda global.' },
     { ano: '2020', texto: 'Secretário-Geral António Guterres convoca a Década da Ação.' },
     { ano: '2022', texto: 'Lançamento oficial da Ambição 2030 no Brasil com os primeiros Movimentos temáticos.' },
-    { ano: '2025', texto: 'Pacto Global da ONU - Rede Brasil incorpora o ODS 18 (Justiça Racial e Trabalho Decente).' },
+    { ano: '2025', texto: 'Pacto Global implementa o ODS 18 — Igualdade Étnico-Racial, de proposição brasileira.' },
   ],
 };
 

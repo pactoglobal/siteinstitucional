@@ -1,11 +1,15 @@
 import React, { useState, useMemo } from 'react';
 import { Search, X, Building2, Calendar, CheckCircle2 } from 'lucide-react';
-import { cn } from '../../utils/cn';
 
 export const EmpresasModal = ({ isOpen, onClose, movimento }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const empresas = movimento?.empresasComprometidas ?? [];
+  // Memoizado junto com a lista: sem isso, o `?? []` cria um array novo a cada
+  // render e invalida o useMemo do filtro em toda digitação.
+  const empresas = useMemo(
+    () => movimento?.empresasComprometidas ?? [],
+    [movimento],
+  );
 
   const filteredEmpresas = useMemo(() => {
     if (!searchQuery.trim()) return empresas;
