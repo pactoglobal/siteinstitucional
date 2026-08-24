@@ -5,6 +5,7 @@ export const ROUTES = {
   sobre: '#/sobre',
   eventos: '#/eventos',
   noticias: '#/noticias',
+  imprensa: '#/sala-de-imprensa',
   publicacoes: '#/publicacoes',
   agenda: '#/agenda',
   programas: '#/programas',
@@ -21,6 +22,7 @@ export const ROUTES = {
 export const DYNAMIC_ROUTES = {
   movimento: '#/movimento/',
   noticia: '#/noticia/',
+  release: '#/release/',
   evento: '#/evento/',
 };
 
@@ -178,7 +180,7 @@ export const MENU_DESTAQUES = [
     subItems: [
       { id: "noticias", label: "Últimas Notícias" },
       { id: "noticias", label: "Destaques" },
-      { id: "noticias", label: "Sala de Imprensa" }
+      { id: "imprensa", label: "Sala de Imprensa" }
     ]
   }
 ];

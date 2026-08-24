@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Search, X, FileX } from 'lucide-react';
 import { EditorialHero } from '../components/ui/EditorialHero';
-import { DemoNotice } from '../components/ui/DemoNotice';
 import { FilterPills, FilterSelect, ResultCount } from '../components/ui/FilterBar';
 import { PublicationCard } from '../components/ui/PublicationCard';
 import { Pagination } from '../components/ui/Pagination';
@@ -64,6 +63,7 @@ export const PublicacoesPage = () => {
   return (
     <div className="animate-fade-in">
       <EditorialHero
+        image="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=2070&auto=format&fit=crop"
         eyebrow="Observatório"
         title="Publicações"
         lead="Guias, relatórios e pesquisas produzidos pela rede para apoiar empresas na implementação de práticas empresariais responsáveis. Acesso livre e gratuito."
@@ -75,8 +75,6 @@ export const PublicacoesPage = () => {
         accent="#CCB146"
         background="#6E417A"
       />
-
-      <DemoNotice />
 
       {/* ============ FILTROS ============ */}
       <section className="sticky top-0 z-30 border-b border-gray-200 bg-white/85 backdrop-blur-md">

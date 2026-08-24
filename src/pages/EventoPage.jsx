@@ -11,7 +11,6 @@ import {
   Building2,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
-import { DemoNotice } from '../components/ui/DemoNotice';
 import { RichText } from '../components/ui/RichText';
 import { ShareBar } from '../components/ui/ShareBar';
 import { EventCard, EventMeta } from '../components/ui/EventCard';
@@ -69,8 +68,6 @@ export const EventoPage = ({ slug, navigate }) => {
 
   return (
     <article className="animate-fade-in">
-      <DemoNotice />
-
       {/* ============ HERO NA COR DO TEMA ============ */}
       <header
         className="relative overflow-hidden pt-32 md:pt-40 pb-16 md:pb-24"

@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Search, X } from 'lucide-react';
 import { EditorialHero } from '../components/ui/EditorialHero';
-import { DemoNotice } from '../components/ui/DemoNotice';
 import { FilterPills, ResultCount } from '../components/ui/FilterBar';
 import { ArticleCard } from '../components/ui/ArticleCard';
 import { Pagination } from '../components/ui/Pagination';
@@ -60,7 +59,8 @@ export const NoticiasPage = () => {
   return (
     <div className="animate-fade-in">
       <EditorialHero
-        eyebrow="Sala de Imprensa"
+        image="https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=2070&auto=format&fit=crop"
+        eyebrow="Jornalismo"
         title="Notícias"
         lead="Cobertura das ações da rede, dos Movimentos da Ambição 2030 e da agenda de sustentabilidade corporativa no Brasil."
         meta={[
@@ -69,8 +69,6 @@ export const NoticiasPage = () => {
           { value: '2026', label: 'Ciclo atual' },
         ]}
       />
-
-      <DemoNotice />
 
       {/* ============ FILTROS ============ */}
       <section className="sticky top-0 z-30 border-b border-gray-200 bg-white/85 backdrop-blur-md">

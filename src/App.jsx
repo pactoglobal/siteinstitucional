@@ -21,6 +21,8 @@ import { EventosPage } from './pages/EventosPage';
 import { EventoPage } from './pages/EventoPage';
 import { NoticiasPage } from './pages/NoticiasPage';
 import { NoticiaPage } from './pages/NoticiaPage';
+import { SalaImprensaPage } from './pages/SalaImprensaPage';
+import { ReleasePage } from './pages/ReleasePage';
 import { PublicacoesPage } from './pages/PublicacoesPage';
 import { NossaAgendaPage } from './pages/NossaAgendaPage';
 import { ProgramasPage } from './pages/ProgramasPage';
@@ -49,6 +51,8 @@ const App = () => {
         {currentRoute === 'noticias' && <NoticiasPage />}
         {currentRoute === 'noticia' && <NoticiaPage slug={routeParam} navigate={navigate} />}
         {currentRoute === 'publicacoes' && <PublicacoesPage />}
+        {currentRoute === 'imprensa' && <SalaImprensaPage navigate={navigate} />}
+        {currentRoute === 'release' && <ReleasePage slug={routeParam} navigate={navigate} />}
         {currentRoute === 'agenda' && <NossaAgendaPage />}
         {currentRoute === 'programas' && <ProgramasPage />}
         {currentRoute === 'conhecimento' && <ConhecimentoPage />}

@@ -1,7 +1,6 @@
 import React from 'react';
 import { ArrowLeft, ArrowRight, Clock, Calendar, Newspaper } from 'lucide-react';
 import { Button } from '../components/ui/Button';
-import { DemoNotice } from '../components/ui/DemoNotice';
 import { RichText } from '../components/ui/RichText';
 import { ShareBar } from '../components/ui/ShareBar';
 import { ArticleCard } from '../components/ui/ArticleCard';
@@ -39,10 +38,34 @@ export const NoticiaPage = ({ slug, navigate }) => {
 
   return (
     <article className="animate-fade-in">
-      <DemoNotice />
-
       {/* ============ CABEÇALHO EDITORIAL ============ */}
       <header className="relative overflow-hidden bg-un-blue pt-32 md:pt-40 pb-32 md:pb-44">
+        {/* A própria foto da matéria, desfocada, como atmosfera. A versão
+            nítida aparece logo abaixo, em sobreposição — aqui ela serve de
+            eco de cor, não de informação. */}
+        <div className="absolute inset-0" aria-hidden="true">
+          <img
+            src={noticia.image}
+            alt=""
+            className="h-full w-full scale-110 object-cover blur-xl"
+            decoding="async"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(100deg, #1E3250 0%, #1E3250f0 42%, #1E3250c9 70%, #1E32508c 100%)',
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to bottom, #1E3250e6 0%, transparent 34%, transparent 70%, #1E3250 100%)',
+            }}
+          />
+        </div>
+
         <div
           className="absolute -right-32 top-0 h-[520px] w-[520px] rounded-full blur-3xl animate-glow pointer-events-none"
           style={{ background: `radial-gradient(circle, ${cor}66, transparent 65%)` }}

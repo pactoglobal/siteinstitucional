@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { CalendarX } from 'lucide-react';
 import { EditorialHero } from '../components/ui/EditorialHero';
-import { DemoNotice } from '../components/ui/DemoNotice';
 import { FilterPills, FilterSelect, ResultCount } from '../components/ui/FilterBar';
 import { EventCard } from '../components/ui/EventCard';
 import { EmptyState } from '../components/ui/EmptyState';
@@ -84,6 +83,7 @@ export const EventosPage = () => {
   return (
     <div className="animate-fade-in">
       <EditorialHero
+        image="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2070&auto=format&fit=crop"
         eyebrow="Agenda 2026"
         title="Nossos"
         titleAccent="Eventos"
@@ -108,8 +108,6 @@ export const EventosPage = () => {
           </Tab>
         </div>
       </EditorialHero>
-
-      <DemoNotice />
 
       {/* ============ FILTROS ============ */}
       <section className="sticky top-0 z-30 border-b border-gray-200 bg-white/85 backdrop-blur-md">

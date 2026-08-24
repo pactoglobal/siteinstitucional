@@ -3,11 +3,12 @@ import { DotGrid, Grain } from './Texture';
 
 /**
  * Hero editorial v4 — mesmo vocabulário do hero da Ambição 2030:
- * fundo sólido escuro, glow difuso, malha de pontos, grão e fade
- * inferior para a próxima seção.
+ * glow difuso, malha de pontos, grão e fade inferior para a próxima seção.
  *
- * Diferente do PageHero antigo, não usa foto de banco de imagens como
- * plano de fundo: a hierarquia vem da tipografia, não da imagem.
+ * Com `image`, a foto entra como plano de fundo sob um degradê pesado na
+ * cor da página. O degradê não é decorativo: o texto é branco e precisa
+ * de contraste garantido sobre qualquer região da foto, então ele vai de
+ * opaco à esquerda (onde o texto vive) a translúcido à direita.
  */
 export const EditorialHero = ({
   eyebrow,
@@ -18,12 +19,41 @@ export const EditorialHero = ({
   actions,
   accent = '#CCB146',
   background = '#1E3250',
+  image,
+  imagePosition = 'center',
   children,
 }) => (
   <section
     className="relative overflow-hidden pt-32 md:pt-40 pb-16 md:pb-24"
     style={{ backgroundColor: background }}
   >
+    {image && (
+      <div className="absolute inset-0" aria-hidden="true">
+        <img
+          src={image}
+          alt=""
+          className="h-full w-full object-cover"
+          style={{ objectPosition: imagePosition }}
+          fetchPriority="high"
+          decoding="async"
+        />
+        {/* Vinheta horizontal: blinda a coluna de texto à esquerda */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(100deg, ${background} 0%, ${background}f2 38%, ${background}b8 62%, ${background}80 100%)`,
+          }}
+        />
+        {/* Assenta o topo (sob o header) e a base (fade para a seção seguinte) */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(to bottom, ${background}e6 0%, transparent 30%, transparent 62%, ${background} 100%)`,
+          }}
+        />
+      </div>
+    )}
+
     {/* Glow difuso — profundidade atmosférica */}
     <div
       className="absolute -right-32 top-1/2 -translate-y-1/2 w-[420px] h-[420px] md:w-[680px] md:h-[680px] rounded-full blur-3xl animate-glow pointer-events-none"
