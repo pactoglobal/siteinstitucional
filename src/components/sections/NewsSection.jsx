@@ -18,7 +18,6 @@ export const NewsSection = ({ navigate }) => {
     <section className="bg-white py-16 md:py-24">
       <div className="container mx-auto px-4 md:px-8 lg:px-12">
         <SectionHeader
-          barColor="bg-un-blue"
           badge="Inovação e Tendências"
           title="Nossas"
           titleAccent="Notícias"

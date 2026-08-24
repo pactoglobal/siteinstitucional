@@ -144,7 +144,6 @@ export const PublicacoesPage = () => {
         <section className="bg-white py-14 md:py-20">
           <div className="container mx-auto px-4 md:px-8 lg:px-12">
             <SectionHeader
-              barColor="bg-un-purple"
               badge="Recém-publicados"
               title="Em"
               titleAccent="destaque"
@@ -170,7 +169,6 @@ export const PublicacoesPage = () => {
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           {!temFiltro && (
             <SectionHeader
-              barColor="bg-un-gold"
               badge="Acervo completo"
               title="Todas as"
               titleAccent="publicações"

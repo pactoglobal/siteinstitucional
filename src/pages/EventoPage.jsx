@@ -240,7 +240,6 @@ export const EventoPage = ({ slug, navigate }) => {
         <section className="bg-un-surface py-16 md:py-24">
           <div className="container mx-auto px-4 md:px-8 lg:px-12">
             <SectionHeader
-              barColor="bg-un-gold"
               badge="Continue na agenda"
               title="Outros"
               titleAccent="Eventos"
