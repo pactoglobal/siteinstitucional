@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
-import { Search, X, FileX, ArrowRight } from 'lucide-react';
+import { FileX, ArrowRight } from 'lucide-react';
 import { EditorialHero } from '../components/ui/EditorialHero';
-import { FilterPills, ResultCount } from '../components/ui/FilterBar';
+import { FilterDock, FilterRail, SearchField, ResultCount } from '../components/ui/FilterBar';
 import { ReleaseCard } from '../components/ui/ReleaseCard';
 import { ContatoAssessoria, KitImprensa } from '../components/ui/PressKit';
 import { Pagination } from '../components/ui/Pagination';
@@ -101,54 +101,37 @@ export const SalaImprensaPage = ({ navigate }) => {
       </section>
 
       {/* ============ FILTROS ============ */}
-      <section className="sticky top-0 z-30 border-b border-gray-200 bg-white/85 backdrop-blur-md">
-        <div className="container mx-auto px-4 py-5 md:px-8 lg:px-12">
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-            <FilterPills
-              label="Natureza"
-              options={tipos}
-              value={tipo}
-              onChange={(v) => {
-                setTipo(v);
-                setPagina(1);
-              }}
-              accentFor={(opt) => (opt === TODOS ? '#1E3250' : corDoTipo(opt))}
-              countFor={(opt) =>
-                opt === TODOS ? RELEASES.length : RELEASES.filter((r) => r.type === opt).length
-              }
-              className="min-w-0 flex-1"
-            />
-
-            <div className="relative shrink-0 lg:w-72">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-              <input
-                type="search"
-                value={busca}
-                onChange={(e) => {
-                  setBusca(e.target.value);
-                  setPagina(1);
-                }}
-                placeholder="Buscar releases"
-                aria-label="Buscar releases"
-                className="w-full rounded-full border border-gray-200 bg-white py-3 pl-11 pr-10 text-sm text-gray-900 transition-colors placeholder:text-gray-400 hover:border-gray-900 focus:border-un-blue focus:outline-none"
-              />
-              {busca && (
-                <button
-                  type="button"
-                  onClick={() => setBusca('')}
-                  aria-label="Limpar busca"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-900"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              )}
-            </div>
-          </div>
+      <FilterDock>
+        <div className="flex flex-col gap-1 xl:flex-row xl:items-center xl:justify-between xl:gap-10">
+          <FilterRail
+            label="Natureza"
+            options={tipos}
+            value={tipo}
+            onChange={(v) => {
+              setTipo(v);
+              setPagina(1);
+            }}
+            accentFor={(opt) => (opt === TODOS ? '#1E3250' : corDoTipo(opt))}
+            countFor={(opt) =>
+              opt === TODOS ? RELEASES.length : RELEASES.filter((r) => r.type === opt).length
+            }
+            className="flex-1"
+          />
+          <SearchField
+            value={busca}
+            onChange={(v) => {
+              setBusca(v);
+              setPagina(1);
+            }}
+            placeholder="Buscar"
+            label="Buscar releases"
+            className="pb-4 xl:w-52"
+          />
         </div>
-      </section>
+      </FilterDock>
 
       {/* ============ ACERVO ============ */}
-      <section id="acervo" className="scroll-mt-24 bg-white py-14 md:py-20">
+      <section id="acervo" className="scroll-mt-[calc(var(--header-h)+5rem)] bg-white py-14 md:py-20">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           {!temFiltro && (
             <SectionHeader

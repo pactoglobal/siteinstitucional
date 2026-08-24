@@ -156,10 +156,92 @@ const ListCard = ({ noticia, className }) => {
 };
 
 /**
- * @param {{ noticia: object, variant?: 'featured'|'default'|'list', className?: string }} props
+ * Índice editorial: linha numerada com filete, título em display e
+ * miniatura pequena.
+ *
+ * Existe para contrastar com o bento fotográfico do topo. Uma grade
+ * uniforme de cards logo abaixo dele daria a todos os itens o mesmo
+ * peso — é o visual padrão de qualquer template. Aqui o arquivo lê como
+ * arquivo: denso, tipográfico, ordenado.
  */
-export const ArticleCard = ({ noticia, variant = 'default', className = '' }) => {
+const IndexRow = ({ noticia, index, className }) => {
+  const cor = corDaCategoria(noticia.category);
+
+  return (
+    <a
+      href={routeHref('noticia', noticia.slug)}
+      className={`group relative flex items-start gap-5 border-t border-gray-200 py-7 transition-colors duration-300 md:gap-10 md:py-8 ${className}`}
+    >
+      {/* Filete que varre a linha no hover */}
+      <span
+        className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+        style={{ backgroundColor: cor }}
+      />
+
+      {/* Dois numerais sobrepostos: o cinza some e o colorido entra.
+          Mais confiável que interpolar cor dinâmica em group-hover. */}
+      <span
+        className="relative shrink-0 pt-0.5 font-display text-xs font-black tabular-nums md:text-sm"
+        aria-hidden="true"
+      >
+        <span className="text-gray-300 transition-opacity duration-300 group-hover:opacity-0">
+          {String(index).padStart(2, '0')}
+        </span>
+        <span
+          className="absolute inset-0 pt-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{ color: cor }}
+        >
+          {String(index).padStart(2, '0')}
+        </span>
+      </span>
+
+      <div className="min-w-0 flex-1">
+        <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+          <CategoryTag category={noticia.category} />
+          <time
+            dateTime={noticia.date}
+            className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400"
+          >
+            {formatDateLong(noticia.date)}
+          </time>
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-300">
+            {noticia.readingTime} min
+          </span>
+        </div>
+
+        <h3 className="mb-2.5 max-w-3xl font-display text-lg font-black leading-[1.2] tracking-tight text-gray-900 transition-colors duration-300 group-hover:text-un-blue md:text-2xl">
+          {noticia.title}
+        </h3>
+
+        <p className="line-clamp-2 max-w-2xl text-sm font-light leading-relaxed text-gray-500">
+          {noticia.excerpt}
+        </p>
+      </div>
+
+      <div className="relative hidden shrink-0 overflow-hidden rounded-xl sm:block">
+        <img
+          src={noticia.image}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="h-20 w-28 object-cover grayscale transition-all duration-500 group-hover:grayscale-0 md:h-24 md:w-36"
+        />
+      </div>
+
+      <span className="hidden shrink-0 self-center text-gray-300 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gray-900 md:block">
+        <ArrowUpRight className="h-5 w-5" />
+      </span>
+    </a>
+  );
+};
+
+/**
+ * @param {{ noticia: object, variant?: 'featured'|'default'|'list'|'index', index?: number, className?: string }} props
+ */
+export const ArticleCard = ({ noticia, variant = 'default', index = 1, className = '' }) => {
   if (variant === 'featured') return <FeaturedCard noticia={noticia} className={className} />;
   if (variant === 'list') return <ListCard noticia={noticia} className={className} />;
+  if (variant === 'index')
+    return <IndexRow noticia={noticia} index={index} className={className} />;
   return <StandardCard noticia={noticia} className={className} />;
 };

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
-import { Search, X, FileX } from 'lucide-react';
+import { FileX } from 'lucide-react';
 import { EditorialHero } from '../components/ui/EditorialHero';
-import { FilterPills, FilterSelect, ResultCount } from '../components/ui/FilterBar';
+import { FilterDock, FilterRail, FilterSelect, SearchField, ResultCount } from '../components/ui/FilterBar';
 import { PublicationCard } from '../components/ui/PublicationCard';
 import { Pagination } from '../components/ui/Pagination';
 import { EmptyState } from '../components/ui/EmptyState';
@@ -63,8 +63,8 @@ export const PublicacoesPage = () => {
   return (
     <div className="animate-fade-in">
       <EditorialHero
-        image="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=2070&auto=format&fit=crop"
-        eyebrow="Observatório"
+        image="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop"
+        eyebrow="Observatório · Acervo aberto"
         title="Publicações"
         lead="Guias, relatórios e pesquisas produzidos pela rede para apoiar empresas na implementação de práticas empresariais responsáveis. Acesso livre e gratuito."
         meta={[
@@ -77,65 +77,48 @@ export const PublicacoesPage = () => {
       />
 
       {/* ============ FILTROS ============ */}
-      <section className="sticky top-0 z-30 border-b border-gray-200 bg-white/85 backdrop-blur-md">
-        <div className="container mx-auto px-4 py-5 md:px-8 lg:px-12">
-          <div className="flex flex-col gap-5">
-            <FilterPills
-              label="Tema"
-              options={temas}
-              value={tema}
+      <FilterDock>
+        <div className="flex flex-col gap-1 xl:flex-row xl:items-center xl:justify-between xl:gap-10">
+          <FilterRail
+            label="Tema"
+            options={temas}
+            value={tema}
+            onChange={(v) => {
+              setTema(v);
+              setPagina(1);
+            }}
+            accentFor={(opt) => (opt === TODOS ? '#1E3250' : corDoTema(opt))}
+            countFor={(opt) =>
+              opt === TODOS
+                ? PUBLICACOES.length
+                : PUBLICACOES.filter((p) => p.themes.includes(opt)).length
+            }
+            className="flex-1"
+          />
+          <div className="flex shrink-0 items-baseline gap-8 pb-4">
+            <FilterSelect
+              id="filtro-tipo"
+              label="Tipo"
+              options={tipos}
+              value={tipo}
               onChange={(v) => {
-                setTema(v);
+                setTipo(v);
                 setPagina(1);
               }}
-              accentFor={(opt) => (opt === TODOS ? '#1E3250' : corDoTema(opt))}
-              countFor={(opt) =>
-                opt === TODOS
-                  ? PUBLICACOES.length
-                  : PUBLICACOES.filter((p) => p.themes.includes(opt)).length
-              }
             />
-
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <FilterSelect
-                id="filtro-tipo"
-                label="Tipo de material"
-                options={tipos}
-                value={tipo}
-                onChange={(v) => {
-                  setTipo(v);
-                  setPagina(1);
-                }}
-              />
-
-              <div className="relative sm:w-72">
-                <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-                <input
-                  type="search"
-                  value={busca}
-                  onChange={(e) => {
-                    setBusca(e.target.value);
-                    setPagina(1);
-                  }}
-                  placeholder="Buscar publicações"
-                  aria-label="Buscar publicações"
-                  className="w-full rounded-full border border-gray-200 bg-white py-3 pl-11 pr-10 text-sm text-gray-900 transition-colors placeholder:text-gray-400 hover:border-gray-900 focus:border-un-purple focus:outline-none"
-                />
-                {busca && (
-                  <button
-                    type="button"
-                    onClick={() => setBusca('')}
-                    aria-label="Limpar busca"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-900"
-                  >
-                    <X className="h-3.5 w-3.5" />
-                  </button>
-                )}
-              </div>
-            </div>
+            <SearchField
+              value={busca}
+              onChange={(v) => {
+                setBusca(v);
+                setPagina(1);
+              }}
+              placeholder="Buscar"
+              label="Buscar publicações"
+              className="w-40"
+            />
           </div>
         </div>
-      </section>
+      </FilterDock>
 
       {/* ============ DESTAQUES ============ */}
       {destaques.length > 0 && (
@@ -163,7 +146,7 @@ export const PublicacoesPage = () => {
       )}
 
       {/* ============ ACERVO ============ */}
-      <section id="acervo" className="scroll-mt-24 bg-un-surface py-14 md:py-20">
+      <section id="acervo" className="scroll-mt-[calc(var(--header-h)+5rem)] bg-un-surface py-14 md:py-20">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           {!temFiltro && (
             <SectionHeader

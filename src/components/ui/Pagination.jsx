@@ -30,11 +30,18 @@ export const Pagination = ({ page, totalPages, onChange, className = '' }) => {
   const pages = buildRange(page, totalPages);
   const go = (target) => onChange(Math.min(Math.max(target, 1), totalPages));
 
+  // Setas sem círculo e numerais tabulares com filete de página ativa:
+  // o mesmo vocabulário da régua de filtros, em vez de botões redondos
+  // de biblioteca. A área de toque continua 44px.
   const arrow =
-    'inline-flex items-center justify-center w-11 h-11 rounded-full border border-gray-200 bg-white text-gray-900 transition-all duration-300 hover:border-gray-900 disabled:opacity-30 disabled:pointer-events-none';
+    'group inline-flex items-center gap-2 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 transition-colors duration-300 hover:text-gray-900 disabled:pointer-events-none disabled:opacity-25';
 
   return (
-    <nav aria-label="Paginação" className={cn('flex items-center justify-center gap-2', className)}>
+    // Sem filete próprio: o ResultCount, que sempre vem antes, já traz o dele.
+    <nav
+      aria-label="Paginação"
+      className={cn('flex items-center justify-between gap-6', className)}
+    >
       <button
         type="button"
         onClick={() => go(page - 1)}
@@ -42,18 +49,19 @@ export const Pagination = ({ page, totalPages, onChange, className = '' }) => {
         aria-label="Página anterior"
         className={arrow}
       >
-        <ChevronLeft className="w-4 h-4" />
+        <ChevronLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
+        <span className="hidden sm:inline">Anterior</span>
       </button>
 
-      <ol className="flex items-center gap-1.5">
+      <ol className="flex items-center gap-1">
         {pages.map((p, i) =>
           p === '…' ? (
             <li
               key={`gap-${i}`}
               aria-hidden="true"
-              className="w-7 text-center text-gray-300 font-bold select-none"
+              className="select-none px-2 text-xs font-bold text-gray-300"
             >
-              …
+              ·&nbsp;·&nbsp;·
             </li>
           ) : (
             <li key={p}>
@@ -63,13 +71,17 @@ export const Pagination = ({ page, totalPages, onChange, className = '' }) => {
                 aria-current={p === page ? 'page' : undefined}
                 aria-label={`Página ${p}`}
                 className={cn(
-                  'inline-flex items-center justify-center w-11 h-11 rounded-full text-sm font-bold tabular-nums transition-all duration-300',
-                  p === page
-                    ? 'bg-un-blue text-white shadow-lg'
-                    : 'bg-white text-gray-500 border border-gray-200 hover:border-gray-900 hover:text-gray-900',
+                  'relative inline-flex h-11 min-w-[2.75rem] items-center justify-center font-display text-sm font-black tabular-nums transition-colors duration-300',
+                  p === page ? 'text-gray-900' : 'text-gray-300 hover:text-gray-900',
                 )}
               >
-                {p}
+                {String(p).padStart(2, '0')}
+                <span
+                  className={cn(
+                    'absolute inset-x-2 bottom-2 h-[3px] origin-center bg-un-blue transition-transform duration-300',
+                    p === page ? 'scale-x-100' : 'scale-x-0',
+                  )}
+                />
               </button>
             </li>
           ),
@@ -83,7 +95,8 @@ export const Pagination = ({ page, totalPages, onChange, className = '' }) => {
         aria-label="Próxima página"
         className={arrow}
       >
-        <ChevronRight className="w-4 h-4" />
+        <span className="hidden sm:inline">Próxima</span>
+        <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
       </button>
     </nav>
   );

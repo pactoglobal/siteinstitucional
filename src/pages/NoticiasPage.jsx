@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { Search, X } from 'lucide-react';
 import { EditorialHero } from '../components/ui/EditorialHero';
-import { FilterPills, ResultCount } from '../components/ui/FilterBar';
+import { FilterDock, FilterRail, SearchField, ResultCount } from '../components/ui/FilterBar';
 import { ArticleCard } from '../components/ui/ArticleCard';
 import { Pagination } from '../components/ui/Pagination';
 import { EmptyState } from '../components/ui/EmptyState';
@@ -33,8 +32,8 @@ export const NoticiasPage = () => {
   // a listagem fica plana para não esconder resultado atrás de hierarquia.
   const temFiltro = categoria !== TODAS || busca.trim() !== '';
   const destaque = temFiltro ? null : filtradas[0];
-  const secundarias = temFiltro ? [] : filtradas.slice(1, 3);
-  const restante = temFiltro ? filtradas : filtradas.slice(3);
+  const secundarias = temFiltro ? [] : filtradas.slice(1, 2);
+  const restante = temFiltro ? filtradas : filtradas.slice(2);
 
   const totalPaginas = Math.ceil(restante.length / POR_PAGINA);
   const paginaAtual = Math.min(pagina, Math.max(totalPaginas, 1));
@@ -60,9 +59,9 @@ export const NoticiasPage = () => {
     <div className="animate-fade-in">
       <EditorialHero
         image="https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=2070&auto=format&fit=crop"
-        eyebrow="Jornalismo"
+        eyebrow="Cobertura da Rede Brasil"
         title="Notícias"
-        lead="Cobertura das ações da rede, dos Movimentos da Ambição 2030 e da agenda de sustentabilidade corporativa no Brasil."
+        lead="Reportagens, entrevistas e análises sobre a atuação da rede, os dez Movimentos da Ambição 2030 e a agenda de sustentabilidade corporativa no país."
         meta={[
           { value: NOTICIAS.length, label: 'Publicadas' },
           { value: categorias.length - 1, label: 'Editorias' },
@@ -71,52 +70,34 @@ export const NoticiasPage = () => {
       />
 
       {/* ============ FILTROS ============ */}
-      <section className="sticky top-0 z-30 border-b border-gray-200 bg-white/85 backdrop-blur-md">
-        <div className="container mx-auto px-4 md:px-8 lg:px-12 py-5">
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-            <FilterPills
-              options={categorias}
-              value={categoria}
-              onChange={trocarFiltro(setCategoria)}
-              accentFor={(opt) => (opt === TODAS ? '#1E3250' : corDaCategoria(opt))}
-              countFor={(opt) =>
-                opt === TODAS
-                  ? NOTICIAS.length
-                  : NOTICIAS.filter((n) => n.category === opt).length
-              }
-              className="min-w-0 flex-1"
-            />
-
-            <div className="relative shrink-0 lg:w-72">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-              <input
-                type="search"
-                value={busca}
-                onChange={(e) => {
-                  setBusca(e.target.value);
-                  setPagina(1);
-                }}
-                placeholder="Buscar notícias"
-                aria-label="Buscar notícias"
-                className="w-full rounded-full border border-gray-200 bg-white py-3 pl-11 pr-10 text-sm text-gray-900 transition-colors placeholder:text-gray-400 hover:border-gray-900 focus:border-un-blue focus:outline-none"
-              />
-              {busca && (
-                <button
-                  type="button"
-                  onClick={() => setBusca('')}
-                  aria-label="Limpar busca"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-900"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              )}
-            </div>
-          </div>
+      <FilterDock>
+        <div className="flex flex-col gap-1 xl:flex-row xl:items-center xl:justify-between xl:gap-10">
+          <FilterRail
+            label="Editoria"
+            options={categorias}
+            value={categoria}
+            onChange={trocarFiltro(setCategoria)}
+            accentFor={(opt) => (opt === TODAS ? '#1E3250' : corDaCategoria(opt))}
+            countFor={(opt) =>
+              opt === TODAS ? NOTICIAS.length : NOTICIAS.filter((n) => n.category === opt).length
+            }
+            className="flex-1"
+          />
+          <SearchField
+            value={busca}
+            onChange={(v) => {
+              setBusca(v);
+              setPagina(1);
+            }}
+            placeholder="Buscar"
+            label="Buscar notícias"
+            className="pb-4 xl:w-52"
+          />
         </div>
-      </section>
+      </FilterDock>
 
       {/* ============ LISTAGEM ============ */}
-      <section id="listagem" className="bg-un-surface py-14 md:py-20 scroll-mt-24">
+      <section id="listagem" className="bg-un-surface py-14 md:py-20 scroll-mt-[calc(var(--header-h)+5rem)]">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           {filtradas.length === 0 ? (
             <EmptyState
@@ -134,29 +115,33 @@ export const NoticiasPage = () => {
             />
           ) : (
             <>
-              {/* Bento de destaque — só sem filtro ativo */}
+              {/* Abertura: destaque + uma matéria de apoio, na mesma altura.
+                  Duas colunas empilhadas à direita esticavam o destaque para
+                  ~900px e desproporcionavam a foto. O resto vai para o índice. */}
               {destaque && (
-                <div className="mb-6 grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6">
-                  <Reveal className="lg:col-span-8">
+                <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6">
+                  <Reveal className="lg:col-span-7">
                     <ArticleCard noticia={destaque} variant="featured" className="h-full" />
                   </Reveal>
 
-                  <div className="flex flex-col gap-5 lg:col-span-4 lg:gap-6">
-                    {secundarias.map((n, i) => (
-                      <Reveal key={n.slug} delay={100 + i * 80} className="flex-1">
-                        <ArticleCard noticia={n} variant="default" className="h-full" />
-                      </Reveal>
-                    ))}
-                  </div>
+                  {secundarias.map((n, i) => (
+                    <Reveal key={n.slug} delay={110 + i * 80} className="lg:col-span-5">
+                      <ArticleCard noticia={n} variant="default" className="h-full" />
+                    </Reveal>
+                  ))}
                 </div>
               )}
 
-              {/* Grade principal */}
+              {/* Arquivo em índice — contraponto tipográfico ao bento acima */}
               {visiveis.length > 0 && (
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+                <div className="mt-14 border-b border-gray-200">
                   {visiveis.map((n, i) => (
-                    <Reveal key={n.slug} delay={i * 70}>
-                      <ArticleCard noticia={n} className="h-full" />
+                    <Reveal key={n.slug} delay={i * 50}>
+                      <ArticleCard
+                        noticia={n}
+                        variant="index"
+                        index={(paginaAtual - 1) * POR_PAGINA + i + 1 + (destaque ? 2 : 0)}
+                      />
                     </Reveal>
                   ))}
                 </div>

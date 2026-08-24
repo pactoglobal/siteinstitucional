@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { CalendarX } from 'lucide-react';
 import { EditorialHero } from '../components/ui/EditorialHero';
-import { FilterPills, FilterSelect, ResultCount } from '../components/ui/FilterBar';
+import { FilterDock, FilterRail, FilterSelect, ResultCount } from '../components/ui/FilterBar';
 import { EventCard } from '../components/ui/EventCard';
 import { EmptyState } from '../components/ui/EmptyState';
 import { Reveal } from '../components/ui/Reveal';
@@ -38,13 +38,25 @@ const Tab = ({ ativo, onClick, children, count }) => (
     onClick={onClick}
     aria-pressed={ativo}
     className={cn(
-      'relative inline-flex items-center gap-2 px-5 py-3 text-[11px] font-black uppercase tracking-widest transition-colors',
-      ativo ? 'text-white' : 'text-white/40 hover:text-white/70',
+      'group relative inline-flex items-baseline gap-3 pb-4 pr-10 transition-colors duration-300',
+      ativo ? 'text-white' : 'text-white/35 hover:text-white/70',
     )}
   >
-    {children}
-    <span className={cn('tabular-nums', ativo ? 'text-un-gold' : 'text-white/25')}>{count}</span>
-    {ativo && <span className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-un-gold" />}
+    <span className="text-xs font-black uppercase tracking-[0.2em] md:text-sm">{children}</span>
+    <span
+      className={cn(
+        'font-display text-xl font-black tabular-nums leading-none transition-colors duration-300 md:text-2xl',
+        ativo ? 'text-un-gold' : 'text-white/20',
+      )}
+    >
+      {String(count).padStart(2, '0')}
+    </span>
+    <span
+      className={cn(
+        'absolute bottom-0 left-0 right-10 h-[3px] origin-left bg-un-gold transition-transform duration-300',
+        ativo ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-50',
+      )}
+    />
   </button>
 );
 
@@ -83,19 +95,19 @@ export const EventosPage = () => {
   return (
     <div className="animate-fade-in">
       <EditorialHero
-        image="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2070&auto=format&fit=crop"
-        eyebrow="Agenda 2026"
-        title="Nossos"
-        titleAccent="Eventos"
+        image="https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?q=80&w=2070&auto=format&fit=crop"
+        eyebrow="Encontros e fóruns"
+        title="Agenda"
+        titleAccent="2026"
         lead="Fóruns, workshops e encontros que reúnem as empresas participantes em torno dos Dez Princípios e dos Objetivos de Desenvolvimento Sustentável."
         meta={[
-          { value: proximos.length, label: 'Próximos' },
-          { value: realizados.length, label: 'Realizados' },
+          { value: proximos.length + realizados.length, label: 'Encontros no ano' },
           { value: EVENTO_CATEGORIAS.length - 1, label: 'Temas' },
+          { value: EVENTO_FORMATOS.length - 1, label: 'Formatos' },
         ]}
       >
         {/* Abas ancoradas no rodapé do hero */}
-        <div className="mt-12 flex items-center gap-2 border-b border-white/15">
+        <div className="mt-14 flex items-baseline gap-4 border-t border-white/15 pt-8">
           <Tab ativo={aba === 'proximos'} onClick={() => setAba('proximos')} count={proximos.length}>
             Vem aí
           </Tab>
@@ -110,40 +122,31 @@ export const EventosPage = () => {
       </EditorialHero>
 
       {/* ============ FILTROS ============ */}
-      <section className="sticky top-0 z-30 border-b border-gray-200 bg-white/85 backdrop-blur-md">
-        <div className="container mx-auto px-4 py-5 md:px-8 lg:px-12">
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-            <FilterPills
-              label="Tema"
-              options={EVENTO_CATEGORIAS}
-              value={categoria}
-              onChange={setCategoria}
-              accentFor={(opt) => (opt === TODOS ? '#1E3250' : corDaCategoria(opt))}
-              countFor={(opt) =>
-                opt === TODOS ? base.length : base.filter((e) => e.category === opt).length
-              }
-              className="min-w-0 flex-1"
+      <FilterDock>
+        <div className="flex flex-col gap-1 xl:flex-row xl:items-center xl:justify-between xl:gap-10">
+          <FilterRail
+            label="Tema"
+            options={EVENTO_CATEGORIAS}
+            value={categoria}
+            onChange={setCategoria}
+            accentFor={(opt) => (opt === TODOS ? '#1E3250' : corDaCategoria(opt))}
+            countFor={(opt) =>
+              opt === TODOS ? base.length : base.filter((e) => e.category === opt).length
+            }
+            className="flex-1"
+          />
+          <div className="flex shrink-0 items-baseline gap-8 pb-4">
+            <FilterSelect
+              id="filtro-formato"
+              label="Formato"
+              options={EVENTO_FORMATOS}
+              value={formato}
+              onChange={setFormato}
             />
-
-            <div className="flex shrink-0 gap-3">
-              <FilterSelect
-                id="filtro-formato"
-                label="Formato"
-                options={EVENTO_FORMATOS}
-                value={formato}
-                onChange={setFormato}
-              />
-              <FilterSelect
-                id="filtro-ano"
-                label="Ano"
-                options={anos}
-                value={ano}
-                onChange={setAno}
-              />
-            </div>
+            <FilterSelect id="filtro-ano" label="Ano" options={anos} value={ano} onChange={setAno} />
           </div>
         </div>
-      </section>
+      </FilterDock>
 
       {/* ============ LISTAGEM ============ */}
       <section className="bg-un-surface py-14 md:py-20">
