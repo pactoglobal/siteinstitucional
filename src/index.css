@@ -6,12 +6,12 @@
   /* Altura do CapsuleHeader, que é `fixed`. Qualquer elemento sticky
      precisa começar abaixo dela, senão fica escondido atrás do header. */
   :root {
-    --header-h: 64px;
+    --header-h: 68px;
   }
 
   @media (min-width: 768px) {
     :root {
-      --header-h: 76px;
+      --header-h: 92px;
     }
   }
 

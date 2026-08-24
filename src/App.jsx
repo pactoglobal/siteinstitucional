@@ -13,6 +13,7 @@ import React, { useEffect } from 'react';
  */
 
 import { useHashRoute } from './hooks/useHashRoute';
+import { useHeaderHeight } from './hooks/useHeaderHeight';
 import { CapsuleHeader } from './components/layout/CapsuleHeader';
 import { Footer } from './components/layout/Footer';
 import { HomeContent } from './pages/HomeContent';
@@ -34,6 +35,9 @@ import { MovimentoPage } from './pages/MovimentoPage';
 
 const App = () => {
   const { currentRoute, routeParam, navigate } = useHashRoute('home');
+
+  // Mantém --header-h em dia com a altura real do header fixo.
+  useHeaderHeight();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
