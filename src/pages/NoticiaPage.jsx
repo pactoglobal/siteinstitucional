@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowLeft, ArrowRight, Clock, Calendar, Newspaper } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import { DemoNotice } from '../components/ui/DemoNotice';
 import { RichText } from '../components/ui/RichText';
 import { ShareBar } from '../components/ui/ShareBar';
 import { ArticleCard } from '../components/ui/ArticleCard';
@@ -38,6 +39,8 @@ export const NoticiaPage = ({ slug, navigate }) => {
 
   return (
     <article className="animate-fade-in">
+      <DemoNotice />
+
       {/* ============ CABEÇALHO EDITORIAL ============ */}
       <header className="relative overflow-hidden bg-un-blue pt-32 md:pt-40 pb-32 md:pb-44">
         <div

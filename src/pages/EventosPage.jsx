@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { CalendarX } from 'lucide-react';
 import { EditorialHero } from '../components/ui/EditorialHero';
+import { DemoNotice } from '../components/ui/DemoNotice';
 import { FilterPills, FilterSelect, ResultCount } from '../components/ui/FilterBar';
 import { EventCard } from '../components/ui/EventCard';
 import { EmptyState } from '../components/ui/EmptyState';
@@ -107,6 +108,8 @@ export const EventosPage = () => {
           </Tab>
         </div>
       </EditorialHero>
+
+      <DemoNotice />
 
       {/* ============ FILTROS ============ */}
       <section className="sticky top-0 z-30 border-b border-gray-200 bg-white/85 backdrop-blur-md">

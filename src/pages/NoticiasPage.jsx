@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Search, X } from 'lucide-react';
 import { EditorialHero } from '../components/ui/EditorialHero';
+import { DemoNotice } from '../components/ui/DemoNotice';
 import { FilterPills, ResultCount } from '../components/ui/FilterBar';
 import { ArticleCard } from '../components/ui/ArticleCard';
 import { Pagination } from '../components/ui/Pagination';
@@ -68,6 +69,8 @@ export const NoticiasPage = () => {
           { value: '2026', label: 'Ciclo atual' },
         ]}
       />
+
+      <DemoNotice />
 
       {/* ============ FILTROS ============ */}
       <section className="sticky top-0 z-30 border-b border-gray-200 bg-white/85 backdrop-blur-md">

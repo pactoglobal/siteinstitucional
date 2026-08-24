@@ -67,9 +67,9 @@ export const NOTICIAS = [
       },
       {
         type: 'quote',
-        text: 'Direitos humanos deixaram de ser um capítulo do relatório de sustentabilidade para se tornar critério de acesso a mercado, a crédito e a cadeias globais de valor.',
-        author: 'Rede Brasil',
-        role: 'Pacto Global da ONU',
+        text: 'Espaço reservado para a citação institucional. Substituir pela declaração real antes da publicação.',
+        author: 'Texto de exemplo',
+        role: 'Aguardando conteúdo editorial',
       },
       {
         type: 'p',
@@ -166,8 +166,9 @@ export const NOTICIAS = [
       },
       {
         type: 'quote',
-        text: 'Automatizar um processo de coleta ruim entrega relatório errado mais rápido. O ganho está em governança de dado, não em modelo.',
-        author: 'Avanish Sahai',
+        text: 'Espaço reservado para a citação do painel. Substituir pela transcrição real antes da publicação.',
+        author: 'Texto de exemplo',
+        role: 'Aguardando conteúdo editorial',
       },
       {
         type: 'p',

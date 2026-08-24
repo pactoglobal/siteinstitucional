@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Search, X, FileX } from 'lucide-react';
 import { EditorialHero } from '../components/ui/EditorialHero';
+import { DemoNotice } from '../components/ui/DemoNotice';
 import { FilterPills, FilterSelect, ResultCount } from '../components/ui/FilterBar';
 import { PublicationCard } from '../components/ui/PublicationCard';
 import { Pagination } from '../components/ui/Pagination';
@@ -74,6 +75,8 @@ export const PublicacoesPage = () => {
         accent="#CCB146"
         background="#6E417A"
       />
+
+      <DemoNotice />
 
       {/* ============ FILTROS ============ */}
       <section className="sticky top-0 z-30 border-b border-gray-200 bg-white/85 backdrop-blur-md">
