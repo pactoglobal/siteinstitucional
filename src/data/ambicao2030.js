@@ -48,83 +48,83 @@ export const PILARES_ATUACAO = [
   {
     id: 'governanca',
     number: '01',
-    title: 'Governanca e Estrategia',
+    title: 'Governança e Estratégia',
     description:
-      'Integracao das metas de sustentabilidade a estrategia de negocios e governanca corporativa.',
+      'Integração das metas de sustentabilidade à estratégia de negócios e governança corporativa.',
   },
   {
     id: 'operacoes',
     number: '02',
-    title: 'Operacoes e Cadeias de Valor',
+    title: 'Operações e Cadeias de Valor',
     description:
-      'Implementacao de praticas sustentaveis em operacoes e engajamento de fornecedores.',
+      'Implementação de práticas sustentáveis em operações e engajamento de fornecedores.',
   },
   {
     id: 'inovacao',
     number: '03',
-    title: 'Modelos de Negocios e Inovacao',
+    title: 'Modelos de Negócios e Inovação',
     description:
-      'Desenvolvimento de solucoes inovadoras e criacao de novos modelos de negocios de impacto.',
+      'Desenvolvimento de soluções inovadoras e criação de novos modelos de negócios de impacto.',
   },
   {
     id: 'transparencia',
     number: '04',
-    title: 'Transparencia e Integridade',
+    title: 'Transparência e Integridade',
     description:
-      'Promocao da transparencia, etica e combate a corrupcao em todos os niveis.',
+      'Promoção da transparência, ética e combate à corrupção em todos os níveis.',
   },
   {
     id: 'colaboracao',
     number: '05',
-    title: 'Colaboracao entre Setores',
+    title: 'Colaboração entre Setores',
     description:
-      'Fortalecimento de parcerias e cooperacao entre empresas, governo e sociedade civil.',
+      'Fortalecimento de parcerias e cooperação entre empresas, governo e sociedade civil.',
   },
 ];
 
 /* ============================================
-   SECAO "PARA QUEM E" (Personas)
+   SEÇÃO "PARA QUEM É" (Personas)
    Perfis de engajamento que o Movimento atende
    ============================================ */
 export const PERFIL = [
   {
     id: 'lider-sustentabilidade',
     number: '01',
-    title: 'Lider de Sustentabilidade',
+    title: 'Líder de Sustentabilidade',
     description:
-      'Quem busca metodologia robusta, benchmarks e qualificacao tecnica para implementar a agenda ESG na empresa.',
+      'Quem busca metodologia robusta, benchmarks e qualificação técnica para implementar a agenda ESG na empresa.',
   },
   {
     id: 'ceo',
     number: '02',
     title: 'CEO / Board',
     description:
-      'Quem precisa conectar proposito, estrategia e valor de negocio, posicionando a empresa na vanguarda da sustentabilidade.',
+      'Quem precisa conectar propósito, estratégia e valor de negócio, posicionando a empresa na vanguarda da sustentabilidade.',
   },
   {
     id: 'empresa-nova',
     number: '03',
     title: 'Empresa nova na agenda',
     description:
-      'Quem quer comecar com clareza, seguindo um processo transparente e com suporte completo do inicio ao fim.',
+      'Quem quer começar com clareza, seguindo um processo transparente e com suporte completo do início ao fim.',
   },
 ];
 
 /* ============================================
-   SECAO "O QUE NAO MUDOU" (Secao 08)
-   Transicao Lei das Empresas → Ambicao 2030
+   SEÇÃO "O QUE NÃO MUDOU" (Seção 08)
+   Transição Lei das Empresas → Ambição 2030
    ============================================ */
 export const O_QUE_NAO_MUDOU = {
-  title: 'O que nao mudou?',
+  title: 'O que não mudou?',
   mesmaComunidade: {
     title: 'Mesma comunidade',
     description:
-      'O ecossistema de lideres e empresas comprometidos com a Agenda 2030 segue ativo.',
+      'O ecossistema de líderes e empresas comprometidos com a Agenda 2030 segue ativo.',
   },
   mesmaAgenda: {
     title: 'Mesma agenda',
     description:
-      'Prioridades climaticas, sociais e de governanca permanecem conectadas as Metas Globais da ONU.',
+      'Prioridades climáticas, sociais e de governança permanecem conectadas às Metas Globais da ONU.',
   },
 };
 

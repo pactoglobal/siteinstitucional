@@ -165,17 +165,17 @@ export const ChamadoSection = () => {
 // COMO FAZER PARTE — fecho da página (texto oficial da RBPG).
 // ============================================================
 /* ========================================================
-   Secao Para Quem E (Personas) — 3 tipos de lideranca
+   Seção Para Quem É (Personas) — 3 tipos de liderança
    ======================================================== */
 export const ParaQuemSection = () => (
  <section id="para-quem" className="py-20 md:py-28 bg-un-surface">
   <div className="container mx-auto px-4 md:px-8 lg:px-12">
    <SectionHeader
     inverted={false}
-    badge="Para quem e"
-    title="Lideranca que"
+    badge="Para quem é"
+    title="Liderança que"
     titleAccent="Transforma"
-    description="A Ambicao 2030 foi desenhada para diferentes perfis de atuacao dentro da empresa."
+    description="A Ambição 2030 foi desenhada para diferentes perfis de atuação dentro da empresa."
    />
    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
     {PERFIL.map((p, i) => (
@@ -200,17 +200,17 @@ export const ParaQuemSection = () => (
 );
 
 /* ===================================================================
-   Secao O Que Nao Mudou — transicao Lei das Empresas -> Ambicao 2030
+   Seção O Que Não Mudou — transição Lei das Empresas -> Ambição 2030
    =================================================================== */
 export const OQueNaoMudouSection = () => (
  <section id="o-que-nao-mudou" className="py-20 md:py-28 bg-white">
   <div className="container mx-auto px-4 md:px-8 lg:px-12">
    <SectionHeader
     inverted={false}
-    badge="Transicao"
+    badge="Transição"
     title="O que"
-    titleAccent="nao mudou"
-    description="A evolucao da Lei das Empresas para a Ambicao 2030 preserva a rede, o proposito e a agenda."
+    titleAccent="não mudou"
+    description="A evolução da Lei das Empresas para a Ambição 2030 preserva a rede, o propósito e a agenda."
    />
    <div className="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
     <Reveal delay={0}>
