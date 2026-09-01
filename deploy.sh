@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+# Portao de qualidade: o lint pega referencia a componente ou constante que
+# nao existe (no-undef), que e exatamente o erro que ja derrubou a pagina da
+# Ambicao duas vezes em producao. Com set -e, lint vermelho aborta o deploy.
+echo "→ Lint..."
+npm run lint
+
 # Garante que o index.html seja o template correto antes do build
 cat > index.html << 'EOF'
 <!doctype html>
