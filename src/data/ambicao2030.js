@@ -48,39 +48,85 @@ export const PILARES_ATUACAO = [
   {
     id: 'governanca',
     number: '01',
-    title: 'Governança e Estratégia',
+    title: 'Governanca e Estrategia',
     description:
-      'Integração dos compromissos da Ambição 2030 nas decisões do Conselho e C-Level, vinculando metas ESG à remuneração variável.',
+      'Integracao das metas de sustentabilidade a estrategia de negocios e governanca corporativa.',
   },
   {
     id: 'operacoes',
     number: '02',
-    title: 'Operações Diretas',
+    title: 'Operacoes e Cadeias de Valor',
     description:
-      'Implementação de padrões de excelência ambiental e social nas instalações, fábricas, escritórios e processos próprios.',
+      'Implementacao de praticas sustentaveis em operacoes e engajamento de fornecedores.',
   },
   {
-    id: 'cadeia',
+    id: 'inovacao',
     number: '03',
-    title: 'Cadeia de Valor',
+    title: 'Modelos de Negocios e Inovacao',
     description:
-      'Engajamento e capacitação de fornecedores, distribuidores e parceiros comerciais para multiplicar o impacto em toda a rede.',
+      'Desenvolvimento de solucoes inovadoras e criacao de novos modelos de negocios de impacto.',
   },
   {
-    id: 'produtos',
+    id: 'transparencia',
     number: '04',
-    title: 'Produtos e Serviços',
+    title: 'Transparencia e Integridade',
     description:
-      'Desenvolvimento de soluções de baixo carbono, circulares e inclusivas que transformem o portfólio de ofertas da organização.',
+      'Promocao da transparencia, etica e combate a corrupcao em todos os niveis.',
   },
   {
-    id: 'advocacy',
+    id: 'colaboracao',
     number: '05',
-    title: 'Advocacy e Políticas Públicas',
+    title: 'Colaboracao entre Setores',
     description:
-      'Atuação transparente e propositiva junto a governos, academia e sociedade civil para construir marcos regulatórios favoráveis à sustentabilidade.',
+      'Fortalecimento de parcerias e cooperacao entre empresas, governo e sociedade civil.',
   },
 ];
+
+/* ============================================
+   SECAO "PARA QUEM E" (Personas)
+   Perfis de engajamento que o Movimento atende
+   ============================================ */
+export const PERFIL = [
+  {
+    id: 'lider-sustentabilidade',
+    number: '01',
+    title: 'Lider de Sustentabilidade',
+    description:
+      'Quem busca metodologia robusta, benchmarks e qualificacao tecnica para implementar a agenda ESG na empresa.',
+  },
+  {
+    id: 'ceo',
+    number: '02',
+    title: 'CEO / Board',
+    description:
+      'Quem precisa conectar proposito, estrategia e valor de negocio, posicionando a empresa na vanguarda da sustentabilidade.',
+  },
+  {
+    id: 'empresa-nova',
+    number: '03',
+    title: 'Empresa nova na agenda',
+    description:
+      'Quem quer comecar com clareza, seguindo um processo transparente e com suporte completo do inicio ao fim.',
+  },
+];
+
+/* ============================================
+   SECAO "O QUE NAO MUDOU" (Secao 08)
+   Transicao Lei das Empresas → Ambicao 2030
+   ============================================ */
+export const O_QUE_NAO_MUDOU = {
+  title: 'O que nao mudou?',
+  mesmaComunidade: {
+    title: 'Mesma comunidade',
+    description:
+      'O ecossistema de lideres e empresas comprometidos com a Agenda 2030 segue ativo.',
+  },
+  mesmaAgenda: {
+    title: 'Mesma agenda',
+    description:
+      'Prioridades climaticas, sociais e de governanca permanecem conectadas as Metas Globais da ONU.',
+  },
+};
 
 /** Modalidades de participação das empresas nos Movimentos */
 export const MODALIDADES = [
@@ -88,13 +134,13 @@ export const MODALIDADES = [
     id: 'participante',
     title: 'Empresa Participante',
     description:
-      'Assina a Carta de Compromisso, compromete-se com as metas públicas do Movimento e reporta anualmente seus indicadores.',
+      'Engaja na jornada dos movimentos.',
   },
   {
-    id: 'ambicao',
-    title: 'Empresa Embaixadora',
+    id: 'comprometida',
+    title: 'Empresa Comprometida',
     description:
-      'Assume papel de liderança ativa na governança do Movimento, investe em projetos de impacto coletivo e acelera a cadeia de valor.',
+      'Investe nos movimentos e ganha protagonismo na Ambição 2030.',
   },
 ];
 
@@ -142,7 +188,6 @@ export const MONITORAMENTO = {
     },
   ],
 };
-
 export const AMBICAO_DEFINICAO =
   'Uma iniciativa do Pacto Global da ONU - Rede Brasil que convoca o setor privado a assumir compromissos públicos e mensuráveis com os Objetivos de Desenvolvimento Sustentável (ODS) até 2030.';
 
@@ -162,28 +207,30 @@ export const AMBICAO_CITACAO = {
 };
 
 export const AMBICAO_RESULTADOS = {
-  title: 'Resultados do 4º Ciclo de Coleta',
-  period: '2025 / 2026',
+  title: 'Em números, hoje',
+  period: 'jun / 2026',
   stats: [
-    { value: '+1000', label: 'Compromissos Públicos Firmados' },
-    { value: '700+', label: 'Empresas Signatárias Engajadas' },
-    { value: '10', label: 'Movimentos com Metas Auditáveis' },
+    { value: '10', label: 'Movimentos temáticos', color: '#1E3250' },
+    { value: '18', label: 'ODS conectados*', color: '#297D6D' },
+    { value: '401', label: 'Empresas comprometidas (jun/2026)', color: '#6E417A' },
+    { value: '788', label: 'Cartas compromisso assinadas', color: '#EC3740' },
+    { value: '+2.000', label: 'Compromissos públicos assumidos', color: '#CCB146' },
+    { value: '+2 milhões', label: 'Pessoas trabalhadoras impactadas diretamente', color: '#4C6B8B' },
   ],
-  alcance: 'Mais de 100 milhões de pessoas impactadas direta ou indiretamente pelas metas dos Movimentos.',
+  alcance: 'Transformação sistêmica e sustentável com impacto mensurável nas metas de 2030.',
   nota: 'Dados consolidados com base na plataforma oficial de reporte anual da Ambição 2030.',
 };
 
 export const AMBICAO_ORIGEM = {
   description:
-    'A trajetória da Ambição 2030 desde o chamado global da ONU em 2015 até a consolidação da maior iniciativa de impacto empresarial do Brasil.',
+    'A trajetória da Ambição 2030 desde o surgimento do Pacto Global da ONU até a consolidação da maior iniciativa de impacto empresarial do Brasil.',
   timeline: [
-    { year: '2015', title: 'Criação dos ODS', description: 'Assinatura da Agenda 2030 por 193 países membros da ONU.' },
-    { year: '2020', title: 'Década da Ação', description: 'Convocação do Secretário-Geral da ONU para acelerar soluções sustentáveis.' },
-    { year: '2022', title: 'Lançamento Ambição 2030', description: 'Rede Brasil lança os primeiros Movimentos temáticos com metas de alto impacto.' },
-    // ODS 18: proposição brasileira, implementado pelo Pacto Global em 2025.
-    // O ator e o tema precisam bater com o bloco de destaque dos ODS e com o
-    // SectionHeader da mesma página — as três menções já divergiram antes.
-    { year: '2025', title: 'Implementação do ODS 18', description: 'Pacto Global implementa o ODS 18 — Igualdade Étnico-Racial, de proposição brasileira.' },
+    { year: '2000', title: 'Surgiu o Pacto Global da ONU', description: 'Iniciativa global convocada pela ONU para o setor privado.' },
+    { year: '2003', title: 'Pacto Global da ONU - Rede Brasil', description: 'Criação oficial da Rede Brasil do Pacto Global.' },
+    { year: '2015', title: 'Agenda 2030 da ONU', description: 'ONU estabelece os 17 ODS como agenda global de sustentabilidade.' },
+    { year: '2020', title: 'Década da Ação', description: 'Guterres convoca a Década da Ação para acelerar metas mundiais.' },
+    { year: '2022', title: 'Lançamento oficial da Ambição 2030', description: 'Lançamento da Ambição 2030 no Brasil, com 10 Movimentos temáticos.' },
+    { year: '2030', title: 'Horizonte final', description: 'O que resta a cumprir das metas públicas dos Movimentos.' },
   ],
 };
 
@@ -201,33 +248,37 @@ export const AMBICAO_PROPOSITO = {
 
 export const ESTRUTURA_MOVIMENTOS_INTRO = {
   eyebrow: 'Arquitetura dos Movimentos',
-  title: 'Como Funcionam os Movimentos',
+  title: 'Estrutura dos Movimentos',
   description:
-    'Cada um dos 10 Movimentos é estruturado em cinco etapas metodológicas que garantem a evolução da adesão ao reporte de progresso.',
+    'Cada um dos 10 Movimentos é estruturado em etapas metodológicas que garantem a evolução da adesão ao reporte de progresso.',
 };
 
 export const AMBICAO_CHAMADO = {
-  eyebrow: 'O Chamado da Década da Ação',
-  title: 'Da Discussão para a Ação',
+  eyebrow: 'O Chamado',
+  title: 'Ambição 2030',
   description:
-    'Em 2020, o mundo entrou na Década da Ação, convocada pelo Secretário-Geral da ONU, António Guterres. O Brasil respondeu com a Ambição 2030, lançada em abril de 2022, convidando organizações do país inteiro a assumirem compromissos públicos e mensuráveis vinculados aos ODS.',
-  linhaDoTempo: [
-    { ano: '2015', texto: 'ONU estabelece os 17 Objetivos de Desenvolvimento Sustentável como agenda global.' },
-    { ano: '2020', texto: 'Secretário-Geral António Guterres convoca a Década da Ação.' },
-    { ano: '2022', texto: 'Lançamento oficial da Ambição 2030 no Brasil com os primeiros Movimentos temáticos.' },
-    { ano: '2025', texto: 'Pacto Global implementa o ODS 18 — Igualdade Étnico-Racial, de proposição brasileira.' },
+    'Em 2020, o mundo entrou na Década da Ação, convocada pelo Secretário-Geral da ONU, António Guterres. O Brasil respondeu com a Ambição 2030, convidando empresas do país inteiro a assumirem compromissos públicos e mensuráveis vinculados aos ODS.',
+  paragrafos: [
+    'O Pacto Global da ONU – Rede Brasil convoca as empresas a acelerarem suas metas de sustentabilidade por meio dos 10 Movimentos temáticos.',
+    'A Ambição 2030 é uma jornada de transformação para induzir mudanças estruturais no setor empresarial brasileiro.',
   ],
+  destaque: 'Transformação sistêmica e sustentável com impacto mensurável.',
 };
 
 export const AMBICAO_COMO_FAZER_PARTE = {
   eyebrow: 'Adesão Corporativa',
   title: 'Como Fazer Parte',
   description:
-    'Sua organização pode aderir formalmente a um ou mais Movimentos da Ambição 2030, alinhando suas metas corporativas às prioridades globais da ONU.',
+    'Sua empresa pode engajar formalmente em um ou mais Movimentos da Ambição 2030. O CEO assina publicamente a carta de compromisso do movimento.',
   passos: [
     { numero: '01', titulo: 'Escolha os Movimentos', descricao: 'Identifique os temas e ODS prioritários para o seu setor e estratégia ESG.' },
-    { numero: '02', titulo: 'Assine a Carta de Compromisso', descricao: 'O C-Level assina publicamente a declaração de metas para 2030.' },
+    { numero: '02', titulo: 'Assine a Carta de Compromisso', descricao: 'O CEO assina publicamente a declaração de metas para 2030.' },
     { numero: '03', titulo: 'Reporte Anualmente', descricao: 'Acompanhe e divulgue o progresso no ciclo anual de coleta de indicadores.' },
+  ],
+  beneficios: [
+    'Mobilização da mais alta liderança (CEO) para assumirem publicamente a carta de compromisso do movimento',
+    'Acesso das lideranças engajadas em uma jornada estruturada e exclusiva de iniciativas do movimento como workshops, guias...',
+    'Palcos nacionais e internacionais',
   ],
 };
 

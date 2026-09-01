@@ -1,9 +1,15 @@
 import React, { useRef } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Users, Sparkles } from 'lucide-react';
+import { SectionHeader } from '../ui/SectionHeader';
 import { useGsap } from '../../hooks/useGsap';
 import { useReveal } from '../../hooks/useReveal';
 import { EASE, prefereMenosMovimento } from '../../lib/animation';
-import { AMBICAO_CHAMADO, AMBICAO_COMO_FAZER_PARTE } from '../../data/ambicao2030';
+import {
+  AMBICAO_CHAMADO,
+  AMBICAO_COMO_FAZER_PARTE,
+  PERFIL,
+  O_QUE_NAO_MUDOU,
+} from '../../data/ambicao2030';
 
 // ============================================================
 // Contador que anima ao entrar em tela.
@@ -158,12 +164,94 @@ export const ChamadoSection = () => {
 // ============================================================
 // COMO FAZER PARTE — fecho da página (texto oficial da RBPG).
 // ============================================================
+/* ========================================================
+   Secao Para Quem E (Personas) — 3 tipos de lideranca
+   ======================================================== */
+export const ParaQuemSection = () => (
+ <section id="para-quem" className="py-20 md:py-28 bg-un-surface">
+  <div className="container mx-auto px-4 md:px-8 lg:px-12">
+   <SectionHeader
+    inverted={false}
+    badge="Para quem e"
+    title="Lideranca que"
+    titleAccent="Transforma"
+    description="A Ambicao 2030 foi desenhada para diferentes perfis de atuacao dentro da empresa."
+   />
+   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    {PERFIL.map((p, i) => (
+     <Reveal key={p.id} delay={i * 120}>
+      <div className="block bg-white rounded-3xl p-8 md:p-10 border border-gray-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-400">
+       {/* Os perfis vêm com número, não com ícone — o índice é o próprio marcador. */}
+       <span className={`inline-flex items-center justify-center ${i === 1 ? 'bg-un-gold/10 text-un-gold' : 'bg-un-blue/8 text-un-blue'} font-display font-black text-lg w-11 h-11 rounded-full mb-6 tabular-nums`}>
+        {p.number}
+       </span>
+       <h3 className="font-display font-black text-gray-900 text-2xl md:text-3xl tracking-tight mb-4">
+        {p.title}
+       </h3>
+       <p className="text-gray-600 text-base md:text-lg leading-relaxed font-light">
+        {p.description}
+       </p>
+      </div>
+     </Reveal>
+    ))}
+   </div>
+  </div>
+ </section>
+);
+
+/* ===================================================================
+   Secao O Que Nao Mudou — transicao Lei das Empresas -> Ambicao 2030
+   =================================================================== */
+export const OQueNaoMudouSection = () => (
+ <section id="o-que-nao-mudou" className="py-20 md:py-28 bg-white">
+  <div className="container mx-auto px-4 md:px-8 lg:px-12">
+   <SectionHeader
+    inverted={false}
+    badge="Transicao"
+    title="O que"
+    titleAccent="nao mudou"
+    description="A evolucao da Lei das Empresas para a Ambicao 2030 preserva a rede, o proposito e a agenda."
+   />
+   <div className="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+    <Reveal delay={0}>
+     <div className="bg-un-surface rounded-3xl p-8 md:p-10 border border-gray-100 shadow-md">
+      <span className="inline-flex items-center gap-2.5 bg-un-blue/8 text-un-blue text-[11px] font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-full mb-6">
+       <Users className="w-4 h-4" />
+       Comunidade
+      </span>
+      <h3 className="font-display font-black text-gray-900 text-2xl md:text-3xl tracking-tight mb-4">
+       {O_QUE_NAO_MUDOU.mesmaComunidade.title}
+      </h3>
+      <p className="text-gray-600 text-base md:text-lg leading-relaxed font-light">
+       {O_QUE_NAO_MUDOU.mesmaComunidade.description}
+      </p>
+     </div>
+    </Reveal>
+    <Reveal delay={120}>
+     <div className="bg-un-surface rounded-3xl p-8 md:p-10 border border-gray-100 shadow-md">
+      <span className="inline-flex items-center gap-2.5 bg-un-gold/10 text-un-gold text-[11px] font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-full mb-6">
+       <Sparkles className="w-4 h-4" />
+       Agenda
+      </span>
+      <h3 className="font-display font-black text-gray-900 text-2xl md:text-3xl tracking-tight mb-4">
+       {O_QUE_NAO_MUDOU.mesmaAgenda.title}
+      </h3>
+      <p className="text-gray-600 text-base md:text-lg leading-relaxed font-light">
+       {O_QUE_NAO_MUDOU.mesmaAgenda.description}
+      </p>
+     </div>
+    </Reveal>
+   </div>
+  </div>
+ </section>
+);
+
 export const ComoFazerParteSection = () => {
   // Sem GSAP aqui pelo mesmo motivo do Chamado: é copy oficial.
 
   // Mesma normalização do Chamado: aceita tanto o formato antigo (chamadas
   // soltas + cta) quanto o atual (passos numerados), sem quebrar a página.
-  const { eyebrow, title, titulo, description, descricao, passos, chamadas, cta } =
+  const { eyebrow, title, titulo, description, descricao, passos, chamadas } =
     AMBICAO_COMO_FAZER_PARTE;
   const heading = titulo ?? title;
   const texto = descricao ?? description;
@@ -200,6 +288,25 @@ export const ComoFazerParteSection = () => {
           {texto}
         </p>
 
+        {/* Lista de benefícios do engajamento */}
+        {AMBICAO_COMO_FAZER_PARTE.beneficios && (
+          <div className="mb-12 bg-white/5 rounded-3xl p-6 md:p-8 border border-white/10 max-w-4xl">
+            <h3 className="text-un-gold font-display font-black uppercase text-sm md:text-base tracking-wider mb-6">
+              Benefícios do Engajamento
+            </h3>
+            <ul className="space-y-4 list-none p-0 m-0">
+              {AMBICAO_COMO_FAZER_PARTE.beneficios.map((b, i) => (
+                <li key={i} className="flex items-start gap-4 text-white text-sm md:text-base font-light leading-relaxed">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-un-gold/20 text-un-gold text-xs font-bold flex items-center justify-center mt-0.5">
+                    {i + 1}
+                  </span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {/* As etapas em escada: cada uma entra por baixo da anterior */}
         <ol className="flex flex-col gap-7 md:gap-9 mb-14 list-none m-0 p-0">
           {etapas.map((etapa, i) => (
@@ -227,19 +334,14 @@ export const ComoFazerParteSection = () => {
           ))}
         </ol>
 
-        {/* Link externo: destino fora da SPA, então é <a>, não Button.
-            Só renderiza quando a RBPG informar o destino — nunca inventamos URL. */}
-        {cta?.href && (
-          <a
-            href={cta.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-4 bg-un-gold text-un-blue font-bold uppercase tracking-widest text-xs md:text-sm px-8 py-5 rounded-full transition-transform duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-un-blue"
-          >
-            {cta.label}
-            <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </a>
-        )}
+        {/* Link / Botão de Ação: Quero Engajar */}
+        <a
+          href="#/participar"
+          className="group inline-flex items-center gap-4 bg-un-gold text-un-blue font-bold uppercase tracking-widest text-xs md:text-sm px-8 py-5 rounded-full transition-transform duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-un-blue cursor-pointer shadow-xl shadow-un-gold/20"
+        >
+          Quero Engajar
+          <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+        </a>
       </div>
     </section>
   );

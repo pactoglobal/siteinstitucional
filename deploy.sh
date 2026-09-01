@@ -33,6 +33,11 @@ EOF
 # Build
 npm run build
 
+# Fallback de SPA: o gh-pages publica apenas o conteudo de dist/, entao o
+# 404.html precisa estar DENTRO de dist. Sem isso, link direto sem hash
+# (ex: /siteinstitucional/ambicao) devolve o 404 do GitHub.
+cp dist/index.html dist/404.html
+
 # Copia os arquivos compilados para a raiz (gh-pages)
 mkdir -p assets
 cp dist/index.html index.html
