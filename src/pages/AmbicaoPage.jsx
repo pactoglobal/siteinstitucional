@@ -305,30 +305,26 @@ export const AmbicaoPage = ({ navigate }) => {
               <span className="w-8 h-px bg-un-gold" /> Pacto Global da ONU · Rede Brasil
             </span>
 
-            {/* Lockup com Logo do Pacto + Marca Ambição 2030 */}
+            {/* Lockup com Logo do Pacto + Marca Ambição 2030.
+                O logo carrega o nome da iniciativa, entao o titulo tipografico
+                "AMBIÇÃO 2030" saiu do hero para nao duplicar a marca. O <h1>
+                permanece no DOM em sr-only: a pagina continua com um unico
+                cabecalho de primeiro nivel para leitores de tela e para SEO. */}
             <div className="flex flex-col gap-4 mb-6 animate-fade-in-up" style={{ animationDelay: '90ms' }}>
-              <div className="flex items-center gap-3 md:gap-4">
+              <h1 className="sr-only">Ambição 2030 — Pacto Global da ONU · Rede Brasil</h1>
+              <div className="flex items-center gap-4 md:gap-6">
                 <img
                   src={`${import.meta.env.BASE_URL}logo-pacto-white.png`}
-                  alt="Pacto Global da ONU"
-                  className="h-9 md:h-12 object-contain shrink-0"
+                  alt="Pacto Global da ONU · Rede Brasil"
+                  className="h-14 md:h-20 lg:h-24 object-contain shrink-0"
                 />
-                <span className="h-8 w-px bg-white/25" />
+                <span className="h-12 md:h-16 w-px bg-white/25" />
                 <img
                   src={`${import.meta.env.BASE_URL}logo-ambicao-2030.png`}
                   alt="Ambição 2030"
-                  className="h-9 md:h-12 object-contain shrink-0"
+                  className="h-14 md:h-20 lg:h-24 object-contain shrink-0"
                 />
               </div>
-
-              <h1 className="font-display font-black uppercase leading-[0.9]">
-                <span className="block text-5xl md:text-7xl lg:text-[8.5rem] text-white tracking-tight">
-                  Ambição
-                </span>
-                <span className="block text-5xl md:text-7xl lg:text-[8.5rem] text-un-gold tracking-tight">
-                  2030
-                </span>
-              </h1>
             </div>
 
             <p
