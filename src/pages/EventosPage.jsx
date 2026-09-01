@@ -1,18 +1,216 @@
-import React from 'react';
-import { PageHero } from '../components/ui/PageHero';
-import { EventsListSection } from '../components/sections/EventsListSection';
+import React, { useMemo, useState } from 'react';
+import { CalendarX } from 'lucide-react';
+import { EditorialHero } from '../components/ui/EditorialHero';
+import { FilterDock, FilterRail, FilterSelect, ResultCount } from '../components/ui/FilterBar';
+import { EventCard } from '../components/ui/EventCard';
+import { EmptyState } from '../components/ui/EmptyState';
+import { Reveal } from '../components/ui/Reveal';
+import { cn } from '../utils/cn';
+import { formatMonthYear } from '../utils/date';
+import {
+  EVENTO_CATEGORIAS,
+  EVENTO_FORMATOS,
+  proximosEventos,
+  eventosRealizados,
+  anosComEventos,
+  corDaCategoria,
+} from '../data/eventos';
 
-export const EventosPage = () => (
-  <div className="animate-fade-in">
-    <PageHero 
-      category="Agenda 2026"
-      title="Nossos Eventos"
-      description="Participe dos principais fóruns e discussões que estão moldando o futuro dos negócios sustentáveis."
-      image="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop"
-      color="bg-un-blue"
+const TODOS = 'Todos';
+const TODOS_ANOS = 'Todos os anos';
+
+/** Agrupa por mês preservando a ordem já definida pela aba. */
+const agruparPorMes = (eventos) =>
+  eventos.reduce((grupos, evento) => {
+    const chave = evento.startDate.slice(0, 7);
+    const ultimo = grupos[grupos.length - 1];
+    if (ultimo?.chave === chave) {
+      ultimo.eventos.push(evento);
+    } else {
+      grupos.push({ chave, rotulo: formatMonthYear(evento.startDate), eventos: [evento] });
+    }
+    return grupos;
+  }, []);
+
+const Tab = ({ ativo, onClick, children, count }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    aria-pressed={ativo}
+    className={cn(
+      'group relative inline-flex items-baseline gap-3 pb-4 pr-10 transition-colors duration-300',
+      ativo ? 'text-white' : 'text-white/35 hover:text-white/70',
+    )}
+  >
+    <span className="text-xs font-black uppercase tracking-[0.2em] md:text-sm">{children}</span>
+    <span
+      className={cn(
+        'font-display text-xl font-black tabular-nums leading-none transition-colors duration-300 md:text-2xl',
+        ativo ? 'text-un-gold' : 'text-white/20',
+      )}
+    >
+      {String(count).padStart(2, '0')}
+    </span>
+    <span
+      className={cn(
+        'absolute bottom-0 left-0 right-10 h-[3px] origin-left bg-un-gold transition-transform duration-300',
+        ativo ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-50',
+      )}
     />
-    <div className="py-12 bg-gray-50">
-       <EventsListSection />
-    </div>
-  </div>
+  </button>
 );
+
+export const EventosPage = () => {
+  const [aba, setAba] = useState('proximos');
+  const [categoria, setCategoria] = useState(TODOS);
+  const [formato, setFormato] = useState(TODOS);
+  const [ano, setAno] = useState(TODOS_ANOS);
+
+  const proximos = useMemo(() => proximosEventos(), []);
+  const realizados = useMemo(() => eventosRealizados(), []);
+  const anos = useMemo(() => [TODOS_ANOS, ...anosComEventos()], []);
+
+  const base = aba === 'proximos' ? proximos : realizados;
+
+  const filtrados = useMemo(
+    () =>
+      base.filter(
+        (e) =>
+          (categoria === TODOS || e.category === categoria) &&
+          (formato === TODOS || e.format === formato) &&
+          (ano === TODOS_ANOS || e.startDate.startsWith(ano)),
+      ),
+    [base, categoria, formato, ano],
+  );
+
+  const grupos = useMemo(() => agruparPorMes(filtrados), [filtrados]);
+
+  const temFiltro = categoria !== TODOS || formato !== TODOS || ano !== TODOS_ANOS;
+  const limpar = () => {
+    setCategoria(TODOS);
+    setFormato(TODOS);
+    setAno(TODOS_ANOS);
+  };
+
+  return (
+    <div className="animate-fade-in">
+      <EditorialHero
+        image="https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?q=80&w=2070&auto=format&fit=crop"
+        eyebrow="Encontros e fóruns"
+        title="Agenda"
+        titleAccent="2026"
+        lead="Fóruns, workshops e encontros que reúnem as empresas participantes em torno dos Dez Princípios e dos Objetivos de Desenvolvimento Sustentável."
+        meta={[
+          { value: proximos.length + realizados.length, label: 'Encontros no ano' },
+          { value: EVENTO_CATEGORIAS.length - 1, label: 'Temas' },
+          { value: EVENTO_FORMATOS.length - 1, label: 'Formatos' },
+        ]}
+      >
+        {/* Abas ancoradas no rodapé do hero */}
+        <div className="mt-14 flex items-baseline gap-4 border-t border-white/15 pt-8">
+          <Tab ativo={aba === 'proximos'} onClick={() => setAba('proximos')} count={proximos.length}>
+            Vem aí
+          </Tab>
+          <Tab
+            ativo={aba === 'realizados'}
+            onClick={() => setAba('realizados')}
+            count={realizados.length}
+          >
+            Realizados
+          </Tab>
+        </div>
+      </EditorialHero>
+
+      {/* ============ FILTROS ============ */}
+      <FilterDock>
+        <div className="flex flex-col gap-1 xl:flex-row xl:items-center xl:justify-between xl:gap-10">
+          <FilterRail
+            label="Tema"
+            options={EVENTO_CATEGORIAS}
+            value={categoria}
+            onChange={setCategoria}
+            accentFor={(opt) => (opt === TODOS ? '#1E3250' : corDaCategoria(opt))}
+            countFor={(opt) =>
+              opt === TODOS ? base.length : base.filter((e) => e.category === opt).length
+            }
+            className="flex-1"
+          />
+          <div className="flex shrink-0 items-baseline gap-8 pb-4">
+            <FilterSelect
+              id="filtro-formato"
+              label="Formato"
+              options={EVENTO_FORMATOS}
+              value={formato}
+              onChange={setFormato}
+            />
+            <FilterSelect id="filtro-ano" label="Ano" options={anos} value={ano} onChange={setAno} />
+          </div>
+        </div>
+      </FilterDock>
+
+      {/* ============ LISTAGEM ============ */}
+      <section className="bg-un-surface py-14 md:py-20">
+        <div className="container mx-auto px-4 md:px-8 lg:px-12">
+          {filtrados.length === 0 ? (
+            <EmptyState
+              icon={CalendarX}
+              title={
+                aba === 'proximos'
+                  ? 'Nenhum evento programado com esses filtros'
+                  : 'Nenhum evento realizado com esses filtros'
+              }
+              description="Ajuste tema, formato ou ano para ver mais encontros da agenda."
+              action={
+                temFiltro && (
+                  <button
+                    type="button"
+                    onClick={limpar}
+                    className="text-[11px] font-bold uppercase tracking-widest text-un-blue underline underline-offset-4 transition-colors hover:text-un-blue-1"
+                  >
+                    Limpar filtros
+                  </button>
+                )
+              }
+            />
+          ) : (
+            <>
+              <div className="flex flex-col gap-12">
+                {grupos.map((grupo, gi) => (
+                  <div key={grupo.chave}>
+                    {/* Cabeçalho do mês */}
+                    <div className="mb-6 flex items-center gap-5">
+                      <h2 className="font-display text-xl font-black uppercase tracking-tight text-gray-900 md:text-2xl">
+                        {grupo.rotulo}
+                      </h2>
+                      <span className="h-px flex-1 bg-gray-200" />
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                        {grupo.eventos.length}{' '}
+                        {grupo.eventos.length === 1 ? 'evento' : 'eventos'}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                      {grupo.eventos.map((evento, i) => (
+                        <Reveal key={evento.slug} delay={gi === 0 ? i * 70 : 0}>
+                          <EventCard evento={evento} />
+                        </Reveal>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <ResultCount
+                total={filtrados.length}
+                singular="evento"
+                plural="eventos"
+                hasFilters={temFiltro}
+                onReset={limpar}
+              />
+            </>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+};

@@ -5,6 +5,8 @@ export const ROUTES = {
   sobre: '#/sobre',
   eventos: '#/eventos',
   noticias: '#/noticias',
+  imprensa: '#/sala-de-imprensa',
+  publicacoes: '#/publicacoes',
   agenda: '#/agenda',
   programas: '#/programas',
   conhecimento: '#/conhecimento',
@@ -13,55 +15,23 @@ export const ROUTES = {
   ambicao: '#/ambicao',
 };
 
-export const MOVIMENTO_HASH_PREFIX = '#/movimento/';
+/**
+ * Rotas de detalhe: prefixo de hash + slug (`#/noticia/meu-slug`).
+ * `parseHash` casa o primeiro prefixo compatível.
+ */
+export const DYNAMIC_ROUTES = {
+  movimento: '#/movimento/',
+  noticia: '#/noticia/',
+  release: '#/release/',
+  evento: '#/evento/',
+};
 
 export const HASH_TO_ROUTE = Object.fromEntries(
   Object.entries(ROUTES).map(([key, hash]) => [hash, key])
 );
 
-export const MOCK_EVENTS = [
-  {
-    id: 1,
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop",
-    title: "Fórum de Liderança com Propósito — Edição 2026",
-    dateRange: "18 Março — 20 Junho 2026",
-    location: "São Paulo, Brasil",
-    category: "LIDERANÇA",
-    status: "upcoming",
-    statusLabel: "Inscrições abertas"
-  },
-  {
-    id: 2,
-    image: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=2070&auto=format&fit=crop",
-    title: "Encontro Nacional da Rede Brasil — 25 Anos",
-    dateRange: "2 — 4 Junho 2026",
-    location: "Rio de Janeiro, Brasil",
-    category: "INSTITUCIONAL",
-    status: "pending",
-    statusLabel: "Aguardando detalhes"
-  },
-  {
-    id: 3,
-    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop",
-    title: "Diálogos DH & DEI — Ciclo 2026",
-    dateRange: "18 Agosto 2026",
-    location: "Online",
-    category: "DIREITOS HUMANOS",
-    status: "upcoming",
-    statusLabel: "Inscrições abertas"
-  },
-  {
-    id: 4,
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
-    title: "Ambição 2030: O Impacto das Metas Climáticas",
-    dateRange: "25 Setembro 2026",
-    location: "Online",
-    category: "ACADEMY",
-    status: "pending",
-    statusLabel: "Aguardando detalhes"
-  }
-];
-
+// Eventos migraram para `src/data/eventos.js` — datas ISO, slug e
+// separação entre agenda futura e realizada.
 
 export const PILLAR_ICONS = {
   'direitos-humanos': Users,
@@ -210,7 +180,7 @@ export const MENU_DESTAQUES = [
     subItems: [
       { id: "noticias", label: "Últimas Notícias" },
       { id: "noticias", label: "Destaques" },
-      { id: "noticias", label: "Sala de Imprensa" }
+      { id: "imprensa", label: "Sala de Imprensa" }
     ]
   }
 ];
@@ -254,11 +224,11 @@ export const MENU_EXPLORAR = [
     id: "conhecimento",
     icon: BookOpen,
     subItems: [
-      { id: "conhecimento", label: "Publicações" },
+      { id: "publicacoes", label: "Publicações" },
       { id: "conhecimento", label: "Academy" },
       { id: "conhecimento", label: "Cursos & Workshops" },
       { id: "conhecimento", label: "ESG e sustentabilidade corporativa" },
-      { id: "conhecimento", label: "Guias e relatórios" }
+      { id: "publicacoes", label: "Guias e relatórios" }
     ]
   }
 ];

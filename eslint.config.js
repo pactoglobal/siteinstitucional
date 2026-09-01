@@ -33,7 +33,13 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // Sem eslint-plugin-react, `<Icon />` não conta como uso do identificador.
+      // Componentes recebidos por prop (icon: Icon, as: Tag) são PascalCase,
+      // por isso o mesmo padrão vale para variáveis e para parâmetros.
+      'no-unused-vars': [
+        'error',
+        { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^[A-Z_]' },
+      ],
     },
   },
 ])

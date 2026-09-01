@@ -13,12 +13,18 @@ import React, { useEffect } from 'react';
  */
 
 import { useHashRoute } from './hooks/useHashRoute';
+import { useHeaderHeight } from './hooks/useHeaderHeight';
 import { CapsuleHeader } from './components/layout/CapsuleHeader';
 import { Footer } from './components/layout/Footer';
 import { HomeContent } from './pages/HomeContent';
 import { SobrePage } from './pages/SobrePage';
 import { EventosPage } from './pages/EventosPage';
+import { EventoPage } from './pages/EventoPage';
 import { NoticiasPage } from './pages/NoticiasPage';
+import { NoticiaPage } from './pages/NoticiaPage';
+import { SalaImprensaPage } from './pages/SalaImprensaPage';
+import { ReleasePage } from './pages/ReleasePage';
+import { PublicacoesPage } from './pages/PublicacoesPage';
 import { NossaAgendaPage } from './pages/NossaAgendaPage';
 import { ProgramasPage } from './pages/ProgramasPage';
 import { ConhecimentoPage } from './pages/ConhecimentoPage';
@@ -29,6 +35,9 @@ import { MovimentoPage } from './pages/MovimentoPage';
 
 const App = () => {
   const { currentRoute, routeParam, navigate } = useHashRoute('home');
+
+  // Mantém --header-h em dia com a altura real do header fixo.
+  useHeaderHeight();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -42,7 +51,12 @@ const App = () => {
         {currentRoute === 'home' && <HomeContent navigate={navigate} />}
         {currentRoute === 'sobre' && <SobrePage />}
         {currentRoute === 'eventos' && <EventosPage />}
+        {currentRoute === 'evento' && <EventoPage slug={routeParam} navigate={navigate} />}
         {currentRoute === 'noticias' && <NoticiasPage />}
+        {currentRoute === 'noticia' && <NoticiaPage slug={routeParam} navigate={navigate} />}
+        {currentRoute === 'publicacoes' && <PublicacoesPage />}
+        {currentRoute === 'imprensa' && <SalaImprensaPage navigate={navigate} />}
+        {currentRoute === 'release' && <ReleasePage slug={routeParam} navigate={navigate} />}
         {currentRoute === 'agenda' && <NossaAgendaPage />}
         {currentRoute === 'programas' && <ProgramasPage />}
         {currentRoute === 'conhecimento' && <ConhecimentoPage />}
