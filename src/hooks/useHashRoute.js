@@ -24,14 +24,16 @@ const parseHash = (hash, defaultRoute) => {
   for (const [route, prefix] of Object.entries(DYNAMIC_ROUTES)) {
     const bare = prefix.replace(/^#\//, '');
     if (target.startsWith(bare)) {
-      const param = decodeURIComponent(target.slice(bare.length));
+      const rawParam = target.slice(bare.length);
+      const param = decodeURIComponent(rawParam).replace(/\/+$/, '');
       // Prefixo sem slug cai na rota padrão, não numa página vazia.
       if (param) return { route, param };
     }
   }
 
+  const cleanTarget = target.replace(/\/+$/, '');
   const routeKey = Object.keys(ROUTES).find(
-    (key) => key === target || ROUTES[key] === `#/${target}` || ROUTES[key] === `#${target}`,
+    (key) => key === cleanTarget || ROUTES[key] === `#/${cleanTarget}` || ROUTES[key] === `#${cleanTarget}`,
   );
 
   return { route: routeKey || defaultRoute, param: null };

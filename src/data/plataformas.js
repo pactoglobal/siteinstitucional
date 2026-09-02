@@ -567,5 +567,6 @@ export const PLATAFORMAS = [
  */
 export const getPlataforma = (slug) => {
   if (!slug) return null;
-  return PLATAFORMAS.find((p) => p.slug === slug || p.id === slug) || null;
+  const clean = String(slug).trim().replace(/\/+$/, '');
+  return PLATAFORMAS.find((p) => p.slug === clean || p.id === clean) || null;
 };
