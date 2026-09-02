@@ -5,6 +5,7 @@ import { Button } from '../ui/Button';
 import { SuperMenu } from './SuperMenu';
 import { HEADER_PROGRAMAS, HEADER_CONHECIMENTO } from '../../data/constants';
 import { getMovimento } from '../../data/ambicao2030';
+import { getPlataforma } from '../../data/plataformas';
 
 // --- COMPONENTE: CAPSULE HEADER (RED BULL STYLE) ---
 
@@ -19,6 +20,8 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute, routeParam }) => {
   }, []);
 
   const mov = currentRoute === 'movimento' && routeParam ? getMovimento(routeParam) : null;
+  const plat = currentRoute === 'plataforma' && routeParam ? getPlataforma(routeParam) : null;
+  const themeEntity = mov || plat;
 
   return (
     <>
@@ -30,7 +33,7 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute, routeParam }) => {
           scrolled ? 'py-3 shadow-[0_10px_30px_rgba(0,0,0,0.3)]' : 'bg-transparent py-5',
         )}
         style={{
-          backgroundColor: scrolled ? (mov ? mov.color : '#002B49') : 'transparent',
+          backgroundColor: scrolled ? (themeEntity ? themeEntity.color : '#002B49') : 'transparent',
         }}
       >
         <div className="container mx-auto px-4 md:px-8 lg:px-12 flex items-center justify-between">
@@ -39,11 +42,11 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute, routeParam }) => {
           <div className="flex items-center gap-4 md:gap-6 w-1/4 xl:w-1/4">
             <button
               onClick={() => setSuperMenuOpen(true)}
-              className="text-white hover:text-un-gold transition-colors p-2 flex items-center gap-2"
+              className="text-white hover:text-un-gold transition-colors p-2 flex items-center gap-2 cursor-pointer"
             >
               <Menu className="w-6 h-6 md:w-8 md:h-8" />
             </button>
-            <button onClick={() => onRouteChange && onRouteChange('home')} className="hidden sm:flex items-center group hover:opacity-80 transition-opacity">
+            <button onClick={() => onRouteChange && onRouteChange('home')} className="hidden sm:flex items-center group hover:opacity-80 transition-opacity cursor-pointer">
               <img src={`${import.meta.env.BASE_URL}logo-pacto-white.png`} alt="Pacto Global - Rede Brasil" className="h-7 md:h-9 w-auto" />
             </button>
           </div>
@@ -53,25 +56,32 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute, routeParam }) => {
             <nav
               className={cn(
                 'flex items-center gap-4 xl:gap-6 backdrop-blur-md rounded-full px-6 xl:px-8 py-2.5 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.15)]',
-                mov
+                themeEntity
                   ? 'border border-white/25'
                   : 'bg-un-blue/60 border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]',
               )}
-              style={mov ? { backgroundColor: `${mov.color}80` } : undefined}
+              style={themeEntity ? { backgroundColor: `${themeEntity.color}80` } : undefined}
             >
               {/* Links Simples */}
               <button 
                 onClick={() => onRouteChange && onRouteChange('sobre')} 
-                className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap ${currentRoute === 'sobre' ? 'underline decoration-2' : ''}`}
+                className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer ${currentRoute === 'sobre' ? 'underline decoration-2' : ''}`}
               >
                 Sobre Nós
               </button>
               
               <button 
                 onClick={() => onRouteChange && onRouteChange('ambicao')} 
-                className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap ${currentRoute === 'ambicao' ? 'underline decoration-2' : ''}`}
+                className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer ${currentRoute === 'ambicao' ? 'underline decoration-2' : ''}`}
               >
                 Ambição 2030
+              </button>
+
+              <button 
+                onClick={() => onRouteChange && onRouteChange('plataformas')} 
+                className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer ${currentRoute === 'plataformas' || currentRoute === 'plataforma' ? 'underline decoration-2' : ''}`}
+              >
+                Plataformas
               </button>
               
               {/* Dropdown Programas */}
@@ -137,11 +147,11 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute, routeParam }) => {
             <button className="text-white hover:opacity-80 transition-colors p-2" title="Área do Participante">
               <User className="w-4 h-4 md:w-5 md:h-5" />
             </button>
-            {mov ? (
+            {themeEntity ? (
               <button
                 onClick={() => onRouteChange && onRouteChange('participar')}
                 className="hidden md:flex items-center justify-center text-[10px] xl:text-[11px] font-black uppercase tracking-wider px-5 py-2.5 rounded-full bg-white shadow-lg hover:scale-105 active:scale-95 transition-all whitespace-nowrap cursor-pointer"
-                style={{ color: mov.color }}
+                style={{ color: themeEntity.color }}
               >
                 Quero Aderir
               </button>

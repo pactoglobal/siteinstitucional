@@ -32,6 +32,8 @@ import { ParticiparPage } from './pages/ParticiparPage';
 import { CopPage } from './pages/CopPage';
 import { AmbicaoPage } from './pages/AmbicaoPage';
 import { MovimentoPage } from './pages/MovimentoPage';
+import { PlataformaPage } from './pages/PlataformaPage';
+import { PlataformasPage } from './pages/PlataformasPage';
 
 const App = () => {
   const { currentRoute, routeParam, navigate } = useHashRoute('home');
@@ -58,6 +60,8 @@ const App = () => {
         {currentRoute === 'imprensa' && <SalaImprensaPage navigate={navigate} />}
         {currentRoute === 'release' && <ReleasePage slug={routeParam} navigate={navigate} />}
         {currentRoute === 'agenda' && <NossaAgendaPage />}
+        {currentRoute === 'plataformas' && <PlataformasPage navigate={navigate} />}
+        {currentRoute === 'plataforma' && <PlataformaPage slug={routeParam} navigate={navigate} />}
         {currentRoute === 'programas' && <ProgramasPage />}
         {currentRoute === 'conhecimento' && <ConhecimentoPage />}
         {currentRoute === 'participar' && <ParticiparPage />}

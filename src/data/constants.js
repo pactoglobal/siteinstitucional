@@ -8,6 +8,7 @@ export const ROUTES = {
   imprensa: '#/sala-de-imprensa',
   publicacoes: '#/publicacoes',
   agenda: '#/agenda',
+  plataformas: '#/plataformas',
   programas: '#/programas',
   conhecimento: '#/conhecimento',
   participar: '#/participar',
@@ -21,6 +22,7 @@ export const ROUTES = {
  */
 export const DYNAMIC_ROUTES = {
   movimento: '#/movimento/',
+  plataforma: '#/plataforma/',
   noticia: '#/noticia/',
   release: '#/release/',
   evento: '#/evento/',
@@ -204,7 +206,7 @@ export const MENU_EXPLORAR = [
     subItems: [
       { id: "agenda", label: "10 Princípios" },
       { id: "agenda", label: "ODS" },
-      { id: "agenda", label: "Plataformas de Ação" }
+      { id: "plataformas", label: "Plataformas de Ação" }
     ]
   },
   {
