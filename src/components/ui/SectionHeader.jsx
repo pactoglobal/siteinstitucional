@@ -25,12 +25,13 @@ export const SectionHeader = ({
         </span>
       )}
       <h2 className={cn(
-        "text-3xl md:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight leading-[1.2] mb-0 pb-0",
+        "text-xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight leading-[1.12] mb-0 pb-0",
         inverted ? "text-white" : "text-gray-900"
       )}>
-        {title} {titleAccent && <br className="hidden md:block"/>}
+        <span className="block">{title}</span>
         {titleAccent && (
           <span className={cn(
+            "block mt-1 sm:mt-2",
             inverted ? "text-un-gold" : "text-un-blue-1"
           )}>
             {titleAccent}

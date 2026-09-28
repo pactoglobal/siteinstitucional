@@ -14,6 +14,7 @@ export const ROUTES = {
   participar: '#/participar',
   cop:  '#/cop',
   ambicao: '#/ambicao',
+  governanca: '#/governanca',
 };
 
 /**
@@ -160,7 +161,7 @@ export const MENU_DESTAQUES = [
     subItems: [
       { id: "sobre", label: "Sobre Nós" },
       { id: "sobre", label: "Rede Brasil" },
-      { id: "sobre", label: "Governança" },
+      { id: "governanca", label: "Governança" },
       { id: "sobre", label: "Apoiadores" },
       { id: "sobre", label: "Parceiros" }
     ]

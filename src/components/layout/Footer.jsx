@@ -34,8 +34,9 @@ export const Footer = () => (
       <div>
         <h4 className="font-semibold text-white text-sm mb-6 inline-block border-b-2 border-un-footer-accent pb-1.5 pr-8">Links Úteis</h4>
         <ul className="space-y-4 text-[13px] font-light text-white/60">
-          <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Sobre Nós</a></li>
-          <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Dez Princípios</a></li>
+          <li><a href="#/sobre" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Sobre Nós</a></li>
+          <li><a href="#/governanca" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-medium text-un-gold">Governança & Integridade</a></li>
+          <li><a href="#/sobre" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Dez Princípios</a></li>
           <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block leading-relaxed">Objetivos de<br/>Desenvolvimento<br/>Sustentável</a></li>
           <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Saiba quem já faz parte</a></li>
           <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Como aderir</a></li>

@@ -34,6 +34,7 @@ import { AmbicaoPage } from './pages/AmbicaoPage';
 import { MovimentoPage } from './pages/MovimentoPage';
 import { PlataformaPage } from './pages/PlataformaPage';
 import { PlataformasPage } from './pages/PlataformasPage';
+import { GovernancaPage } from './pages/GovernancaPage';
 
 const App = () => {
   const { currentRoute, routeParam, navigate } = useHashRoute('home');
@@ -52,6 +53,7 @@ const App = () => {
       <main className="flex-1">
         {currentRoute === 'home' && <HomeContent navigate={navigate} />}
         {currentRoute === 'sobre' && <SobrePage />}
+        {currentRoute === 'governanca' && <GovernancaPage navigate={navigate} />}
         {currentRoute === 'eventos' && <EventosPage />}
         {currentRoute === 'evento' && <EventoPage slug={routeParam} navigate={navigate} />}
         {currentRoute === 'noticias' && <NoticiasPage />}
