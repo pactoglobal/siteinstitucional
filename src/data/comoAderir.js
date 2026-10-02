@@ -222,55 +222,79 @@ export const REGRAS_CONTRIBUICAO = [
   }
 ];
 
+/**
+ * Etapas da adesão.
+ *
+ * O box "Alinhamento aos 10 Princípios" saiu a pedido da RBPG: ele dava a
+ * entender que a empresa precisa comprovar conformidade antes de aderir,
+ * o que não é verdade — o compromisso é de melhoria contínua.
+ *
+ * `apoio` descreve o que a Rede Brasil faz em cada etapa: a empresa não
+ * percorre o processo sozinha, e isso não estava dito em lugar nenhum.
+ * `id` é a chave estável usada pelo JSX para decidir o CTA de cada card —
+ * antes o código comparava o número da etapa, que quebra a cada reordenação.
+ */
 export const ETAPAS_ADESAO = [
   {
+    id: "contato",
     numero: "01",
-    titulo: "Alinhamento aos 10 Princípios",
-    descricao: "Verifique se a cultura e as diretrizes corporativas da sua organização estão alinhadas aos 10 Princípios Universais da ONU nas áreas de Direitos Humanos, Trabalho, Meio Ambiente e Anticorrupção.",
-    tempo: "Fase Prévia",
-    icone: "FileCheck",
-    acao: "Ler os 10 Princípios"
+    titulo: "Converse com a Rede Brasil",
+    descricao: "O primeiro passo é falar com a equipe de Engajamento. Ela avalia o enquadramento da sua organização, explica a contribuição aplicável ao seu porte e esclarece dúvidas antes de qualquer documento ser preenchido.",
+    tempo: "Ponto de partida",
+    icone: "UserCheck",
+    apoio: "A equipe conduz esta conversa e segue como seu ponto de contato até o fim do processo.",
+    acao: "Falar com a equipe"
   },
   {
+    id: "carta",
     numero: "02",
     titulo: "Carta de Compromisso do CEO",
-    descricao: "Obtenha a assinatura do líder máximo da organização no Brasil (CEO, Presidente ou Diretor-Geral). O modelo oficial é padronizado internacionalmente e não admite alterações em seu texto estatutário.",
+    descricao: "A adesão é formalizada por uma carta assinada pela mais alta liderança da organização no Brasil (CEO, Presidente ou Diretor-Geral). O texto é padronizado internacionalmente pelas Nações Unidas e não admite alterações.",
     tempo: "Documentação",
     icone: "FileSignature",
     destaque: true,
-    acao: "Baixar Modelo da Carta"
+    apoio: "A Rede Brasil orienta sobre o conteúdo da carta e revisa antes da submissão.",
+    acao: "Tirar dúvidas sobre a carta"
   },
   {
+    id: "portal",
     numero: "03",
     titulo: "Inscrição no Portal Global da ONU",
-    descricao: "Preencha o formulário eletrônico oficial na plataforma internacional (unglobalcompact.org), inserindo os dados institucionais da empresa e anexando a Carta de Compromisso assinada.",
-    tempo: "Submissão Online",
+    descricao: "A candidatura é submetida no portal internacional do UN Global Compact, em inglês, com os dados institucionais da empresa e a Carta de Compromisso.",
+    tempo: "Submissão online",
     icone: "Laptop",
-    acao: "Acessar Portal Global"
+    apoio: "A equipe acompanha o preenchimento e ajuda com os campos do formulário em inglês.",
+    acao: "Abrir o portal global"
   },
   {
+    id: "diligencia",
     numero: "04",
     titulo: "Due Diligence & Análise Reputacional",
     descricao: "A equipe de Integridade e Governança da Rede Brasil e do UN Global Compact realiza a averiguação de diligência e conformidade regulatória da organização candidata.",
     tempo: "Até 6 semanas",
     icone: "ShieldAlert",
-    acao: "Ver Critérios de Diligência"
+    apoio: "A Rede Brasil informa o andamento e retorna caso falte algum documento.",
+    acao: "Falar com a equipe"
   },
   {
+    id: "onboarding",
     numero: "05",
     titulo: "Boas-Vindas & Reunião de Onboarding",
     descricao: "Após aprovação formal da ONU em Nova York, sua empresa recebe o certificado de signatária, manual de boas-vindas e participa do encontro de integração com a equipe de Engajamento.",
     tempo: "Integração",
     icone: "Award",
-    acao: "Agendar Integração"
+    apoio: "O encontro de integração é conduzido pela equipe de Engajamento da Rede Brasil.",
+    acao: "Falar com a equipe"
   },
   {
+    id: "cop",
     numero: "06",
     titulo: "Comunicação de Progresso (CoP)",
     descricao: "Após 1 ano de adesão, reporte seus avanços anuais por meio da plataforma digital simplificada de CoP, demonstrando transparência e compromisso contínuo perante a sociedade.",
-    tempo: "Anual (Recorrente)",
+    tempo: "Anual (recorrente)",
     icone: "BarChart2",
-    acao: "Conhecer a CoP"
+    apoio: "A Rede Brasil oferece capacitação e suporte para o primeiro ciclo de reporte.",
+    acao: "Falar com a equipe"
   }
 ];
 

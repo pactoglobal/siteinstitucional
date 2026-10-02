@@ -485,8 +485,29 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
             title="Quem Pode Aderir à Rede Brasil?"
             titleAccent="Portas Abertas para Toda a Economia"
             description="Do micro ao grande conglomerado, da universidade à ONG: toda organização legalmente constituída que assumir o compromisso com os 10 Princípios pode participar."
-            className="mb-12"
+            className="mb-8"
           />
+
+          {/* Requisito de porte em destaque: é a primeira pergunta de quase toda
+              empresa que chega na página, e antes só aparecia diluído dentro do
+              texto dos cards e de uma resposta do FAQ. */}
+          <div className="mb-12 flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border border-un-gold/35 bg-un-gold/10 px-5 py-4 sm:px-6 sm:py-5">
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-un-blue text-white shrink-0">
+                <UserCheck className="h-5 w-5" />
+              </span>
+              <span className="font-display text-3xl font-black leading-none text-un-blue tabular-nums">
+                10+
+              </span>
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 sm:text-base">
+              <strong className="font-bold text-slate-900">
+                A adesão empresarial exige no mínimo 10 colaboradores.
+              </strong>{' '}
+              Abaixo disso a organização ainda pode se engajar na agenda, mas não como
+              empresa participante. Organizações não empresariais seguem outro critério.
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {QUEM_PODE_ADERIR.map((cat, idx) => {
@@ -1015,24 +1036,39 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                     </div>
                   </div>
 
+                  {/* O que a Rede Brasil faz nesta etapa. A empresa não percorre
+                      o processo sozinha, e isso não aparecia em lugar nenhum. */}
+                  {etapa.apoio && (
+                    <div className={cn(
+                      "mt-4 flex items-start gap-2 rounded-xl px-3 py-2.5",
+                      etapa.destaque ? "bg-white/10" : "bg-un-surface border border-slate-200/70"
+                    )}>
+                      <UserCheck className={cn(
+                        "w-3.5 h-3.5 shrink-0 mt-0.5",
+                        etapa.destaque ? "text-un-gold" : "text-un-blue"
+                      )} />
+                      <p className={cn(
+                        "text-[11px] leading-snug font-light",
+                        etapa.destaque ? "text-slate-200" : "text-slate-600"
+                      )}>
+                        {etapa.apoio}
+                      </p>
+                    </div>
+                  )}
+
                   <div className="pt-6 border-t border-slate-200/40 mt-4">
-                    {etapa.numero === '02' ? (
-                      <a 
-                        href={CONTATO_ENGAJAMENTO.modeloCartaUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="min-h-[42px] px-4 py-2 rounded-full bg-un-gold text-un-blue hover:bg-white transition-all text-xs font-black uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer w-full justify-center shadow-sm"
-                      >
-                        <Download className="w-3.5 h-3.5" /> Baixar Modelo da Carta
-                      </a>
-                    ) : etapa.numero === '03' ? (
-                      <a 
+                    {/* O portal da ONU é o único link externo que sobra nos cards.
+                        O botão "Baixar Modelo da Carta" saiu: apontava para uma URL
+                        que redireciona para o formulário de candidatura, ou seja,
+                        prometia um download que não existe. */}
+                    {etapa.id === 'portal' ? (
+                      <a
                         href={CONTATO_ENGAJAMENTO.portalInscricaoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="min-h-[42px] px-4 py-2 rounded-full border border-un-blue text-un-blue hover:bg-un-blue hover:text-white transition-all text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer w-full justify-center"
                       >
-                        <ExternalLink className="w-3.5 h-3.5" /> Formulário Global ONU
+                        <ExternalLink className="w-3.5 h-3.5" /> Abrir portal da ONU
                       </a>
                     ) : (
                       <button
@@ -1067,22 +1103,27 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 A carta deve ser obrigatoriamente assinada pelo CEO, Presidente ou líder máximo da empresa no Brasil, declarando apoio inequívoco aos 10 Princípios da ONU e concordância com os relatórios anuais de progresso.
               </p>
             </div>
+            {/* CTA primária única: falar com a equipe. O link para o portal da
+                ONU (em inglês) fica em segundo plano, para não desviar quem
+                ainda está decidindo. O antigo "Baixar Modelo Oficial" saiu —
+                a URL redirecionava para o formulário de candidatura, não para
+                um modelo de carta. */}
             <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
-              <a 
-                href={CONTATO_ENGAJAMENTO.modeloCartaUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="min-h-[46px] w-full sm:w-auto px-6 py-3 rounded-full bg-un-gold text-un-blue hover:bg-white transition-all text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md"
-              >
-                <Download className="w-4 h-4" /> Baixar Modelo Oficial
-              </a>
               <button
                 type="button"
                 onClick={() => scrollToSection('contato')}
+                className="min-h-[46px] w-full sm:w-auto px-6 py-3 rounded-full bg-un-gold text-un-blue hover:bg-white transition-all text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md"
+              >
+                <Mail className="w-4 h-4" /> Falar com a equipe
+              </button>
+              <a
+                href={CONTATO_ENGAJAMENTO.portalInscricaoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="min-h-[46px] w-full sm:w-auto px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer border border-white/15"
               >
-                Tirar Dúvidas com Suporte
-              </button>
+                <ExternalLink className="w-3.5 h-3.5" /> Portal da ONU (em inglês)
+              </a>
             </div>
           </div>
 
