@@ -14,7 +14,7 @@ export const PageHero = ({ title, category, description, image, color = "bg-un-b
             {category}
           </span>
         )}
-        <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black text-white uppercase leading-[1.08] tracking-tight mb-4 sm:mb-6 animate-fade-in-up delay-75">
+        <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-black text-white uppercase leading-[1.12] tracking-tight mb-4 sm:mb-6 break-words animate-fade-in-up delay-75">
           {title}
         </h1>
         {description && (

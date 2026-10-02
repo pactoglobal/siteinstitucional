@@ -12,6 +12,7 @@ export const ROUTES = {
   programas: '#/programas',
   conhecimento: '#/conhecimento',
   participar: '#/participar',
+  comoAderir: '#/como-aderir',
   cop:  '#/cop',
   ambicao: '#/ambicao',
   governanca: '#/governanca',

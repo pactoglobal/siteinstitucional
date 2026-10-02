@@ -66,7 +66,7 @@ const App = () => {
         {currentRoute === 'plataforma' && <PlataformaPage slug={routeParam} navigate={navigate} />}
         {currentRoute === 'programas' && <ProgramasPage />}
         {currentRoute === 'conhecimento' && <ConhecimentoPage />}
-        {currentRoute === 'participar' && <ParticiparPage />}
+        {(currentRoute === 'participar' || currentRoute === 'comoAderir') && <ParticiparPage navigate={navigate} />}
         {currentRoute === 'cop' && <CopPage />}
         {currentRoute === 'ambicao' && <AmbicaoPage navigate={navigate} />}
         {currentRoute === 'movimento' && <MovimentoPage slug={routeParam} navigate={navigate} />}
