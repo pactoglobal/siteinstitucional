@@ -15,18 +15,34 @@ import {
   ShieldCheck,
   Building2,
   LineChart,
+  Scale,
+  Gavel,
+  FileText,
+  Brain,
+  GraduationCap,
+  Briefcase,
+  Heart,
+  HandHeart,
+  Linkedin,
+  Github,
 } from 'lucide-react';
 import { PageHero } from '../components/ui/PageHero';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
 import { cn } from '../utils/cn';
 import {
+  FUNDAMENTACAO_CONCEITUAL,
   ESG_DEFINICAO,
   ESG_ODS_CONEXAO,
+  MOVIMENTOS_AMBICAO_2030,
+  OBSERVATORIO_2030,
+  CONTEXTO_REGULATORIO,
+  CASOS_INSPIRADORES,
   FERRAMENTAS_ESG,
   METAS_AMBICAO_ODS,
   MERCADO_ESG,
   ESG_CTA,
+  POR_QUE_ADERIR_MOVIMENTOS,
   ODS_LIST,
 } from '../data/esgOds';
 import { ODS_COLORS, ODS_NAMES } from '../data/constants';
@@ -36,6 +52,20 @@ const PILLAR_ICONS = {
   E: Globe,
   S: Users,
   G: ShieldCheck,
+};
+
+// Mapa de ícones para movimentos
+const MOVEMENT_ICONS = {
+  'Ambição Net Zero': Leaf,
+  '+ Água': Leaf,
+  'Conexão Circular': Leaf,
+  'Impacto Biomas': Leaf,
+  'Elas Lideram 2030': Users,
+  'Raça é Prioridade': Users,
+  'Salário Digno': Briefcase,
+  'Mente em Foco': Brain,
+  'Educa 2030': GraduationCap,
+  'Transparência 100%': Scale,
 };
 
 export const ESGODSPage = () => (
@@ -49,11 +79,58 @@ export const ESGODSPage = () => (
       color="bg-un-blue"
     />
 
-    {/* 2. O QUE É ESG - DEFINIÇÃO E PILARES */}
+    {/* 2. FUNDAMENTAÇÃO CONCEITUAL: ODS vs ESG */}
     <section className="py-12 md:py-20 bg-white">
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
         <SectionHeader
-          badge="Fundamentos"
+          badge="Fundamentação Conceitual"
+          title={FUNDAMENTACAO_CONCEITUAL.titulo}
+          description={FUNDAMENTACAO_CONCEITUAL.intro}
+          className="mb-12"
+        />
+
+        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+          {/* ODS */}
+          <div className="rounded-3xl p-6 sm:p-8 bg-un-blue/5 border border-un-blue/10">
+            <div className="w-12 h-12 rounded-2xl bg-un-blue text-white flex items-center justify-center mb-4">
+              <Target className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-display font-bold text-un-blue uppercase tracking-tight mb-3">
+              {FUNDAMENTACAO_CONCEITUAL.ods.titulo}
+            </h3>
+            <p className="text-slate-700 leading-relaxed">{FUNDAMENTACAO_CONCEITUAL.ods.descricao}</p>
+          </div>
+
+          {/* ESG */}
+          <div className="rounded-3xl p-6 sm:p-8 bg-un-green/5 border border-un-green/10">
+            <div className="w-12 h-12 rounded-2xl bg-un-green text-white flex items-center justify-center mb-4">
+              <LineChart className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-display font-bold text-un-green uppercase tracking-tight mb-3">
+              {FUNDAMENTACAO_CONCEITUAL.esg.titulo}
+            </h3>
+            <p className="text-slate-700 leading-relaxed">{FUNDAMENTACAO_CONCEITUAL.esg.descricao}</p>
+          </div>
+
+          {/* Sinergia */}
+          <div className="rounded-3xl p-6 sm:p-8 bg-un-gold/5 border border-un-gold/10">
+            <div className="w-12 h-12 rounded-2xl bg-un-gold text-un-blue flex items-center justify-center mb-4">
+              <Lightbulb className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-display font-bold text-un-gold uppercase tracking-tight mb-3">
+              {FUNDAMENTACAO_CONCEITUAL.sinergia.titulo}
+            </h3>
+            <p className="text-slate-700 leading-relaxed">{FUNDAMENTACAO_CONCEITUAL.sinergia.descricao}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 3. O QUE É ESG - DEFINIÇÃO E PILARES */}
+    <section className="py-12 md:py-20 bg-un-surface border-y border-slate-200/80">
+      <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
+        <SectionHeader
+          badge="O que é ESG"
           title={ESG_DEFINICAO.titulo}
           description={ESG_DEFINICAO.descricao}
           className="mb-12"
@@ -100,8 +177,8 @@ export const ESGODSPage = () => (
       </div>
     </section>
 
-    {/* 3. CONEXÃO ESG ↔ ODS */}
-    <section className="py-12 md:py-20 bg-un-surface border-y border-slate-200/80">
+    {/* 4. CONEXÃO ESG ↔ ODS */}
+    <section className="py-12 md:py-20 bg-white">
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <div>
@@ -166,8 +243,8 @@ export const ESGODSPage = () => (
       </div>
     </section>
 
-    {/* 4. GRADE DOS 18 ODS */}
-    <section id="ods" className="py-12 md:py-20 bg-white">
+    {/* 5. OS 18 ODS - GRADE */}
+    <section id="ods" className="py-12 md:py-20 bg-un-surface">
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
         <SectionHeader
           badge="Agenda 2030"
@@ -232,7 +309,154 @@ export const ESGODSPage = () => (
       </div>
     </section>
 
-    {/* 5. FERRAMENTAS PRÁTICAS */}
+    {/* 6. 10 MOVIMENTOS DA AMBIÇÃO 2030 */}
+    <section className="py-12 md:py-20 bg-white border-y border-slate-200/80">
+      <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
+        <SectionHeader
+          badge="Ambição 2030"
+          title="Os 10 Movimentos de Aceleração"
+          titleAccent="Compromissos públicos auditáveis conectando ESG aos ODS"
+          description="A Estratégia Ambição 2030 transforma intenções genéricas em compromissos públicos auditáveis e mensuráveis. Cada movimento conecta um pilar ESG a ODS prioritários com metas claras e prazos definidos."
+          className="mb-10"
+        />
+
+        <div className="space-y-4">
+          {MOVIMENTOS_AMBICAO_2030.map((mov, idx) => {
+            const IconComponent = MOVEMENT_ICONS[mov.movimento] || Target;
+            const pilarColors = {
+              E: 'border-un-green bg-un-green/5',
+              S: 'border-un-blue bg-un-blue/5',
+              G: 'border-un-purple bg-un-purple/5',
+            };
+
+            return (
+              <div
+                key={idx}
+                className={cn(
+                  "group relative rounded-3xl p-4 sm:p-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-6 transition-all duration-300",
+                  pilarColors[mov.pilar] || 'border-slate-200 bg-white'
+                )}
+              >
+                <div className="flex items-center gap-3 shrink-0">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 text-white font-display font-black text-lg"
+                    style={{ backgroundColor: ODS_COLORS[mov.ods - 1] }}
+                  >
+                    {mov.ods}
+                  </div>
+                  <div className="hidden sm:block">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 block">
+                      {mov.pilarNome} — ODS {mov.ods}{mov.odsExtra ? ` + ${mov.odsExtra}` : ''}
+                    </span>
+                    <h4 className="text-lg font-display font-bold text-slate-900 uppercase tracking-tight">
+                      {mov.movimento}
+                    </h4>
+                  </div>
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm text-slate-600 leading-relaxed mb-2">{mov.descricao}</p>
+                  <p className="text-xs text-slate-500 font-medium">
+                    Metas: {mov.metas}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-un-blue hover:text-un-gold border-b border-un-blue/30 hover:border-un-gold px-0"
+                  >
+                    Detalhes <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                  </Button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Observatório 2030 */}
+        <div className="mt-12 rounded-3xl p-6 sm:p-8 bg-un-gold/5 border border-un-gold/20 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-48 h-48 bg-un-gold/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-2xl bg-un-gold/10 flex items-center justify-center shrink-0">
+                <BarChart3 className="w-7 h-7 text-un-gold" />
+              </div>
+              <div>
+                <h4 className="text-xl font-display font-bold text-un-gold uppercase tracking-tight">
+                  {OBSERVATORIO_2030.titulo}
+                </h4>
+                <p className="text-sm text-slate-600">{OBSERVATORIO_2030.descricao}</p>
+              </div>
+            </div>
+            <Button variant="outline" className="shrink-0 border-un-gold text-un-gold hover:bg-un-gold hover:text-un-blue">
+              <ExternalLink className="w-3.5 h-3.5 mr-2" /> {OBSERVATORIO_2030.link.label}
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 7. CONTEXTO REGULATÓRIO */}
+    <section className="py-12 md:py-20 bg-un-surface">
+      <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
+        <SectionHeader
+          badge="Regulação"
+          title={CONTEXTO_REGULATORIO.titulo}
+          description={CONTEXTO_REGULATORIO.intro}
+          className="mb-10"
+        />
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {CONTEXTO_REGULATORIO.resolucoes.map((reg, idx) => (
+            <div
+              key={idx}
+              className="rounded-3xl p-6 bg-white border border-slate-200/90 hover:border-un-gold/40 hover:shadow-lg transition-all duration-300"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-xl bg-un-blue/10 text-un-blue flex items-center justify-center shrink-0">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <h5 className="text-lg font-display font-bold text-slate-900">{reg.nome}</h5>
+              </div>
+              <p className="text-sm text-slate-600 leading-relaxed">{reg.descricao}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* 8. CASOS INSPIRADORES */}
+    <section className="py-12 md:py-20 bg-white border-y border-slate-200/80">
+      <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
+        <SectionHeader
+          badge="Casos de Sucesso"
+          title="Empresas que Inspiram"
+          titleAccent="Exemplos de engajamento transversal nos pilares E, S e G"
+          description="Grandes empresas brasileiras usam a Ambição 2030 em suas estratégias, atuando em colaboração pré-competitiva para resolver desafios sistêmicos."
+          className="mb-10"
+        />
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {CASOS_INSPIRADORES.map((caso, idx) => (
+            <div
+              key={idx}
+              className="group relative rounded-3xl p-6 bg-white border border-slate-200/90 hover:border-un-blue/50 hover:shadow-lg transition-all duration-300"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-un-blue/5 text-un-blue flex items-center justify-center mb-4 group-hover:bg-un-blue group-hover:text-white transition-colors">
+                <Building2 className="w-6 h-6" />
+              </div>
+              <h4 className="text-lg font-display font-bold text-slate-900 mb-2">{caso.empresa}</h4>
+              <p className="text-sm text-un-blue font-medium mb-3">{caso.destaque}</p>
+              <p className="text-sm text-slate-600 leading-relaxed">{caso.descricao}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* 9. FERRAMENTAS PRÁTICAS */}
     <section className="py-12 md:py-20 bg-un-surface">
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
         <SectionHeader
@@ -325,7 +549,7 @@ export const ESGODSPage = () => (
       </div>
     </section>
 
-    {/* 6. METAS DA AMBIÇÃO PELOS ODS */}
+    {/* 10. METAS DA AMBIÇÃO PELOS ODS */}
     <section className="py-12 md:py-20 bg-white border-y border-slate-200/80">
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
         <SectionHeader
@@ -360,7 +584,7 @@ export const ESGODSPage = () => (
       </div>
     </section>
 
-    {/* 7. MERCADO ESG - ESTATÍSTICAS E CASOS */}
+    {/* 11. MERCADO ESG - ESTATÍSTICAS E CASOS */}
     <section className="py-12 md:py-20 bg-un-blue text-white relative overflow-hidden">
       <div className="absolute top-0 right-0 w-96 h-96 bg-un-gold/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -413,7 +637,33 @@ export const ESGODSPage = () => (
       </div>
     </section>
 
-    {/* 8. CTA FINAL */}
+    {/* 12. POR QUE ADERIR AOS MOVIMENTOS */}
+    <section className="py-12 md:py-20 bg-un-surface">
+      <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
+        <SectionHeader
+          badge="Valor da Adesão"
+          title={POR_QUE_ADERIR_MOVIMENTOS.titulo}
+          description={POR_QUE_ADERIR_MOVIMENTOS.descricao}
+          className="mb-10"
+        />
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {POR_QUE_ADERIR_MOVIMENTOS.beneficios.map((beneficio, idx) => (
+            <div
+              key={idx}
+              className="rounded-2xl p-6 bg-white border border-slate-200/90 hover:border-un-blue/50 hover:shadow-lg transition-all duration-300"
+            >
+              <div className="w-10 h-10 rounded-xl bg-un-blue/5 text-un-blue flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-5 h-5" />
+              </div>
+              <p className="text-sm text-slate-700 leading-relaxed">{beneficio}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* 13. CTA FINAL */}
     <section className="py-12 md:py-20 bg-un-surface">
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
         <div className="rounded-3xl p-8 sm:p-12 bg-un-blue text-white text-center relative overflow-hidden">
