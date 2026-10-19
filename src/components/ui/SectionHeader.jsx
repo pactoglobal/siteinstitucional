@@ -7,13 +7,11 @@ export const SectionHeader = ({
   titleAccent,
   description,
   button,
-  className = "",
+  className = '',
   inverted = false
 }) => (
   <div className={cn("flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 md:mb-14 lg:mb-16 gap-8", className)}>
     <div className="max-w-4xl">
-      {/* Sem a pílula colorida à esquerda: o chip do badge já ancora o bloco,
-          e a barra repetida em 13 seções virava maneirismo, não hierarquia. */}
       {badge && (
         <span className={cn(
           "inline-block mb-5 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-sm backdrop-blur-sm border",
@@ -39,12 +37,10 @@ export const SectionHeader = ({
         )}
       </h2>
       {description && (
-        <p className={cn(
+        <div className={cn(
           "mt-8 text-sm md:text-base lg:text-xl max-w-2xl leading-relaxed font-light",
           inverted ? "text-un-blue-3" : "text-gray-600"
-        )}>
-          {description}
-        </p>
+        )} dangerouslySetInnerHTML={{ __html: description }} />
       )}
     </div>
     {button && (

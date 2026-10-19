@@ -17,7 +17,7 @@ export const ODS_LIST = Array.from({ length: 18 }, (_, i) => ({
 export const ESG_DEFINICAO = {
   titulo: 'O que é ESG?',
   descricao:
-    'ESG é uma sigla em inglês que significa <strong>Environmental, Social and Governance</strong>, e corresponde às práticas ambientais, sociais e de governança de uma organização. O termo foi cunhado em 2004 em uma publicação do Pacto Global em parceria com o Banco Mundial, chamada <em>Who Cares Wins</em>. Surgiu de uma provocação do secretário-geral da ONU Kofi Annan a 50 CEOs de grandes instituições financeiras, sobre como integrar fatores sociais, ambientais e de governança no mercado de capitais.',
+    'ESG é uma sigla em inglês que significa Environmental, Social and Governance, e corresponde às práticas ambientais, sociais e de governança de uma organização. O termo foi cunhado em 2004 em uma publicação do Pacto Global em parceria com o Banco Mundial, chamada Who Cares Wins. Surgiu de uma provocação do secretário-geral da ONU Kofi Annan a 50 CEOs de grandes instituições financeiras, sobre como integrar fatores sociais, ambientais e de governança no mercado de capitais.',
   pilares: [
     {
       letra: 'E',
