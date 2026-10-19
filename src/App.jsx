@@ -35,6 +35,7 @@ import { MovimentoPage } from './pages/MovimentoPage';
 import { PlataformaPage } from './pages/PlataformaPage';
 import { PlataformasPage } from './pages/PlataformasPage';
 import { GovernancaPage } from './pages/GovernancaPage';
+import { ESGODSPage } from './pages/ESGODSPage';
 
 const App = () => {
   const { currentRoute, routeParam, navigate } = useHashRoute('home');
@@ -70,6 +71,7 @@ const App = () => {
         {currentRoute === 'cop' && <CopPage />}
         {currentRoute === 'ambicao' && <AmbicaoPage navigate={navigate} />}
         {currentRoute === 'movimento' && <MovimentoPage slug={routeParam} navigate={navigate} />}
+        {currentRoute === 'esgOds' && <ESGODSPage />}
       </main>
 
       <Footer />

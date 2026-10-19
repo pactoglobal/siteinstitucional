@@ -16,6 +16,7 @@ export const ROUTES = {
   cop:  '#/cop',
   ambicao: '#/ambicao',
   governanca: '#/governanca',
+  esgOds: '#/esg-ods',
 };
 
 /**
@@ -212,6 +213,17 @@ export const MENU_EXPLORAR = [
     ]
   },
   {
+    label: "ESG e ODS",
+    id: "esgOds",
+    icon: BookOpen,
+    subItems: [
+      { id: "esgOds", label: "O que é ESG" },
+      { id: "esgOds", label: "OS 18 ODS" },
+      { id: "esgOds", label: "Ferramentas e Metas" },
+      { id: "esgOds", label: "Mercado ESG" }
+    ]
+  },
+  {
     label: "Programas",
     id: "programas",
     icon: Briefcase,
@@ -231,8 +243,8 @@ export const MENU_EXPLORAR = [
       { id: "publicacoes", label: "Publicações" },
       { id: "conhecimento", label: "Academy" },
       { id: "conhecimento", label: "Cursos & Workshops" },
-      { id: "conhecimento", label: "ESG e sustentabilidade corporativa" },
-      { id: "publicacoes", label: "Guias e relatórios" }
+      { id: "conhecimento", label: "ESG e Sustentabilidade" },
+      { id: "publicacoes", label: "Guias e Relatórios" }
     ]
   }
 ];
@@ -295,7 +307,6 @@ export const HEADER_CONHECIMENTO = [
   'Publicações', 
   'Academy', 
   'Cursos & Workshops', 
-  'ESG e Sustentabilidade', 
   'Guias e Relatórios'
 ];
 

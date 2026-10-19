@@ -78,6 +78,13 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute, routeParam }) => {
               </button>
 
               <button 
+                onClick={() => onRouteChange && onRouteChange('esgOds')} 
+                className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer ${currentRoute === 'esgOds' ? 'underline decoration-2' : ''}`}
+              >
+                ESG e ODS
+              </button>
+
+              <button 
                 onClick={() => onRouteChange && onRouteChange('plataformas')} 
                 className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer ${currentRoute === 'plataformas' || currentRoute === 'plataforma' ? 'underline decoration-2' : ''}`}
               >
