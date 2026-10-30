@@ -46,11 +46,11 @@ export const WhatsAppFab = ({ numero, mensagem, onPrevia }) => {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Falar com a equipe de adesão pelo WhatsApp (abre em nova aba)"
+      aria-label="Falar com o Contato de Adesão pelo WhatsApp (abre em nova aba)"
       className={FAB_CLASSES}
     >
       <WhatsAppGlyph className="h-7 w-7 shrink-0" />
-      <span className={ROTULO_CLASSES}>Fale com a equipe</span>
+      <span className={ROTULO_CLASSES}>Fale com a Adesão</span>
     </a>
   );
 };

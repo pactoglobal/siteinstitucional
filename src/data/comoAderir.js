@@ -324,13 +324,13 @@ export const CONTATO_ENGAJAMENTO = {
   diretorioPublicoUrl: "https://unglobalcompact.org/what-is-gc/participants",
   kitMidiaUrl: "https://unglobalcompact.org/library/1831",
   horario: "Segunda a Sexta, das 9h às 18h (Brasília)",
-  // Número do WhatsApp da área de adesão, só dígitos com DDI e DDD
-  // (ex.: "5511912345678"). Vazio + whatsappPrevia = o botão aparece em modo
-  // prévia e leva ao formulário; vazio sem prévia = o botão não aparece.
-  // PRÉVIA PARA VALIDAÇÃO: preencher o número e desligar whatsappPrevia.
-  whatsapp: "",
-  whatsappPrevia: true,
-  whatsappMensagem: "Olá! Tenho interesse em aderir ao Pacto Global – Rede Brasil e gostaria de falar com a equipe de Adesão."
+  // WhatsApp do Contato de Adesão (Barbara), só dígitos com DDI e DDD. É o
+  // mesmo número e a mesma mensagem do botão no card dela (equipeAdesao.js).
+  // Vazio + whatsappPrevia = o botão aparece em modo prévia e leva ao
+  // formulário; vazio sem prévia = o botão não aparece.
+  whatsapp: "5511963110743",
+  whatsappPrevia: false,
+  whatsappMensagem: "Olá Bárbara, tudo bem? Estou entrando em contato, pois visitei o site e gostaria de fazer parte do Pacto Global da ONU - Brasil."
 };
 
 // Dados Oficiais do UN Global Compact & Accenture CEO Study
