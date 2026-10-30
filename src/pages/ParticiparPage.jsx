@@ -35,7 +35,10 @@ import {
   Compass,
   Send
 } from 'lucide-react';
-import { PageHero } from '../components/ui/PageHero';
+import { AdesaoHero } from '../components/adesao/AdesaoHero';
+import { BeneficiosBento } from '../components/adesao/BeneficiosBento';
+import { EquipeAdesao } from '../components/adesao/EquipeAdesao';
+import { WhatsAppFab } from '../components/adesao/WhatsAppFab';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
 import { cn } from '../utils/cn';
@@ -184,12 +187,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
   return (
     <div className="animate-fade-in bg-un-surface min-h-screen pb-0 relative">
       
-      {/* 1. HERO EDITORIAL DE ALTA CONVERSÃO */}
-      <PageHero 
-        category="Adesão & Engajamento • Maior Rede ESG do Mundo"
-        title="Como Aderir ao Pacto Global"
-        description="Junte-se a mais de 2.000 empresas no Brasil e 25.000 no mundo comprometidas em transformar princípios éticos em liderança e impacto socioambiental real."
-        image="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop"
+      {/* 1. HERO COM FOTOS EM ROTAÇÃO */}
+      <AdesaoHero
+        onQueroAderir={() => scrollToSection('contato')}
+        onSimular={() => scrollToSection('simulador')}
+        onVerEtapas={() => scrollToSection('etapas')}
       />
 
       {/* GUIA RÁPIDO EDITORIAL IN-PAGE */}
@@ -285,105 +287,8 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
         </div>
       </section>
 
-      {/* 3. BENEFÍCIOS DA PARTICIPAÇÃO (BENTO GRID) */}
-      <section id="beneficios" className="py-12 md:py-20">
-        <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
-          
-          <SectionHeader 
-            badge="Valor & Diferenciação Estratégica"
-            title="Por que sua Organização deve Participar?"
-            titleAccent="Credibilidade Global & Ação Local"
-            description="Ao integrar a Rede Brasil, sua empresa não apenas chancelará suas práticas ESG com a ONU, mas terá acesso a um ecossistema completo de ferramentas, capacitação e liderança."
-            className="mb-12"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {BENEFICIOS_ADESAO.map((ben) => {
-              const IconComponent = ICON_MAP[ben.icone] || Award;
-              return (
-                <div 
-                  key={ben.id}
-                  className={cn(
-                    "rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-md",
-                    ben.destaque 
-                      ? "bg-un-blue text-white lg:col-span-2 border-2 border-un-gold/40 relative overflow-hidden" 
-                      : "bg-white text-slate-900 border border-slate-200/90 hover:border-un-blue"
-                  )}
-                >
-                  {ben.destaque && (
-                    <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-48 h-48 bg-un-gold/10 rounded-full blur-2xl pointer-events-none"></div>
-                  )}
-
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between gap-3">
-                      <div className={cn(
-                        "w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 border",
-                        ben.destaque 
-                          ? "bg-un-gold/20 text-un-gold border-un-gold/30" 
-                          : "bg-un-blue/5 text-un-blue border-un-blue/15"
-                      )}>
-                        <IconComponent className="w-6 h-6" />
-                      </div>
-                      <span className={cn(
-                        "text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full",
-                        ben.destaque 
-                          ? "bg-white/10 text-un-gold border border-white/15" 
-                          : "bg-slate-100 text-slate-700"
-                      )}>
-                        {ben.badge}
-                      </span>
-                    </div>
-
-                    <h3 className={cn(
-                      "text-xl sm:text-2xl font-display font-black uppercase tracking-tight",
-                      ben.destaque ? "text-white" : "text-slate-900"
-                    )}>
-                      {ben.titulo}
-                    </h3>
-
-                    <p className={cn(
-                      "text-xs sm:text-sm leading-relaxed",
-                      ben.destaque ? "text-slate-200 font-light" : "text-slate-600"
-                    )}>
-                      {ben.descricao}
-                    </p>
-
-                    <ul className="space-y-2.5 pt-2 border-t border-slate-100/15">
-                      {ben.pontos.map((ponto, pIdx) => (
-                        <li key={pIdx} className="flex items-start gap-2.5 text-xs">
-                          <CheckCircle2 className={cn(
-                            "w-4 h-4 shrink-0 mt-0.5",
-                            ben.destaque ? "text-un-gold" : "text-emerald-600"
-                          )} />
-                          <span className={ben.destaque ? "text-slate-100" : "text-slate-700"}>
-                            {ponto}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="pt-6 mt-4">
-                    <button
-                      type="button"
-                      onClick={() => scrollToSection('simulador')}
-                      className={cn(
-                        "min-h-[42px] px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 transition-all cursor-pointer",
-                        ben.destaque 
-                          ? "bg-un-gold text-un-blue hover:bg-white" 
-                          : "text-un-blue hover:text-un-gold"
-                      )}
-                    >
-                      Aderir a esta iniciativa <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-        </div>
-      </section>
+      {/* 3. BENEFÍCIOS DA PARTICIPAÇÃO (BENTO GRID COM FOTOS) */}
+      <BeneficiosBento onAderir={() => scrollToSection('simulador')} />
 
       {/* 3.1 EVIDÊNCIA EXECUTIVA & DADOS GLOBAIS (ACCENTURE & UNGC CEO STUDY) */}
       <section id="evidencia-executiva" className="py-12 md:py-20 bg-un-blue text-white relative overflow-hidden">
@@ -1299,6 +1204,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
       </section>
 
       {/* 9. DOCK FLUTUANTE DE NAVEGAÇÃO RÁPIDA (DISCRETO & 100% IN-PAGE) */}
+      {/* 9. PERFIS DA ÁREA DE ADESÃO (some enquanto não houver contatos cadastrados) */}
+      <EquipeAdesao />
+
+      <WhatsAppFab numero={CONTATO_ENGAJAMENTO.whatsapp} mensagem={CONTATO_ENGAJAMENTO.whatsappMensagem} />
+
       {showScrollTop && (
         <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2 animate-fade-in">
           

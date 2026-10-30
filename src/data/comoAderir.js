@@ -24,9 +24,10 @@ export const ADESAO_STATS = [
 export const BENEFICIOS_ADESAO = [
   {
     id: "credibilidade",
-    titulo: "Chancela Global da ONU",
-    descricao: "Associe a sua marca aos 10 Princípios Universais e à Agenda 2030, fortalecendo a confiança de investidores, clientes e talentos.",
+    titulo: "Sua Empresa no Sistema ONU",
+    descricao: "Vincule sua marca à maior iniciativa de sustentabilidade corporativa do Sistema ONU, alinhada aos 10 Princípios Universais e à Agenda 2030 — e fortaleça a confiança de investidores, clientes e talentos.",
     badge: "Reputação & Ética",
+    imagem: "card-sistema-onu",
     icone: "ShieldCheck",
     destaque: true,
     pontos: [
@@ -40,6 +41,7 @@ export const BENEFICIOS_ADESAO = [
     titulo: "UN Global Compact Academy",
     descricao: "Acesso ilimitado à maior plataforma digital corporativa de sustentabilidade do mundo, com cursos práticos, masterclasses e certificações.",
     badge: "Capacitação Contínua",
+    imagem: "card-academy",
     icone: "GraduationCap",
     pontos: [
       "Cerca de 100 cursos nos pilares Direitos Humanos, Trabalho, Meio Ambiente e Anticorrupção, revisados e atualizados anualmente",
@@ -52,6 +54,7 @@ export const BENEFICIOS_ADESAO = [
     titulo: "Plataformas de Ação & Movimentos",
     descricao: "Integre coalizões multissetoriais de alto impacto para acelerar metas ESG audaciosas com métricas auditáveis.",
     badge: "Ação Coletiva",
+    imagem: "card-movimentos",
     icone: "TrendingUp",
     pontos: [
       "Participação nos 10 Movimentos da Ambição 2030 (Elas Lideram, Raça é Prioridade, Net Zero)",
@@ -64,6 +67,7 @@ export const BENEFICIOS_ADESAO = [
     titulo: "Comunidade & Benchmarking",
     descricao: "Conecte-se com mais de 2.000 empresas no Brasil em uma rede colaborativa orientada à troca de soluções reais de descarbonização e impacto.",
     badge: "Networking Estratégico",
+    imagem: "card-comunidade",
     icone: "Users",
     pontos: [
       "Mesas redondas exclusivas de C-Level e lideranças ESG",
@@ -76,6 +80,7 @@ export const BENEFICIOS_ADESAO = [
     titulo: "Eventos & Missões Internacionais",
     descricao: "Voz e representatividade em fóruns globais de tomada de decisão, COP do Clima e cúpulas da Assembleia Geral da ONU em Nova York.",
     badge: "Voz Global",
+    imagem: "card-eventos",
     icone: "Globe",
     pontos: [
       "Acesso a delegações brasileiras na Climate Week NY e COPs",
@@ -88,6 +93,7 @@ export const BENEFICIOS_ADESAO = [
     titulo: "Comunicação de Progresso (CoP)",
     descricao: "Ferramenta digital padronizada e moderna para relatar anualmente avanços em governança, direitos humanos, trabalho e meio ambiente.",
     badge: "Transparência & ESG",
+    imagem: "card-cop",
     icone: "BarChart3",
     pontos: [
       "Questionário eletrônico compatível com GRI, ISSB e SASB",
@@ -351,7 +357,11 @@ export const CONTATO_ENGAJAMENTO = {
   modeloCartaUrl: "https://unglobalcompact.org/participation/join/application/business",
   diretorioPublicoUrl: "https://unglobalcompact.org/what-is-gc/participants",
   kitMidiaUrl: "https://unglobalcompact.org/library/1831",
-  horario: "Segunda a Sexta, das 9h às 18h (Brasília)"
+  horario: "Segunda a Sexta, das 9h às 18h (Brasília)",
+  // Número do WhatsApp da área de adesão, só dígitos com DDI e DDD
+  // (ex.: "5511912345678"). Vazio = o botão flutuante não aparece.
+  whatsapp: "",
+  whatsappMensagem: "Olá! Tenho interesse em aderir ao Pacto Global – Rede Brasil e gostaria de falar com a equipe de Engajamento."
 };
 
 // Dados Oficiais do UN Global Compact & Accenture CEO Study
