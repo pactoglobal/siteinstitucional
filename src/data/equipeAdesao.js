@@ -1,63 +1,37 @@
 /**
  * Perfis da área de adesão do Pacto Global – Rede Brasil.
  *
- * Nomes e cargos vêm do deck de Onboarding 2026 (slide "Seu time de
- * relacionamento"). Foto, e-mail, LinkedIn e agenda ficam como `null` até a
- * equipe informar. O card só mostra o botão do que estiver preenchido, a pessoa
- * só aparece se tiver ao menos um canal, e a seção some se ninguém tiver.
+ * PRÉVIA PARA VALIDAÇÃO: os cargos vêm do deck de Onboarding 2026, mas nome,
+ * foto e contatos são genéricos ("Nome Sobrenome", e-mail coletivo de
+ * Engajamento e LinkedIn institucional) até cada pessoa concordar com a
+ * exposição e o DPO avaliar (LGPD). O repositório é público: o que entrar aqui
+ * fica visível no GitHub.
  *
- * Antes de preencher: contato pessoal em página pública é dado pessoal. Cada
- * pessoa precisa concordar com a exposição e o DPO avaliar (LGPD).
+ * O card só mostra o botão do que estiver preenchido, a pessoa só aparece se
+ * tiver ao menos um canal, e a seção some se ninguém tiver.
  *
- * - foto:     caminho em public/images/equipe/ (ex.: "esdras-souza.jpg")
+ * - foto:     caminho em public/images/equipe/ (ex.: "nome-sobrenome.jpg")
  * - email:    endereço institucional
  * - linkedin: URL completa do perfil
  * - agenda:   link de agendamento do Teams (Microsoft Bookings / reunião)
  */
+const EMAIL_EQUIPE = "engajamento@pactoglobal.org.br";
+const LINKEDIN_INSTITUCIONAL = "https://www.linkedin.com/company/pactoglobalbr";
+
+const perfilGenerico = (id, cargo) => ({
+  id,
+  nome: "Nome Sobrenome",
+  cargo,
+  foto: null,
+  email: EMAIL_EQUIPE,
+  linkedin: LINKEDIN_INSTITUCIONAL,
+  agenda: null,
+});
+
 export const EQUIPE_ADESAO = [
-  {
-    id: "esdras-souza",
-    nome: "Esdras Souza",
-    cargo: "Gerente de Engajamento e CRM",
-    foto: null,
-    email: null,
-    linkedin: null,
-    agenda: null,
-  },
-  {
-    id: "gustavo-silva",
-    nome: "Gustavo Silva",
-    cargo: "Coordenador de Engajamento",
-    foto: null,
-    email: null,
-    linkedin: null,
-    agenda: null,
-  },
-  {
-    id: "brunna-sousa",
-    nome: "Brunna Sousa",
-    cargo: "Assistente de Engajamento",
-    foto: null,
-    email: null,
-    linkedin: null,
-    agenda: null,
-  },
-  {
-    id: "carlos-matheus",
-    nome: "Carlos Matheus",
-    cargo: "Analista de Engajamento",
-    foto: null,
-    email: null,
-    linkedin: null,
-    agenda: null,
-  },
-  {
-    id: "eduarda-lopes",
-    nome: "Eduarda Lopes",
-    cargo: "Assistente de Engajamento",
-    foto: null,
-    email: null,
-    linkedin: null,
-    agenda: null,
-  },
+  perfilGenerico("gerencia", "Gerente de Engajamento e CRM"),
+  perfilGenerico("coordenacao", "Coordenador(a) de Engajamento"),
+  perfilGenerico("analista", "Analista de Engajamento"),
+  perfilGenerico("assistente-1", "Assistente de Engajamento"),
+  perfilGenerico("assistente-2", "Assistente de Engajamento"),
 ];

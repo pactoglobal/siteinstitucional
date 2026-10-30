@@ -1192,7 +1192,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
       {/* 9. PERFIS DA ÁREA DE ADESÃO (some enquanto não houver contatos cadastrados) */}
       <EquipeAdesao />
 
-      <WhatsAppFab numero={CONTATO_ENGAJAMENTO.whatsapp} mensagem={CONTATO_ENGAJAMENTO.whatsappMensagem} />
+      <WhatsAppFab
+        numero={CONTATO_ENGAJAMENTO.whatsapp}
+        mensagem={CONTATO_ENGAJAMENTO.whatsappMensagem}
+        onPrevia={CONTATO_ENGAJAMENTO.whatsappPrevia ? () => scrollToSection('contato') : undefined}
+      />
 
       {showScrollTop && (
         <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2 animate-fade-in">
