@@ -1,9 +1,8 @@
 /**
  * Perfis da área de adesão do Pacto Global – Rede Brasil.
  *
- * PRÉVIA PARA VALIDAÇÃO: os cargos vêm do deck de Onboarding 2026, mas nome,
- * foto e contatos são genéricos ("Nome Sobrenome", e-mail coletivo de
- * Engajamento, LinkedIn institucional e reunião no Teams com a equipe) até cada pessoa concordar com a
+ * PRÉVIA PARA VALIDAÇÃO: nome, cargo, foto e contatos são genéricos ("Nome Sobrenome", e-mail de contato da
+ * Rede Brasil, LinkedIn institucional e reunião no Teams com a equipe) até cada pessoa concordar com a
  * exposição e o DPO avaliar (LGPD). O repositório é público: o que entrar aqui
  * fica visível no GitHub.
  *
@@ -15,7 +14,7 @@
  * - linkedin: URL completa do perfil
  * - agenda:   link de agendamento do Teams (Microsoft Bookings / reunião)
  */
-const EMAIL_EQUIPE = "engajamento@pactoglobal.org.br";
+const EMAIL_EQUIPE = "contato@pactoglobal.org.br";
 const LINKEDIN_INSTITUCIONAL = "https://www.linkedin.com/company/pactoglobalbr";
 
 // Link oficial do Teams para nova reunião: abre o agendamento já com o e-mail
@@ -37,9 +36,9 @@ const perfilGenerico = (id, cargo) => ({
 });
 
 export const EQUIPE_ADESAO = [
-  perfilGenerico("gerencia", "Gerente de Engajamento e CRM"),
-  perfilGenerico("coordenacao", "Coordenador(a) de Engajamento"),
-  perfilGenerico("analista", "Analista de Engajamento"),
-  perfilGenerico("assistente-1", "Assistente de Engajamento"),
-  perfilGenerico("assistente-2", "Assistente de Engajamento"),
+  perfilGenerico("gerencia", "Gerência de Adesão"),
+  perfilGenerico("coordenacao", "Coordenação de Adesão"),
+  perfilGenerico("analista", "Analista de Adesão"),
+  perfilGenerico("assistente-1", "Assistente de Adesão"),
+  perfilGenerico("assistente-2", "Assistente de Adesão"),
 ];

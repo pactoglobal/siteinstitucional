@@ -12,30 +12,24 @@
  * 3. Não existe anuidade isenta. Toda participante contribui, subsidiária
  *    inclusive.
  * 4. Subsidiária paga 50%, seja a matriz brasileira ou estrangeira.
+ *
+ * Segunda revisão (Joycelinn Brasiliense, out/2026):
+ *
+ * 5. O Pacto Global é "a maior iniciativa de sustentabilidade corporativa do
+ *    mundo" — não "do Sistema ONU".
+ * 6. Padrão de nome: "Pacto Global da ONU – Rede Brasil" e "Dez Princípios",
+ *    por extenso.
+ * 7. Quem cuida da entrada da empresa é a equipe de Adesão (não Engajamento),
+ *    e o e-mail de contato é contato@pactoglobal.org.br.
  */
 
 export const ADESAO_STATS = [
-  { valor: "+25.000", rotulo: "Organizações no Mundo", subrotulo: "Maior iniciativa de sustentabilidade do planeta" },
+  { valor: "+25.000", rotulo: "Organizações no Mundo", subrotulo: "Maior iniciativa de sustentabilidade corporativa do mundo" },
   { valor: "+2.000", rotulo: "Participantes no Brasil", subrotulo: "2ª maior rede local do UN Global Compact" },
   { valor: "160+", rotulo: "Países Conectados", subrotulo: "Capilaridade global com impacto local" },
-  { valor: "100%", rotulo: "Alinhado à ONU", subrotulo: "Comunicação de Progresso (CoP) auditada" },
 ];
 
 export const BENEFICIOS_ADESAO = [
-  {
-    id: "credibilidade",
-    titulo: "Sua Empresa no Sistema ONU",
-    descricao: "Vincule sua marca à maior iniciativa de sustentabilidade corporativa do Sistema ONU, alinhada aos 10 Princípios Universais e à Agenda 2030 — e fortaleça a confiança de investidores, clientes e talentos.",
-    badge: "Reputação & Ética",
-    imagem: "card-sistema-onu",
-    icone: "ShieldCheck",
-    destaque: true,
-    pontos: [
-      "Uso autorizado do selo 'We Support the UN Global Compact'",
-      "Presença no diretório público global de participantes da ONU",
-      "Diferenciação competitiva em concorrências públicas e privadas",
-    ]
-  },
   {
     id: "academy",
     titulo: "UN Global Compact Academy",
@@ -53,6 +47,7 @@ export const BENEFICIOS_ADESAO = [
     id: "plataformas",
     titulo: "Plataformas de Ação & Movimentos",
     descricao: "Integre coalizões multissetoriais de alto impacto para acelerar metas ESG audaciosas com métricas auditáveis.",
+    link: { rotulo: "Conhecer a Ambição 2030", rota: "ambicao" },
     badge: "Ação Coletiva",
     imagem: "card-movimentos",
     icone: "TrendingUp",
@@ -65,182 +60,140 @@ export const BENEFICIOS_ADESAO = [
   {
     id: "benchmarking",
     titulo: "Comunidade & Benchmarking",
-    descricao: "Conecte-se com mais de 2.000 empresas no Brasil em uma rede colaborativa orientada à troca de soluções reais de descarbonização e impacto.",
+    descricao: "Conecte-se com mais de 2.000 empresas no Brasil em uma rede colaborativa orientada à troca de soluções e boas práticas.",
     badge: "Networking Estratégico",
     imagem: "card-comunidade",
     icone: "Users",
     pontos: [
       "Mesas redondas exclusivas de C-Level e lideranças ESG",
       "Publicações de casos de sucesso e pesquisas setoriais",
-      "Acesso ao Hubs Regionais ODS em todo o território nacional",
+      "Acesso aos Hubs Regionais ODS em todo o território nacional",
     ]
   },
   {
     id: "eventos",
-    titulo: "Eventos & Missões Internacionais",
-    descricao: "Voz e representatividade em fóruns globais de tomada de decisão, COP do Clima e cúpulas da Assembleia Geral da ONU em Nova York.",
+    titulo: "Eventos Institucionais & Internacionais",
+    descricao: "Participe dos eventos institucionais da Rede Brasil, como o Fórum Ambição 2030 e o SDGs in Brazil, e das agendas internacionais em que o Pacto Global está presente, como a Conferência das Partes do Clima (COP).",
     badge: "Voz Global",
     imagem: "card-eventos",
     icone: "Globe",
     pontos: [
-      "Acesso a delegações brasileiras na Climate Week NY e COPs",
-      "Fórum Anual do Pacto Global e Encontros de Liderança",
-      "Oportunidades de fala em painéis temáticos e debates estratégicos",
+      "Fórum Ambição 2030 e SDGs in Brazil, eventos institucionais da Rede Brasil",
+      "Agendas paralelas à COP do Clima e à Climate Week NYC",
+      "Reuniões e encontros temáticos das Plataformas de Ação",
     ]
   },
   {
     id: "cop",
     titulo: "Comunicação de Progresso (CoP)",
-    descricao: "Ferramenta digital padronizada e moderna para relatar anualmente avanços em governança, direitos humanos, trabalho e meio ambiente.",
+    descricao: "Relato anual em que a empresa demonstra seu progresso na implementação dos Dez Princípios e na contribuição para os ODS.",
     badge: "Transparência & ESG",
     imagem: "card-cop",
     icone: "BarChart3",
     pontos: [
-      "Questionário eletrônico compatível com GRI, ISSB e SASB",
-      "Relatório automático comparativo de desempenho com o setor",
-      "Demonstração auditável de compromisso a bancos e stakeholders",
+      "Construção de credibilidade e valor de marca",
+      "Mensuração e demonstração de progresso",
+      "Comparação com pares e identificação de lacunas e aprendizados",
     ]
   }
 ];
 
 /**
- * Quem pode aderir.
- *
- * O Pacto Global é uma iniciativa para empresas privadas. A adesão de
- * organizações não empresariais foi encerrada em janeiro de 2025 — por isso
- * a lista abaixo não tem mais a categoria "Academia / Terceiro Setor".
- *
- * As duas categorias que restam são as que a RBPG de fato opera: empresa
- * que entra pela primeira vez (participante) e empresa de um grupo que já
- * participa em qualquer país (subsidiária).
+ * Requisitos mínimos para a adesão, na redação da equipe de Adesão
+ * (Joycelinn Brasiliense). Substituem a antiga lista "O que impede a adesão",
+ * que abria todos os itens com "Não" e ficava confusa.
  */
-export const QUEM_PODE_ADERIR = [
-  {
-    tipo: "Empresas Participantes",
-    imagem: "publico-participante",
-    subtitulo: "Empresas que entram pela primeira vez na Rede Brasil",
-    criterios: "Empresas privadas legalmente constituídas no Brasil, com ao menos 10 funcionários.",
-    categoria: "Participante",
-    cor: "border-un-blue bg-un-blue/5",
-    icone: "Building2",
-    vantagens: "Acesso integral às plataformas de ação, aos Movimentos Ambição 2030, à UN Global Compact Academy e aos eventos nacionais e globais da rede."
-  },
-  {
-    tipo: "Subsidiárias",
-    imagem: "publico-subsidiaria",
-    subtitulo: "Empresas de grupos que já participam do Pacto Global",
-    criterios: "Empresas que fazem parte de outra empresa já participante do Pacto Global em qualquer lugar do mundo.",
-    categoria: "Participante",
-    cor: "border-un-gold bg-un-gold/5",
-    icone: "Briefcase",
-    vantagens: "Mesmas contrapartidas de uma participante, com contribuição anual de 50% do valor correspondente à faixa de faturamento."
-  }
+export const REQUISITOS_MINIMOS = [
+  "Possuir a partir de 10 funcionários",
+  "Ser empresa privada (não OSC, OSCIP ou pessoa física — exceto hospitais e escolas com característica empresarial)",
+  "Não ser entidade pública governamental, estatal ou municipal",
+  "Não ter sanções da ONU nem constar na Lista de Fornecedores Inelegíveis por questões éticas",
+  "Não ter receita de armas letais, minas terrestres, bombas de fragmentação ou tabaco",
 ];
 
-/**
- * Critérios de inelegibilidade informados pela equipe de Engajamento da RBPG.
- * Estão redigidos como impedimento porque é assim que a análise é feita: a
- * candidatura é barrada se qualquer um deles se aplicar.
- */
-export const CRITERIOS_ELEGIBILIDADE = [
-  "Não ter submissão de sanção pela ONU",
-  "Não estar na Lista de Fornecedores Inelegíveis da ONU por questões éticas",
-  "Não obter receita da produção, venda e/ou transferência de minas terrestres antipessoais, bombas de fragmentação e armas letais",
-  "Não obter receita da produção e/ou manufatura de tabaco",
-  "Não ser pessoa física, OSC ou OSCIP — exceto hospitais e escolas com característica empresarial",
-  "Não ser entidade pública governamental, estatal ou municipal administrada pelo poder público",
-  "Não ser empresa com menos de 10 funcionários"
-];
+export const REQUISITOS_NOTA =
+  "A avaliação da atuação da empresa em relação aos Dez Princípios é feita durante o processo de adesão.";
 
 export const TABELA_CONTRIBUICOES = [
   {
     faixaUSD: "USD 30 Bilhões ou mais",
     anuidadeUSD: 30000,
     anuidadeFormatada: "USD 30.000",
-    categoria: "Empresas Globais Tier 1",
     destaque: false
   },
   {
     faixaUSD: "USD 10 – 30 Bilhões",
     anuidadeUSD: 25000,
     anuidadeFormatada: "USD 25.000",
-    categoria: "Grandes Corporações",
     destaque: false
   },
   {
     faixaUSD: "USD 5 – 10 Bilhões",
     anuidadeUSD: 20000,
     anuidadeFormatada: "USD 20.000",
-    categoria: "Grandes Corporações",
     destaque: false
   },
   {
     faixaUSD: "USD 1 – 5 Bilhões",
     anuidadeUSD: 15000,
     anuidadeFormatada: "USD 15.000",
-    categoria: "Médias-Grandes Empresas",
     destaque: false
   },
   {
     faixaUSD: "USD 500 Milhões – 1 Bilhão",
     anuidadeUSD: 7500,
     anuidadeFormatada: "USD 7.500",
-    categoria: "Médias-Grandes Empresas",
     destaque: false
   },
   {
     faixaUSD: "USD 250 – 500 Milhões",
     anuidadeUSD: 5000,
     anuidadeFormatada: "USD 5.000",
-    categoria: "Empresas de Médio Porte",
     destaque: false
   },
   {
     faixaUSD: "USD 50 – 250 Milhões",
     anuidadeUSD: 2500,
     anuidadeFormatada: "USD 2.500",
-    categoria: "Empresas de Médio Porte",
     destaque: false
   },
   {
     faixaUSD: "USD 25 – 50 Milhões",
     anuidadeUSD: 1250,
     anuidadeFormatada: "USD 1.250",
-    categoria: "Pequenas-Médias Empresas (PMEs)",
     destaque: true
   },
   {
     faixaUSD: "Abaixo de USD 25 Milhões",
     anuidadeUSD: 450,
     anuidadeFormatada: "USD 450",
-    categoria: "Pequenas Empresas (PMEs)",
     destaque: true
   },
 ];
 
 export const REGRAS_CONTRIBUICAO = [
   {
-    titulo: "Toda Participante Contribui",
+    titulo: "Contribuição Anual",
     imagem: "regra-contribui",
-    descricao: "Não existe anuidade isenta. A contribuição anual é requisito para manter a participação ativa e o acesso às iniciativas da rede.",
+    descricao: "A contribuição anual mantém a participação da empresa ativa e garante o acesso às iniciativas e oportunidades da rede.",
     icone: "UserCheck"
   },
   {
     titulo: "Subsidiárias",
     imagem: "regra-subsidiaria",
-    descricao: "Empresas que fazem parte de um grupo já participante do Pacto Global pagam 50% do valor correspondente à sua faixa de faturamento. A regra vale igualmente para subsidiária de matriz brasileira ou estrangeira.",
+    descricao: "Empresas de grupos que já participam do Pacto Global contam com 50% de desconto sobre o valor da sua faixa de faturamento, seja a matriz brasileira ou estrangeira.",
     icone: "Building"
   },
   {
-    titulo: "Requisito Mínimo de Porte",
+    titulo: "A partir de 10 Funcionários",
     imagem: "regra-porte",
-    descricao: "Para aderir, a empresa precisa ter ao menos 10 funcionários e demonstrar conformidade jurídica nacional.",
+    descricao: "A adesão é voltada a empresas privadas com a partir de 10 funcionários.",
     icone: "Globe2"
   },
   {
     titulo: "Cobrança e Renovação",
     imagem: "regra-renovacao",
-    descricao: "O valor é definido pelo faturamento bruto anual em dólares. A primeira cobrança ocorre após a conclusão da adesão e se renova a cada ano, no mesmo período.",
+    descricao: "O valor é definido pelo faturamento bruto anual, em dólar. A primeira cobrança acontece após a conclusão da adesão, e a renovação é anual, no mesmo período.",
     icone: "GraduationCap"
   }
 ];
@@ -248,14 +201,15 @@ export const REGRAS_CONTRIBUICAO = [
 /**
  * Etapas da adesão.
  *
- * O box "Alinhamento aos 10 Princípios" saiu a pedido da RBPG: ele dava a
+ * O box "Alinhamento aos Dez Princípios" saiu a pedido da RBPG: ele dava a
  * entender que a empresa precisa comprovar conformidade antes de aderir,
  * o que não é verdade — o compromisso é de melhoria contínua.
  *
- * `apoio` descreve o que a Rede Brasil faz em cada etapa: a empresa não
- * percorre o processo sozinha, e isso não estava dito em lugar nenhum.
- * `id` é a chave estável usada pelo JSX para decidir o CTA de cada card —
- * antes o código comparava o número da etapa, que quebra a cada reordenação.
+ * Segunda revisão: sai a etapa "Carta de Compromisso do CEO" e entra o
+ * "Pagamento da Anuidade", depois do onboarding e antes da CoP.
+ *
+ * `apoio` descreve o que a Rede Brasil faz em cada etapa. `id` é a chave
+ * estável usada pelo JSX para decidir o CTA de cada card.
  */
 export const ETAPAS_ADESAO = [
   {
@@ -263,63 +217,63 @@ export const ETAPAS_ADESAO = [
     imagem: "etapa-contato",
     numero: "01",
     titulo: "Converse com a Rede Brasil",
-    descricao: "O primeiro passo é falar com a equipe de Engajamento. Ela avalia o enquadramento da sua organização, explica a contribuição aplicável ao seu porte e esclarece dúvidas antes de qualquer documento ser preenchido.",
+    descricao: "O primeiro passo é falar com a equipe de Adesão. Ela avalia o enquadramento da sua empresa, explica a contribuição aplicável ao seu porte e esclarece dúvidas antes de qualquer etapa formal.",
     tempo: "Ponto de partida",
     icone: "UserCheck",
-    apoio: "A equipe conduz esta conversa e segue como seu ponto de contato até o fim do processo.",
-    acao: "Falar com a equipe"
-  },
-  {
-    id: "carta",
-    imagem: "etapa-carta",
-    numero: "02",
-    titulo: "Carta de Compromisso do CEO",
-    descricao: "A adesão é formalizada por uma carta assinada pela mais alta liderança da organização no Brasil (CEO, Presidente ou Diretor-Geral). O texto é padronizado internacionalmente pelas Nações Unidas e não admite alterações.",
-    tempo: "Documentação",
-    icone: "FileSignature",
     destaque: true,
-    apoio: "A Rede Brasil orienta sobre o conteúdo da carta e revisa antes da submissão.",
-    acao: "Tirar dúvidas sobre a carta"
+    apoio: "A equipe de Adesão conduz esta conversa e segue como seu ponto de contato até o fim do processo.",
+    acao: "Preencher o formulário"
   },
   {
     id: "portal",
     imagem: "etapa-portal",
-    numero: "03",
+    numero: "02",
     titulo: "Inscrição no Portal Global da ONU",
-    descricao: "A candidatura é submetida no portal internacional do UN Global Compact, em inglês, com os dados institucionais da empresa e a Carta de Compromisso.",
+    descricao: "A candidatura é submetida no portal do UN Global Compact com os dados institucionais da empresa.",
     tempo: "Submissão online",
     icone: "Laptop",
-    apoio: "A equipe acompanha o preenchimento e ajuda com os campos do formulário em inglês.",
+    apoio: "A equipe de Adesão acompanha o preenchimento da candidatura.",
     acao: "Abrir o portal global"
   },
   {
     id: "diligencia",
     imagem: "etapa-diligencia",
-    numero: "04",
+    numero: "03",
     titulo: "Due Diligence & Análise Reputacional",
-    descricao: "A equipe de Integridade e Governança da Rede Brasil e do UN Global Compact realiza a averiguação de diligência e conformidade regulatória da organização candidata. Hoje o processo leva no máximo 3 semanas.",
+    descricao: "A equipe de Integridade e Governança da Rede Brasil e do UN Global Compact realiza a averiguação de diligência e conformidade regulatória da empresa candidata. Hoje o processo leva no máximo 3 semanas.",
     tempo: "Até 3 semanas",
     icone: "ShieldAlert",
-    apoio: "A Rede Brasil informa o andamento e retorna caso falte algum documento.",
+    apoio: "A Rede Brasil informa o andamento e retorna caso falte alguma informação.",
     acao: "Falar com a equipe"
   },
   {
     id: "onboarding",
     imagem: "etapa-onboarding",
-    numero: "05",
+    numero: "04",
     titulo: "Boas-Vindas & Reunião de Onboarding",
-    descricao: "Após aprovação formal da ONU em Nova York, sua empresa recebe o certificado de participante, manual de boas-vindas e participa do encontro de integração com a equipe de Engajamento.",
+    descricao: "Após a aprovação, sua empresa recebe o kit de boas-vindas com os logos de participante e participa do encontro de integração com a equipe de Adesão.",
     tempo: "Integração",
     icone: "Award",
-    apoio: "O encontro de integração é conduzido pela equipe de Engajamento da Rede Brasil.",
+    apoio: "O encontro de integração é conduzido pela equipe de Adesão da Rede Brasil.",
     acao: "Falar com a equipe"
+  },
+  {
+    id: "anuidade",
+    imagem: "etapa-carta",
+    numero: "05",
+    titulo: "Pagamento da Anuidade",
+    descricao: "Concluída a integração, é emitida a primeira cobrança da contribuição anual, calculada pelo faturamento bruto da empresa. A renovação acontece a cada ano, no mesmo período.",
+    tempo: "Após o onboarding",
+    icone: "FileCheck",
+    apoio: "A equipe de Adesão envia a cobrança e esclarece dúvidas sobre valores e prazos.",
+    acao: "Simular a anuidade"
   },
   {
     id: "cop",
     imagem: "etapa-cop",
     numero: "06",
     titulo: "Comunicação de Progresso (CoP)",
-    descricao: "Após 1 ano de adesão, reporte seus avanços anuais por meio da plataforma digital simplificada de CoP, demonstrando transparência e compromisso contínuo perante a sociedade.",
+    descricao: "Em até 1 ano após a adesão, a empresa publica sua primeira Comunicação de Progresso, o relato anual dos avanços na implementação dos Dez Princípios.",
     tempo: "Anual (recorrente)",
     icone: "BarChart2",
     apoio: "A Rede Brasil oferece capacitação e suporte para o primeiro ciclo de reporte.",
@@ -334,7 +288,7 @@ export const FAQ_ADESAO = [
   },
   {
     pergunta: "2. Quais organizações podem aderir ao Pacto Global da ONU?",
-    resposta: "O Pacto Global é uma iniciativa para empresas privadas. Desde janeiro de 2025 não há adesão de organizações não empresariais — a exceção são entidades com característica empresarial, como hospitais e escolas. Não aderem pessoas físicas, OSCs, OSCIPs, entidades públicas administradas pelo poder público nem empresas com menos de 10 funcionários. A candidatura também passa pela análise de diligência reputacional da ONU."
+    resposta: "O Pacto Global da ONU – Rede Brasil reúne empresas privadas de todos os portes e setores, a partir de 10 funcionários. Hospitais e escolas com característica empresarial também podem aderir. Não aderem pessoas físicas, OSCs, OSCIPs nem entidades públicas. A candidatura passa ainda pela análise de diligência reputacional da ONU."
   },
   {
     pergunta: "3. Quem deve assinar a Carta de Compromisso institucional?",
@@ -350,11 +304,11 @@ export const FAQ_ADESAO = [
   },
   {
     pergunta: "6. Como funciona a saída ou cancelamento da participação?",
-    resposta: "Há três formas de encerramento. Autodesligamento: a empresa pede para sair, bastando comunicação formal do representante legal para engajamento@pactoglobal.org.br. Não entrega da CoP: empresas que não publicam o relatório são deslistadas automaticamente no fim daquele ano. Inadimplência: aplica-se às empresas inadimplentes por 12 meses. Vale lembrar que a CoP pode ser substituída pelo Relatório de Sustentabilidade, caso a empresa já o produza."
+    resposta: "Há três formas de encerramento. Autodesligamento: a empresa pede para sair, bastando comunicação formal do representante legal para contato@pactoglobal.org.br. Não entrega da CoP: empresas que não publicam o relatório são deslistadas automaticamente no fim daquele ano. Inadimplência: aplica-se às empresas inadimplentes por 12 meses. Vale lembrar que a CoP pode ser substituída pelo Relatório de Sustentabilidade, caso a empresa já o produza."
   },
   {
     pergunta: "7. Quais são os canais de suporte para dúvidas no processo de adesão?",
-    resposta: "A equipe de Engajamento e Relacionamento com Participantes da Rede Brasil atende diretamente pelo e-mail engajamento@pactoglobal.org.br e acompanha a empresa em todas as etapas, do primeiro contato à reunião de onboarding."
+    resposta: "A equipe de Adesão da Rede Brasil atende pelo e-mail contato@pactoglobal.org.br e acompanha a empresa em todas as etapas, do primeiro contato à reunião de onboarding."
   },
   {
     pergunta: "8. Empresas participantes podem utilizar o logo do Pacto Global da ONU?",
@@ -364,7 +318,7 @@ export const FAQ_ADESAO = [
 ];
 
 export const CONTATO_ENGAJAMENTO = {
-  email: "engajamento@pactoglobal.org.br",
+  email: "contato@pactoglobal.org.br",
   portalInscricaoUrl: "https://unglobalcompact.org/participation/join/application",
   modeloCartaUrl: "https://unglobalcompact.org/participation/join/application/business",
   diretorioPublicoUrl: "https://unglobalcompact.org/what-is-gc/participants",
@@ -376,7 +330,7 @@ export const CONTATO_ENGAJAMENTO = {
   // PRÉVIA PARA VALIDAÇÃO: preencher o número e desligar whatsappPrevia.
   whatsapp: "",
   whatsappPrevia: true,
-  whatsappMensagem: "Olá! Tenho interesse em aderir ao Pacto Global – Rede Brasil e gostaria de falar com a equipe de Engajamento."
+  whatsappMensagem: "Olá! Tenho interesse em aderir ao Pacto Global – Rede Brasil e gostaria de falar com a equipe de Adesão."
 };
 
 // Dados Oficiais do UN Global Compact & Accenture CEO Study
@@ -406,3 +360,34 @@ export const CEO_STUDY_STATS = [
     imagem: "evidencia-resultados",
   }
 ];
+
+/**
+ * Campos do formulário de interesse, conforme o documento "Formulário - em
+ * português" da equipe de Adesão (campos obrigatórios integrados ao
+ * Salesforce/Pardot). Os valores das listas são exatos: o Pardot diferencia
+ * maiúsculas e minúsculas. O telefone é campo oculto no documento e fica
+ * de fora.
+ */
+export const FORMULARIO_ADESAO = {
+  niveisHierarquicos: [
+    "C-Level (Alta liderança)",
+    "Diretor(a) / Head",
+    "Gerente / Gerente Sênior",
+    "Analista / Associado(a)",
+    "Consultor(a)",
+    "Estudante / Pesquisador(a)",
+    "Outro",
+  ],
+  tiposOrganizacao: [
+    "Empresa",
+    "Associação empresarial",
+    "Organização sem fins lucrativos / ONG",
+    "Governo",
+    "Entidade da ONU",
+    "Rede Local do Pacto Global",
+    "Instituição acadêmica",
+    "Outro",
+  ],
+  numeroFuncionarios: ["1 - 10", "10 - 250", "250 - 1000", "1000 - 10,000", "10,000+"],
+  optInPergunta: "Você deseja receber notícias, atualizações e insights do Pacto Global da ONU?",
+};
