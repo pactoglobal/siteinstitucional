@@ -49,12 +49,14 @@ const Avatar = ({ membro, grande }) => {
   );
 };
 
-const AcaoContato = ({ href, icone: Icone, rotulo, destaque, externo }) => (
+const AcaoContato = ({ href, icone: Icone, rotulo, destaque, externo, titulo, rotuloAcessivel }) => (
   <a
     href={href}
+    title={titulo}
+    aria-label={rotuloAcessivel}
     {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     className={cn(
-      'inline-flex min-h-[44px] items-center gap-2 rounded-full px-4 text-xs font-bold transition-all',
+      'inline-flex min-h-[44px] items-center gap-1.5 rounded-full px-3 text-xs font-bold transition-all',
       'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-un-blue',
       destaque
         ? 'bg-un-blue text-white hover:bg-un-gold hover:text-un-blue'
@@ -88,15 +90,22 @@ const PerfilCard = ({ membro, grande }) => (
       </div>
     </div>
 
-    <div className="mt-auto flex flex-wrap gap-2.5">
+    <div className="mt-auto flex flex-wrap gap-2">
       {membro.agenda && (
         <AcaoContato href={membro.agenda} icone={CalendarPlus} rotulo="Agendar no Teams" destaque externo />
       )}
       {membro.email && (
-        <AcaoContato href={`mailto:${membro.email}`} icone={Mail} rotulo={grande ? membro.email : 'E-mail'} />
+        <AcaoContato href={`mailto:${membro.email}`} icone={Mail} rotulo="E-mail" titulo={membro.email} />
       )}
       {membro.linkedin && (
-        <AcaoContato href={membro.linkedin} icone={Linkedin} rotulo="LinkedIn" externo />
+        <AcaoContato
+          href={membro.linkedin}
+          icone={Linkedin}
+          rotulo={grande ? 'LinkedIn' : null}
+          rotuloAcessivel={grande ? undefined : 'LinkedIn (abre em nova aba)'}
+          titulo="LinkedIn"
+          externo
+        />
       )}
     </div>
   </article>
