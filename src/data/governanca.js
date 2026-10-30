@@ -26,7 +26,7 @@ export const PILARES_GOVERNANCA = [
     id: "mandato",
     numero: "01",
     titulo: "Mandato & Representatividade",
-    descricao: "O Conselho de Administração é eleito em Assembleia Geral pelos signatários, mesclando grandes empresas, PMEs, sociedade civil e assentos natos da ONU.",
+    descricao: "O Conselho de Administração é eleito em Assembleia Geral pelos participantes, mesclando grandes empresas, PMEs, sociedade civil e assentos natos da ONU.",
     destaque: "Mandatos bienais auditáveis"
   },
   {
@@ -294,7 +294,7 @@ export const CLUSTERS_DOCUMENTOS = [
     id: "dados",
     nome: "Privacidade, Proteção de Dados (LGPD) & PSI",
     icone: "Lock",
-    descricao: "Políticas de governança de dados pessoais, avisos aos signatários e segurança da informação."
+    descricao: "Políticas de governança de dados pessoais, avisos aos participantes e segurança da informação."
   },
   {
     id: "marca",

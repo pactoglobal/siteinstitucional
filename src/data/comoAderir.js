@@ -42,7 +42,7 @@ export const BENEFICIOS_ADESAO = [
     badge: "Capacitação Contínua",
     icone: "GraduationCap",
     pontos: [
-      "+100 horas de conteúdo executivo em português e inglês",
+      "Cerca de 100 cursos nos pilares Direitos Humanos, Trabalho, Meio Ambiente e Anticorrupção, revisados e atualizados anualmente",
       "Trilhas temáticas: Net Zero, Diversidade, Finanças Sustentáveis e Direitos Humanos",
       "Workshops ao vivo com especialistas globais da ONU",
     ]
@@ -336,7 +336,7 @@ export const FAQ_ADESAO = [
   },
   {
     pergunta: "7. Quais são os canais de suporte para dúvidas no processo de adesão?",
-    resposta: "A equipe de Engajamento e Relacionamento com Participantes da Rede Brasil atende diretamente pelo e-mail engajamento@pactoglobal.org.br e contato@pactoglobal.org.br, além de sessões mensais online de esclarecimento para empresas interessadas."
+    resposta: "A equipe de Engajamento e Relacionamento com Participantes da Rede Brasil atende diretamente pelo e-mail engajamento@pactoglobal.org.br e acompanha a empresa em todas as etapas, do primeiro contato à reunião de onboarding."
   },
   {
     pergunta: "8. Empresas participantes podem utilizar o logo do Pacto Global da ONU?",
@@ -347,7 +347,6 @@ export const FAQ_ADESAO = [
 
 export const CONTATO_ENGAJAMENTO = {
   email: "engajamento@pactoglobal.org.br",
-  emailGeral: "contato@pactoglobal.org.br",
   portalInscricaoUrl: "https://unglobalcompact.org/participation/join/application",
   modeloCartaUrl: "https://unglobalcompact.org/participation/join/application/business",
   diretorioPublicoUrl: "https://unglobalcompact.org/what-is-gc/participants",

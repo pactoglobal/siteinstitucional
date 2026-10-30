@@ -166,7 +166,7 @@ export const PlataformasPage = ({ navigate }) => {
             badge="Governança & Integração"
             title="Como sua empresa"
             titleAccent="participa"
-            description="As Plataformas de Ação são exclusivas para organizações signatárias do Pacto Global da ONU – Rede Brasil."
+            description="As Plataformas de Ação são exclusivas para organizações participantes do Pacto Global da ONU – Rede Brasil."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
