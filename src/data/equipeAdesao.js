@@ -1,10 +1,9 @@
 /**
- * Perfis da área de adesão do Pacto Global – Rede Brasil.
+ * Contato de Adesão do Pacto Global da ONU – Rede Brasil.
  *
- * PRÉVIA PARA VALIDAÇÃO: nome, cargo, foto e contatos são genéricos ("Nome Sobrenome", e-mail de contato da
- * Rede Brasil, LinkedIn institucional e reunião no Teams com a equipe) até cada pessoa concordar com a
- * exposição e o DPO avaliar (LGPD). O repositório é público: o que entrar aqui
- * fica visível no GitHub.
+ * A página mostra uma única pessoa, a que conduz a entrada das empresas.
+ * Dados informados pelo Brener (out/2026). O repositório é público: o que
+ * entrar aqui fica visível no GitHub.
  *
  * O card só mostra o botão do que estiver preenchido, a pessoa só aparece se
  * tiver ao menos um canal, e a seção some se ninguém tiver.
@@ -14,31 +13,22 @@
  * - linkedin: URL completa do perfil
  * - agenda:   link de agendamento do Teams (Microsoft Bookings / reunião)
  */
-const EMAIL_EQUIPE = "contato@pactoglobal.org.br";
-const LINKEDIN_INSTITUCIONAL = "https://www.linkedin.com/company/pactoglobalbr";
 
-// Link oficial do Teams para nova reunião: abre o agendamento já com o e-mail
-// da equipe como convidado. Serve à prévia porque não há link público de
-// agenda (Bookings). Trocar pelo link de agendamento de cada pessoa.
-const AGENDA_TEAMS_EQUIPE =
+// Link oficial do Teams para nova reunião, já com a pessoa como convidada.
+// Trocar pelo link de agendamento (Bookings) quando houver um.
+const agendaTeams = (email) =>
   "https://teams.microsoft.com/l/meeting/new" +
   `?subject=${encodeURIComponent("Adesão ao Pacto Global – Rede Brasil")}` +
-  `&attendees=${EMAIL_EQUIPE}`;
-
-const perfilGenerico = (id, cargo) => ({
-  id,
-  nome: "Nome Sobrenome",
-  cargo,
-  foto: null,
-  email: EMAIL_EQUIPE,
-  linkedin: LINKEDIN_INSTITUCIONAL,
-  agenda: AGENDA_TEAMS_EQUIPE,
-});
+  `&attendees=${email}`;
 
 export const EQUIPE_ADESAO = [
-  perfilGenerico("gerencia", "Gerência de Adesão"),
-  perfilGenerico("coordenacao", "Coordenação de Adesão"),
-  perfilGenerico("analista", "Analista de Adesão"),
-  perfilGenerico("assistente-1", "Assistente de Adesão"),
-  perfilGenerico("assistente-2", "Assistente de Adesão"),
+  {
+    id: "barbara-souza",
+    nome: "Barbara Rodrigues de Souza",
+    cargo: "Analista de Adesão",
+    foto: "barbara-souza.jpg",
+    email: "barbara.souza@pactoglobal.org.br",
+    linkedin: "https://www.linkedin.com/in/barbara-rodrigues-de-souza/",
+    agenda: agendaTeams("barbara.souza@pactoglobal.org.br"),
+  },
 ];
