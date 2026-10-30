@@ -44,10 +44,10 @@ npm run build
 # (ex: /siteinstitucional/ambicao) devolve o 404 do GitHub.
 cp dist/index.html dist/404.html
 
-# Copia os arquivos compilados para a raiz (gh-pages)
-mkdir -p assets
-cp dist/index.html index.html
-cp dist/index.html 404.html
-cp dist/assets/* assets/
+# Espelha o build inteiro na raiz (gh-pages). Antes so index.html e assets/
+# vinham para ca, e tudo o que mora em public/ (fontes, fotos, icones) ficava
+# de fora: a fonte Flama dava 404 em producao e as imagens novas de
+# movimentos/ nunca foram publicadas.
+cp -R dist/. .
 
 echo "✓ Build concluído. Pronto para commit e push."
