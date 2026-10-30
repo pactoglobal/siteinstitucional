@@ -377,7 +377,7 @@ export const GovernancaPage = ({ navigate }) => {
                     <div className="absolute left-2.5 top-1.5 w-3 h-3 rounded-full bg-slate-500 ring-4 ring-white"></div>
                     <div>
                       <span className="text-[10px] font-mono font-bold text-slate-600 uppercase tracking-widest">Ecossistema</span>
-                      <h4 className="text-sm font-bold text-slate-900">+2.000 Organizações Signatárias</h4>
+                      <h4 className="text-sm font-bold text-slate-900">+2.000 Organizações Participantes</h4>
                       <p className="text-xs text-slate-600 font-normal leading-relaxed">Corporações, PMEs e sociedade civil implementando a Agenda 2030.</p>
                     </div>
                   </div>
@@ -1238,7 +1238,7 @@ export const GovernancaPage = ({ navigate }) => {
               <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-4">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">Ainda tem dúvidas institucionais?</h4>
                 <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                  Nossa área de Governança e Compliance está à disposição de signatários, conselheiros e público geral para esclarecimento de protocolos e atas.
+                  Nossa área de Governança e Compliance está à disposição de participantes, conselheiros e público geral para esclarecimento de protocolos e atas.
                 </p>
                 <a 
                   href="mailto:governanca@pactoglobal.org.br" 
