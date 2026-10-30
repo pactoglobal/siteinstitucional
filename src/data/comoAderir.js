@@ -117,6 +117,7 @@ export const BENEFICIOS_ADESAO = [
 export const QUEM_PODE_ADERIR = [
   {
     tipo: "Empresas Participantes",
+    imagem: "publico-participante",
     subtitulo: "Empresas que entram pela primeira vez na Rede Brasil",
     criterios: "Empresas privadas legalmente constituídas no Brasil, com ao menos 10 funcionários.",
     categoria: "Participante",
@@ -126,6 +127,7 @@ export const QUEM_PODE_ADERIR = [
   },
   {
     tipo: "Subsidiárias",
+    imagem: "publico-subsidiaria",
     subtitulo: "Empresas de grupos que já participam do Pacto Global",
     criterios: "Empresas que fazem parte de outra empresa já participante do Pacto Global em qualquer lugar do mundo.",
     categoria: "Participante",
@@ -219,21 +221,25 @@ export const TABELA_CONTRIBUICOES = [
 export const REGRAS_CONTRIBUICAO = [
   {
     titulo: "Toda Participante Contribui",
+    imagem: "regra-contribui",
     descricao: "Não existe anuidade isenta. A contribuição anual é requisito para manter a participação ativa e o acesso às iniciativas da rede.",
     icone: "UserCheck"
   },
   {
     titulo: "Subsidiárias",
+    imagem: "regra-subsidiaria",
     descricao: "Empresas que fazem parte de um grupo já participante do Pacto Global pagam 50% do valor correspondente à sua faixa de faturamento. A regra vale igualmente para subsidiária de matriz brasileira ou estrangeira.",
     icone: "Building"
   },
   {
     titulo: "Requisito Mínimo de Porte",
+    imagem: "regra-porte",
     descricao: "Para aderir, a empresa precisa ter ao menos 10 funcionários e demonstrar conformidade jurídica nacional.",
     icone: "Globe2"
   },
   {
     titulo: "Cobrança e Renovação",
+    imagem: "regra-renovacao",
     descricao: "O valor é definido pelo faturamento bruto anual em dólares. A primeira cobrança ocorre após a conclusão da adesão e se renova a cada ano, no mesmo período.",
     icone: "GraduationCap"
   }
@@ -254,6 +260,7 @@ export const REGRAS_CONTRIBUICAO = [
 export const ETAPAS_ADESAO = [
   {
     id: "contato",
+    imagem: "etapa-contato",
     numero: "01",
     titulo: "Converse com a Rede Brasil",
     descricao: "O primeiro passo é falar com a equipe de Engajamento. Ela avalia o enquadramento da sua organização, explica a contribuição aplicável ao seu porte e esclarece dúvidas antes de qualquer documento ser preenchido.",
@@ -264,6 +271,7 @@ export const ETAPAS_ADESAO = [
   },
   {
     id: "carta",
+    imagem: "etapa-carta",
     numero: "02",
     titulo: "Carta de Compromisso do CEO",
     descricao: "A adesão é formalizada por uma carta assinada pela mais alta liderança da organização no Brasil (CEO, Presidente ou Diretor-Geral). O texto é padronizado internacionalmente pelas Nações Unidas e não admite alterações.",
@@ -275,6 +283,7 @@ export const ETAPAS_ADESAO = [
   },
   {
     id: "portal",
+    imagem: "etapa-portal",
     numero: "03",
     titulo: "Inscrição no Portal Global da ONU",
     descricao: "A candidatura é submetida no portal internacional do UN Global Compact, em inglês, com os dados institucionais da empresa e a Carta de Compromisso.",
@@ -285,6 +294,7 @@ export const ETAPAS_ADESAO = [
   },
   {
     id: "diligencia",
+    imagem: "etapa-diligencia",
     numero: "04",
     titulo: "Due Diligence & Análise Reputacional",
     descricao: "A equipe de Integridade e Governança da Rede Brasil e do UN Global Compact realiza a averiguação de diligência e conformidade regulatória da organização candidata. Hoje o processo leva no máximo 3 semanas.",
@@ -295,6 +305,7 @@ export const ETAPAS_ADESAO = [
   },
   {
     id: "onboarding",
+    imagem: "etapa-onboarding",
     numero: "05",
     titulo: "Boas-Vindas & Reunião de Onboarding",
     descricao: "Após aprovação formal da ONU em Nova York, sua empresa recebe o certificado de participante, manual de boas-vindas e participa do encontro de integração com a equipe de Engajamento.",
@@ -305,6 +316,7 @@ export const ETAPAS_ADESAO = [
   },
   {
     id: "cop",
+    imagem: "etapa-cop",
     numero: "06",
     titulo: "Comunicação de Progresso (CoP)",
     descricao: "Após 1 ano de adesão, reporte seus avanços anuais por meio da plataforma digital simplificada de CoP, demonstrando transparência e compromisso contínuo perante a sociedade.",
@@ -369,21 +381,25 @@ export const CEO_STUDY_STATS = [
   {
     porcentagem: "98%",
     descricao: "afirmam que o papel prioritário do CEO é tornar sua operação mais sustentável e ética.",
-    destaque: "Liderança Executiva"
+    destaque: "Liderança Executiva",
+    imagem: "evidencia-lideranca",
   },
   {
     porcentagem: "96%",
     descricao: "concordam que o setor privado desempenha papel indispensável para o alcance dos 17 ODS da ONU.",
-    destaque: "Impacto Coletivo"
+    destaque: "Impacto Coletivo",
+    imagem: "evidencia-impacto",
   },
   {
     porcentagem: "80%",
     descricao: "identificam na sustentabilidade corporativa uma via direta para vantagem competitiva em seu setor.",
-    destaque: "Vantagem Competitiva"
+    destaque: "Vantagem Competitiva",
+    imagem: "evidencia-vantagem",
   },
   {
     porcentagem: "81%",
     descricao: "atribuem o avanço real das suas metas de descarbonização e governança à metodologia do Pacto Global.",
-    destaque: "Resultados Práticos"
+    destaque: "Resultados Práticos",
+    imagem: "evidencia-resultados",
   }
 ];

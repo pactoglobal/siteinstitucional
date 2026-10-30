@@ -39,6 +39,7 @@ import { AdesaoHero } from '../components/adesao/AdesaoHero';
 import { BeneficiosBento } from '../components/adesao/BeneficiosBento';
 import { EquipeAdesao } from '../components/adesao/EquipeAdesao';
 import { WhatsAppFab } from '../components/adesao/WhatsAppFab';
+import { FotoFundo } from '../components/adesao/FotoFundo';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
 import { cn } from '../utils/cn';
@@ -311,27 +312,28 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {CEO_STUDY_STATS.map((stat, sIdx) => (
-              <div 
+              <div
                 key={sIdx}
-                className="bg-white/5 border border-white/10 rounded-3xl p-6 sm:p-7 flex flex-col justify-between hover:bg-white/10 transition-all duration-300 group"
+                className="group relative isolate flex min-h-[320px] flex-col justify-between overflow-hidden rounded-[1.75rem] p-6 sm:p-7 ring-1 ring-white/15 transition-shadow duration-300 hover:shadow-2xl"
               >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-un-gold bg-un-gold/10 border border-un-gold/20 px-2.5 py-0.5 rounded-full">
-                      {stat.destaque}
-                    </span>
-                    <TrendingUp className="w-4 h-4 text-un-gold/70 group-hover:text-un-gold transition-colors" />
-                  </div>
-                  <div className="text-4xl sm:text-5xl font-display font-black text-un-gold tracking-tight pt-2">
+                <FotoFundo imagem={stat.imagem} />
+                <div className="flex items-center justify-between gap-3">
+                  <span className="rounded-full border border-un-gold/35 bg-un-blue/60 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.16em] text-un-gold backdrop-blur-md">
+                    {stat.destaque}
+                  </span>
+                  <TrendingUp className="w-4 h-4 text-un-gold" />
+                </div>
+                <div className="mt-16">
+                  <div className="text-5xl sm:text-6xl font-display font-black text-un-gold tracking-tight">
                     {stat.porcentagem}
                   </div>
-                  <p className="text-xs text-slate-200 font-light leading-relaxed">
+                  <p className="mt-2 text-[13px] text-slate-100 font-light leading-relaxed">
                     {stat.descricao}
                   </p>
-                </div>
-                <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-[10px] text-slate-400">
-                  <span>Accenture CEO Study</span>
-                  <CheckCircle2 className="w-3.5 h-3.5 text-un-gold" />
+                  <div className="pt-3 mt-4 border-t border-white/15 flex items-center justify-between text-[10px] text-slate-300">
+                    <span>Accenture CEO Study</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-un-gold" />
+                  </div>
                 </div>
               </div>
             ))}
@@ -392,40 +394,42 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
             {QUEM_PODE_ADERIR.map((cat, idx) => {
               const IconComp = ICON_MAP[cat.icone] || Building2;
               return (
-                <div 
+                <div
                   key={idx}
-                  className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow"
+                  className="group relative isolate flex min-h-[480px] flex-col justify-between overflow-hidden rounded-[1.75rem] p-6 sm:p-8 text-white shadow-sm ring-1 ring-un-blue/10 transition-shadow duration-300 hover:shadow-2xl"
                 >
-                  <div className="space-y-4">
-                    <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-un-blue shadow-2xs">
-                      <IconComp className="w-6 h-6" />
-                    </div>
+                  <FotoFundo imagem={cat.imagem} />
 
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/25 bg-white/15 text-white backdrop-blur-md">
+                      <IconComp className="w-6 h-6" />
+                    </span>
+                    <span className="rounded-full border border-un-gold/40 bg-un-blue/60 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-un-gold backdrop-blur-md">
+                      {cat.categoria}
+                    </span>
+                  </div>
+
+                  <div className="mt-20 space-y-4">
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-un-gold bg-un-blue px-2.5 py-0.5 rounded-md inline-block mb-1">
-                        {cat.categoria}
-                      </span>
-                      <h3 className="text-xl font-display font-black uppercase text-slate-900">
+                      <h3 className="text-2xl sm:text-3xl font-display font-black uppercase leading-[1.05] tracking-tight">
                         {cat.tipo}
                       </h3>
-                      <p className="text-xs text-slate-500 font-medium">{cat.subtitulo}</p>
+                      <p className="mt-1 text-sm text-slate-200 font-light">{cat.subtitulo}</p>
                     </div>
 
-                    <div className="p-4 rounded-2xl bg-white border border-slate-200/80 text-xs space-y-2">
-                      <div className="font-bold text-slate-900 flex items-center gap-1.5">
-                        <UserCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                        Critérios Mínimos:
+                    <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-xs space-y-1.5 backdrop-blur-md">
+                      <div className="font-bold flex items-center gap-1.5">
+                        <UserCheck className="w-4 h-4 text-un-gold shrink-0" />
+                        Critérios mínimos
                       </div>
-                      <p className="text-slate-600 leading-relaxed font-light">{cat.criterios}</p>
+                      <p className="text-slate-100 leading-relaxed font-light">{cat.criterios}</p>
                     </div>
 
                     <div className="space-y-1">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">Principais Contrapartidas:</h4>
-                      <p className="text-xs text-slate-600 leading-relaxed font-light">{cat.vantagens}</p>
+                      <h4 className="text-[10px] font-bold uppercase tracking-[0.18em] text-un-gold">Principais contrapartidas</h4>
+                      <p className="text-xs text-slate-100 leading-relaxed font-light">{cat.vantagens}</p>
                     </div>
-                  </div>
 
-                  <div className="pt-6 border-t border-slate-200/60 mt-4">
                     <button
                       type="button"
                       onClick={() => {
@@ -433,7 +437,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                         setSelectedFaixaIndex(8);
                         scrollToSection('simulador');
                       }}
-                      className="w-full min-h-[42px] px-4 py-2 rounded-full border border-un-blue text-un-blue hover:bg-un-blue hover:text-white transition-all text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer"
+                      className="min-h-[42px] px-5 py-2 rounded-full border border-white/35 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-un-blue transition-all text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer"
                     >
                       Simular nesta categoria <ArrowRight className="w-3.5 h-3.5" />
                     </button>
@@ -689,12 +693,16 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
             {/* 4 Cards de Regras Especiais */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-100">
               {REGRAS_CONTRIBUICAO.map((regra, rIdx) => (
-                <div key={rIdx} className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1.5">
-                  <h5 className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-un-gold shrink-0" />
+                <div
+                  key={rIdx}
+                  className="group relative isolate flex min-h-[240px] flex-col justify-end overflow-hidden rounded-2xl p-5 text-white shadow-sm"
+                >
+                  <FotoFundo imagem={regra.imagem} />
+                  <h5 className="text-sm font-bold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-un-gold shrink-0" />
                     {regra.titulo}
                   </h5>
-                  <p className="text-[11px] text-slate-600 leading-relaxed font-light">{regra.descricao}</p>
+                  <p className="mt-1.5 text-xs text-slate-200 leading-relaxed font-light">{regra.descricao}</p>
                 </div>
               ))}
             </div>
@@ -736,68 +744,45 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
             {ETAPAS_ADESAO.map((etapa) => {
               const IconEtapa = ICON_MAP[etapa.icone] || FileCheck;
               return (
-                <div 
+                <div
                   key={etapa.numero}
                   className={cn(
-                    "rounded-3xl p-6 sm:p-8 flex flex-col justify-between border transition-all shadow-sm hover:shadow-md",
-                    etapa.destaque 
-                      ? "bg-un-blue text-white border-2 border-un-gold/60 relative overflow-hidden" 
-                      : "bg-slate-50 text-slate-900 border-slate-200 hover:border-un-blue"
+                    "group relative isolate flex min-h-[500px] flex-col justify-between overflow-hidden rounded-[1.75rem] p-6 sm:p-7 text-white shadow-sm transition-shadow duration-300 hover:shadow-2xl",
+                    etapa.destaque ? "ring-2 ring-un-gold/70" : "ring-1 ring-un-blue/10"
                   )}
                 >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className={cn(
-                        "text-3xl font-display font-black tracking-tight",
-                        etapa.destaque ? "text-un-gold" : "text-un-blue"
-                      )}>
-                        {etapa.numero}
-                      </span>
-                      <span className={cn(
-                        "text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full",
-                        etapa.destaque ? "bg-white/10 text-white border border-white/15" : "bg-white text-slate-600 border border-slate-200"
-                      )}>
-                        {etapa.tempo}
-                      </span>
-                    </div>
+                  <FotoFundo imagem={etapa.imagem} />
 
-                    <div className="space-y-1">
-                      <h4 className={cn(
-                        "text-lg font-display font-black uppercase tracking-tight",
-                        etapa.destaque ? "text-white" : "text-slate-900"
-                      )}>
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-4xl font-display font-black tracking-tight text-un-gold drop-shadow">
+                      {etapa.numero}
+                    </span>
+                    <span className="rounded-full border border-white/25 bg-un-blue/60 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-md">
+                      {etapa.tempo}
+                    </span>
+                  </div>
+
+                  <div className="mt-16 space-y-4">
+                    <div className="space-y-1.5">
+                      <h4 className="text-lg sm:text-xl font-display font-black uppercase leading-tight tracking-tight">
                         {etapa.titulo}
                       </h4>
-                      <p className={cn(
-                        "text-xs leading-relaxed font-light",
-                        etapa.destaque ? "text-slate-200" : "text-slate-600"
-                      )}>
+                      <p className="text-[13px] leading-relaxed font-light text-slate-100">
                         {etapa.descricao}
                       </p>
                     </div>
-                  </div>
 
-                  {/* O que a Rede Brasil faz nesta etapa. A empresa não percorre
-                      o processo sozinha, e isso não aparecia em lugar nenhum. */}
-                  {etapa.apoio && (
-                    <div className={cn(
-                      "mt-4 flex items-start gap-2 rounded-xl px-3 py-2.5",
-                      etapa.destaque ? "bg-white/10" : "bg-un-surface border border-slate-200/70"
-                    )}>
-                      <UserCheck className={cn(
-                        "w-3.5 h-3.5 shrink-0 mt-0.5",
-                        etapa.destaque ? "text-un-gold" : "text-un-blue"
-                      )} />
-                      <p className={cn(
-                        "text-[11px] leading-snug font-light",
-                        etapa.destaque ? "text-slate-200" : "text-slate-600"
-                      )}>
-                        {etapa.apoio}
-                      </p>
-                    </div>
-                  )}
+                    {/* O que a Rede Brasil faz nesta etapa. A empresa não percorre
+                        o processo sozinha, e isso não aparecia em lugar nenhum. */}
+                    {etapa.apoio && (
+                      <div className="flex items-start gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2.5 backdrop-blur-md">
+                        <UserCheck className="w-3.5 h-3.5 shrink-0 mt-0.5 text-un-gold" />
+                        <p className="text-[11px] leading-snug font-light text-slate-100">
+                          {etapa.apoio}
+                        </p>
+                      </div>
+                    )}
 
-                  <div className="pt-6 border-t border-slate-200/40 mt-4">
                     {/* O portal da ONU é o único link externo que sobra nos cards.
                         O botão "Baixar Modelo da Carta" saiu: apontava para uma URL
                         que redireciona para o formulário de candidatura, ou seja,
@@ -807,7 +792,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                         href={CONTATO_ENGAJAMENTO.portalInscricaoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="min-h-[42px] px-4 py-2 rounded-full border border-un-blue text-un-blue hover:bg-un-blue hover:text-white transition-all text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer w-full justify-center"
+                        className="min-h-[42px] px-4 py-2 rounded-full border border-white/35 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-un-blue transition-all text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer w-full justify-center"
                       >
                         <ExternalLink className="w-3.5 h-3.5" /> Abrir portal da ONU
                       </a>
@@ -817,9 +802,9 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                         onClick={() => scrollToSection('contato')}
                         className={cn(
                           "min-h-[42px] px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 transition-all cursor-pointer w-full justify-center",
-                          etapa.destaque 
-                            ? "bg-white/15 text-white hover:bg-white hover:text-un-blue" 
-                            : "border border-slate-300 text-slate-700 hover:border-un-blue hover:text-un-blue"
+                          etapa.destaque
+                            ? "bg-un-gold text-un-blue hover:bg-white"
+                            : "border border-white/35 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-un-blue"
                         )}
                       >
                         {etapa.acao} <ArrowRight className="w-3 h-3" />
