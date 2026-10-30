@@ -11,12 +11,33 @@ const WhatsAppGlyph = (props) => (
  * Botão flutuante de WhatsApp com número fixo da área de adesão.
  *
  * Fica no canto inferior esquerdo porque o canto direito já tem o menu de
- * seções e o botão de voltar ao topo. Sem número configurado não renderiza
- * nada, em vez de montar um link quebrado.
+ * seções e o botão de voltar ao topo. Sem número configurado não monta link
+ * para o WhatsApp: com `onPrevia`, o botão aparece em modo prévia e leva ao
+ * formulário de contato; sem ele, não renderiza nada.
  */
-export const WhatsAppFab = ({ numero, mensagem }) => {
+const FAB_CLASSES =
+  'group fixed bottom-6 left-4 z-40 flex h-14 items-center gap-0 rounded-full bg-[#25D366] pl-3.5 pr-3.5 text-white shadow-xl shadow-black/25 ring-2 ring-white/70 transition-all duration-300 hover:gap-2.5 hover:pr-5 hover:bg-[#1ebe5b] focus-visible:gap-2.5 focus-visible:pr-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-un-blue sm:left-6 cursor-pointer';
+
+const ROTULO_CLASSES =
+  'max-w-0 overflow-hidden whitespace-nowrap text-sm font-bold opacity-0 transition-all duration-300 group-hover:max-w-[16rem] group-hover:opacity-100 group-focus-visible:max-w-[16rem] group-focus-visible:opacity-100';
+
+export const WhatsAppFab = ({ numero, mensagem, onPrevia }) => {
   const digitos = (numero || '').replace(/\D/g, '');
-  if (!digitos) return null;
+
+  if (!digitos) {
+    if (!onPrevia) return null;
+    return (
+      <button
+        type="button"
+        onClick={onPrevia}
+        aria-label="WhatsApp da equipe de adesão em breve. Ir para o formulário de contato"
+        className={FAB_CLASSES}
+      >
+        <WhatsAppGlyph className="h-7 w-7 shrink-0" />
+        <span className={ROTULO_CLASSES}>WhatsApp em breve · use o formulário</span>
+      </button>
+    );
+  }
 
   const href = `https://wa.me/${digitos}${mensagem ? `?text=${encodeURIComponent(mensagem)}` : ''}`;
 
@@ -26,12 +47,10 @@ export const WhatsAppFab = ({ numero, mensagem }) => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar com a equipe de adesão pelo WhatsApp (abre em nova aba)"
-      className="group fixed bottom-6 left-4 z-40 flex h-14 items-center gap-0 rounded-full bg-[#25D366] pl-3.5 pr-3.5 text-white shadow-xl shadow-black/25 ring-2 ring-white/70 transition-all duration-300 hover:gap-2.5 hover:pr-5 hover:bg-[#1ebe5b] focus-visible:gap-2.5 focus-visible:pr-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-un-blue sm:left-6"
+      className={FAB_CLASSES}
     >
       <WhatsAppGlyph className="h-7 w-7 shrink-0" />
-      <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-bold opacity-0 transition-all duration-300 group-hover:max-w-[12rem] group-hover:opacity-100 group-focus-visible:max-w-[12rem] group-focus-visible:opacity-100">
-        Fale com a equipe
-      </span>
+      <span className={ROTULO_CLASSES}>Fale com a equipe</span>
     </a>
   );
 };
