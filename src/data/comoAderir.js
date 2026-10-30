@@ -147,7 +147,6 @@ export const CRITERIOS_ELEGIBILIDADE = [
 export const TABELA_CONTRIBUICOES = [
   {
     faixaUSD: "USD 30 Bilhões ou mais",
-    faturamentoBRL: "Acima de ~R$ 150 Bilhões",
     anuidadeUSD: 30000,
     anuidadeFormatada: "USD 30.000",
     categoria: "Empresas Globais Tier 1",
@@ -155,7 +154,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 10 – 30 Bilhões",
-    faturamentoBRL: "~R$ 50 Bilhões a R$ 150 Bilhões",
     anuidadeUSD: 25000,
     anuidadeFormatada: "USD 25.000",
     categoria: "Grandes Corporações",
@@ -163,7 +161,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 5 – 10 Bilhões",
-    faturamentoBRL: "~R$ 25 Bilhões a R$ 50 Bilhões",
     anuidadeUSD: 20000,
     anuidadeFormatada: "USD 20.000",
     categoria: "Grandes Corporações",
@@ -171,7 +168,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 1 – 5 Bilhões",
-    faturamentoBRL: "~R$ 5 Bilhões a R$ 25 Bilhões",
     anuidadeUSD: 15000,
     anuidadeFormatada: "USD 15.000",
     categoria: "Médias-Grandes Empresas",
@@ -179,7 +175,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 500 Milhões – 1 Bilhão",
-    faturamentoBRL: "~R$ 2,5 Bilhões a R$ 5 Bilhões",
     anuidadeUSD: 7500,
     anuidadeFormatada: "USD 7.500",
     categoria: "Médias-Grandes Empresas",
@@ -187,7 +182,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 250 – 500 Milhões",
-    faturamentoBRL: "~R$ 1,25 Bilhão a R$ 2,5 Bilhões",
     anuidadeUSD: 5000,
     anuidadeFormatada: "USD 5.000",
     categoria: "Empresas de Médio Porte",
@@ -195,7 +189,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 50 – 250 Milhões",
-    faturamentoBRL: "~R$ 250 Milhões a R$ 1,25 Bilhão",
     anuidadeUSD: 2500,
     anuidadeFormatada: "USD 2.500",
     categoria: "Empresas de Médio Porte",
@@ -203,7 +196,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 25 – 50 Milhões",
-    faturamentoBRL: "~R$ 125 Milhões a R$ 250 Milhões",
     anuidadeUSD: 1250,
     anuidadeFormatada: "USD 1.250",
     categoria: "Pequenas-Médias Empresas (PMEs)",
@@ -211,7 +203,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "Abaixo de USD 25 Milhões",
-    faturamentoBRL: "Até ~R$ 125 Milhões",
     anuidadeUSD: 450,
     anuidadeFormatada: "USD 450",
     categoria: "Pequenas Empresas (PMEs)",

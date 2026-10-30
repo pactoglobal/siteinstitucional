@@ -134,13 +134,10 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
   // Cálculo da contribuição no simulador
   const simuladorResultado = useMemo(() => {
     const faixaBase = TABELA_CONTRIBUICOES[selectedFaixaIndex] || TABELA_CONTRIBUICOES[8];
-    const taxaCambioIndicativa = 5.0; // R$ 5,00 por USD para referência
-
     if (tipoOrg === 'subsidiaria') {
       const valorFinalUSD = Math.round(faixaBase.anuidadeUSD * 0.5);
       return {
         anuidadeUSD: valorFinalUSD,
-        anuidadeBRL: valorFinalUSD * taxaCambioIndicativa,
         anuidadeFormatada: `USD ${valorFinalUSD.toLocaleString('pt-BR')}`,
         regra: 'Empresas que fazem parte de um grupo já participante do Pacto Global pagam 50% do valor da sua faixa, seja a matriz brasileira ou estrangeira.',
         categoria: `${faixaBase.categoria} (50%)`
@@ -150,7 +147,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
     // Empresa participante
     return {
       anuidadeUSD: faixaBase.anuidadeUSD,
-      anuidadeBRL: faixaBase.anuidadeUSD * taxaCambioIndicativa,
       anuidadeFormatada: faixaBase.anuidadeFormatada,
       regra: 'Contribuição proporcional ao faturamento bruto anual auditado.',
       categoria: faixaBase.categoria
@@ -655,7 +651,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 >
                   {TABELA_CONTRIBUICOES.map((faixa, fIdx) => (
                     <option key={fIdx} value={fIdx}>
-                      {faixa.faixaUSD} ({faixa.faturamentoBRL}) — {faixa.categoria}
+                      {faixa.faixaUSD} — {faixa.categoria}
                     </option>
                   ))}
                 </select>
@@ -665,7 +661,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-start gap-3">
                 <Info className="w-4 h-4 text-un-blue shrink-0 mt-0.5" />
                 <p className="leading-relaxed">
-                  {simuladorResultado.regra} Os valores oficiais são tabelados em USD e faturados anualmente pela Rede Brasil sob câmbio oficial da data de emissão.
+                  {simuladorResultado.regra} Os valores oficiais são tabelados em dólar e faturados anualmente pela Rede Brasil, convertidos pelo câmbio oficial da data de emissão.
                 </p>
               </div>
 
@@ -687,11 +683,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                   <div className="text-4xl sm:text-5xl font-display font-black text-un-gold mt-1 tracking-tight">
                     {simuladorResultado.anuidadeFormatada}
                   </div>
-                  {simuladorResultado.anuidadeUSD > 0 && (
-                    <span className="text-xs text-slate-300 block mt-1 font-mono">
-                      Equivalente indicativo: ~R$ {simuladorResultado.anuidadeBRL.toLocaleString('pt-BR')} / ano
-                    </span>
-                  )}
                 </div>
 
                 <div className="p-4 rounded-2xl bg-white/10 border border-white/10 space-y-2 text-xs">
@@ -753,7 +744,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 <p className="text-xs text-slate-500 font-light">Todas as faixas de receita bruta anual e valores de anuidade vigentes</p>
               </div>
               <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 bg-slate-100 rounded-full text-slate-700 shrink-0">
-                10 Faixas Regulamentadas
+                {TABELA_CONTRIBUICOES.length} Faixas Regulamentadas
               </span>
             </div>
 
@@ -762,7 +753,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 <thead>
                   <tr className="border-b-2 border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
                     <th className="py-3 px-4">Faixa de Faturamento (USD)</th>
-                    <th className="py-3 px-4">Referência em BRL</th>
                     <th className="py-3 px-4">Categoria Corporativa</th>
                     <th className="py-3 px-4 text-right">Anuidade Anual (USD)</th>
                   </tr>
@@ -777,7 +767,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                       )}
                     >
                       <td className="py-3.5 px-4 font-bold text-slate-900">{row.faixaUSD}</td>
-                      <td className="py-3.5 px-4 text-slate-600">{row.faturamentoBRL}</td>
                       <td className="py-3.5 px-4 text-slate-700">
                         <span className="px-2.5 py-0.5 rounded-md bg-slate-100 text-[10px] font-medium">
                           {row.categoria}
