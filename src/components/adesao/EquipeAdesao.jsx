@@ -4,6 +4,7 @@ import { SectionHeader } from '../ui/SectionHeader';
 import { Reveal } from '../ui/Reveal';
 import { cn } from '../../utils/cn';
 import { EQUIPE_ADESAO } from '../../data/equipeAdesao';
+import { WhatsAppGlyph } from './WhatsAppFab';
 
 const FOTOS_BASE = `${import.meta.env.BASE_URL}images/equipe/`;
 
@@ -112,8 +113,11 @@ const PerfilCard = ({ membro, grande, unico }) => (
           )}
         </div>
         <div className="flex flex-wrap gap-2">
+          {membro.whatsapp && (
+            <AcaoContato href={membro.whatsapp} icone={WhatsAppGlyph} rotulo="WhatsApp" destaque externo />
+          )}
           {membro.agenda && (
-            <AcaoContato href={membro.agenda} icone={CalendarPlus} rotulo="Agendar no Teams" destaque externo />
+            <AcaoContato href={membro.agenda} icone={CalendarPlus} rotulo="Agendar no Teams" destaque={!membro.whatsapp} externo />
           )}
           {membro.email && (
             <AcaoContato href={`mailto:${membro.email}`} icone={Mail} rotulo="E-mail" titulo={membro.email} />
@@ -127,8 +131,11 @@ const PerfilCard = ({ membro, grande, unico }) => (
 
     {!unico && (
     <div className="mt-auto flex flex-wrap gap-2">
+      {membro.whatsapp && (
+        <AcaoContato href={membro.whatsapp} icone={WhatsAppGlyph} rotulo="WhatsApp" destaque externo />
+      )}
       {membro.agenda && (
-        <AcaoContato href={membro.agenda} icone={CalendarPlus} rotulo="Agendar no Teams" destaque externo />
+        <AcaoContato href={membro.agenda} icone={CalendarPlus} rotulo="Agendar no Teams" destaque={!membro.whatsapp} externo />
       )}
       {membro.email && (
         <AcaoContato href={`mailto:${membro.email}`} icone={Mail} rotulo="E-mail" titulo={membro.email} />
@@ -155,7 +162,7 @@ const PerfilCard = ({ membro, grande, unico }) => (
  * ninguém tiver: nome sem contato não serve a quem visita e expõe a pessoa à toa.
  */
 export const EquipeAdesao = ({ equipe: todos = EQUIPE_ADESAO }) => {
-  const equipe = todos.filter((membro) => membro.email || membro.linkedin || membro.agenda);
+  const equipe = todos.filter((membro) => membro.whatsapp || membro.email || membro.linkedin || membro.agenda);
   if (equipe.length === 0) return null;
 
   return (
@@ -165,7 +172,7 @@ export const EquipeAdesao = ({ equipe: todos = EQUIPE_ADESAO }) => {
           badge="Atendimento à adesão"
           title="Contato de Adesão"
           titleAccent="Fale com quem conduz a sua entrada"
-          description="A pessoa responsável pela adesão acompanha sua empresa do primeiro contato ao fim do processo. Agende uma conversa, envie um e-mail ou conecte-se pelo LinkedIn."
+          description="A pessoa responsável pela adesão acompanha sua empresa do primeiro contato ao fim do processo. Chame no WhatsApp, envie um e-mail ou conecte-se pelo LinkedIn."
           className="mb-12"
         />
 

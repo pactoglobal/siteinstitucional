@@ -9,17 +9,11 @@
  * tiver ao menos um canal, e a seção some se ninguém tiver.
  *
  * - foto:     caminho em public/images/equipe/ (ex.: "nome-sobrenome.jpg")
+ * - whatsapp: link wa.me completo, com a mensagem pré-preenchida
  * - email:    endereço institucional
  * - linkedin: URL completa do perfil
  * - agenda:   link de agendamento do Teams (Microsoft Bookings / reunião)
  */
-
-// Link oficial do Teams para nova reunião, já com a pessoa como convidada.
-// Trocar pelo link de agendamento (Bookings) quando houver um.
-const agendaTeams = (email) =>
-  "https://teams.microsoft.com/l/meeting/new" +
-  `?subject=${encodeURIComponent("Adesão ao Pacto Global – Rede Brasil")}` +
-  `&attendees=${email}`;
 
 export const EQUIPE_ADESAO = [
   {
@@ -27,8 +21,10 @@ export const EQUIPE_ADESAO = [
     nome: "Barbara Rodrigues de Souza",
     cargo: "Analista de Adesão",
     foto: "barbara-souza.jpg",
+    whatsapp:
+      "https://wa.me/5511963110743?text=Ol%C3%A1%20B%C3%A1rbara%2C%20tudo%20bem%3F%20Estou%20entrando%20em%20contato%2C%20pois%20visitei%20o%20site%20e%20gostaria%20de%20fazer%20parte%20do%20Pacto%20Global%20da%20ONU%20-%20Brasil.",
     email: "barbara.souza@pactoglobal.org.br",
     linkedin: "https://www.linkedin.com/in/barbara-rodrigues-de-souza/",
-    agenda: agendaTeams("barbara.souza@pactoglobal.org.br"),
+    agenda: null,
   },
 ];
