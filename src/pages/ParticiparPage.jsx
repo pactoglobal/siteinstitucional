@@ -604,12 +604,14 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
               {/* Seletor do Tipo de Organização */}
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
+                <span id="simulador-perfil-label" className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
                   1. Perfil da Organização:
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                </span>
+                <div role="radiogroup" aria-labelledby="simulador-perfil-label" className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <button
                     type="button"
+                    role="radio"
+                    aria-checked={tipoOrg === 'empresa_matriz'}
                     onClick={() => setTipoOrg('empresa_matriz')}
                     className={cn(
                       "p-3 rounded-2xl text-left border transition-all text-xs cursor-pointer flex flex-col justify-between",
@@ -624,6 +626,8 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
                   <button
                     type="button"
+                    role="radio"
+                    aria-checked={tipoOrg === 'subsidiaria_estrangeira'}
                     onClick={() => setTipoOrg('subsidiaria_estrangeira')}
                     className={cn(
                       "p-3 rounded-2xl text-left border transition-all text-xs cursor-pointer flex flex-col justify-between",
@@ -638,6 +642,8 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
                   <button
                     type="button"
+                    role="radio"
+                    aria-checked={tipoOrg === 'subsidiaria_br'}
                     onClick={() => setTipoOrg('subsidiaria_br')}
                     className={cn(
                       "p-3 rounded-2xl text-left border transition-all text-xs cursor-pointer flex flex-col justify-between",
@@ -652,6 +658,8 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
                   <button
                     type="button"
+                    role="radio"
+                    aria-checked={tipoOrg === 'nao_empresarial'}
                     onClick={() => setTipoOrg('nao_empresarial')}
                     className={cn(
                       "p-3 rounded-2xl text-left border transition-all text-xs cursor-pointer flex flex-col justify-between",
@@ -669,10 +677,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
               {/* Seletor de Faixa de Faturamento (quando for Empresa) */}
               {(tipoOrg === 'empresa_matriz' || tipoOrg === 'subsidiaria_estrangeira') && (
                 <div className="space-y-2 pt-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block" htmlFor="simulador-faixa">
                     2. Faixa de Faturamento Bruto Anual:
                   </label>
                   <select
+                    id="simulador-faixa"
                     value={selectedFaixaIndex}
                     onChange={(e) => setSelectedFaixaIndex(Number(e.target.value))}
                     className="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-medium text-slate-900 focus:outline-none focus:border-un-blue transition-colors cursor-pointer"
@@ -1244,10 +1253,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-nome">
                         Nome:*
                       </label>
                       <input 
+                        id="contato-nome"
                         type="text" 
                         required
                         placeholder="Seu nome"
@@ -1257,10 +1267,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-sobrenome">
                         Sobrenome:*
                       </label>
                       <input 
+                        id="contato-sobrenome"
                         type="text" 
                         required
                         placeholder="Seu sobrenome"
@@ -1273,10 +1284,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-email">
                         E-mail Corporativo:*
                       </label>
                       <input 
+                        id="contato-email"
                         type="email" 
                         required
                         placeholder="nome@empresa.com.br"
@@ -1286,10 +1298,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-empresa">
                         Nome da Organização:*
                       </label>
                       <input 
+                        id="contato-empresa"
                         type="text" 
                         required
                         placeholder="Razão Social ou Nome Fantasia"
@@ -1302,10 +1315,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-cargo">
                         Cargo / Função:
                       </label>
                       <input 
+                        id="contato-cargo"
                         type="text" 
                         placeholder="Ex: Diretor de Sustentabilidade, CEO"
                         value={formData.cargo}
@@ -1314,10 +1328,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-porte">
                         Porte / Faixa Estimada:
                       </label>
                       <select
+                        id="contato-porte"
                         value={formData.porte}
                         onChange={(e) => setFormData({ ...formData, porte: e.target.value })}
                         className="w-full min-h-[44px] px-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-un-blue transition-colors cursor-pointer"
@@ -1332,10 +1347,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-mensagem">
                       Dúvida ou Mensagem:
                     </label>
                     <textarea 
+                      id="contato-mensagem"
                       rows={3}
                       placeholder="Como podemos apoiar o processo de adesão da sua empresa?"
                       value={formData.mensagem}
