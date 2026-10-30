@@ -13,6 +13,7 @@ import {
   FileSignature, 
   Laptop, 
   ShieldAlert, 
+  XCircle,
   Award, 
   BarChart2, 
   HelpCircle, 
@@ -42,13 +43,13 @@ import {
   ADESAO_STATS,
   BENEFICIOS_ADESAO,
   QUEM_PODE_ADERIR,
+  CRITERIOS_ELEGIBILIDADE,
   TABELA_CONTRIBUICOES,
   REGRAS_CONTRIBUICAO,
   ETAPAS_ADESAO,
   FAQ_ADESAO,
   CONTATO_ENGAJAMENTO,
   CEO_STUDY_STATS,
-  COMPARATIVO_TIERS
 } from '../data/comoAderir';
 
 // Mapeamento de ícones dinâmicos
@@ -75,7 +76,10 @@ const ICON_MAP = {
 
 export const ParticiparPage = ({ navigate: _navigate }) => {
   // Estado do Simulador de Anuidade
-  const [tipoOrg, setTipoOrg] = useState('empresa_matriz'); // 'empresa_matriz', 'subsidiaria_estrangeira', 'subsidiaria_br', 'nao_empresarial'
+  // Dois perfis apenas: participante (tabela cheia) e subsidiaria (50%).
+  // Nao empresarial e subsidiaria isenta sairam na revisao da RBPG — nao
+  // existe mais adesao de ONG nem anuidade isenta.
+  const [tipoOrg, setTipoOrg] = useState('participante'); // 'participante' | 'subsidiaria'
   const [selectedFaixaIndex, setSelectedFaixaIndex] = useState(8); // Default: Abaixo de USD 25M (PME)
   
   // Estado do FAQ (qual item está aberto)
@@ -95,7 +99,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
     cargo: '',
     porte: 'PME (< USD 25M)',
     mensagem: '',
-    lgpd: true
+    lgpd: false
   });
 
   // Listener para botão de scroll e navegação flutuante
@@ -129,44 +133,20 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
   // Cálculo da contribuição no simulador
   const simuladorResultado = useMemo(() => {
-    if (tipoOrg === 'nao_empresarial') {
-      return {
-        anuidadeUSD: 0,
-        anuidadeBRL: 0,
-        anuidadeFormatada: 'Isento (USD 0)',
-        regra: 'Organizações não empresariais (Academia, Terceiro Setor, Setor Público) são isentas de anuidade.',
-        categoria: 'Não Empresarial'
-      };
-    }
-
-    if (tipoOrg === 'subsidiaria_br') {
-      return {
-        anuidadeUSD: 0,
-        anuidadeBRL: 0,
-        anuidadeFormatada: 'Isento (USD 0)*',
-        regra: 'Subsidiárias integrais de matrizes brasileiras já participantes usufruem das contrapartidas sem anuidade adicional.',
-        categoria: 'Subsidiária Nacional'
-      };
-    }
-
     const faixaBase = TABELA_CONTRIBUICOES[selectedFaixaIndex] || TABELA_CONTRIBUICOES[8];
-    const taxaCambioIndicativa = 5.0; // R$ 5,00 por USD para referência
-
-    if (tipoOrg === 'subsidiaria_estrangeira') {
+    if (tipoOrg === 'subsidiaria') {
       const valorFinalUSD = Math.round(faixaBase.anuidadeUSD * 0.5);
       return {
         anuidadeUSD: valorFinalUSD,
-        anuidadeBRL: valorFinalUSD * taxaCambioIndicativa,
-        anuidadeFormatada: `USD ${valorFinalUSD.toLocaleString('en-US')}`,
-        regra: 'Subsidiárias brasileiras de grupos multinacionais estrangeiros contam com 50% de benefício na anuidade.',
-        categoria: `${faixaBase.categoria} (50% Desc.)`
+        anuidadeFormatada: `USD ${valorFinalUSD.toLocaleString('pt-BR')}`,
+        regra: 'Empresas que fazem parte de um grupo já participante do Pacto Global pagam 50% do valor da sua faixa, seja a matriz brasileira ou estrangeira.',
+        categoria: `${faixaBase.categoria} (50%)`
       };
     }
 
-    // Empresa Matriz Integral
+    // Empresa participante
     return {
       anuidadeUSD: faixaBase.anuidadeUSD,
-      anuidadeBRL: faixaBase.anuidadeUSD * taxaCambioIndicativa,
       anuidadeFormatada: faixaBase.anuidadeFormatada,
       regra: 'Contribuição proporcional ao faturamento bruto anual auditado.',
       categoria: faixaBase.categoria
@@ -208,7 +188,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
       <PageHero 
         category="Adesão & Engajamento • Maior Rede ESG do Mundo"
         title="Como Aderir ao Pacto Global"
-        description="Junte-se a mais de 2.000 organizações no Brasil e 24.000 no mundo comprometidas em transformar princípios éticos em liderança e impacto socioambiental real."
+        description="Junte-se a mais de 2.000 empresas no Brasil e 25.000 no mundo comprometidas em transformar princípios éticos em liderança e impacto socioambiental real."
         image="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop"
       />
 
@@ -256,14 +236,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 <Calculator className="w-3.5 h-3.5 text-un-gold" /> Simulador de Anuidade
               </button>
 
-              <button 
-                type="button" 
-                onClick={() => scrollToSection('niveis-participacao')}
-                className="min-h-[42px] px-4 py-2 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-un-blue hover:text-white transition-all inline-flex items-center gap-2 cursor-pointer shrink-0 border border-slate-200/60"
-              >
-                <Globe className="w-3.5 h-3.5 text-un-gold" /> Níveis de Adesão
-              </button>
-              
               <button 
                 type="button" 
                 onClick={() => scrollToSection('etapas')}
@@ -483,8 +455,8 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
           <SectionHeader 
             badge="Elegibilidade & Categorias"
             title="Quem Pode Aderir à Rede Brasil?"
-            titleAccent="Portas Abertas para Toda a Economia"
-            description="Do micro ao grande conglomerado, da universidade à ONG: toda organização legalmente constituída que assumir o compromisso com os 10 Princípios pode participar."
+            titleAccent="Uma Iniciativa para Empresas Privadas"
+            description="O Pacto Global é uma iniciativa para empresas privadas. Da pequena empresa ao grande conglomerado, toda companhia legalmente constituída que assumir o compromisso com os 10 Princípios pode participar."
             className="mb-8"
           />
 
@@ -502,14 +474,16 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
             </div>
             <p className="text-sm leading-relaxed text-slate-700 sm:text-base">
               <strong className="font-bold text-slate-900">
-                A adesão empresarial exige no mínimo 10 colaboradores.
+                A adesão exige ao menos 10 funcionários.
               </strong>{' '}
-              Abaixo disso a organização ainda pode se engajar na agenda, mas não como
-              empresa participante. Organizações não empresariais seguem outro critério.
+              Abaixo disso a empresa ainda pode se engajar na agenda, mas não como
+              participante. Desde janeiro de 2025 não há adesão de organizações não
+              empresariais — a exceção são hospitais e escolas com característica
+              empresarial.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {QUEM_PODE_ADERIR.map((cat, idx) => {
               const IconComp = ICON_MAP[cat.icone] || Building2;
               return (
@@ -550,14 +524,8 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                     <button
                       type="button"
                       onClick={() => {
-                        if (idx === 2) setTipoOrg('nao_empresarial');
-                        else if (idx === 1) {
-                          setTipoOrg('empresa_matriz');
-                          setSelectedFaixaIndex(8);
-                        } else {
-                          setTipoOrg('empresa_matriz');
-                          setSelectedFaixaIndex(3);
-                        }
+                        setTipoOrg(idx === 1 ? 'subsidiaria' : 'participante');
+                        setSelectedFaixaIndex(8);
                         scrollToSection('simulador');
                       }}
                       className="w-full min-h-[42px] px-4 py-2 rounded-full border border-un-blue text-un-blue hover:bg-un-blue hover:text-white transition-all text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer"
@@ -568,6 +536,33 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 </div>
               );
             })}
+          </div>
+
+          {/* Criterios de inelegibilidade. Estao aqui porque a pergunta que a
+              empresa realmente faz nesta secao e "eu posso?", e a resposta
+              honesta inclui o que impede a adesao. */}
+          <div className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 sm:p-8">
+            <div className="flex items-center gap-3 border-b border-slate-100 pb-4 mb-5">
+              <div className="w-10 h-10 rounded-xl bg-un-blue/5 flex items-center justify-center text-un-blue border border-un-blue/10 shrink-0">
+                <ShieldAlert className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-lg font-display font-black uppercase text-slate-900">
+                  O que impede a adesão
+                </h3>
+                <p className="text-xs text-slate-500 font-light">
+                  A candidatura é barrada se qualquer um destes critérios se aplicar
+                </p>
+              </div>
+            </div>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
+              {CRITERIOS_ELEGIBILIDADE.map((criterio) => (
+                <li key={criterio} className="flex items-start gap-2.5 text-sm text-slate-600 font-light leading-relaxed">
+                  <XCircle className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+                  <span>{criterio}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
         </div>
@@ -581,7 +576,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
             badge="Transparência Financeira Oficial"
             title="Simulador de Contribuição Anual"
             titleAccent="Valores Proporcionais ao Porte da Empresa"
-            description="Consulte a anuidade correspondente ao faturamento bruto anual da sua organização e entenda as regras de isenção e benefícios para subsidiárias."
+            description="Consulte a anuidade correspondente ao faturamento bruto anual da sua empresa e entenda a regra aplicada às subsidiárias."
             className="mb-10"
           />
 
@@ -604,93 +599,69 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
               {/* Seletor do Tipo de Organização */}
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
+                <span id="simulador-perfil-label" className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
                   1. Perfil da Organização:
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                </span>
+                <div role="radiogroup" aria-labelledby="simulador-perfil-label" className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <button
                     type="button"
-                    onClick={() => setTipoOrg('empresa_matriz')}
+                    role="radio"
+                    aria-checked={tipoOrg === 'participante'}
+                    onClick={() => setTipoOrg('participante')}
                     className={cn(
                       "p-3 rounded-2xl text-left border transition-all text-xs cursor-pointer flex flex-col justify-between",
-                      tipoOrg === 'empresa_matriz'
+                      tipoOrg === 'participante'
                         ? "bg-un-blue text-white border-un-blue shadow-sm"
                         : "bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300"
                     )}
                   >
-                    <span className="font-bold block">Empresa Brasileira (Matriz)</span>
+                    <span className="font-bold block">Empresa Participante</span>
                     <span className="text-[10px] opacity-80 mt-0.5">Tabela padrão por faixa de receita</span>
                   </button>
 
                   <button
                     type="button"
-                    onClick={() => setTipoOrg('subsidiaria_estrangeira')}
+                    role="radio"
+                    aria-checked={tipoOrg === 'subsidiaria'}
+                    onClick={() => setTipoOrg('subsidiaria')}
                     className={cn(
                       "p-3 rounded-2xl text-left border transition-all text-xs cursor-pointer flex flex-col justify-between",
-                      tipoOrg === 'subsidiaria_estrangeira'
+                      tipoOrg === 'subsidiaria'
                         ? "bg-un-blue text-white border-un-blue shadow-sm"
                         : "bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300"
                     )}
                   >
-                    <span className="font-bold block">Subsidiária de Multinacional</span>
-                    <span className="text-[10px] opacity-80 mt-0.5">Benefício de 50% de anuidade</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setTipoOrg('subsidiaria_br')}
-                    className={cn(
-                      "p-3 rounded-2xl text-left border transition-all text-xs cursor-pointer flex flex-col justify-between",
-                      tipoOrg === 'subsidiaria_br'
-                        ? "bg-un-blue text-white border-un-blue shadow-sm"
-                        : "bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300"
-                    )}
-                  >
-                    <span className="font-bold block">Subsidiária de Empresa BR</span>
-                    <span className="text-[10px] opacity-80 mt-0.5">Isenta se matriz for participante</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setTipoOrg('nao_empresarial')}
-                    className={cn(
-                      "p-3 rounded-2xl text-left border transition-all text-xs cursor-pointer flex flex-col justify-between",
-                      tipoOrg === 'nao_empresarial'
-                        ? "bg-un-blue text-white border-un-blue shadow-sm"
-                        : "bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300"
-                    )}
-                  >
-                    <span className="font-bold block">Não Empresarial (ONG / Univ.)</span>
-                    <span className="text-[10px] opacity-80 mt-0.5">Participação 100% Isenta</span>
+                    <span className="font-bold block">Subsidiária</span>
+                    <span className="text-[10px] opacity-80 mt-0.5">50% do valor da faixa</span>
                   </button>
                 </div>
               </div>
 
-              {/* Seletor de Faixa de Faturamento (quando for Empresa) */}
-              {(tipoOrg === 'empresa_matriz' || tipoOrg === 'subsidiaria_estrangeira') && (
-                <div className="space-y-2 pt-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
-                    2. Faixa de Faturamento Bruto Anual:
-                  </label>
-                  <select
-                    value={selectedFaixaIndex}
-                    onChange={(e) => setSelectedFaixaIndex(Number(e.target.value))}
-                    className="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-medium text-slate-900 focus:outline-none focus:border-un-blue transition-colors cursor-pointer"
-                  >
-                    {TABELA_CONTRIBUICOES.filter(f => f.anuidadeUSD > 0).map((faixa, fIdx) => (
-                      <option key={fIdx} value={fIdx}>
-                        {faixa.faixaUSD} ({faixa.faturamentoBRL}) — {faixa.categoria}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
+              {/* A faixa de faturamento vale para os dois perfis: a subsidiaria
+                  paga 50% da mesma tabela, entao tambem precisa escolher. */}
+              <div className="space-y-2 pt-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block" htmlFor="simulador-faixa">
+                  2. Faixa de Faturamento Bruto Anual:
+                </label>
+                <select
+                  id="simulador-faixa"
+                  value={selectedFaixaIndex}
+                  onChange={(e) => setSelectedFaixaIndex(Number(e.target.value))}
+                  className="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-medium text-slate-900 focus:outline-none focus:border-un-blue transition-colors cursor-pointer"
+                >
+                  {TABELA_CONTRIBUICOES.map((faixa, fIdx) => (
+                    <option key={fIdx} value={fIdx}>
+                      {faixa.faixaUSD} — {faixa.categoria}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
               {/* Card de Regra e Nota Informativa */}
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-start gap-3">
                 <Info className="w-4 h-4 text-un-blue shrink-0 mt-0.5" />
                 <p className="leading-relaxed">
-                  {simuladorResultado.regra} Os valores oficiais são tabelados em USD e faturados anualmente pela Rede Brasil sob câmbio oficial da data de emissão.
+                  {simuladorResultado.regra} Os valores oficiais são tabelados em dólar e faturados anualmente pela Rede Brasil, convertidos pelo câmbio oficial da data de emissão.
                 </p>
               </div>
 
@@ -712,11 +683,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                   <div className="text-4xl sm:text-5xl font-display font-black text-un-gold mt-1 tracking-tight">
                     {simuladorResultado.anuidadeFormatada}
                   </div>
-                  {simuladorResultado.anuidadeUSD > 0 && (
-                    <span className="text-xs text-slate-300 block mt-1 font-mono">
-                      Equivalente indicativo: ~R$ {simuladorResultado.anuidadeBRL.toLocaleString('pt-BR')} / ano
-                    </span>
-                  )}
                 </div>
 
                 <div className="p-4 rounded-2xl bg-white/10 border border-white/10 space-y-2 text-xs">
@@ -778,7 +744,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 <p className="text-xs text-slate-500 font-light">Todas as faixas de receita bruta anual e valores de anuidade vigentes</p>
               </div>
               <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 bg-slate-100 rounded-full text-slate-700 shrink-0">
-                10 Faixas Regulamentadas
+                {TABELA_CONTRIBUICOES.length} Faixas Regulamentadas
               </span>
             </div>
 
@@ -787,7 +753,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 <thead>
                   <tr className="border-b-2 border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
                     <th className="py-3 px-4">Faixa de Faturamento (USD)</th>
-                    <th className="py-3 px-4">Referência em BRL</th>
                     <th className="py-3 px-4">Categoria Corporativa</th>
                     <th className="py-3 px-4 text-right">Anuidade Anual (USD)</th>
                   </tr>
@@ -802,7 +767,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                       )}
                     >
                       <td className="py-3.5 px-4 font-bold text-slate-900">{row.faixaUSD}</td>
-                      <td className="py-3.5 px-4 text-slate-600">{row.faturamentoBRL}</td>
                       <td className="py-3.5 px-4 text-slate-700">
                         <span className="px-2.5 py-0.5 rounded-md bg-slate-100 text-[10px] font-medium">
                           {row.categoria}
@@ -830,148 +794,20 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
               ))}
             </div>
 
-            {/* NOVO: NÍVEIS OFICIAIS DE PARTICIPAÇÃO DA ONU (SIGNATORY VS PARTICIPANT) */}
-            <div id="niveis-participacao" className="mt-12 pt-12 border-t border-slate-200">
-              <div className="max-w-3xl mb-8">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-un-blue bg-un-blue/10 px-3 py-1 rounded-full border border-un-blue/20 inline-block mb-2">
-                  Regulamento Global da ONU • Resolução da Sede em Nova York
-                </span>
-                <h4 className="text-xl sm:text-2xl font-display font-black uppercase text-slate-900 tracking-tight">
-                  Signatário vs. Participante: Conheça os Níveis de Adesão
-                </h4>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-light mt-1">
-                  O UN Global Compact organiza a membresia corporativa em dois níveis oficiais. Compreenda as distinções de contrapartidas, acessos e representatividade internacional para escolher a modalidade ideal para o porte da sua organização.
-                </p>
+            {/* Link para o Diretório Global de Participantes */}
+            <div className="mt-10 p-4 rounded-2xl bg-amber-50/70 border border-amber-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2.5 text-amber-900">
+                <Globe className="w-4 h-4 text-amber-700 shrink-0" />
+                <span>Consulte as mais de 25.000 organizações ativas no <strong>Diretório Público Global de Participantes</strong> da ONU.</span>
               </div>
-
-              {/* Grid dos Dois Níveis (Bento Style) */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                {/* Card Signatário */}
-                <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:border-slate-300 transition-all">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-700 bg-slate-200/70 px-3 py-1 rounded-full">
-                        Nível Nacional • PMEs
-                      </span>
-                      <Building2 className="w-5 h-5 text-slate-500" />
-                    </div>
-                    <div>
-                      <h5 className="text-xl font-display font-black uppercase text-slate-900">
-                        Signatário (Signatory)
-                      </h5>
-                      <p className="text-xs text-slate-500 font-medium mt-1">
-                        Elegível para empresas com faturamento anual inferior a USD 50 Milhões (PMEs).
-                      </p>
-                    </div>
-                    <ul className="space-y-2.5 text-xs text-slate-600 font-light border-t border-slate-200/60 pt-4">
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>Foco de atuação e relacionamento primariamente com a <strong>Rede Brasil</strong>.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>Acesso aos cursos essenciais e webinars da <strong>UN Global Compact Academy</strong>.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>Publicação anual obrigatória da <strong>Comunicação de Progresso (CoP)</strong>.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>Presença no diretório público global de signatários da ONU.</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="pt-6 mt-6 border-t border-slate-200/80">
-                    <span className="text-[11px] font-semibold text-slate-500 block mb-2">Ideal para: Pequenas e Médias Empresas iniciando a formalização ESG.</span>
-                  </div>
-                </div>
-
-                {/* Card Participante */}
-                <div className="bg-un-blue text-white border-2 border-un-gold/60 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-lg relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-48 h-48 bg-un-gold/15 rounded-full blur-2xl pointer-events-none"></div>
-                  <div className="space-y-4 relative z-10">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-un-blue bg-un-gold px-3 py-1 rounded-full font-black">
-                        Recomendado Corporativo • Global
-                      </span>
-                      <Award className="w-5 h-5 text-un-gold" />
-                    </div>
-                    <div>
-                      <h5 className="text-xl font-display font-black uppercase text-white">
-                        Participante (Participant)
-                      </h5>
-                      <p className="text-xs text-slate-200 font-light mt-1">
-                        Obrigatório para empresas com faturamento &gt; USD 50M e aberto a PMEs com ambição global.
-                      </p>
-                    </div>
-                    <ul className="space-y-2.5 text-xs text-slate-100 font-light border-t border-white/15 pt-4">
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-un-gold shrink-0 mt-0.5" />
-                        <span>Acesso <strong>100% ilimitado e gratuito</strong> à UN Global Compact Academy para <strong>todos os funcionários</strong> da organização.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-un-gold shrink-0 mt-0.5" />
-                        <span>Inscrição prioritária e sem custos adicionais nos <strong>Aceleradores Globais</strong> (Net Zero, Target Gender Equality, SDG Innovation).</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-un-gold shrink-0 mt-0.5" />
-                        <span>Convites e credenciais para o <strong>Leaders Summit</strong> durante a Assembleia Geral da ONU (UNGA) em Nova York.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-un-gold shrink-0 mt-0.5" />
-                        <span>Acesso exclusivo à ferramenta mundial de <strong>Benchmarking da CoP</strong> para comparar métricas com pares globais.</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="pt-6 mt-6 border-t border-white/15 relative z-10">
-                    <span className="text-[11px] font-semibold text-un-gold block mb-2">Ideal para: Grandes empresas, multinacionais e PMEs líderes em sustentabilidade.</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Tabela de Comparação Direta Criterio a Criterio */}
-              <div className="overflow-x-auto no-scrollbar -webkit-overflow-scrolling-touch bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-6">
-                <table className="w-full text-left text-xs border-collapse">
-                  <thead>
-                    <tr className="border-b-2 border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
-                      <th className="py-3 px-4 w-1/3">Critério de Avaliação</th>
-                      <th className="py-3 px-4 w-1/3">Nível Signatário</th>
-                      <th className="py-3 px-4 w-1/3 text-un-blue font-black">Nível Participante (Recomendado)</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-200">
-                    {COMPARATIVO_TIERS.map((tier, tIdx) => (
-                      <tr key={tIdx} className="hover:bg-white transition-colors">
-                        <td className="py-3.5 px-4 font-bold text-slate-900 flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-un-gold"></span>
-                          {tier.criterio}
-                        </td>
-                        <td className="py-3.5 px-4 text-slate-600">{tier.signatory}</td>
-                        <td className="py-3.5 px-4 font-semibold text-un-blue bg-un-blue/5">
-                          {tier.participant}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              {/* Link para o Diretório Global de Participantes */}
-              <div className="mt-4 p-4 rounded-2xl bg-amber-50/70 border border-amber-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-                <div className="flex items-center gap-2.5 text-amber-900">
-                  <Globe className="w-4 h-4 text-amber-700 shrink-0" />
-                  <span>Consulte as mais de 24.000 organizações ativas no <strong>Diretório Público Global de Participantes</strong> da ONU.</span>
-                </div>
-                <a
-                  href={CONTATO_ENGAJAMENTO.diretorioPublicoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-bold text-un-blue hover:text-amber-800 underline inline-flex items-center gap-1 shrink-0"
-                >
-                  Acessar Diretório Global <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
+              <a
+                href={CONTATO_ENGAJAMENTO.diretorioPublicoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-un-blue hover:text-amber-800 underline inline-flex items-center gap-1 shrink-0"
+              >
+                Acessar Diretório Global <ExternalLink className="w-3 h-3" />
+              </a>
             </div>
 
           </div>
@@ -1244,10 +1080,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-nome">
                         Nome:*
                       </label>
                       <input 
+                        id="contato-nome"
                         type="text" 
                         required
                         placeholder="Seu nome"
@@ -1257,10 +1094,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-sobrenome">
                         Sobrenome:*
                       </label>
                       <input 
+                        id="contato-sobrenome"
                         type="text" 
                         required
                         placeholder="Seu sobrenome"
@@ -1273,10 +1111,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-email">
                         E-mail Corporativo:*
                       </label>
                       <input 
+                        id="contato-email"
                         type="email" 
                         required
                         placeholder="nome@empresa.com.br"
@@ -1286,10 +1125,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-empresa">
                         Nome da Organização:*
                       </label>
                       <input 
+                        id="contato-empresa"
                         type="text" 
                         required
                         placeholder="Razão Social ou Nome Fantasia"
@@ -1302,10 +1142,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-cargo">
                         Cargo / Função:
                       </label>
                       <input 
+                        id="contato-cargo"
                         type="text" 
                         placeholder="Ex: Diretor de Sustentabilidade, CEO"
                         value={formData.cargo}
@@ -1314,10 +1155,11 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-porte">
                         Porte / Faixa Estimada:
                       </label>
                       <select
+                        id="contato-porte"
                         value={formData.porte}
                         onChange={(e) => setFormData({ ...formData, porte: e.target.value })}
                         className="w-full min-h-[44px] px-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-un-blue transition-colors cursor-pointer"
@@ -1325,17 +1167,17 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                         <option value="PME (< USD 25M)">PME (Receita até USD 25M)</option>
                         <option value="Média Empresa (USD 25M a 250M)">Média Empresa (USD 25M a 250M)</option>
                         <option value="Grande Empresa (> USD 250M)">Grande Empresa (&gt; USD 250M)</option>
-                        <option value="Subsidiária Estrangeira">Subsidiária de Multinacional Estrangeira</option>
-                        <option value="Não Empresarial (ONG / Universidade)">Não Empresarial (ONG / Academia / Setor Público)</option>
+                        <option value="Subsidiária de grupo participante">Subsidiária de grupo já participante</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-mensagem">
                       Dúvida ou Mensagem:
                     </label>
                     <textarea 
+                      id="contato-mensagem"
                       rows={3}
                       placeholder="Como podemos apoiar o processo de adesão da sua empresa?"
                       value={formData.mensagem}
@@ -1354,7 +1196,16 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                       className="w-4 h-4 mt-0.5 rounded text-un-blue focus:ring-un-blue cursor-pointer"
                     />
                     <label htmlFor="lgpd" className="text-[11px] text-slate-600 leading-tight cursor-pointer">
-                      Concordo com o tratamento dos dados institucionais para fins de contato e orientação sobre a adesão ao Pacto Global da ONU, nos termos da LGPD e Política de Privacidade.
+                      Concordo com o tratamento dos dados institucionais para fins de contato e orientação sobre a adesão ao Pacto Global da ONU, nos termos da LGPD e da{' '}
+                      <a
+                        href="https://www.pactoglobal.org.br/politica-de-privacidade/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-un-blue underline hover:text-un-gold"
+                      >
+                        Política de Privacidade
+                      </a>
+                      .
                     </label>
                   </div>
 
@@ -1415,6 +1266,16 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                   {isOpen && (
                     <div className="p-4 sm:p-5 pt-0 text-xs sm:text-sm text-slate-700 leading-relaxed font-light border-t border-slate-200/40 bg-white">
                       {item.resposta}
+                      {item.link && (
+                        <a
+                          href={item.link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-3 font-bold text-un-blue hover:underline inline-flex items-center gap-1.5"
+                        >
+                          {item.link.rotulo} <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
                     </div>
                   )}
                 </div>
@@ -1474,13 +1335,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 className="px-3 py-1.5 rounded-xl text-xs font-medium hover:bg-white/15 text-left transition-colors flex items-center gap-2 cursor-pointer"
               >
                 <Calculator className="w-3 h-3 text-un-gold" /> Simulador de Anuidade
-              </button>
-              <button 
-                type="button"
-                onClick={() => scrollToSection('niveis-participacao')}
-                className="px-3 py-1.5 rounded-xl text-xs font-medium hover:bg-white/15 text-left transition-colors flex items-center gap-2 cursor-pointer"
-              >
-                <Globe className="w-3 h-3 text-un-gold" /> Níveis de Adesão
               </button>
               <button 
                 type="button"

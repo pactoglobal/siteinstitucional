@@ -1,10 +1,21 @@
 /**
  * Dados Oficiais da Jornada de Adesão do Pacto Global da ONU - Rede Brasil
  * Fontes: pactoglobal.org.br/como-aderir, UN Global Compact Guidelines, Tabela de Contribuições Oficiais
+ *
+ * Revisão de conteúdo da equipe da RBPG (Mariana Benevente e Barbara Souza,
+ * out/2025). Quatro regras saíram dessa revisão e valem para a página inteira:
+ *
+ * 1. "Signatário" não existe mais. Só há empresas participantes.
+ * 2. Desde janeiro de 2025 não há adesão de organizações não empresariais.
+ *    A exceção são entidades com característica empresarial (hospitais e
+ *    escolas) — OSC e OSCIP não aderem.
+ * 3. Não existe anuidade isenta. Toda participante contribui, subsidiária
+ *    inclusive.
+ * 4. Subsidiária paga 50%, seja a matriz brasileira ou estrangeira.
  */
 
 export const ADESAO_STATS = [
-  { valor: "+24.000", rotulo: "Organizações no Mundo", subrotulo: "Maior iniciativa de sustentabilidade do planeta" },
+  { valor: "+25.000", rotulo: "Organizações no Mundo", subrotulo: "Maior iniciativa de sustentabilidade do planeta" },
   { valor: "+2.000", rotulo: "Participantes no Brasil", subrotulo: "2ª maior rede local do UN Global Compact" },
   { valor: "160+", rotulo: "Países Conectados", subrotulo: "Capilaridade global com impacto local" },
   { valor: "100%", rotulo: "Alinhado à ONU", subrotulo: "Comunicação de Progresso (CoP) auditada" },
@@ -20,7 +31,7 @@ export const BENEFICIOS_ADESAO = [
     destaque: true,
     pontos: [
       "Uso autorizado do selo 'We Support the UN Global Compact'",
-      "Presença no diretório público global de signatários da ONU",
+      "Presença no diretório público global de participantes da ONU",
       "Diferenciação competitiva em concorrências públicas e privadas",
     ]
   },
@@ -86,40 +97,56 @@ export const BENEFICIOS_ADESAO = [
   }
 ];
 
+/**
+ * Quem pode aderir.
+ *
+ * O Pacto Global é uma iniciativa para empresas privadas. A adesão de
+ * organizações não empresariais foi encerrada em janeiro de 2025 — por isso
+ * a lista abaixo não tem mais a categoria "Academia / Terceiro Setor".
+ *
+ * As duas categorias que restam são as que a RBPG de fato opera: empresa
+ * que entra pela primeira vez (participante) e empresa de um grupo que já
+ * participa em qualquer país (subsidiária).
+ */
 export const QUEM_PODE_ADERIR = [
   {
-    tipo: "Empresas Corporativas",
-    subtitulo: "Grandes corporações e multinacionais",
-    criterios: "Empresas com mais de 10 colaboradores e faturamento superior a USD 50 milhões.",
+    tipo: "Empresas Participantes",
+    subtitulo: "Empresas que entram pela primeira vez na Rede Brasil",
+    criterios: "Empresas privadas legalmente constituídas no Brasil, com ao menos 10 funcionários.",
     categoria: "Participante",
     cor: "border-un-blue bg-un-blue/5",
     icone: "Building2",
-    vantagens: "Acesso integral a todas as plataformas, academias, movimentos, eventos globais e direito de voto em assembleias da Rede Brasil."
+    vantagens: "Acesso integral às plataformas de ação, aos Movimentos Ambição 2030, à UN Global Compact Academy e aos eventos nacionais e globais da rede."
   },
   {
-    tipo: "PMEs (Pequenas e Médias)",
-    subtitulo: "Médias e pequenas empresas em crescimento",
-    criterios: "Empresas com mais de 10 colaboradores e receita anual inferior a USD 50 milhões.",
-    categoria: "Signatário / Participante",
+    tipo: "Subsidiárias",
+    subtitulo: "Empresas de grupos que já participam do Pacto Global",
+    criterios: "Empresas que fazem parte de outra empresa já participante do Pacto Global em qualquer lugar do mundo.",
+    categoria: "Participante",
     cor: "border-un-gold bg-un-gold/5",
     icone: "Briefcase",
-    vantagens: "Valores de contribuição reduzidos e proporcionais, capacitação no Academy, trilhas de aceleração e inclusão em cadeias de valor responsáveis."
-  },
-  {
-    tipo: "Organizações Não Empresariais",
-    subtitulo: "Academia, Terceiro Setor, Associações e Setor Público",
-    criterios: "Instituições de ensino, ONGs, fundações, sindicatos e entidades públicas legalmente constituídas.",
-    categoria: "Não Empresarial",
-    cor: "border-emerald-600 bg-emerald-50",
-    icone: "Scale",
-    vantagens: "Contribuição financeira isenta (R$ 0 / USD 0)*. Atuação como articuladores técnicos, formadores de opinião e parceiros de pesquisa na Rede."
+    vantagens: "Mesmas contrapartidas de uma participante, com contribuição anual de 50% do valor correspondente à faixa de faturamento."
   }
+];
+
+/**
+ * Critérios de inelegibilidade informados pela equipe de Engajamento da RBPG.
+ * Estão redigidos como impedimento porque é assim que a análise é feita: a
+ * candidatura é barrada se qualquer um deles se aplicar.
+ */
+export const CRITERIOS_ELEGIBILIDADE = [
+  "Não ter submissão de sanção pela ONU",
+  "Não estar na Lista de Fornecedores Inelegíveis da ONU por questões éticas",
+  "Não obter receita da produção, venda e/ou transferência de minas terrestres antipessoais, bombas de fragmentação e armas letais",
+  "Não obter receita da produção e/ou manufatura de tabaco",
+  "Não ser pessoa física, OSC ou OSCIP — exceto hospitais e escolas com característica empresarial",
+  "Não ser entidade pública governamental, estatal ou municipal administrada pelo poder público",
+  "Não ser empresa com menos de 10 funcionários"
 ];
 
 export const TABELA_CONTRIBUICOES = [
   {
     faixaUSD: "USD 30 Bilhões ou mais",
-    faturamentoBRL: "Acima de ~R$ 150 Bilhões",
     anuidadeUSD: 30000,
     anuidadeFormatada: "USD 30.000",
     categoria: "Empresas Globais Tier 1",
@@ -127,7 +154,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 10 – 30 Bilhões",
-    faturamentoBRL: "~R$ 50 Bilhões a R$ 150 Bilhões",
     anuidadeUSD: 25000,
     anuidadeFormatada: "USD 25.000",
     categoria: "Grandes Corporações",
@@ -135,7 +161,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 5 – 10 Bilhões",
-    faturamentoBRL: "~R$ 25 Bilhões a R$ 50 Bilhões",
     anuidadeUSD: 20000,
     anuidadeFormatada: "USD 20.000",
     categoria: "Grandes Corporações",
@@ -143,7 +168,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 1 – 5 Bilhões",
-    faturamentoBRL: "~R$ 5 Bilhões a R$ 25 Bilhões",
     anuidadeUSD: 15000,
     anuidadeFormatada: "USD 15.000",
     categoria: "Médias-Grandes Empresas",
@@ -151,7 +175,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 500 Milhões – 1 Bilhão",
-    faturamentoBRL: "~R$ 2,5 Bilhões a R$ 5 Bilhões",
     anuidadeUSD: 7500,
     anuidadeFormatada: "USD 7.500",
     categoria: "Médias-Grandes Empresas",
@@ -159,7 +182,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 250 – 500 Milhões",
-    faturamentoBRL: "~R$ 1,25 Bilhão a R$ 2,5 Bilhões",
     anuidadeUSD: 5000,
     anuidadeFormatada: "USD 5.000",
     categoria: "Empresas de Médio Porte",
@@ -167,7 +189,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 50 – 250 Milhões",
-    faturamentoBRL: "~R$ 250 Milhões a R$ 1,25 Bilhão",
     anuidadeUSD: 2500,
     anuidadeFormatada: "USD 2.500",
     categoria: "Empresas de Médio Porte",
@@ -175,7 +196,6 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "USD 25 – 50 Milhões",
-    faturamentoBRL: "~R$ 125 Milhões a R$ 250 Milhões",
     anuidadeUSD: 1250,
     anuidadeFormatada: "USD 1.250",
     categoria: "Pequenas-Médias Empresas (PMEs)",
@@ -183,42 +203,33 @@ export const TABELA_CONTRIBUICOES = [
   },
   {
     faixaUSD: "Abaixo de USD 25 Milhões",
-    faturamentoBRL: "Até ~R$ 125 Milhões",
     anuidadeUSD: 450,
     anuidadeFormatada: "USD 450",
     categoria: "Pequenas Empresas (PMEs)",
     destaque: true
   },
-  {
-    faixaUSD: "Organizações Não Empresariais",
-    faturamentoBRL: "Academia, ONGs, Associações e Setor Público",
-    anuidadeUSD: 0,
-    anuidadeFormatada: "Isento (USD 0)",
-    categoria: "Não Empresarial",
-    destaque: false
-  }
 ];
 
 export const REGRAS_CONTRIBUICAO = [
   {
-    titulo: "Subsidiárias Brasileiras",
-    descricao: "Subsidiárias integrais de grupos empresariais já signatários no Brasil são isentas de anuidade própria, usufruindo dos mesmos benefícios da matriz.",
+    titulo: "Toda Participante Contribui",
+    descricao: "Não existe anuidade isenta. A contribuição anual é requisito para manter a participação ativa e o acesso às iniciativas da rede.",
+    icone: "UserCheck"
+  },
+  {
+    titulo: "Subsidiárias",
+    descricao: "Empresas que fazem parte de um grupo já participante do Pacto Global pagam 50% do valor correspondente à sua faixa de faturamento. A regra vale igualmente para subsidiária de matriz brasileira ou estrangeira.",
     icone: "Building"
   },
   {
-    titulo: "Subsidiárias Estrangeiras",
-    descricao: "Subsidiárias de matrizes globais operando no Brasil pagam 50% do valor da contribuição anual correspondente ao nível de faturamento local (exceto participantes do CORB).",
+    titulo: "Requisito Mínimo de Porte",
+    descricao: "Para aderir, a empresa precisa ter ao menos 10 funcionários e demonstrar conformidade jurídica nacional.",
     icone: "Globe2"
   },
   {
-    titulo: "Organizações Não Empresariais",
-    descricao: "ONGs, universidades, fundações e entidades governamentais não possuem cobrança de contribuição financeira anual (exceto quando integram assentos especiais do conselho).",
+    titulo: "Cobrança e Renovação",
+    descricao: "O valor é definido pelo faturamento bruto anual em dólares. A primeira cobrança ocorre após a conclusão da adesão e se renova a cada ano, no mesmo período.",
     icone: "GraduationCap"
-  },
-  {
-    titulo: "Requisito Mínimo de Porte",
-    descricao: "Para se qualificar à adesão corporativa, a empresa deve contar com mais de 10 colaboradores diretos e demonstrar conformidade jurídica nacional.",
-    icone: "UserCheck"
   }
 ];
 
@@ -270,8 +281,8 @@ export const ETAPAS_ADESAO = [
     id: "diligencia",
     numero: "04",
     titulo: "Due Diligence & Análise Reputacional",
-    descricao: "A equipe de Integridade e Governança da Rede Brasil e do UN Global Compact realiza a averiguação de diligência e conformidade regulatória da organização candidata.",
-    tempo: "Até 6 semanas",
+    descricao: "A equipe de Integridade e Governança da Rede Brasil e do UN Global Compact realiza a averiguação de diligência e conformidade regulatória da organização candidata. Hoje o processo leva no máximo 3 semanas.",
+    tempo: "Até 3 semanas",
     icone: "ShieldAlert",
     apoio: "A Rede Brasil informa o andamento e retorna caso falte algum documento.",
     acao: "Falar com a equipe"
@@ -280,7 +291,7 @@ export const ETAPAS_ADESAO = [
     id: "onboarding",
     numero: "05",
     titulo: "Boas-Vindas & Reunião de Onboarding",
-    descricao: "Após aprovação formal da ONU em Nova York, sua empresa recebe o certificado de signatária, manual de boas-vindas e participa do encontro de integração com a equipe de Engajamento.",
+    descricao: "Após aprovação formal da ONU em Nova York, sua empresa recebe o certificado de participante, manual de boas-vindas e participa do encontro de integração com a equipe de Engajamento.",
     tempo: "Integração",
     icone: "Award",
     apoio: "O encontro de integração é conduzido pela equipe de Engajamento da Rede Brasil.",
@@ -301,11 +312,11 @@ export const ETAPAS_ADESAO = [
 export const FAQ_ADESAO = [
   {
     pergunta: "1. Como é calculada a contribuição financeira anual?",
-    resposta: "A contribuição anual é calculada de forma proporcional ao faturamento bruto anual da empresa, com valores fixados em dólares americanos (USD) que variam de USD 450 (para empresas com receita inferior a USD 25 milhões) até USD 30.000 (para multinacionais com faturamento acima de USD 30 bilhões). Para organizações não empresariais (ONGs e universidades), a participação financeira é isenta."
+    resposta: "A contribuição anual é calculada de forma proporcional ao faturamento bruto anual da empresa, com valores fixados em dólares americanos (USD) que variam de USD 450 (para empresas com receita inferior a USD 25 milhões) até USD 30.000 (para multinacionais com faturamento acima de USD 30 bilhões). Não existe anuidade isenta: toda empresa participante contribui. Subsidiárias de grupos já participantes pagam 50% do valor da sua faixa."
   },
   {
-    pergunta: "2. Todas as empresas podem aderir ao Pacto Global da ONU?",
-    resposta: "Sim. Empresas de todos os portes e setores da economia legalmente constituídas no Brasil podem aderir, desde que possuam no mínimo 10 colaboradores e passem satisfatoriamente pelo processo de due diligence reputacional da ONU, demonstrando compromisso com a integridade e os direitos humanos."
+    pergunta: "2. Quais organizações podem aderir ao Pacto Global da ONU?",
+    resposta: "O Pacto Global é uma iniciativa para empresas privadas. Desde janeiro de 2025 não há adesão de organizações não empresariais — a exceção são entidades com característica empresarial, como hospitais e escolas. Não aderem pessoas físicas, OSCs, OSCIPs, entidades públicas administradas pelo poder público nem empresas com menos de 10 funcionários. A candidatura também passa pela análise de diligência reputacional da ONU."
   },
   {
     pergunta: "3. Quem deve assinar a Carta de Compromisso institucional?",
@@ -313,7 +324,7 @@ export const FAQ_ADESAO = [
   },
   {
     pergunta: "4. Quanto tempo leva a conclusão do processo de adesão?",
-    resposta: "O processo completo de validação técnica, análise de diligência reputacional e homologação formal pelo escritório central do UN Global Compact em Nova York leva em média de 4 a 6 semanas após a submissão de todos os documentos exigidos."
+    resposta: "Hoje o processo leva no máximo 3 semanas, contando a validação técnica, a análise de diligência reputacional e a homologação formal pelo escritório central do UN Global Compact em Nova York, após a submissão de todos os documentos exigidos."
   },
   {
     pergunta: "5. O que é a Comunicação de Progresso (CoP)?",
@@ -321,7 +332,7 @@ export const FAQ_ADESAO = [
   },
   {
     pergunta: "6. Como funciona a saída ou cancelamento da participação?",
-    resposta: "A adesão ao Pacto Global é um compromisso voluntário. Caso a empresa decida se desligar, basta que o representante legal autorizado envie uma comunicação formal por e-mail para engajamento@pactoglobal.org.br informando a decisão. A empresa terá seus dados atualizados no diretório global como ex-participante sem penalidades financeiras adicionais."
+    resposta: "Há três formas de encerramento. Autodesligamento: a empresa pede para sair, bastando comunicação formal do representante legal para engajamento@pactoglobal.org.br. Não entrega da CoP: empresas que não publicam o relatório são deslistadas automaticamente no fim daquele ano. Inadimplência: aplica-se às empresas inadimplentes por 12 meses. Vale lembrar que a CoP pode ser substituída pelo Relatório de Sustentabilidade, caso a empresa já o produza."
   },
   {
     pergunta: "7. Quais são os canais de suporte para dúvidas no processo de adesão?",
@@ -329,7 +340,8 @@ export const FAQ_ADESAO = [
   },
   {
     pergunta: "8. Empresas participantes podem utilizar o logo do Pacto Global da ONU?",
-    resposta: "Sim. As organizações ativas e com a CoP em dia recebem autorização expressa e diretrizes para uso do selo oficial 'We Support the UN Global Compact' em seus relatórios anuais, sites institucionais e comunicações corporativas, respeitando o Manual de Marca das Nações Unidas."
+    link: { rotulo: "Ver política de uso do logotipo", url: "https://unglobalcompact.org/library/1831" },
+    resposta: "Sim. As organizações ativas e com a CoP em dia recebem autorização expressa e diretrizes para uso do selo oficial 'We Support the UN Global Compact' em seus relatórios anuais, sites institucionais e comunicações corporativas, respeitando o Manual de Marca das Nações Unidas. A Rede Brasil disponibiliza o material completo de uso do logotipo no Kit de Mídia para participantes."
   }
 ];
 
@@ -339,6 +351,7 @@ export const CONTATO_ENGAJAMENTO = {
   portalInscricaoUrl: "https://unglobalcompact.org/participation/join/application",
   modeloCartaUrl: "https://unglobalcompact.org/participation/join/application/business",
   diretorioPublicoUrl: "https://unglobalcompact.org/what-is-gc/participants",
+  kitMidiaUrl: "https://unglobalcompact.org/library/1831",
   horario: "Segunda a Sexta, das 9h às 18h (Brasília)"
 };
 
@@ -363,39 +376,5 @@ export const CEO_STUDY_STATS = [
     porcentagem: "81%",
     descricao: "atribuem o avanço real das suas metas de descarbonização e governança à metodologia do Pacto Global.",
     destaque: "Resultados Práticos"
-  }
-];
-
-// Comparativo de Níveis de Participação da ONU: Signatory vs Participant
-export const COMPARATIVO_TIERS = [
-  {
-    criterio: "Escopo de Atuação",
-    signatory: "Primariamente nacional (Rede Brasil)",
-    participant: "Global e Local (Sede em Nova York + Rede Brasil)"
-  },
-  {
-    criterio: "Elegibilidade de Porte",
-    signatory: "Apropriado para PMEs (< USD 50M de receita)",
-    participant: "Corporações (> USD 50M) e PMEs de alto impacto"
-  },
-  {
-    criterio: "UN Global Compact Academy",
-    signatory: "Acesso a conteúdos essenciais e trilhas públicas",
-    participant: "Acesso ilimitado e gratuito para todos os colaboradores"
-  },
-  {
-    criterio: "Aceleradores Globais (Accelerators)",
-    signatory: "Acesso condicionado a vagas remanescentes",
-    participant: "Inscrição prioritária gratuita nas turmas anuais"
-  },
-  {
-    criterio: "Eventos Globais da ONU (NY e COPs)",
-    signatory: "Acesso a plenárias abertas e transmissões virtuais",
-    participant: "Credenciais para Leaders Summit (UNGA em NY) e salas privadas"
-  },
-  {
-    criterio: "Benchmarking da CoP",
-    signatory: "Relatório anual de prestação de contas público",
-    participant: "Ferramenta avançada de benchmarking setorial mundial"
   }
 ];
