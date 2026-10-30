@@ -284,3 +284,56 @@
     opacity: 0.9;
   }
 }
+/* ============================================================
+   Bento da página Como Aderir — itens revelados no hover
+   Só em telas com mouse e ≥ lg: no toque não existe hover, então
+   lá os itens ficam sempre visíveis abaixo da descrição.
+   ============================================================ */
+.bento-dica,
+.bento-revela-titulo {
+  display: none;
+}
+
+@media (hover: hover) and (min-width: 1024px) {
+  .bento-revela {
+    position: absolute;
+    inset: 0;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.75rem;
+    background: linear-gradient(to top, rgb(30 50 80 / 0.98), rgb(30 50 80 / 0.92));
+    transform: translateY(100%);
+    opacity: 0;
+    transition:
+      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.35s ease-out;
+  }
+
+  .bento-card:hover .bento-revela,
+  .bento-card:focus-within .bento-revela {
+    transform: none;
+    opacity: 1;
+  }
+
+  .bento-dica {
+    display: inline-flex;
+  }
+
+  /* Dentro do painel o título do card fica coberto, então ele reaparece aqui */
+  .bento-revela-titulo {
+    display: block;
+  }
+
+  .bento-card:hover .bento-dica,
+  .bento-card:focus-within .bento-dica {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-revela {
+    transition: none !important;
+  }
+}
