@@ -124,7 +124,7 @@ export const EquipeAdesao = ({ equipe: todos = EQUIPE_ADESAO }) => {
     <section id="equipe" className="border-t border-slate-200/80 bg-un-surface py-12 md:py-20">
       <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
         <SectionHeader
-          badge="Equipe de Engajamento & Adesão"
+          badge="Equipe de Adesão"
           title="Fale com quem conduz"
           titleAccent="a sua entrada na Rede"
           description="Cada empresa que chega tem uma pessoa da equipe como ponto de contato até o fim do processo. Escolha com quem conversar e agende direto na agenda."

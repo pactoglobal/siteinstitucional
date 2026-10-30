@@ -22,7 +22,7 @@ const prefersReducedMotion = () =>
  * Hero da página Como Aderir: fotos em rotação ao fundo, texto à esquerda e
  * dois CTAs. O primeiro CTA leva ao formulário de contato (e não direto ao
  * portal da ONU) porque a jornada começa conversando com a equipe de
- * Engajamento — ver etapa 01.
+ * Adesão — ver etapa 01.
  *
  * A rotação respeita prefers-reduced-motion (fica parada na primeira foto) e
  * tem botão de pausa, já que movimento automático acima de 5s precisa poder
@@ -76,7 +76,7 @@ export const AdesaoHero = ({ onQueroAderir, onSimular, onVerEtapas }) => {
         <div className="max-w-3xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider backdrop-blur-md animate-fade-in-up">
             <span className="h-1.5 w-1.5 rounded-full bg-un-gold" aria-hidden="true" />
-            Adesão &amp; Engajamento
+            Adesão ao Pacto Global
           </span>
 
           <h1
@@ -88,8 +88,8 @@ export const AdesaoHero = ({ onQueroAderir, onSimular, onVerEtapas }) => {
           </h1>
 
           <p className="mt-5 sm:mt-7 max-w-2xl text-base sm:text-lg md:text-xl font-light leading-relaxed text-slate-100 animate-fade-in-up delay-150">
-            Vincule sua empresa à maior iniciativa de sustentabilidade corporativa do
-            Sistema ONU. A Rede Brasil acompanha cada passo da jornada de adesão.
+            Faça parte do Pacto Global da ONU. Somos a maior iniciativa de
+            sustentabilidade corporativa do mundo.
           </p>
 
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 animate-fade-in-up delay-200">

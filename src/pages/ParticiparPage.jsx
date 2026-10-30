@@ -43,11 +43,13 @@ import { FotoFundo } from '../components/adesao/FotoFundo';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
 import { cn } from '../utils/cn';
+import { PAISES } from '../utils/paises';
 import {
   ADESAO_STATS,
   BENEFICIOS_ADESAO,
-  QUEM_PODE_ADERIR,
-  CRITERIOS_ELEGIBILIDADE,
+  REQUISITOS_MINIMOS,
+  REQUISITOS_NOTA,
+  FORMULARIO_ADESAO,
   TABELA_CONTRIBUICOES,
   REGRAS_CONTRIBUICAO,
   ETAPAS_ADESAO,
@@ -55,6 +57,11 @@ import {
   CONTATO_ENGAJAMENTO,
   CEO_STUDY_STATS,
 } from '../data/comoAderir';
+
+// Classes dos campos do formulário de interesse
+const ROTULO_CLASSES = 'text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5';
+const CAMPO_CLASSES =
+  'w-full min-h-[44px] px-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-un-blue transition-colors';
 
 // Mapeamento de ícones dinâmicos
 const ICON_MAP = {
@@ -78,7 +85,7 @@ const ICON_MAP = {
   UserCheck
 };
 
-export const ParticiparPage = ({ navigate: _navigate }) => {
+export const ParticiparPage = ({ navigate }) => {
   // Estado do Simulador de Anuidade
   // Dois perfis apenas: participante (tabela cheia) e subsidiaria (50%).
   // Nao empresarial e subsidiaria isenta sairam na revisao da RBPG — nao
@@ -99,9 +106,13 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
     nome: '',
     sobrenome: '',
     email: '',
-    empresa: '',
+    pais: 'Brasil',
     cargo: '',
-    porte: 'PME (< USD 25M)',
+    nivel: '',
+    empresa: '',
+    tipoOrganizacao: 'Empresa',
+    funcionarios: '',
+    optIn: '',
     mensagem: '',
     lgpd: false
   });
@@ -144,7 +155,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
         anuidadeUSD: valorFinalUSD,
         anuidadeFormatada: `USD ${valorFinalUSD.toLocaleString('pt-BR')}`,
         regra: 'Empresas que fazem parte de um grupo já participante do Pacto Global pagam 50% do valor da sua faixa, seja a matriz brasileira ou estrangeira.',
-        categoria: `${faixaBase.categoria} (50%)`
       };
     }
 
@@ -152,8 +162,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
     return {
       anuidadeUSD: faixaBase.anuidadeUSD,
       anuidadeFormatada: faixaBase.anuidadeFormatada,
-      regra: 'Contribuição proporcional ao faturamento bruto anual auditado.',
-      categoria: faixaBase.categoria
+      regra: 'Contribuição proporcional ao faturamento bruto anual.',
     };
   }, [tipoOrg, selectedFaixaIndex]);
 
@@ -168,11 +177,16 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
     const assunto = `Interesse em aderir ao Pacto Global — ${formData.empresa}`;
     const corpo = [
-      `Nome: ${formData.nome} ${formData.sobrenome}`.trim(),
-      `E-mail: ${formData.email}`,
+      `Primeiro nome: ${formData.nome}`,
+      `Sobrenome: ${formData.sobrenome}`,
+      `E-mail corporativo: ${formData.email}`,
+      `País: ${formData.pais}`,
+      `Cargo: ${formData.cargo}`,
+      `Nível hierárquico: ${formData.nivel}`,
       `Organização: ${formData.empresa}`,
-      `Cargo: ${formData.cargo || '—'}`,
-      `Porte: ${formData.porte}`,
+      `Tipo de organização: ${formData.tipoOrganizacao}`,
+      `Número de funcionários: ${formData.funcionarios}`,
+      `${FORMULARIO_ADESAO.optInPergunta} ${formData.optIn === 'Yes' ? 'Sim' : 'Não'}`,
       '',
       'Mensagem:',
       formData.mensagem || '—',
@@ -215,13 +229,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 <Award className="w-3.5 h-3.5 text-un-gold" /> Benefícios
               </button>
 
-              <button 
-                type="button" 
-                onClick={() => scrollToSection('evidencia-executiva')}
-                className="min-h-[42px] px-4 py-2 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-un-blue hover:text-white transition-all inline-flex items-center gap-2 cursor-pointer shrink-0 border border-slate-200/60"
-              >
-                <TrendingUp className="w-3.5 h-3.5 text-un-gold" /> Evidência Executiva
-              </button>
               
               <button 
                 type="button" 
@@ -237,6 +244,13 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 className="min-h-[42px] px-4 py-2 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-un-blue hover:text-white transition-all inline-flex items-center gap-2 cursor-pointer shrink-0 border border-slate-200/60"
               >
                 <Calculator className="w-3.5 h-3.5 text-un-gold" /> Simulador de Anuidade
+              </button>
+              <button 
+                type="button" 
+                onClick={() => scrollToSection('evidencia-executiva')}
+                className="min-h-[42px] px-4 py-2 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-un-blue hover:text-white transition-all inline-flex items-center gap-2 cursor-pointer shrink-0 border border-slate-200/60"
+              >
+                <TrendingUp className="w-3.5 h-3.5 text-un-gold" /> Evidência Executiva
               </button>
 
               <button 
@@ -270,7 +284,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
       {/* 2. STATS STRIP DE IMPACTO */}
       <section className="bg-un-blue text-white py-8 border-b border-white/10">
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
             {ADESAO_STATS.map((stat, idx) => (
               <div key={idx} className="space-y-1">
                 <span className="text-2xl sm:text-3xl lg:text-4xl font-display font-black text-un-gold">
@@ -289,9 +303,298 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
       </section>
 
       {/* 3. BENEFÍCIOS DA PARTICIPAÇÃO (BENTO GRID COM FOTOS) */}
-      <BeneficiosBento onAderir={() => scrollToSection('simulador')} />
+      <BeneficiosBento navigate={navigate} />
 
-      {/* 3.1 EVIDÊNCIA EXECUTIVA & DADOS GLOBAIS (ACCENTURE & UNGC CEO STUDY) */}
+      {/* 4. QUEM PODE PARTICIPAR (SEGMENTAÇÃO) */}
+      <section id="publicos" className="py-12 md:py-20 bg-white border-y border-slate-200/80">
+        <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
+          
+          <SectionHeader 
+            badge="Elegibilidade & Categorias"
+            title="Quem Pode Aderir à Rede Brasil?"
+            titleAccent="Uma Iniciativa para Empresas Privadas"
+            description="O Pacto Global da ONU – Rede Brasil reúne empresas privadas de todos os portes e setores. Da pequena empresa ao grande conglomerado, toda companhia legalmente constituída pode aderir ao assumir o compromisso de incorporar os Dez Princípios à sua estratégia e às suas operações."
+            className="mb-8"
+          />
+
+          {/* Requisito de porte em destaque: é a primeira pergunta de quase toda
+              empresa que chega na página. */}
+          <div className="mb-10 flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border border-un-gold/35 bg-un-gold/10 px-5 py-4 sm:px-6 sm:py-5">
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-un-blue text-white shrink-0">
+                <UserCheck className="h-5 w-5" />
+              </span>
+              <span className="font-display text-3xl font-black leading-none text-un-blue tabular-nums">
+                10+
+              </span>
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 sm:text-base">
+              <strong className="font-bold text-slate-900">
+                Adesão voltada a empresas a partir de 10 funcionários.
+              </strong>{' '}
+              Empresas menores podem acompanhar a agenda do Pacto Global da ONU – Rede Brasil,
+              ainda sem a condição de participante.
+            </p>
+          </div>
+
+          {/* Requisitos mínimos, na redação da equipe de Adesão. Substituem a
+              antiga lista "O que impede a adesão" e os cards de categoria. */}
+          <div className="relative overflow-hidden rounded-[1.75rem] bg-un-blue p-6 text-white shadow-xl sm:p-10">
+            <img
+              src={`${import.meta.env.BASE_URL}logo-pacto-white.png`}
+              alt=""
+              aria-hidden="true"
+              className="absolute right-6 top-6 h-10 w-auto opacity-90 sm:right-10 sm:top-8 sm:h-12"
+            />
+            <h3 className="pr-24 font-display text-2xl font-black uppercase tracking-tight sm:text-3xl">
+              Requisitos mínimos
+            </h3>
+            <p className="mt-1 text-sm font-light text-slate-200 sm:text-base">
+              O essencial para a sua empresa poder aderir:
+            </p>
+            <ul className="mt-6 grid grid-cols-1 gap-x-10 gap-y-4 md:grid-cols-2">
+              {REQUISITOS_MINIMOS.map((requisito) => (
+                <li key={requisito} className="flex items-start gap-3 text-sm leading-relaxed text-slate-100">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
+                  <span>{requisito}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 border-t border-white/15 pt-4 text-xs font-light text-slate-300">
+              {REQUISITOS_NOTA}
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 5. SIMULADOR INTERATIVO & TABELA OFICIAL DE CONTRIBUIÇÃO */}
+      <section id="simulador" className="py-12 md:py-20">
+        <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
+          
+          <SectionHeader 
+            badge="Transparência Financeira Oficial"
+            title="Simulador de Contribuição Anual"
+            titleAccent="Valores Proporcionais ao Porte da Empresa"
+            description="Consulte a anuidade correspondente ao faturamento bruto anual da sua empresa e entenda a regra aplicada às subsidiárias."
+            className="mb-10"
+          />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
+            
+            {/* Bloco Interativo de Simulação (7 Colunas) */}
+            <div className="lg:col-span-7 bg-white border border-slate-200 rounded-[2rem] p-6 sm:p-8 md:p-10 shadow-sm space-y-6">
+              
+              <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+                <div className="w-10 h-10 rounded-xl bg-un-gold/20 flex items-center justify-center text-un-blue border border-un-gold/30">
+                  <Calculator className="w-5 h-5 text-un-gold" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-display font-black uppercase text-slate-900">
+                    Calculadora de Anuidade
+                  </h3>
+                  <p className="text-xs text-slate-500 font-light">Selecione o perfil da sua instituição para calcular o valor</p>
+                </div>
+              </div>
+
+              {/* Seletor do Tipo de Organização */}
+              <div className="space-y-2">
+                <span id="simulador-perfil-label" className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
+                  1. Perfil da Organização:
+                </span>
+                <div role="radiogroup" aria-labelledby="simulador-perfil-label" className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={tipoOrg === 'participante'}
+                    onClick={() => setTipoOrg('participante')}
+                    className={cn(
+                      "p-3 rounded-2xl text-left border transition-all text-xs cursor-pointer flex flex-col justify-between",
+                      tipoOrg === 'participante'
+                        ? "bg-un-blue text-white border-un-blue shadow-sm"
+                        : "bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300"
+                    )}
+                  >
+                    <span className="font-bold block">Empresa Participante</span>
+                    <span className="text-[11px] opacity-85 mt-1 leading-snug">Empresa que adere pela primeira vez ao Pacto Global. Paga o valor cheio da sua faixa.</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={tipoOrg === 'subsidiaria'}
+                    onClick={() => setTipoOrg('subsidiaria')}
+                    className={cn(
+                      "p-3 rounded-2xl text-left border transition-all text-xs cursor-pointer flex flex-col justify-between",
+                      tipoOrg === 'subsidiaria'
+                        ? "bg-un-blue text-white border-un-blue shadow-sm"
+                        : "bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300"
+                    )}
+                  >
+                    <span className="font-bold block">Subsidiária</span>
+                    <span className="text-[11px] opacity-85 mt-1 leading-snug">Empresa de um grupo que já participa do Pacto Global, no Brasil ou no exterior. Paga 50% do valor da faixa.</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* A faixa de faturamento vale para os dois perfis: a subsidiaria
+                  paga 50% da mesma tabela, entao tambem precisa escolher. */}
+              <div className="space-y-2 pt-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block" htmlFor="simulador-faixa">
+                  2. Faixa de Faturamento Bruto Anual:
+                </label>
+                <select
+                  id="simulador-faixa"
+                  value={selectedFaixaIndex}
+                  onChange={(e) => setSelectedFaixaIndex(Number(e.target.value))}
+                  className="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-medium text-slate-900 focus:outline-none focus:border-un-blue transition-colors cursor-pointer"
+                >
+                  {TABELA_CONTRIBUICOES.map((faixa, fIdx) => (
+                    <option key={fIdx} value={fIdx}>
+                      {faixa.faixaUSD}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Card de Regra e Nota Informativa */}
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-start gap-3">
+                <Info className="w-4 h-4 text-un-blue shrink-0 mt-0.5" />
+                <p className="leading-relaxed">
+                  {simuladorResultado.regra} Os valores oficiais são tabelados em dólar e faturados anualmente pela Rede Brasil, convertidos pelo câmbio oficial da data de emissão.
+                </p>
+              </div>
+
+            </div>
+
+            {/* Bloco de Resultado do Simulador (5 Colunas) */}
+            <div className="lg:col-span-5 bg-un-blue text-white rounded-[2rem] p-6 sm:p-8 md:p-10 shadow-xl flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute right-0 bottom-0 translate-x-12 translate-y-12 w-64 h-64 bg-un-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+              <div className="space-y-6 relative z-10">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-un-gold px-3 py-1 rounded-full bg-white/10 border border-white/15 inline-block">
+                  Resultado Estimado
+                </span>
+
+                <div>
+                  <span className="text-xs uppercase font-medium text-slate-300 block">
+                    Anuidade Oficial da Organização:
+                  </span>
+                  <div className="text-4xl sm:text-5xl font-display font-black text-un-gold mt-1 tracking-tight">
+                    {simuladorResultado.anuidadeFormatada}
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-white/10 border border-white/10 space-y-2 text-xs">
+                  <div className="flex justify-between items-center text-slate-300">
+                    <span>Periodicidade:</span>
+                    <strong className="text-white">Anual</strong>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-300">
+                    <span>Moeda Base da ONU:</span>
+                    <strong className="text-white">Dólar Americano (USD)</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-8 mt-6 border-t border-white/15 relative z-10 space-y-3">
+                <button
+                  type="button"
+                  onClick={() => scrollToSection('contato')}
+                  className="w-full min-h-[48px] px-6 py-3 rounded-full bg-un-gold text-un-blue hover:bg-white transition-all text-xs font-black uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  Iniciar Adesão Agora <ArrowRight className="w-4 h-4" />
+                </button>
+
+                <p className="text-[11px] text-center text-slate-300">
+                  Dúvidas sobre o faturamento? <a href={`mailto:${CONTATO_ENGAJAMENTO.email}`} className="underline hover:text-white font-medium">Fale com a equipe de Adesão</a>
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* TABELA COMPLETA OFICIAL EM ACORDEON / EXPANSÍVEL */}
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+              <div>
+                <h4 className="text-lg font-display font-black uppercase text-slate-900">
+                  Tabela Completa de Contribuições (UN Global Compact)
+                </h4>
+                <p className="text-xs text-slate-500 font-light">Todas as faixas de receita bruta anual e valores de anuidade vigentes</p>
+              </div>
+              <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 bg-slate-100 rounded-full text-slate-700 shrink-0">
+                {TABELA_CONTRIBUICOES.length} Faixas Regulamentadas
+              </span>
+            </div>
+
+            <div className="overflow-x-auto no-scrollbar -webkit-overflow-scrolling-touch">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr className="border-b-2 border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
+                    <th className="py-3 px-4">Faixa de Faturamento (USD)</th>
+                    <th className="py-3 px-4 text-right">Anuidade Anual (USD)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {TABELA_CONTRIBUICOES.map((row, rIdx) => (
+                    <tr 
+                      key={rIdx}
+                      className={cn(
+                        "hover:bg-slate-50 transition-colors",
+                        row.destaque ? "bg-un-gold/5 font-semibold" : ""
+                      )}
+                    >
+                      <td className="py-3.5 px-4 font-bold text-slate-900">{row.faixaUSD}</td>
+                      <td className="py-3.5 px-4 text-right font-display font-black text-un-blue text-sm">
+                        {row.anuidadeFormatada}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4 Cards de Regras Especiais */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-100">
+              {REGRAS_CONTRIBUICAO.map((regra, rIdx) => (
+                <div
+                  key={rIdx}
+                  className="group relative isolate flex min-h-[240px] flex-col justify-end overflow-hidden rounded-2xl p-5 text-white shadow-sm"
+                >
+                  <FotoFundo imagem={regra.imagem} />
+                  <h5 className="text-sm font-bold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-un-gold shrink-0" />
+                    {regra.titulo}
+                  </h5>
+                  <p className="mt-1.5 text-xs text-slate-200 leading-relaxed font-light">{regra.descricao}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Link para o Diretório Global de Participantes */}
+            <div className="mt-10 p-4 rounded-2xl bg-amber-50/70 border border-amber-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2.5 text-amber-900">
+                <Globe className="w-4 h-4 text-amber-700 shrink-0" />
+                <span>Consulte as mais de 25.000 organizações ativas no <strong>Diretório Público Global de Participantes</strong> da ONU.</span>
+              </div>
+              <a
+                href={CONTATO_ENGAJAMENTO.diretorioPublicoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-un-blue hover:text-amber-800 underline inline-flex items-center gap-1 shrink-0"
+              >
+                Acessar Diretório Global <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 5.1 EVIDÊNCIA EXECUTIVA & DADOS GLOBAIS (ACCENTURE & UNGC CEO STUDY) */}
       <section id="evidencia-executiva" className="py-12 md:py-20 bg-un-blue text-white relative overflow-hidden">
         {/* Glow de fundo */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-un-gold/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -346,385 +649,12 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
             </div>
             <button
               type="button"
-              onClick={() => scrollToSection('simulador')}
+              onClick={() => scrollToSection('contato')}
               className="px-5 py-2.5 rounded-full bg-un-gold text-un-blue font-bold uppercase tracking-wider text-[11px] hover:bg-white transition-colors cursor-pointer shrink-0"
             >
-              Simular Participação da Minha Empresa
+              Falar com a equipe de Adesão
             </button>
           </div>
-        </div>
-      </section>
-
-      {/* 4. QUEM PODE PARTICIPAR (SEGMENTAÇÃO) */}
-      <section id="publicos" className="py-12 md:py-20 bg-white border-y border-slate-200/80">
-        <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
-          
-          <SectionHeader 
-            badge="Elegibilidade & Categorias"
-            title="Quem Pode Aderir à Rede Brasil?"
-            titleAccent="Uma Iniciativa para Empresas Privadas"
-            description="O Pacto Global é uma iniciativa para empresas privadas. Da pequena empresa ao grande conglomerado, toda companhia legalmente constituída que assumir o compromisso com os 10 Princípios pode participar."
-            className="mb-8"
-          />
-
-          {/* Requisito de porte em destaque: é a primeira pergunta de quase toda
-              empresa que chega na página, e antes só aparecia diluído dentro do
-              texto dos cards e de uma resposta do FAQ. */}
-          <div className="mb-12 flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border border-un-gold/35 bg-un-gold/10 px-5 py-4 sm:px-6 sm:py-5">
-            <div className="flex items-center gap-3 shrink-0">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-un-blue text-white shrink-0">
-                <UserCheck className="h-5 w-5" />
-              </span>
-              <span className="font-display text-3xl font-black leading-none text-un-blue tabular-nums">
-                10+
-              </span>
-            </div>
-            <p className="text-sm leading-relaxed text-slate-700 sm:text-base">
-              <strong className="font-bold text-slate-900">
-                A adesão exige ao menos 10 funcionários.
-              </strong>{' '}
-              Abaixo disso a empresa ainda pode se engajar na agenda, mas não como
-              participante. Desde janeiro de 2025 não há adesão de organizações não
-              empresariais — a exceção são hospitais e escolas com característica
-              empresarial.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {QUEM_PODE_ADERIR.map((cat, idx) => {
-              const IconComp = ICON_MAP[cat.icone] || Building2;
-              return (
-                <div
-                  key={idx}
-                  className="group relative isolate flex min-h-[480px] flex-col justify-between overflow-hidden rounded-[1.75rem] p-6 sm:p-8 text-white shadow-sm ring-1 ring-un-blue/10 transition-shadow duration-300 hover:shadow-2xl"
-                >
-                  <FotoFundo imagem={cat.imagem} />
-
-                  <div className="flex items-start justify-between gap-3">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/25 bg-white/15 text-white backdrop-blur-md">
-                      <IconComp className="w-6 h-6" />
-                    </span>
-                    <span className="rounded-full border border-un-gold/40 bg-un-blue/60 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-un-gold backdrop-blur-md">
-                      {cat.categoria}
-                    </span>
-                  </div>
-
-                  <div className="mt-20 space-y-4">
-                    <div>
-                      <h3 className="text-2xl sm:text-3xl font-display font-black uppercase leading-[1.05] tracking-tight">
-                        {cat.tipo}
-                      </h3>
-                      <p className="mt-1 text-sm text-slate-200 font-light">{cat.subtitulo}</p>
-                    </div>
-
-                    <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-xs space-y-1.5 backdrop-blur-md">
-                      <div className="font-bold flex items-center gap-1.5">
-                        <UserCheck className="w-4 h-4 text-un-gold shrink-0" />
-                        Critérios mínimos
-                      </div>
-                      <p className="text-slate-100 leading-relaxed font-light">{cat.criterios}</p>
-                    </div>
-
-                    <div className="space-y-1">
-                      <h4 className="text-[10px] font-bold uppercase tracking-[0.18em] text-un-gold">Principais contrapartidas</h4>
-                      <p className="text-xs text-slate-100 leading-relaxed font-light">{cat.vantagens}</p>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setTipoOrg(idx === 1 ? 'subsidiaria' : 'participante');
-                        setSelectedFaixaIndex(8);
-                        scrollToSection('simulador');
-                      }}
-                      className="min-h-[42px] px-5 py-2 rounded-full border border-white/35 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-un-blue transition-all text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer"
-                    >
-                      Simular nesta categoria <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Criterios de inelegibilidade. Estao aqui porque a pergunta que a
-              empresa realmente faz nesta secao e "eu posso?", e a resposta
-              honesta inclui o que impede a adesao. */}
-          <div className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 sm:p-8">
-            <div className="flex items-center gap-3 border-b border-slate-100 pb-4 mb-5">
-              <div className="w-10 h-10 rounded-xl bg-un-blue/5 flex items-center justify-center text-un-blue border border-un-blue/10 shrink-0">
-                <ShieldAlert className="w-5 h-5" />
-              </div>
-              <div>
-                <h3 className="text-lg font-display font-black uppercase text-slate-900">
-                  O que impede a adesão
-                </h3>
-                <p className="text-xs text-slate-500 font-light">
-                  A candidatura é barrada se qualquer um destes critérios se aplicar
-                </p>
-              </div>
-            </div>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
-              {CRITERIOS_ELEGIBILIDADE.map((criterio) => (
-                <li key={criterio} className="flex items-start gap-2.5 text-sm text-slate-600 font-light leading-relaxed">
-                  <XCircle className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
-                  <span>{criterio}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 5. SIMULADOR INTERATIVO & TABELA OFICIAL DE CONTRIBUIÇÃO */}
-      <section id="simulador" className="py-12 md:py-20">
-        <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
-          
-          <SectionHeader 
-            badge="Transparência Financeira Oficial"
-            title="Simulador de Contribuição Anual"
-            titleAccent="Valores Proporcionais ao Porte da Empresa"
-            description="Consulte a anuidade correspondente ao faturamento bruto anual da sua empresa e entenda a regra aplicada às subsidiárias."
-            className="mb-10"
-          />
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
-            
-            {/* Bloco Interativo de Simulação (7 Colunas) */}
-            <div className="lg:col-span-7 bg-white border border-slate-200 rounded-[2rem] p-6 sm:p-8 md:p-10 shadow-sm space-y-6">
-              
-              <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
-                <div className="w-10 h-10 rounded-xl bg-un-gold/20 flex items-center justify-center text-un-blue border border-un-gold/30">
-                  <Calculator className="w-5 h-5 text-un-gold" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-display font-black uppercase text-slate-900">
-                    Calculadora de Anuidade
-                  </h3>
-                  <p className="text-xs text-slate-500 font-light">Selecione o perfil da sua instituição para calcular o valor</p>
-                </div>
-              </div>
-
-              {/* Seletor do Tipo de Organização */}
-              <div className="space-y-2">
-                <span id="simulador-perfil-label" className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
-                  1. Perfil da Organização:
-                </span>
-                <div role="radiogroup" aria-labelledby="simulador-perfil-label" className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  <button
-                    type="button"
-                    role="radio"
-                    aria-checked={tipoOrg === 'participante'}
-                    onClick={() => setTipoOrg('participante')}
-                    className={cn(
-                      "p-3 rounded-2xl text-left border transition-all text-xs cursor-pointer flex flex-col justify-between",
-                      tipoOrg === 'participante'
-                        ? "bg-un-blue text-white border-un-blue shadow-sm"
-                        : "bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300"
-                    )}
-                  >
-                    <span className="font-bold block">Empresa Participante</span>
-                    <span className="text-[10px] opacity-80 mt-0.5">Tabela padrão por faixa de receita</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    role="radio"
-                    aria-checked={tipoOrg === 'subsidiaria'}
-                    onClick={() => setTipoOrg('subsidiaria')}
-                    className={cn(
-                      "p-3 rounded-2xl text-left border transition-all text-xs cursor-pointer flex flex-col justify-between",
-                      tipoOrg === 'subsidiaria'
-                        ? "bg-un-blue text-white border-un-blue shadow-sm"
-                        : "bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300"
-                    )}
-                  >
-                    <span className="font-bold block">Subsidiária</span>
-                    <span className="text-[10px] opacity-80 mt-0.5">50% do valor da faixa</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* A faixa de faturamento vale para os dois perfis: a subsidiaria
-                  paga 50% da mesma tabela, entao tambem precisa escolher. */}
-              <div className="space-y-2 pt-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block" htmlFor="simulador-faixa">
-                  2. Faixa de Faturamento Bruto Anual:
-                </label>
-                <select
-                  id="simulador-faixa"
-                  value={selectedFaixaIndex}
-                  onChange={(e) => setSelectedFaixaIndex(Number(e.target.value))}
-                  className="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-medium text-slate-900 focus:outline-none focus:border-un-blue transition-colors cursor-pointer"
-                >
-                  {TABELA_CONTRIBUICOES.map((faixa, fIdx) => (
-                    <option key={fIdx} value={fIdx}>
-                      {faixa.faixaUSD} — {faixa.categoria}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Card de Regra e Nota Informativa */}
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-start gap-3">
-                <Info className="w-4 h-4 text-un-blue shrink-0 mt-0.5" />
-                <p className="leading-relaxed">
-                  {simuladorResultado.regra} Os valores oficiais são tabelados em dólar e faturados anualmente pela Rede Brasil, convertidos pelo câmbio oficial da data de emissão.
-                </p>
-              </div>
-
-            </div>
-
-            {/* Bloco de Resultado do Simulador (5 Colunas) */}
-            <div className="lg:col-span-5 bg-un-blue text-white rounded-[2rem] p-6 sm:p-8 md:p-10 shadow-xl flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute right-0 bottom-0 translate-x-12 translate-y-12 w-64 h-64 bg-un-gold/10 rounded-full blur-3xl pointer-events-none"></div>
-
-              <div className="space-y-6 relative z-10">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-un-gold px-3 py-1 rounded-full bg-white/10 border border-white/15 inline-block">
-                  Resultado Estimado
-                </span>
-
-                <div>
-                  <span className="text-xs uppercase font-medium text-slate-300 block">
-                    Anuidade Oficial da Organização:
-                  </span>
-                  <div className="text-4xl sm:text-5xl font-display font-black text-un-gold mt-1 tracking-tight">
-                    {simuladorResultado.anuidadeFormatada}
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white/10 border border-white/10 space-y-2 text-xs">
-                  <div className="flex justify-between items-center text-slate-300">
-                    <span>Categoria:</span>
-                    <strong className="text-white">{simuladorResultado.categoria}</strong>
-                  </div>
-                  <div className="flex justify-between items-center text-slate-300">
-                    <span>Periodicidade:</span>
-                    <strong className="text-white">Anual</strong>
-                  </div>
-                  <div className="flex justify-between items-center text-slate-300">
-                    <span>Moeda Base da ONU:</span>
-                    <strong className="text-white">Dólar Americano (USD)</strong>
-                  </div>
-                </div>
-
-                <div className="space-y-2 text-xs text-slate-200 font-light leading-relaxed">
-                  <p className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-un-gold shrink-0" />
-                    Acesso ilimitado ao UN Global Compact Academy.
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-un-gold shrink-0" />
-                    Autorização oficial para uso do selo 'We Support'.
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-un-gold shrink-0" />
-                    Voz e participação nos Movimentos da Ambição 2030.
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-8 mt-6 border-t border-white/15 relative z-10 space-y-3">
-                <button
-                  type="button"
-                  onClick={() => scrollToSection('contato')}
-                  className="w-full min-h-[48px] px-6 py-3 rounded-full bg-un-gold text-un-blue hover:bg-white transition-all text-xs font-black uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  Iniciar Adesão Agora <ArrowRight className="w-4 h-4" />
-                </button>
-
-                <p className="text-[11px] text-center text-slate-300">
-                  Dúvidas sobre o faturamento? <a href="mailto:engajamento@pactoglobal.org.br" className="underline hover:text-white font-medium">Fale com nossa equipe</a>
-                </p>
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* TABELA COMPLETA OFICIAL EM ACORDEON / EXPANSÍVEL */}
-          <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-              <div>
-                <h4 className="text-lg font-display font-black uppercase text-slate-900">
-                  Tabela Completa de Contribuições (UN Global Compact)
-                </h4>
-                <p className="text-xs text-slate-500 font-light">Todas as faixas de receita bruta anual e valores de anuidade vigentes</p>
-              </div>
-              <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 bg-slate-100 rounded-full text-slate-700 shrink-0">
-                {TABELA_CONTRIBUICOES.length} Faixas Regulamentadas
-              </span>
-            </div>
-
-            <div className="overflow-x-auto no-scrollbar -webkit-overflow-scrolling-touch">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="border-b-2 border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
-                    <th className="py-3 px-4">Faixa de Faturamento (USD)</th>
-                    <th className="py-3 px-4">Categoria Corporativa</th>
-                    <th className="py-3 px-4 text-right">Anuidade Anual (USD)</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {TABELA_CONTRIBUICOES.map((row, rIdx) => (
-                    <tr 
-                      key={rIdx}
-                      className={cn(
-                        "hover:bg-slate-50 transition-colors",
-                        row.destaque ? "bg-un-gold/5 font-semibold" : ""
-                      )}
-                    >
-                      <td className="py-3.5 px-4 font-bold text-slate-900">{row.faixaUSD}</td>
-                      <td className="py-3.5 px-4 text-slate-700">
-                        <span className="px-2.5 py-0.5 rounded-md bg-slate-100 text-[10px] font-medium">
-                          {row.categoria}
-                        </span>
-                      </td>
-                      <td className="py-3.5 px-4 text-right font-display font-black text-un-blue text-sm">
-                        {row.anuidadeFormatada}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* 4 Cards de Regras Especiais */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-100">
-              {REGRAS_CONTRIBUICAO.map((regra, rIdx) => (
-                <div
-                  key={rIdx}
-                  className="group relative isolate flex min-h-[240px] flex-col justify-end overflow-hidden rounded-2xl p-5 text-white shadow-sm"
-                >
-                  <FotoFundo imagem={regra.imagem} />
-                  <h5 className="text-sm font-bold flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-un-gold shrink-0" />
-                    {regra.titulo}
-                  </h5>
-                  <p className="mt-1.5 text-xs text-slate-200 leading-relaxed font-light">{regra.descricao}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Link para o Diretório Global de Participantes */}
-            <div className="mt-10 p-4 rounded-2xl bg-amber-50/70 border border-amber-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-              <div className="flex items-center gap-2.5 text-amber-900">
-                <Globe className="w-4 h-4 text-amber-700 shrink-0" />
-                <span>Consulte as mais de 25.000 organizações ativas no <strong>Diretório Público Global de Participantes</strong> da ONU.</span>
-              </div>
-              <a
-                href={CONTATO_ENGAJAMENTO.diretorioPublicoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-bold text-un-blue hover:text-amber-800 underline inline-flex items-center gap-1 shrink-0"
-              >
-                Acessar Diretório Global <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
-
-          </div>
-
         </div>
       </section>
 
@@ -799,7 +729,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                     ) : (
                       <button
                         type="button"
-                        onClick={() => scrollToSection('contato')}
+                        onClick={() => scrollToSection(etapa.id === 'anuidade' ? 'simulador' : 'contato')}
                         className={cn(
                           "min-h-[42px] px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 transition-all cursor-pointer w-full justify-center",
                           etapa.destaque
@@ -814,43 +744,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 </div>
               );
             })}
-          </div>
-
-          {/* Card Destaque: A Carta de Compromisso do CEO */}
-          <div className="mt-8 bg-slate-900 text-white rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl border border-white/10">
-            <div className="space-y-2 max-w-2xl text-center md:text-left">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-un-gold">
-                Documento Estatutário Obrigatório
-              </span>
-              <h3 className="text-xl sm:text-2xl font-display font-black">
-                A Carta de Compromisso da Alta Liderança
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                A carta deve ser obrigatoriamente assinada pelo CEO, Presidente ou líder máximo da empresa no Brasil, declarando apoio inequívoco aos 10 Princípios da ONU e concordância com os relatórios anuais de progresso.
-              </p>
-            </div>
-            {/* CTA primária única: falar com a equipe. O link para o portal da
-                ONU (em inglês) fica em segundo plano, para não desviar quem
-                ainda está decidindo. O antigo "Baixar Modelo Oficial" saiu —
-                a URL redirecionava para o formulário de candidatura, não para
-                um modelo de carta. */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
-              <button
-                type="button"
-                onClick={() => scrollToSection('contato')}
-                className="min-h-[46px] w-full sm:w-auto px-6 py-3 rounded-full bg-un-gold text-un-blue hover:bg-white transition-all text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md"
-              >
-                <Mail className="w-4 h-4" /> Falar com a equipe
-              </button>
-              <a
-                href={CONTATO_ENGAJAMENTO.portalInscricaoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="min-h-[46px] w-full sm:w-auto px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer border border-white/15"
-              >
-                <ExternalLink className="w-3.5 h-3.5" /> Portal da ONU (em inglês)
-              </a>
-            </div>
           </div>
 
         </div>
@@ -869,7 +762,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
               </span>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black uppercase tracking-tight text-slate-900 leading-[1.1]">
-                Fale com a Equipe de <span className="text-un-blue block mt-1">Engajamento & Adesão</span>
+                Fale com a Equipe <span className="text-un-blue block mt-1">de Adesão</span>
               </h2>
 
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-light">
@@ -886,8 +779,8 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                     </div>
                     <div>
                       <span className="text-[10px] text-slate-500 uppercase block font-semibold">E-mail de Adesão:</span>
-                      <a href="mailto:engajamento@pactoglobal.org.br" className="font-bold text-un-blue hover:underline text-sm">
-                        engajamento@pactoglobal.org.br
+                      <a href={`mailto:${CONTATO_ENGAJAMENTO.email}`} className="font-bold text-un-blue hover:underline text-sm">
+                        {CONTATO_ENGAJAMENTO.email}
                       </a>
                     </div>
                   </div>
@@ -937,7 +830,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                     Abrimos seu programa de e-mail com a mensagem pronta para{' '}
                     <strong>{CONTATO_ENGAJAMENTO.email}</strong>, já com os dados da{' '}
                     <strong>{formData.empresa}</strong>. Confira e clique em enviar — a equipe de
-                    Engajamento responde em até 2 dias úteis.
+                    Adesão responde em até 2 dias úteis.
                   </p>
                   <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
                     Se nada abriu, escreva direto para{' '}
@@ -970,101 +863,177 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-nome">
-                        Nome:*
+                      <label className={ROTULO_CLASSES} htmlFor="contato-nome">
+                        Primeiro nome*
                       </label>
-                      <input 
+                      <input
                         id="contato-nome"
-                        type="text" 
+                        type="text"
                         required
-                        placeholder="Seu nome"
+                        placeholder="Seu primeiro nome"
                         value={formData.nome}
                         onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-                        className="w-full min-h-[44px] px-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-un-blue transition-colors"
+                        className={CAMPO_CLASSES}
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-sobrenome">
-                        Sobrenome:*
+                      <label className={ROTULO_CLASSES} htmlFor="contato-sobrenome">
+                        Sobrenome*
                       </label>
-                      <input 
+                      <input
                         id="contato-sobrenome"
-                        type="text" 
+                        type="text"
                         required
                         placeholder="Seu sobrenome"
                         value={formData.sobrenome}
                         onChange={(e) => setFormData({ ...formData, sobrenome: e.target.value })}
-                        className="w-full min-h-[44px] px-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-un-blue transition-colors"
+                        className={CAMPO_CLASSES}
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-email">
-                        E-mail Corporativo:*
+                      <label className={ROTULO_CLASSES} htmlFor="contato-email">
+                        E-mail corporativo*
                       </label>
-                      <input 
+                      <input
                         id="contato-email"
-                        type="email" 
+                        type="email"
                         required
                         placeholder="nome@empresa.com.br"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full min-h-[44px] px-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-un-blue transition-colors"
+                        className={CAMPO_CLASSES}
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-empresa">
-                        Nome da Organização:*
+                      <label className={ROTULO_CLASSES} htmlFor="contato-pais">
+                        País*
                       </label>
-                      <input 
-                        id="contato-empresa"
-                        type="text" 
+                      <select
+                        id="contato-pais"
                         required
-                        placeholder="Razão Social ou Nome Fantasia"
-                        value={formData.empresa}
-                        onChange={(e) => setFormData({ ...formData, empresa: e.target.value })}
-                        className="w-full min-h-[44px] px-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-un-blue transition-colors"
-                      />
+                        value={formData.pais}
+                        onChange={(e) => setFormData({ ...formData, pais: e.target.value })}
+                        className={cn(CAMPO_CLASSES, 'cursor-pointer')}
+                      >
+                        {PAISES.map((opcao) => (
+                          <option key={opcao} value={opcao}>{opcao}</option>
+                        ))}
+                      </select>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-cargo">
-                        Cargo / Função:
+                      <label className={ROTULO_CLASSES} htmlFor="contato-cargo">
+                        Cargo*
                       </label>
-                      <input 
+                      <input
                         id="contato-cargo"
-                        type="text" 
-                        placeholder="Ex: Diretor de Sustentabilidade, CEO"
+                        type="text"
+                        required
+                        placeholder="Ex.: Diretora de Sustentabilidade"
                         value={formData.cargo}
                         onChange={(e) => setFormData({ ...formData, cargo: e.target.value })}
-                        className="w-full min-h-[44px] px-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-un-blue transition-colors"
+                        className={CAMPO_CLASSES}
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-porte">
-                        Porte / Faixa Estimada:
+                      <label className={ROTULO_CLASSES} htmlFor="contato-nivel">
+                        Nível hierárquico*
                       </label>
                       <select
-                        id="contato-porte"
-                        value={formData.porte}
-                        onChange={(e) => setFormData({ ...formData, porte: e.target.value })}
-                        className="w-full min-h-[44px] px-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-un-blue transition-colors cursor-pointer"
+                        id="contato-nivel"
+                        required
+                        value={formData.nivel}
+                        onChange={(e) => setFormData({ ...formData, nivel: e.target.value })}
+                        className={cn(CAMPO_CLASSES, 'cursor-pointer')}
                       >
-                        <option value="PME (< USD 25M)">PME (Receita até USD 25M)</option>
-                        <option value="Média Empresa (USD 25M a 250M)">Média Empresa (USD 25M a 250M)</option>
-                        <option value="Grande Empresa (> USD 250M)">Grande Empresa (&gt; USD 250M)</option>
-                        <option value="Subsidiária de grupo participante">Subsidiária de grupo já participante</option>
+                        <option value="" disabled>Selecione</option>
+                        {FORMULARIO_ADESAO.niveisHierarquicos.map((opcao) => (
+                          <option key={opcao} value={opcao}>{opcao}</option>
+                        ))}
                       </select>
                     </div>
                   </div>
 
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className={ROTULO_CLASSES} htmlFor="contato-empresa">
+                        Organização*
+                      </label>
+                      <input
+                        id="contato-empresa"
+                        type="text"
+                        required
+                        placeholder="Razão social ou nome fantasia"
+                        value={formData.empresa}
+                        onChange={(e) => setFormData({ ...formData, empresa: e.target.value })}
+                        className={CAMPO_CLASSES}
+                      />
+                    </div>
+                    <div>
+                      <label className={ROTULO_CLASSES} htmlFor="contato-tipo">
+                        Tipo de organização*
+                      </label>
+                      <select
+                        id="contato-tipo"
+                        required
+                        value={formData.tipoOrganizacao}
+                        onChange={(e) => setFormData({ ...formData, tipoOrganizacao: e.target.value })}
+                        className={cn(CAMPO_CLASSES, 'cursor-pointer')}
+                      >
+                        {FORMULARIO_ADESAO.tiposOrganizacao.map((opcao) => (
+                          <option key={opcao} value={opcao}>{opcao}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className={ROTULO_CLASSES} htmlFor="contato-funcionarios">
+                        Número de funcionários*
+                      </label>
+                      <select
+                        id="contato-funcionarios"
+                        required
+                        value={formData.funcionarios}
+                        onChange={(e) => setFormData({ ...formData, funcionarios: e.target.value })}
+                        className={cn(CAMPO_CLASSES, 'cursor-pointer')}
+                      >
+                        <option value="" disabled>Selecione</option>
+                        {FORMULARIO_ADESAO.numeroFuncionarios.map((opcao) => (
+                          <option key={opcao} value={opcao}>{opcao}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <fieldset>
+                      <legend className={ROTULO_CLASSES}>{FORMULARIO_ADESAO.optInPergunta}*</legend>
+                      <div className="flex min-h-[44px] items-center gap-6">
+                        {[['Yes', 'Sim'], ['No', 'Não']].map(([valor, rotulo]) => (
+                          <label key={valor} className="inline-flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer">
+                            <input
+                              type="radio"
+                              name="contato-optin"
+                              value={valor}
+                              required
+                              checked={formData.optIn === valor}
+                              onChange={(e) => setFormData({ ...formData, optIn: e.target.value })}
+                              className="h-4 w-4 cursor-pointer text-un-blue focus:ring-un-blue"
+                            />
+                            {rotulo}
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
+                  </div>
+
                   <div>
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5" htmlFor="contato-mensagem">
-                      Dúvida ou Mensagem:
+                    <label className={ROTULO_CLASSES} htmlFor="contato-mensagem">
+                      Dúvida ou mensagem
                     </label>
                     <textarea 
                       id="contato-mensagem"
@@ -1178,10 +1147,10 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
               Não encontrou a resposta que procurava?
             </p>
             <a 
-              href="mailto:engajamento@pactoglobal.org.br"
+              href={`mailto:${CONTATO_ENGAJAMENTO.email}`}
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-un-blue text-un-blue hover:bg-un-blue hover:text-white transition-all text-xs font-bold uppercase tracking-wider cursor-pointer"
             >
-              <Mail className="w-3.5 h-3.5" /> Falar com o time de suporte
+              <Mail className="w-3.5 h-3.5" /> Falar com a equipe de Adesão
             </a>
           </div>
 
@@ -1216,13 +1185,6 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
               </button>
               <button 
                 type="button"
-                onClick={() => scrollToSection('evidencia-executiva')}
-                className="px-3 py-1.5 rounded-xl text-xs font-medium hover:bg-white/15 text-left transition-colors flex items-center gap-2 cursor-pointer"
-              >
-                <TrendingUp className="w-3 h-3 text-un-gold" /> Evidência Executiva
-              </button>
-              <button 
-                type="button"
                 onClick={() => scrollToSection('publicos')}
                 className="px-3 py-1.5 rounded-xl text-xs font-medium hover:bg-white/15 text-left transition-colors flex items-center gap-2 cursor-pointer"
               >
@@ -1234,6 +1196,13 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                 className="px-3 py-1.5 rounded-xl text-xs font-medium hover:bg-white/15 text-left transition-colors flex items-center gap-2 cursor-pointer"
               >
                 <Calculator className="w-3 h-3 text-un-gold" /> Simulador de Anuidade
+              </button>
+              <button 
+                type="button"
+                onClick={() => scrollToSection('evidencia-executiva')}
+                className="px-3 py-1.5 rounded-xl text-xs font-medium hover:bg-white/15 text-left transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <TrendingUp className="w-3 h-3 text-un-gold" /> Evidência Executiva
               </button>
               <button 
                 type="button"

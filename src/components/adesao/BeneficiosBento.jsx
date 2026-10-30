@@ -7,7 +7,6 @@ import {
   GraduationCap,
   Globe,
   Plus,
-  ShieldCheck,
   TrendingUp,
   Users,
 } from 'lucide-react';
@@ -17,10 +16,7 @@ import { FotoFundo } from './FotoFundo';
 import { cn } from '../../utils/cn';
 import { BENEFICIOS_ADESAO } from '../../data/comoAderir';
 
-const ICONS = { ShieldCheck, GraduationCap, TrendingUp, Users, Globe, BarChart3 };
-
-const CTA_CLASSES =
-  'inline-flex min-h-[40px] items-center gap-2 rounded-full px-4 text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white';
+const ICONS = { GraduationCap, TrendingUp, Users, Globe, BarChart3 };
 
 const Pontos = ({ pontos }) => (
   <ul className="space-y-2">
@@ -34,48 +30,14 @@ const Pontos = ({ pontos }) => (
 );
 
 /**
- * Card de destaque (Sistema ONU): ocupa 2×2 no desktop e mostra os itens
- * sempre, porque tem espaço para isso.
+ * Card do bento: em repouso mostra foto, título e descrição; os itens (e o
+ * link, quando houver) sobem num painel no hover ou no foco — ver
+ * .bento-revela em index.css. No toque ficam sempre visíveis.
+ *
+ * Não há botão "Aderir" nos cards: ele levava à calculadora, e a equipe de
+ * Adesão pediu para tirar.
  */
-const CardDestaque = ({ beneficio, onAderir }) => {
-  const Icon = ICONS[beneficio.icone] || Award;
-
-  return (
-    <article className="group relative isolate flex h-full w-full flex-col justify-between overflow-hidden rounded-[1.75rem] p-7 text-white shadow-sm ring-1 ring-un-gold/50 transition-shadow duration-300 hover:shadow-2xl sm:p-9">
-      <FotoFundo imagem={beneficio.imagem} />
-
-      <div className="flex items-start justify-between gap-4">
-        <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-un-gold/40 bg-un-gold/20 text-un-gold backdrop-blur-md">
-          <Icon className="h-6 w-6" />
-        </span>
-        <span className="rounded-full border border-un-gold/40 bg-un-blue/60 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-un-gold backdrop-blur-md">
-          {beneficio.badge}
-        </span>
-      </div>
-
-      <div className="mt-24 space-y-5">
-        <h3 className="max-w-md font-display text-3xl font-black uppercase leading-[1.04] tracking-tight sm:text-4xl">
-          {beneficio.titulo}
-        </h3>
-        <p className="max-w-lg text-sm font-light leading-relaxed text-slate-100 sm:text-base">
-          {beneficio.descricao}
-        </p>
-        <div className="border-t border-white/15 pt-5">
-          <Pontos pontos={beneficio.pontos} />
-        </div>
-        <button type="button" onClick={onAderir} className={cn(CTA_CLASSES, 'bg-un-gold text-un-blue hover:bg-white')}>
-          Aderir a esta iniciativa <ArrowRight className="h-3.5 w-3.5" />
-        </button>
-      </div>
-    </article>
-  );
-};
-
-/**
- * Card compacto: em repouso mostra foto, título e descrição; os itens e o CTA
- * sobem num painel no hover ou no foco (ver .bento-revela em index.css).
- */
-const CardCompacto = ({ beneficio, onAderir }) => {
+const BeneficioCard = ({ beneficio, navigate }) => {
   const Icon = ICONS[beneficio.icone] || Award;
 
   return (
@@ -101,48 +63,48 @@ const CardCompacto = ({ beneficio, onAderir }) => {
 
         <div className="bento-revela mt-5 space-y-5">
           <div>
-            <span className="bento-revela-titulo mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-un-gold">{beneficio.titulo}</span>
-            <div>
-              <Pontos pontos={beneficio.pontos} />
-            </div>
+            <span className="bento-revela-titulo mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-un-gold">
+              {beneficio.titulo}
+            </span>
+            <Pontos pontos={beneficio.pontos} />
           </div>
-          <button
-            type="button"
-            onClick={onAderir}
-            className={cn(CTA_CLASSES, 'self-start border border-white/35 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-un-blue')}
-          >
-            Aderir <ArrowRight className="h-3.5 w-3.5" />
-          </button>
+          {beneficio.link && navigate && (
+            <button
+              type="button"
+              onClick={() => navigate(beneficio.link.rota)}
+              className="inline-flex min-h-[40px] items-center gap-2 self-start rounded-full bg-un-gold px-4 text-[11px] font-bold uppercase tracking-wider text-un-blue transition-all cursor-pointer hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            >
+              {beneficio.link.rotulo} <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          )}
         </div>
       </div>
     </article>
   );
 };
 
-// Grade de 3 colunas no desktop: destaque em 2×2 e cinco cards compactos.
-const LAYOUT = {
-  credibilidade: 'md:col-span-2 lg:col-span-2 lg:row-span-2',
-};
+// Grade de 6 colunas no desktop: dois cards largos em cima e três embaixo.
+const LAYOUT = ['lg:col-span-3', 'lg:col-span-3', 'lg:col-span-2', 'lg:col-span-2', 'lg:col-span-2'];
 
-export const BeneficiosBento = ({ onAderir }) => (
+export const BeneficiosBento = ({ navigate }) => (
   <section id="beneficios" className="py-12 md:py-20">
     <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
       <SectionHeader
         badge="Valor & Diferenciação Estratégica"
         title="Por que sua Organização deve Participar?"
         titleAccent="Credibilidade Global & Ação Local"
-        description="Ao integrar a Rede Brasil, sua empresa se vincula à maior iniciativa de sustentabilidade corporativa do Sistema ONU e ganha acesso a um ecossistema completo de ferramentas, capacitação e liderança."
+        description="Ao aderir ao Pacto Global da ONU – Rede Brasil, sua empresa passa a fazer parte da maior iniciativa de sustentabilidade corporativa do mundo e ganha acesso a um ecossistema completo de ferramentas, capacitação e liderança."
         className="mb-10"
       />
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[minmax(300px,auto)] lg:gap-5">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-6 lg:auto-rows-[minmax(300px,auto)] lg:gap-5">
         {BENEFICIOS_ADESAO.map((beneficio, idx) => (
-          <Reveal key={beneficio.id} delay={idx * 60} className={cn('flex', LAYOUT[beneficio.id])}>
-            {beneficio.destaque ? (
-              <CardDestaque beneficio={beneficio} onAderir={onAderir} />
-            ) : (
-              <CardCompacto beneficio={beneficio} onAderir={onAderir} />
-            )}
+          <Reveal
+            key={beneficio.id}
+            delay={idx * 60}
+            className={cn('flex', LAYOUT[idx] || 'lg:col-span-2', idx === BENEFICIOS_ADESAO.length - 1 && 'md:col-span-2 lg:col-span-2')}
+          >
+            <BeneficioCard beneficio={beneficio} navigate={navigate} />
           </Reveal>
         ))}
       </div>
