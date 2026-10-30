@@ -3,7 +3,7 @@
  *
  * PRÉVIA PARA VALIDAÇÃO: os cargos vêm do deck de Onboarding 2026, mas nome,
  * foto e contatos são genéricos ("Nome Sobrenome", e-mail coletivo de
- * Engajamento e LinkedIn institucional) até cada pessoa concordar com a
+ * Engajamento, LinkedIn institucional e reunião no Teams com a equipe) até cada pessoa concordar com a
  * exposição e o DPO avaliar (LGPD). O repositório é público: o que entrar aqui
  * fica visível no GitHub.
  *
@@ -18,6 +18,14 @@
 const EMAIL_EQUIPE = "engajamento@pactoglobal.org.br";
 const LINKEDIN_INSTITUCIONAL = "https://www.linkedin.com/company/pactoglobalbr";
 
+// Link oficial do Teams para nova reunião: abre o agendamento já com o e-mail
+// da equipe como convidado. Serve à prévia porque não há link público de
+// agenda (Bookings). Trocar pelo link de agendamento de cada pessoa.
+const AGENDA_TEAMS_EQUIPE =
+  "https://teams.microsoft.com/l/meeting/new" +
+  `?subject=${encodeURIComponent("Adesão ao Pacto Global – Rede Brasil")}` +
+  `&attendees=${EMAIL_EQUIPE}`;
+
 const perfilGenerico = (id, cargo) => ({
   id,
   nome: "Nome Sobrenome",
@@ -25,7 +33,7 @@ const perfilGenerico = (id, cargo) => ({
   foto: null,
   email: EMAIL_EQUIPE,
   linkedin: LINKEDIN_INSTITUCIONAL,
-  agenda: null,
+  agenda: AGENDA_TEAMS_EQUIPE,
 });
 
 export const EQUIPE_ADESAO = [
