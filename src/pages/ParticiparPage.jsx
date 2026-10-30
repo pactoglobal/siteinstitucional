@@ -99,7 +99,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
     cargo: '',
     porte: 'PME (< USD 25M)',
     mensagem: '',
-    lgpd: true
+    lgpd: false
   });
 
   // Listener para botão de scroll e navegação flutuante
@@ -1196,7 +1196,16 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                       className="w-4 h-4 mt-0.5 rounded text-un-blue focus:ring-un-blue cursor-pointer"
                     />
                     <label htmlFor="lgpd" className="text-[11px] text-slate-600 leading-tight cursor-pointer">
-                      Concordo com o tratamento dos dados institucionais para fins de contato e orientação sobre a adesão ao Pacto Global da ONU, nos termos da LGPD e Política de Privacidade.
+                      Concordo com o tratamento dos dados institucionais para fins de contato e orientação sobre a adesão ao Pacto Global da ONU, nos termos da LGPD e da{' '}
+                      <a
+                        href="https://www.pactoglobal.org.br/politica-de-privacidade/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-un-blue underline hover:text-un-gold"
+                      >
+                        Política de Privacidade
+                      </a>
+                      .
                     </label>
                   </div>
 
