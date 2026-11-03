@@ -40,6 +40,7 @@ import { AdesaoHero } from '../components/adesao/AdesaoHero';
 import { BeneficiosBento } from '../components/adesao/BeneficiosBento';
 import { EquipeAdesao } from '../components/adesao/EquipeAdesao';
 import { WhatsAppFab } from '../components/adesao/WhatsAppFab';
+import { CampoTelefone } from '../components/adesao/CampoTelefone';
 import { FotoFundo } from '../components/adesao/FotoFundo';
 import { FUNDO, PILULA } from '../components/adesao/cores';
 import { OdsFaixa } from '../components/ui/OdsFaixa';
@@ -121,6 +122,7 @@ export const ParticiparPage = ({ navigate }) => {
     nome: '',
     sobrenome: '',
     email: '',
+    telefone: '',
     pais: 'Brasil',
     cargo: '',
     nivel: '',
@@ -195,6 +197,7 @@ export const ParticiparPage = ({ navigate }) => {
       `Primeiro nome: ${formData.nome}`,
       `Sobrenome: ${formData.sobrenome}`,
       `E-mail corporativo: ${formData.email}`,
+      `Telefone: +55 ${formData.telefone}`,
       `País: ${formData.pais}`,
       `Cargo: ${formData.cargo}`,
       `Nível hierárquico: ${formData.nivel}`,
@@ -929,6 +932,20 @@ export const ParticiparPage = ({ navigate }) => {
                       />
                     </div>
                     <div>
+                      <label className={ROTULO_CLASSES} htmlFor="contato-telefone">
+                        Telefone*
+                      </label>
+                      <CampoTelefone
+                        id="contato-telefone"
+                        value={formData.telefone}
+                        onChange={(telefone) => setFormData({ ...formData, telefone })}
+                        className={CAMPO_CLASSES}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
                       <label className={ROTULO_CLASSES} htmlFor="contato-pais">
                         País*
                       </label>
@@ -944,9 +961,6 @@ export const ParticiparPage = ({ navigate }) => {
                         ))}
                       </select>
                     </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className={ROTULO_CLASSES} htmlFor="contato-cargo">
                         Cargo*
@@ -961,6 +975,9 @@ export const ParticiparPage = ({ navigate }) => {
                         className={CAMPO_CLASSES}
                       />
                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className={ROTULO_CLASSES} htmlFor="contato-nivel">
                         Nível hierárquico*
@@ -978,9 +995,6 @@ export const ParticiparPage = ({ navigate }) => {
                         ))}
                       </select>
                     </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className={ROTULO_CLASSES} htmlFor="contato-empresa">
                         Organização*
@@ -995,6 +1009,9 @@ export const ParticiparPage = ({ navigate }) => {
                         className={CAMPO_CLASSES}
                       />
                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className={ROTULO_CLASSES} htmlFor="contato-tipo">
                         Tipo de organização*
@@ -1011,9 +1028,6 @@ export const ParticiparPage = ({ navigate }) => {
                         ))}
                       </select>
                     </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className={ROTULO_CLASSES} htmlFor="contato-funcionarios">
                         Número de funcionários*
@@ -1031,7 +1045,9 @@ export const ParticiparPage = ({ navigate }) => {
                         ))}
                       </select>
                     </div>
-                    <fieldset>
+                  </div>
+
+                  <fieldset>
                       <legend className={ROTULO_CLASSES}>{FORMULARIO_ADESAO.optInPergunta}*</legend>
                       <div className="flex min-h-[44px] items-center gap-6">
                         {[['Yes', 'Sim'], ['No', 'Não']].map(([valor, rotulo]) => (
@@ -1049,8 +1065,7 @@ export const ParticiparPage = ({ navigate }) => {
                           </label>
                         ))}
                       </div>
-                    </fieldset>
-                  </div>
+                  </fieldset>
 
                   <div>
                     <label className={ROTULO_CLASSES} htmlFor="contato-mensagem">
