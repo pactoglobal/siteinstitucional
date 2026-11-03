@@ -33,6 +33,7 @@ import {
   Sparkles,
   Info,
   Compass,
+  Check,
   Send
 } from 'lucide-react';
 import { AdesaoHero } from '../components/adesao/AdesaoHero';
@@ -40,6 +41,8 @@ import { BeneficiosBento } from '../components/adesao/BeneficiosBento';
 import { EquipeAdesao } from '../components/adesao/EquipeAdesao';
 import { WhatsAppFab } from '../components/adesao/WhatsAppFab';
 import { FotoFundo } from '../components/adesao/FotoFundo';
+import { FUNDO, PILULA } from '../components/adesao/cores';
+import { OdsFaixa } from '../components/ui/OdsFaixa';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
 import { cn } from '../utils/cn';
@@ -62,6 +65,18 @@ import {
 const ROTULO_CLASSES = 'text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5';
 const CAMPO_CLASSES =
   'w-full min-h-[44px] px-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-un-blue transition-colors';
+
+// Cor de cada item (papéis em components/adesao/cores.js)
+const STATS_CORES = ['dourado', 'verde', 'roxo'];
+const EVIDENCIA_CORES = ['verde', 'roxo', 'azul', 'dourado'];
+const ETAPA_CORES = {
+  contato: 'verde',
+  portal: 'azul',
+  diligencia: 'azul',
+  onboarding: 'roxo',
+  anuidade: 'dourado',
+  cop: 'verde',
+};
 
 // Mapeamento de ícones dinâmicos
 const ICON_MAP = {
@@ -214,7 +229,7 @@ export const ParticiparPage = ({ navigate }) => {
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2 shrink-0">
-              <span className="w-2 h-2 rounded-full bg-un-gold"></span>
+              <span className="w-2 h-2 rounded-full bg-un-green"></span>
               <span className="text-xs font-bold uppercase tracking-widest text-slate-800">
                 Acesso Rápido à Jornada
               </span>
@@ -226,7 +241,7 @@ export const ParticiparPage = ({ navigate }) => {
                 onClick={() => scrollToSection('beneficios')}
                 className="min-h-[42px] px-4 py-2 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-un-blue hover:text-white transition-all inline-flex items-center gap-2 cursor-pointer shrink-0 border border-slate-200/60"
               >
-                <Award className="w-3.5 h-3.5 text-un-gold" /> Benefícios
+                <Award className="w-3.5 h-3.5 text-un-green" /> Benefícios
               </button>
 
               
@@ -235,7 +250,7 @@ export const ParticiparPage = ({ navigate }) => {
                 onClick={() => scrollToSection('publicos')}
                 className="min-h-[42px] px-4 py-2 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-un-blue hover:text-white transition-all inline-flex items-center gap-2 cursor-pointer shrink-0 border border-slate-200/60"
               >
-                <Users className="w-3.5 h-3.5 text-un-gold" /> Quem Pode Aderir
+                <Users className="w-3.5 h-3.5 text-un-purple" /> Quem Pode Aderir
               </button>
 
               <button 
@@ -250,7 +265,7 @@ export const ParticiparPage = ({ navigate }) => {
                 onClick={() => scrollToSection('evidencia-executiva')}
                 className="min-h-[42px] px-4 py-2 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-un-blue hover:text-white transition-all inline-flex items-center gap-2 cursor-pointer shrink-0 border border-slate-200/60"
               >
-                <TrendingUp className="w-3.5 h-3.5 text-un-gold" /> Evidência Executiva
+                <TrendingUp className="w-3.5 h-3.5 text-un-blue-1" /> Evidência Executiva
               </button>
 
               <button 
@@ -258,7 +273,7 @@ export const ParticiparPage = ({ navigate }) => {
                 onClick={() => scrollToSection('etapas')}
                 className="min-h-[42px] px-4 py-2 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-un-blue hover:text-white transition-all inline-flex items-center gap-2 cursor-pointer shrink-0 border border-slate-200/60"
               >
-                <FileSignature className="w-3.5 h-3.5 text-un-gold" /> 6 Etapas
+                <FileSignature className="w-3.5 h-3.5 text-un-green" /> 6 Etapas
               </button>
 
               <button 
@@ -266,13 +281,13 @@ export const ParticiparPage = ({ navigate }) => {
                 onClick={() => scrollToSection('faq')}
                 className="min-h-[42px] px-4 py-2 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-un-blue hover:text-white transition-all inline-flex items-center gap-2 cursor-pointer shrink-0 border border-slate-200/60"
               >
-                <HelpCircle className="w-3.5 h-3.5 text-un-gold" /> FAQ
+                <HelpCircle className="w-3.5 h-3.5 text-un-purple" /> FAQ
               </button>
               
               <button 
                 type="button" 
                 onClick={() => scrollToSection('contato')}
-                className="min-h-[42px] px-4 py-2 rounded-full text-xs font-black text-emerald-950 bg-emerald-100 hover:bg-emerald-600 hover:text-white transition-all inline-flex items-center gap-2 cursor-pointer shrink-0 border border-emerald-200"
+                className="min-h-[42px] px-4 py-2 rounded-full text-xs font-black text-un-green bg-un-green/10 hover:bg-un-green hover:text-white transition-all inline-flex items-center gap-2 cursor-pointer shrink-0 border border-un-green/25"
               >
                 <Send className="w-3.5 h-3.5" /> Fale Conosco
               </button>
@@ -287,7 +302,8 @@ export const ParticiparPage = ({ navigate }) => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
             {ADESAO_STATS.map((stat, idx) => (
               <div key={idx} className="space-y-1">
-                <span className="text-2xl sm:text-3xl lg:text-4xl font-display font-black text-un-gold">
+                <span aria-hidden="true" className={cn('mx-auto mb-3 block h-1 w-10 rounded-full', FUNDO[STATS_CORES[idx]])} />
+                <span className="text-2xl sm:text-3xl lg:text-4xl font-display font-black text-white">
                   {stat.valor}
                 </span>
                 <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white">
@@ -319,12 +335,12 @@ export const ParticiparPage = ({ navigate }) => {
 
           {/* Requisito de porte em destaque: é a primeira pergunta de quase toda
               empresa que chega na página. */}
-          <div className="mb-10 flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border border-un-gold/35 bg-un-gold/10 px-5 py-4 sm:px-6 sm:py-5">
+          <div className="mb-10 flex flex-col sm:flex-row sm:items-center gap-4 rounded-2xl border border-un-purple/25 bg-un-purple/5 px-5 py-4 sm:px-6 sm:py-5">
             <div className="flex items-center gap-3 shrink-0">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-un-blue text-white shrink-0">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-un-purple text-white shrink-0">
                 <UserCheck className="h-5 w-5" />
               </span>
-              <span className="font-display text-3xl font-black leading-none text-un-blue tabular-nums">
+              <span className="font-display text-3xl font-black leading-none text-un-purple tabular-nums">
                 10+
               </span>
             </div>
@@ -340,6 +356,7 @@ export const ParticiparPage = ({ navigate }) => {
           {/* Requisitos mínimos, na redação da equipe de Adesão. Substituem a
               antiga lista "O que impede a adesão" e os cards de categoria. */}
           <div className="relative overflow-hidden rounded-[1.75rem] bg-un-blue p-6 text-white shadow-xl sm:p-10">
+            <OdsFaixa className="absolute inset-x-0 top-0" />
             <img
               src={`${import.meta.env.BASE_URL}logo-pacto-white.png`}
               alt=""
@@ -355,7 +372,9 @@ export const ParticiparPage = ({ navigate }) => {
             <ul className="mt-6 grid grid-cols-1 gap-x-10 gap-y-4 md:grid-cols-2">
               {REQUISITOS_MINIMOS.map((requisito) => (
                 <li key={requisito} className="flex items-start gap-3 text-sm leading-relaxed text-slate-100">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-un-green">
+                    <Check className="h-3 w-3 text-white" strokeWidth={3.5} />
+                  </span>
                   <span>{requisito}</span>
                 </li>
               ))}
@@ -469,10 +488,10 @@ export const ParticiparPage = ({ navigate }) => {
 
             {/* Bloco de Resultado do Simulador (5 Colunas) */}
             <div className="lg:col-span-5 bg-un-blue text-white rounded-[2rem] p-6 sm:p-8 md:p-10 shadow-xl flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute right-0 bottom-0 translate-x-12 translate-y-12 w-64 h-64 bg-un-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+              <div className="absolute right-0 bottom-0 translate-x-12 translate-y-12 w-64 h-64 bg-un-purple/25 rounded-full blur-3xl pointer-events-none"></div>
 
               <div className="space-y-6 relative z-10">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-un-gold px-3 py-1 rounded-full bg-white/10 border border-white/15 inline-block">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-un-blue-3 px-3 py-1 rounded-full bg-white/10 border border-white/15 inline-block">
                   Resultado Estimado
                 </span>
 
@@ -565,7 +584,9 @@ export const ParticiparPage = ({ navigate }) => {
                 >
                   <FotoFundo imagem={regra.imagem} />
                   <h5 className="text-sm font-bold flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-un-gold shrink-0" />
+                    <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-un-green">
+                      <Check className="h-2.5 w-2.5 text-white" strokeWidth={4} />
+                    </span>
                     {regra.titulo}
                   </h5>
                   <p className="mt-1.5 text-xs text-slate-200 leading-relaxed font-light">{regra.descricao}</p>
@@ -597,12 +618,12 @@ export const ParticiparPage = ({ navigate }) => {
       {/* 5.1 EVIDÊNCIA EXECUTIVA & DADOS GLOBAIS (ACCENTURE & UNGC CEO STUDY) */}
       <section id="evidencia-executiva" className="py-12 md:py-20 bg-un-blue text-white relative overflow-hidden">
         {/* Glow de fundo */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-un-gold/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-un-purple/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-un-green/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl relative z-10">
           <div className="max-w-3xl mb-12">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-un-gold bg-white/10 px-3 py-1 rounded-full border border-white/15 inline-block mb-3">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-un-blue-3 bg-white/10 px-3 py-1 rounded-full border border-white/15 inline-block mb-3">
               Evidência Executiva • UN Global Compact & Accenture CEO Study
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-black uppercase tracking-tight text-white">
@@ -621,13 +642,13 @@ export const ParticiparPage = ({ navigate }) => {
               >
                 <FotoFundo imagem={stat.imagem} />
                 <div className="flex items-center justify-between gap-3">
-                  <span className="rounded-full border border-un-gold/35 bg-un-blue/60 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.16em] text-un-gold backdrop-blur-md">
+                  <span className={cn('rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.16em]', PILULA[EVIDENCIA_CORES[sIdx]])}>
                     {stat.destaque}
                   </span>
-                  <TrendingUp className="w-4 h-4 text-un-gold" />
+                  <TrendingUp className="w-4 h-4 text-white/70" />
                 </div>
                 <div className="mt-16">
-                  <div className="text-5xl sm:text-6xl font-display font-black text-un-gold tracking-tight">
+                  <div className="text-5xl sm:text-6xl font-display font-black text-white tracking-tight">
                     {stat.porcentagem}
                   </div>
                   <p className="mt-2 text-[13px] text-slate-100 font-light leading-relaxed">
@@ -635,7 +656,7 @@ export const ParticiparPage = ({ navigate }) => {
                   </p>
                   <div className="pt-3 mt-4 border-t border-white/15 flex items-center justify-between text-[10px] text-slate-300">
                     <span>Accenture CEO Study</span>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-un-gold" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-un-blue-3" />
                   </div>
                 </div>
               </div>
@@ -644,13 +665,13 @@ export const ParticiparPage = ({ navigate }) => {
 
           <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-300">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-un-gold shrink-0" />
+              <Sparkles className="w-4 h-4 text-un-blue-3 shrink-0" />
               <span>Metodologia global aplicada às mais de 2.000 empresas participantes da Rede Brasil.</span>
             </div>
             <button
               type="button"
               onClick={() => scrollToSection('contato')}
-              className="px-5 py-2.5 rounded-full bg-un-gold text-un-blue font-bold uppercase tracking-wider text-[11px] hover:bg-white transition-colors cursor-pointer shrink-0"
+              className="px-5 py-2.5 rounded-full bg-un-green text-white font-bold uppercase tracking-wider text-[11px] hover:bg-white hover:text-un-green transition-colors cursor-pointer shrink-0"
             >
               Falar com a equipe de Adesão
             </button>
@@ -678,16 +699,16 @@ export const ParticiparPage = ({ navigate }) => {
                   key={etapa.numero}
                   className={cn(
                     "group relative isolate flex min-h-[500px] flex-col justify-between overflow-hidden rounded-[1.75rem] p-6 sm:p-7 text-white shadow-sm transition-shadow duration-300 hover:shadow-2xl",
-                    etapa.destaque ? "ring-2 ring-un-gold/70" : "ring-1 ring-un-blue/10"
+                    etapa.destaque ? "ring-2 ring-un-green" : "ring-1 ring-un-blue/10"
                   )}
                 >
                   <FotoFundo imagem={etapa.imagem} />
 
                   <div className="flex items-center justify-between gap-3">
-                    <span className="text-4xl font-display font-black tracking-tight text-un-gold drop-shadow">
+                    <span className="text-4xl font-display font-black tracking-tight text-white drop-shadow">
                       {etapa.numero}
                     </span>
-                    <span className="rounded-full border border-white/25 bg-un-blue/60 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-md">
+                    <span className={cn('rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider', PILULA[ETAPA_CORES[etapa.id] || 'azul'])}>
                       {etapa.tempo}
                     </span>
                   </div>
@@ -706,7 +727,7 @@ export const ParticiparPage = ({ navigate }) => {
                         o processo sozinha, e isso não aparecia em lugar nenhum. */}
                     {etapa.apoio && (
                       <div className="flex items-start gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2.5 backdrop-blur-md">
-                        <UserCheck className="w-3.5 h-3.5 shrink-0 mt-0.5 text-un-gold" />
+                        <UserCheck className="w-3.5 h-3.5 shrink-0 mt-0.5 text-un-blue-3" />
                         <p className="text-[11px] leading-snug font-light text-slate-100">
                           {etapa.apoio}
                         </p>
@@ -733,7 +754,7 @@ export const ParticiparPage = ({ navigate }) => {
                         className={cn(
                           "min-h-[42px] px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 transition-all cursor-pointer w-full justify-center",
                           etapa.destaque
-                            ? "bg-un-gold text-un-blue hover:bg-white"
+                            ? "bg-un-green text-white hover:bg-white hover:text-un-green"
                             : "border border-white/35 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-un-blue"
                         )}
                       >
@@ -757,7 +778,7 @@ export const ParticiparPage = ({ navigate }) => {
             
             {/* Bloco Editorial Esquerda (5 Colunas) */}
             <div className="lg:col-span-5 space-y-6">
-              <span className="px-3.5 py-1 bg-un-gold/20 text-un-blue rounded-full text-xs font-bold uppercase tracking-wider border border-un-gold/30 inline-block">
+              <span className="px-3.5 py-1 bg-un-purple/10 text-un-purple rounded-full text-xs font-bold uppercase tracking-wider border border-un-purple/20 inline-block">
                 Atendimento Personalizado
               </span>
 
@@ -816,7 +837,7 @@ export const ParticiparPage = ({ navigate }) => {
               
               {formSubmitted ? (
                 <div className="text-center py-12 space-y-4 animate-fade-in">
-                  <div className="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto border border-emerald-200">
+                  <div className="w-16 h-16 rounded-2xl bg-un-green/10 text-un-green flex items-center justify-center mx-auto border border-un-green/20">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <h3 className="text-2xl font-display font-black text-slate-900 uppercase">
@@ -1060,7 +1081,7 @@ export const ParticiparPage = ({ navigate }) => {
                         href="https://www.pactoglobal.org.br/politica-de-privacidade/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-semibold text-un-blue underline hover:text-un-gold"
+                        className="font-semibold text-un-blue underline hover:text-un-purple"
                       >
                         Política de Privacidade
                       </a>
@@ -1071,7 +1092,7 @@ export const ParticiparPage = ({ navigate }) => {
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full min-h-[48px] px-6 py-3 rounded-full bg-un-blue text-white hover:bg-un-gold hover:text-un-blue transition-all text-xs font-black uppercase tracking-wider shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                      className="w-full min-h-[48px] px-6 py-3 rounded-full bg-un-blue text-white hover:bg-un-green transition-all text-xs font-black uppercase tracking-wider shadow-md flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <Send className="w-4 h-4" /> Enviar Cadastro de Interesse
                     </button>
@@ -1116,7 +1137,7 @@ export const ParticiparPage = ({ navigate }) => {
                     </span>
                     <div className={cn(
                       "w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-transform",
-                      isOpen ? "bg-un-blue text-white rotate-180 border-un-blue" : "bg-white text-slate-500 border-slate-200"
+                      isOpen ? "bg-un-purple text-white rotate-180 border-un-purple" : "bg-white text-slate-500 border-slate-200"
                     )}>
                       <ChevronDown className="w-4 h-4" />
                     </div>
@@ -1161,6 +1182,9 @@ export const ParticiparPage = ({ navigate }) => {
       {/* 9. PERFIS DA ÁREA DE ADESÃO (some enquanto não houver contatos cadastrados) */}
       <EquipeAdesao />
 
+      {/* Fecho da página com a assinatura dos ODS, logo acima do rodapé */}
+      <OdsFaixa className="h-2" />
+
       <WhatsAppFab
         numero={CONTATO_ENGAJAMENTO.whatsapp}
         mensagem={CONTATO_ENGAJAMENTO.whatsappMensagem}
@@ -1173,7 +1197,7 @@ export const ParticiparPage = ({ navigate }) => {
           {/* Menu Flutuante Expandido */}
           {floatingNavOpen && (
             <div className="bg-slate-900/95 backdrop-blur-md border border-white/20 text-white rounded-3xl p-3 shadow-2xl flex flex-col gap-1.5 animate-fade-in-up mb-1 w-52">
-              <span className="text-[9px] font-mono uppercase tracking-widest text-un-gold px-3 pt-1 font-bold">
+              <span className="text-[9px] font-mono uppercase tracking-widest text-un-blue-3 px-3 pt-1 font-bold">
                 Saltar para Seção:
               </span>
               <button 
@@ -1181,14 +1205,14 @@ export const ParticiparPage = ({ navigate }) => {
                 onClick={() => scrollToSection('beneficios')}
                 className="px-3 py-1.5 rounded-xl text-xs font-medium hover:bg-white/15 text-left transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <Award className="w-3 h-3 text-un-gold" /> Benefícios
+                <Award className="w-3 h-3 text-un-blue-3" /> Benefícios
               </button>
               <button 
                 type="button"
                 onClick={() => scrollToSection('publicos')}
                 className="px-3 py-1.5 rounded-xl text-xs font-medium hover:bg-white/15 text-left transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <Users className="w-3 h-3 text-un-gold" /> Quem Pode Aderir
+                <Users className="w-3 h-3 text-un-blue-3" /> Quem Pode Aderir
               </button>
               <button 
                 type="button"
@@ -1202,14 +1226,14 @@ export const ParticiparPage = ({ navigate }) => {
                 onClick={() => scrollToSection('evidencia-executiva')}
                 className="px-3 py-1.5 rounded-xl text-xs font-medium hover:bg-white/15 text-left transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <TrendingUp className="w-3 h-3 text-un-gold" /> Evidência Executiva
+                <TrendingUp className="w-3 h-3 text-un-blue-3" /> Evidência Executiva
               </button>
               <button 
                 type="button"
                 onClick={() => scrollToSection('etapas')}
                 className="px-3 py-1.5 rounded-xl text-xs font-medium hover:bg-white/15 text-left transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <FileSignature className="w-3 h-3 text-un-gold" /> 6 Etapas
+                <FileSignature className="w-3 h-3 text-un-blue-3" /> 6 Etapas
               </button>
               <button 
                 type="button"
@@ -1223,7 +1247,7 @@ export const ParticiparPage = ({ navigate }) => {
                 onClick={() => scrollToSection('faq')}
                 className="px-3 py-1.5 rounded-xl text-xs font-medium hover:bg-white/15 text-left transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <HelpCircle className="w-3 h-3 text-un-gold" /> FAQ
+                <HelpCircle className="w-3 h-3 text-un-blue-3" /> FAQ
               </button>
             </div>
           )}
@@ -1245,7 +1269,7 @@ export const ParticiparPage = ({ navigate }) => {
             <button
               type="button"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="w-11 h-11 rounded-full bg-un-blue hover:bg-un-gold hover:text-un-blue text-white shadow-xl flex items-center justify-center transition-all cursor-pointer border border-white/20 shrink-0"
+              className="w-11 h-11 rounded-full bg-un-blue hover:bg-un-green text-white shadow-xl flex items-center justify-center transition-all cursor-pointer border border-white/20 shrink-0"
               title="Voltar ao início da página"
               aria-label="Voltar ao início da página"
             >

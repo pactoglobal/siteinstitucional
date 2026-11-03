@@ -35,6 +35,7 @@ export const BENEFICIOS_ADESAO = [
     titulo: "UN Global Compact Academy",
     descricao: "Acesso ilimitado à maior plataforma digital corporativa de sustentabilidade do mundo, com cursos práticos, masterclasses e certificações.",
     badge: "Capacitação Contínua",
+    cor: "azul",
     imagem: "card-academy",
     icone: "GraduationCap",
     pontos: [
@@ -49,6 +50,7 @@ export const BENEFICIOS_ADESAO = [
     descricao: "Integre coalizões multissetoriais de alto impacto para acelerar metas ESG audaciosas com métricas auditáveis.",
     link: { rotulo: "Conhecer a Ambição 2030", rota: "ambicao" },
     badge: "Ação Coletiva",
+    cor: "verde",
     imagem: "card-movimentos",
     icone: "TrendingUp",
     pontos: [
@@ -62,6 +64,7 @@ export const BENEFICIOS_ADESAO = [
     titulo: "Comunidade & Benchmarking",
     descricao: "Conecte-se com mais de 2.000 empresas no Brasil em uma rede colaborativa orientada à troca de soluções e boas práticas.",
     badge: "Networking Estratégico",
+    cor: "roxo",
     imagem: "card-comunidade",
     icone: "Users",
     pontos: [
@@ -75,6 +78,7 @@ export const BENEFICIOS_ADESAO = [
     titulo: "Eventos Institucionais & Internacionais",
     descricao: "Participe dos eventos institucionais da Rede Brasil, como o Fórum Ambição 2030 e o SDGs in Brazil, e das agendas internacionais em que o Pacto Global está presente, como a Conferência das Partes do Clima (COP).",
     badge: "Voz Global",
+    cor: "dourado",
     imagem: "card-eventos",
     icone: "Globe",
     pontos: [
@@ -88,6 +92,7 @@ export const BENEFICIOS_ADESAO = [
     titulo: "Comunicação de Progresso (CoP)",
     descricao: "Relato anual em que a empresa demonstra seu progresso na implementação dos Dez Princípios e na contribuição para os ODS.",
     badge: "Transparência & ESG",
+    cor: "verde",
     imagem: "card-cop",
     icone: "BarChart3",
     pontos: [
