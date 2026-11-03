@@ -1,0 +1,18 @@
+{
+  "folders": [
+    { "name": "🌍 Site Institucional", "path": "." }
+  ],
+  "settings": {
+    "css.lint.unknownAtRules": "ignore",
+    "editor.formatOnSave": true,
+    "typescript.tsdk": "node_modules/typescript/lib"
+  },
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "bradlc.vscode-tailwindcss",
+      "Anthropic.claude-code"
+    ]
+  }
+}
