@@ -312,8 +312,8 @@ export const ParticiparPage = ({ navigate }) => {
           <SectionHeader 
             badge="Elegibilidade & Categorias"
             title="Quem Pode Aderir à Rede Brasil?"
-            titleAccent="Uma Iniciativa para Empresas Privadas"
-            description="O Pacto Global da ONU – Rede Brasil reúne empresas privadas de todos os portes e setores. Da pequena empresa ao grande conglomerado, toda companhia legalmente constituída pode aderir ao assumir o compromisso de incorporar os Dez Princípios à sua estratégia e às suas operações."
+            titleAccent="Uma Iniciativa para Empresas"
+            description="O Pacto Global da ONU – Rede Brasil reúne empresas privadas e públicas de todos os portes e setores. Da pequena empresa ao grande conglomerado, toda companhia legalmente constituída pode aderir ao assumir o compromisso de incorporar os Dez Princípios à sua estratégia e às suas operações."
             className="mb-8"
           />
 
