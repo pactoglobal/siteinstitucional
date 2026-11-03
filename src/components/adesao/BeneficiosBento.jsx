@@ -14,6 +14,7 @@ import { SectionHeader } from '../ui/SectionHeader';
 import { Reveal } from '../ui/Reveal';
 import { FotoFundo } from './FotoFundo';
 import { cn } from '../../utils/cn';
+import { PILULA } from './cores';
 import { BENEFICIOS_ADESAO } from '../../data/comoAderir';
 
 const ICONS = { GraduationCap, TrendingUp, Users, Globe, BarChart3 };
@@ -22,7 +23,7 @@ const Pontos = ({ pontos }) => (
   <ul className="space-y-2">
     {pontos.map((ponto) => (
       <li key={ponto} className="flex items-start gap-2 text-xs leading-snug text-slate-100">
-        <CheckCircle2 className="mt-px h-3.5 w-3.5 shrink-0 text-un-gold" />
+        <CheckCircle2 className="mt-px h-3.5 w-3.5 shrink-0 text-un-blue-3" />
         <span>{ponto}</span>
       </li>
     ))}
@@ -49,7 +50,7 @@ const BeneficioCard = ({ beneficio, navigate }) => {
       </span>
 
       <div className="mt-16">
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-un-gold">
+        <span className={cn('inline-block rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.16em]', PILULA[beneficio.cor] || PILULA.azul)}>
           {beneficio.badge}
         </span>
         <h3 className="mt-2 font-display text-xl font-black uppercase leading-[1.08] tracking-tight">
@@ -58,12 +59,12 @@ const BeneficioCard = ({ beneficio, navigate }) => {
         <p className="mt-2 text-[13px] font-light leading-relaxed text-slate-200">{beneficio.descricao}</p>
 
         <span className="bento-dica mt-4 items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-white/80 transition-opacity">
-          <Plus className="h-3.5 w-3.5 text-un-gold" /> Ver o que inclui
+          <Plus className="h-3.5 w-3.5 text-white" /> Ver o que inclui
         </span>
 
         <div className="bento-revela mt-5 space-y-5">
           <div>
-            <span className="bento-revela-titulo mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-un-gold">
+            <span className="bento-revela-titulo mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-un-blue-3">
               {beneficio.titulo}
             </span>
             <Pontos pontos={beneficio.pontos} />
@@ -72,7 +73,7 @@ const BeneficioCard = ({ beneficio, navigate }) => {
             <button
               type="button"
               onClick={() => navigate(beneficio.link.rota)}
-              className="inline-flex min-h-[40px] items-center gap-2 self-start rounded-full bg-un-gold px-4 text-[11px] font-bold uppercase tracking-wider text-un-blue transition-all cursor-pointer hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className={cn('inline-flex min-h-[40px] items-center gap-2 self-start rounded-full px-4 text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer hover:bg-white hover:text-un-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white', PILULA[beneficio.cor] || PILULA.azul)}
             >
               {beneficio.link.rotulo} <ArrowRight className="h-3.5 w-3.5" />
             </button>

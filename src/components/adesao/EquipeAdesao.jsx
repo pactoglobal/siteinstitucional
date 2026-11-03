@@ -31,7 +31,7 @@ const Avatar = ({ membro, grande, unico }) => {
   return (
     <div
       className={cn(
-        'relative shrink-0 overflow-hidden rounded-full ring-4 ring-un-gold/70 ring-offset-4 ring-offset-white',
+        'relative shrink-0 overflow-hidden rounded-full ring-4 ring-un-purple/60 ring-offset-4 ring-offset-white',
         tamanho
       )}
     >
@@ -45,7 +45,7 @@ const Avatar = ({ membro, grande, unico }) => {
       ) : (
         <span
           aria-hidden="true"
-          className="flex h-full w-full items-center justify-center bg-gradient-to-br from-un-blue to-un-blue-1 font-display text-2xl font-black text-un-gold sm:text-3xl"
+          className="flex h-full w-full items-center justify-center bg-gradient-to-br from-un-blue to-un-purple font-display text-2xl font-black text-white sm:text-3xl"
         >
           {iniciais(membro.nome)}
         </span>
@@ -64,7 +64,7 @@ const AcaoContato = ({ href, icone: Icone, rotulo, destaque, externo, titulo, ro
       'inline-flex min-h-[44px] items-center gap-1.5 rounded-full px-3 text-xs font-bold transition-all',
       'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-un-blue',
       destaque
-        ? 'bg-un-blue text-white hover:bg-un-gold hover:text-un-blue'
+        ? 'bg-un-blue text-white hover:bg-un-green'
         : 'border border-slate-200 bg-white text-slate-700 hover:border-un-blue hover:text-un-blue'
     )}
   >
@@ -102,7 +102,7 @@ const PerfilCard = ({ membro, grande, unico }) => (
     {unico && (
       <div className="min-w-0 space-y-5">
         <div>
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-un-gold">{membro.cargo}</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-un-purple">{membro.cargo}</span>
           <h3 className="mt-1.5 font-display text-2xl font-black uppercase leading-tight tracking-tight text-slate-900 sm:text-3xl">
             {membro.nome}
           </h3>

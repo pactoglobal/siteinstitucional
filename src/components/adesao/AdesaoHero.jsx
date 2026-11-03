@@ -75,7 +75,7 @@ export const AdesaoHero = ({ onQueroAderir, onSimular, onVerEtapas }) => {
       <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12 pt-32 pb-24 md:pt-44 md:pb-32 lg:pb-36">
         <div className="max-w-3xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider backdrop-blur-md animate-fade-in-up">
-            <span className="h-1.5 w-1.5 rounded-full bg-un-gold" aria-hidden="true" />
+            <span className="h-1.5 w-1.5 rounded-full bg-un-green" aria-hidden="true" />
             Adesão ao Pacto Global
           </span>
 
@@ -114,7 +114,7 @@ export const AdesaoHero = ({ onQueroAderir, onSimular, onVerEtapas }) => {
             <button
               type="button"
               onClick={onVerEtapas}
-              className="inline-flex min-h-[44px] items-center justify-center gap-1.5 px-2 text-xs font-bold uppercase tracking-wider text-slate-200 underline decoration-un-gold/60 decoration-2 underline-offset-8 transition-colors hover:text-un-gold cursor-pointer"
+              className="inline-flex min-h-[44px] items-center justify-center gap-1.5 px-2 text-xs font-bold uppercase tracking-wider text-slate-200 underline decoration-un-green decoration-2 underline-offset-8 transition-colors hover:text-white cursor-pointer"
             >
               Ver as 6 etapas
             </button>
@@ -148,7 +148,7 @@ export const AdesaoHero = ({ onQueroAderir, onSimular, onVerEtapas }) => {
                 <span
                   className={cn(
                     'block h-1 rounded-full transition-all duration-500',
-                    idx === active ? 'w-12 bg-un-gold' : 'w-6 bg-white/35 group-hover:bg-white/70'
+                    idx === active ? 'w-12 bg-white' : 'w-6 bg-white/35 group-hover:bg-white/70'
                   )}
                 />
               </button>
