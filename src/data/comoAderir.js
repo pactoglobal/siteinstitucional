@@ -192,7 +192,7 @@ export const REGRAS_CONTRIBUICAO = [
   {
     titulo: "A partir de 10 Funcionários",
     imagem: "regra-porte",
-    descricao: "A adesão é voltada a empresas, privadas ou públicas, com a partir de 10 funcionários.",
+    descricao: "A adesão é voltada a empresas que tenham a partir de 10 funcionários.",
     icone: "Globe2"
   },
   {
@@ -256,10 +256,10 @@ export const ETAPAS_ADESAO = [
     imagem: "etapa-onboarding",
     numero: "04",
     titulo: "Boas-Vindas & Reunião de Onboarding",
-    descricao: "Após a aprovação, sua empresa recebe o kit de boas-vindas com os logos de participante e participa do encontro de integração com a equipe de Adesão.",
+    descricao: "Após a aprovação, sua empresa recebe o kit de boas-vindas com os logos de participante e participa do encontro de integração com a equipe de Engajamento.",
     tempo: "Integração",
     icone: "Award",
-    apoio: "O encontro de integração é conduzido pela equipe de Adesão da Rede Brasil.",
+    apoio: "O encontro de integração é conduzido pela equipe de Engajamento da Rede Brasil.",
     acao: "Falar com a equipe"
   },
   {
@@ -328,6 +328,8 @@ export const CONTATO_ENGAJAMENTO = {
   modeloCartaUrl: "https://unglobalcompact.org/participation/join/application/business",
   diretorioPublicoUrl: "https://unglobalcompact.org/what-is-gc/participants",
   kitMidiaUrl: "https://unglobalcompact.org/library/1831",
+  // 12º UN Global Compact–Accenture CEO Study (2023)
+  estudoCeoUrl: "https://unglobalcompact.org/library/6103",
   horario: "Segunda a Sexta, das 9h às 18h (Brasília)",
   // WhatsApp do Contato de Adesão (Barbara), só dígitos com DDI e DDD. É o
   // mesmo número e a mesma mensagem do botão no card dela (equipeAdesao.js).

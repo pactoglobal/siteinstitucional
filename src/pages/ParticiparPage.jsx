@@ -556,7 +556,7 @@ export const ParticiparPage = ({ navigate }) => {
                 <thead>
                   <tr className="border-b-2 border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
                     <th className="py-3 px-4">Faixa de Faturamento (USD)</th>
-                    <th className="py-3 px-4 text-right">Anuidade Anual (USD)</th>
+                    <th className="py-3 px-4 text-right">Anuidade (USD)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -633,7 +633,16 @@ export const ParticiparPage = ({ navigate }) => {
               O Que Dizem os CEOs que Lideram a Sustentabilidade
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 font-light mt-3 leading-relaxed">
-              O maior estudo executivo de sustentabilidade do planeta, conduzido em parceria com a Accenture com mais de 2.800 CEOs de 113 países e 25 setores industriais, comprova: a sustentabilidade é hoje o principal vetor de resiliência corporativa, competitividade e criação de valor financeiro a longo prazo.
+              <a
+                href={CONTATO_ENGAJAMENTO.estudoCeoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-white underline decoration-un-gold decoration-2 underline-offset-4 hover:text-un-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-un-gold rounded-sm"
+              >
+                O maior estudo executivo de sustentabilidade do planeta
+                <ExternalLink className="w-3 h-3 inline-block ml-1 align-baseline" aria-hidden="true" />
+                <span className="sr-only"> (abre em nova aba)</span>
+              </a>, conduzido em parceria com a Accenture com mais de 2.600 CEOs de 128 países e 18 setores, comprova: a sustentabilidade é hoje o principal vetor de resiliência corporativa, competitividade e criação de valor financeiro a longo prazo.
             </p>
           </div>
 
@@ -1129,7 +1138,6 @@ export const ParticiparPage = ({ navigate }) => {
           <SectionHeader 
             badge="Esclarecimentos Oficiais"
             title="Perguntas Frequentes sobre Adesão"
-            titleAccent="Tire suas Dúvidas Técnicas"
             description="As respostas mais procuradas por líderes corporativos sobre prazos, documentação, custos e prestação de contas no Pacto Global da ONU."
             className="mb-10 text-center"
           />
