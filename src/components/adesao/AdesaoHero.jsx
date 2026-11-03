@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, Calculator, Pause, Play } from 'lucide-react';
 import { cn } from '../../utils/cn';
+import { OdsFaixa } from '../ui/OdsFaixa';
 
 const SLIDE_INTERVAL_MS = 6500;
 
@@ -156,6 +157,9 @@ export const AdesaoHero = ({ onQueroAderir, onSimular, onVerEtapas }) => {
           </div>
         </div>
       </div>
+
+      {/* Assinatura dos ODS, como na capa do Kit de Mídia */}
+      <OdsFaixa className="absolute inset-x-0 bottom-0" />
     </section>
   );
 };

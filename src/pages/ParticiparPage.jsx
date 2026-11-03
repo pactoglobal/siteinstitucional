@@ -42,6 +42,7 @@ import { EquipeAdesao } from '../components/adesao/EquipeAdesao';
 import { WhatsAppFab } from '../components/adesao/WhatsAppFab';
 import { FotoFundo } from '../components/adesao/FotoFundo';
 import { FUNDO, PILULA } from '../components/adesao/cores';
+import { OdsFaixa } from '../components/ui/OdsFaixa';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
 import { cn } from '../utils/cn';
@@ -355,6 +356,7 @@ export const ParticiparPage = ({ navigate }) => {
           {/* Requisitos mínimos, na redação da equipe de Adesão. Substituem a
               antiga lista "O que impede a adesão" e os cards de categoria. */}
           <div className="relative overflow-hidden rounded-[1.75rem] bg-un-blue p-6 text-white shadow-xl sm:p-10">
+            <OdsFaixa className="absolute inset-x-0 top-0" />
             <img
               src={`${import.meta.env.BASE_URL}logo-pacto-white.png`}
               alt=""
@@ -1179,6 +1181,9 @@ export const ParticiparPage = ({ navigate }) => {
       {/* 9. DOCK FLUTUANTE DE NAVEGAÇÃO RÁPIDA (DISCRETO & 100% IN-PAGE) */}
       {/* 9. PERFIS DA ÁREA DE ADESÃO (some enquanto não houver contatos cadastrados) */}
       <EquipeAdesao />
+
+      {/* Fecho da página com a assinatura dos ODS, logo acima do rodapé */}
+      <OdsFaixa className="h-2" />
 
       <WhatsAppFab
         numero={CONTATO_ENGAJAMENTO.whatsapp}
