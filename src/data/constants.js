@@ -16,6 +16,9 @@ export const ROUTES = {
   cop:  '#/cop',
   ambicao: '#/ambicao',
   governanca: '#/governanca',
+  esg: '#/esg',
+  ods: '#/ods',
+  // Endereço antigo da página única de ESG e ODS; abre a página de ESG.
   esgOds: '#/esg-ods',
 };
 
@@ -214,13 +217,13 @@ export const MENU_EXPLORAR = [
   },
   {
     label: "ESG e ODS",
-    id: "esgOds",
+    id: "esg",
     icon: BookOpen,
     subItems: [
-      { id: "esgOds", label: "O que é ESG" },
-      { id: "esgOds", label: "OS 18 ODS" },
-      { id: "esgOds", label: "Ferramentas e Metas" },
-      { id: "esgOds", label: "Mercado ESG" }
+      { id: "esg", label: "O que é ESG" },
+      { id: "esg", label: "Mercado ESG" },
+      { id: "ods", label: "Os 18 ODS" },
+      { id: "ods", label: "Ferramentas e Metas" }
     ]
   },
   {
