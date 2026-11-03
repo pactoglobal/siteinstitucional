@@ -7,8 +7,17 @@ set -e
 echo "→ Lint..."
 npm run lint
 
-# Garante que o index.html seja o template correto antes do build
-cat > index.html << 'EOF'
+# Build
+npm run build
+
+# Extrai os asset hashes do index.html recém-construído
+JS_ASSET=$(grep -o 'assets/index-[^"]*\.js' dist/index.html | head -1 | sed 's|assets/||')
+CSS_ASSET=$(grep -o 'assets/index-[^"]*\.css' dist/index.html | head -1 | sed 's|assets/||')
+
+echo "→ Assets detectados: JS=$JS_ASSET, CSS=$CSS_ASSET"
+
+# Gera 404.html APÓS o build com os hashes CORRETOS
+cat > dist/404.html << EOF
 <!doctype html>
 <html lang="pt-BR">
 
@@ -18,36 +27,36 @@ cat > index.html << 'EOF'
   <link rel="apple-touch-icon" href="/siteinstitucional/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pacto Global da ONU - Rede Brasil</title>
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-    rel="stylesheet">
-
-  <script type="module" src="/src/main.jsx"></script>
+  <script>
+    // GitHub Pages SPA fallback for hash-based routing
+    // Redirects 404 to index.html with the hash preserved
+    (function() {
+      var path = window.location.pathname;
+      var hash = window.location.hash;
+      if (hash) {
+        // Already has hash, let index.html handle it
+        window.location.replace('/siteinstitucional/' + hash);
+      } else if (path !== '/siteinstitucional/') {
+        // No hash, redirect to root
+        window.location.replace('/siteinstitucional/');
+      }
+    })();
+  </script>
 </head>
 
 <body>
   <div id="root"></div>
+  <script type="module" crossorigin src="/siteinstitucional/assets/$JS_ASSET"></script>
+  <link rel="stylesheet" crossorigin href="/siteinstitucional/assets/$CSS_ASSET">
 </body>
 
 </html>
 EOF
 
-# Build
-npm run build
-
-# Fallback de SPA: o gh-pages publica apenas o conteudo de dist/, entao o
-# 404.html precisa estar DENTRO de dist. Sem isso, link direto sem hash
-# (ex: /siteinstitucional/ambicao) devolve o 404 do GitHub.
-cp dist/index.html dist/404.html
-
 # Copia os arquivos compilados para a raiz (gh-pages)
 mkdir -p assets
 cp dist/index.html index.html
-cp dist/index.html 404.html
+cp dist/404.html 404.html
 cp dist/assets/* assets/
 
 echo "✓ Build concluído. Pronto para commit e push."

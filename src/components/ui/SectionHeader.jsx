@@ -8,43 +8,47 @@ export const SectionHeader = ({
   description,
   button,
   className = '',
-  inverted = false
+  inverted = false,
+  gradientTitle,
+  gradientAccent
 }) => (
   <div className={cn("flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 md:mb-14 lg:mb-16 gap-8", className)}>
     <div className="max-w-4xl">
       {badge && (
         <span className={cn(
-          "inline-block mb-5 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-sm backdrop-blur-sm border",
+          "inline-block mb-5 text-micro font-bold uppercase tracking-widest px-4 py-1.5 rounded-sm backdrop-blur-sm border reveal",
           inverted
             ? "bg-white/10 border-white/20 text-white"
             : "bg-un-blue/5 border-un-blue/10 text-un-blue"
-        )}>
+        )} style={{ "--reveal-delay": "0ms" }}>
           {badge}
         </span>
       )}
       <h2 className={cn(
-        "text-xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight leading-[1.12] mb-0 pb-0",
-        inverted ? "text-white" : "text-gray-900"
-      )}>
+        "text-display-xs sm:text-display-sm md:text-display-md lg:text-display-lg font-impact font-black uppercase tracking-tight leading-tight mb-0 pb-0 reveal",
+        inverted ? "text-white" : "text-ink",
+        gradientTitle && "gradient-text-ods"
+      )} style={{ "--reveal-delay": "100ms" }}>
         <span className="block">{title}</span>
         {titleAccent && (
           <span className={cn(
-            "block mt-1 sm:mt-2",
-            inverted ? "text-un-gold" : "text-un-blue-1"
-          )}>
+            "block mt-1 sm:mt-2 reveal",
+            inverted ? "text-un-gold" : "text-un-blue",
+            gradientAccent && "gradient-text-ods"
+          )} style={{ "--reveal-delay": "150ms" }}>
             {titleAccent}
           </span>
         )}
       </h2>
       {description && (
         <div className={cn(
-          "mt-8 text-sm md:text-base lg:text-xl max-w-2xl leading-relaxed font-light",
-          inverted ? "text-un-blue-3" : "text-gray-600"
-        )} dangerouslySetInnerHTML={{ __html: description }} />
+          "mt-8 text-body-sm md:text-body-md lg:text-heading-sm max-w-2xl leading-relaxed font-light reveal",
+          inverted ? "text-ink-3" : "text-ink-4"
+        )} dangerouslySetInnerHTML={{ __html: description }} style={{ "--reveal-delay": "200ms" }} />
       )}
     </div>
     {button && (
-      <div className="shrink-0 flex items-center lg:pb-2">
+      <div className="shrink-0 flex items-center lg:pb-2 reveal" style={{ "--reveal-delay": "250ms" }}>
         {button}
       </div>
     )}

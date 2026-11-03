@@ -1,0 +1,403 @@
+/* ============================================================
+   BRASIL SUSTENTA — EDITORIAL HIGH-END PÁTRIA v6.0
+   Design Tokens — Single Source of Truth (CSS @theme)
+   ============================================================ */
+
+@theme {
+  /* --------------------------------------------------------
+     COLOR — PÁTRIA HIGH-END PALETTE
+     -------------------------------------------------------- */
+  --color-paper: #050505;
+  --color-paper-2: #0D0E0E;
+  --color-paper-3: #141617;
+  --color-ink: #F3F4F6;
+  --color-ink-2: #D1D5DB;
+  --color-ink-3: #9CA3AF;
+  --color-ink-4: #6B7280;
+  --color-ink-5: #4B5563;
+  --color-leaf: #00E676;      /* Verde Amazônia Tech */
+  --color-atlantic: #2979FF;  /* Azul Atlântico Deep */
+  --color-sun: #FFD600;       /* Amarelo Ouro Solar */
+  --color-clay: #FF1744;      /* Error/alert */
+  --color-orange: #FF9100;    /* Warning/in-progress */
+  --color-border: rgba(255,255,255,0.04);
+  --color-border-strong: rgba(255,255,255,0.10);
+  --color-border-focus: rgba(255,255,255,0.20);
+
+  /* Semantic aliases para compatibilidade legada */
+  --color-un-blue: #2979FF;
+  --color-un-blue-1: #1A5FD6;
+  --color-un-blue-2: #0D3FA3;
+  --color-un-blue-3: #07265A;
+  --color-un-green: #00E676;
+  --color-un-green-1: #00B85E;
+  --color-un-green-2: #008F47;
+  --color-un-green-3: #006631;
+  --color-un-gold: #FFD600;
+  --color-un-gold-1: #E6BF00;
+  --color-un-gold-2: #CC9D00;
+  --color-un-gold-3: #997600;
+  --color-un-purple: #6E417A;
+  --color-un-surface: #F8F9FA;
+  --color-un-footer: #0F2942;
+  --color-un-footer-accent: #CCB146;
+
+  /* --------------------------------------------------------
+     TYPOGRAPHY
+     -------------------------------------------------------- */
+  --font-impact: "Antonio", Impact, sans-serif;
+  --font-body: "Outfit", system-ui, sans-serif;
+  --font-mono: "Geist Mono", "SF Mono", monospace;
+
+  --text-display-xl: 4.5rem;   /* 72px */
+  --text-display-lg: 3.5rem;   /* 56px */
+  --text-display-md: 2.5rem;   /* 40px */
+  --text-display-sm: 1.75rem;  /* 28px */
+  --text-display-xs: 1.25rem;  /* 20px */
+  --text-heading-lg: 1.5rem;   /* 24px */
+  --text-heading-md: 1.25rem;  /* 20px */
+  --text-heading-sm: 1rem;     /* 16px */
+  --text-body-lg: 1.125rem;    /* 18px */
+  --text-body-md: 1rem;        /* 16px */
+  --text-body-sm: 0.875rem;    /* 14px */
+  --text-caption: 0.75rem;     /* 12px */
+  --text-micro: 0.625rem;      /* 10px */
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+  --tracking-wider: 0.1em;
+  --tracking-widest: 0.25em;
+
+  --leading-tight: 1.12;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  /* --------------------------------------------------------
+     SPACING (4px base)
+     -------------------------------------------------------- */
+  --space-0: 0;
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-7: 1.75rem;  /* 28px */
+  --space-8: 2rem;     /* 32px */
+  --space-9: 2.25rem;  /* 36px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-14: 3.5rem;  /* 56px */
+  --space-16: 4rem;    /* 64px */
+  --space-20: 5rem;    /* 80px */
+  --space-24: 6rem;    /* 96px */
+  --space-32: 8rem;    /* 128px */
+
+  /* --------------------------------------------------------
+     RADIUS
+     -------------------------------------------------------- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 9999px;
+
+  /* --------------------------------------------------------
+     GLASSMORPHISM MATERIALS (4 levels)
+     -------------------------------------------------------- */
+  --glass-ultra-thin-alpha: 0.48;
+  --glass-thin-alpha: 0.60;
+  --glass-regular-alpha: 0.72;
+  --glass-thick-alpha: 0.84;
+  --glass-blur-thin: 12px;
+  --glass-blur: 24px;
+  --glass-saturate: 180%;
+
+  /* --------------------------------------------------------
+     GRADIENTS — AURORA PÁTRIA (Brand, 3 only)
+     -------------------------------------------------------- */
+  --gradient-verde-aurora: linear-gradient(135deg, #00E676 0%, #00B85E 100%);
+  --gradient-azul-aurora: linear-gradient(135deg, #2979FF 0%, #1A5FD6 100%);
+  --gradient-amarelo-aurora: linear-gradient(135deg, #FFD600 0%, #E6BF00 100%);
+
+  /* --------------------------------------------------------
+     GRADIENTS — BIOLUMINESCÊNCIA PERSONA (3, max 15% opacity)
+     -------------------------------------------------------- */
+  --gradient-empresa: linear-gradient(135deg, rgba(0,230,118,0.15) 0%, rgba(0,184,94,0.05) 100%);
+  --gradient-prefeitura: linear-gradient(135deg, rgba(41,121,255,0.15) 0%, rgba(26,95,214,0.05) 100%);
+  --gradient-ods: linear-gradient(135deg, rgba(255,214,0,0.15) 0%, rgba(230,191,0,0.05) 100%);
+
+  /* --------------------------------------------------------
+     SHADOWS
+     -------------------------------------------------------- */
+  --shadow-glass: 0 24px 60px -30px rgba(0,0,0,0.65);
+  --shadow-card: 0 8px 30px -10px rgba(10,25,47,0.15);
+  --shadow-card-hover: 0 20px 40px -15px rgba(10,25,47,0.25);
+  --shadow-modal: 0 40px 80px -20px rgba(0,0,0,0.8);
+  --shadow-glow-verde: 0 0 40px -10px rgba(0,230,118,0.4);
+  --shadow-glow-azul: 0 0 40px -10px rgba(41,121,255,0.4);
+  --shadow-glow-amarelo: 0 0 40px -10px rgba(255,214,0,0.4);
+
+  /* --------------------------------------------------------
+     MOTION — iOS PHYSICS
+     -------------------------------------------------------- */
+  --spring-damping: 0.85;
+  --spring-stiffness: 120;
+  --duration-press: 80ms;
+  --duration-release: 240ms;
+  --duration-hover: 200ms;
+  --duration-reveal: 800ms;
+  --duration-reveal-delay: 100ms;
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* --------------------------------------------------------
+     BREAKPOINTS
+     -------------------------------------------------------- */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1536px;
+
+  /* --------------------------------------------------------
+     Z-INDEX SCALE
+     -------------------------------------------------------- */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+  --z-toast: 800;
+}
+
+/* ============================================================
+   UTILITY CLASSES — Consumem tokens via var()
+   ============================================================ */
+
+/* Glass Materials */
+.glass-ultra-thin {
+  background-color: rgba(255,255,255, var(--glass-ultra-thin-alpha));
+  backdrop-filter: blur(var(--glass-blur-thin)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur-thin)) saturate(var(--glass-saturate));
+  border: 1px solid var(--color-border);
+}
+.glass-thin {
+  background-color: rgba(255,255,255, var(--glass-thin-alpha));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border: 1px solid var(--color-border);
+}
+.glass-regular {
+  background-color: rgba(255,255,255, var(--glass-regular-alpha));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border: 1px solid var(--color-border);
+}
+.glass-thick {
+  background-color: rgba(255,255,255, var(--glass-thick-alpha));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border: 1px solid var(--color-border-strong);
+}
+
+/* Light hairline on top edge — makes it read as real glass */
+.glass-ultra-thin::before,
+.glass-thin::before,
+.glass-regular::before,
+.glass-thick::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.45) 30%,
+    rgba(255,255,255,0.45) 70%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Reduced transparency fallback */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-ultra-thin,
+  .glass-thin,
+  .glass-regular,
+  .glass-thick {
+    background-color: var(--color-paper-2);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: var(--color-border-strong);
+  }
+}
+
+/* Gradient Text — Editorial Headlines */
+.gradient-text-verde {
+  background: var(--gradient-verde-aurora);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gradient-text-azul {
+  background: var(--gradient-azul-aurora);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gradient-text-amarelo {
+  background: var(--gradient-amarelo-aurora);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gradient-text-ods {
+  background: linear-gradient(135deg, #FFD600 0%, #E6BF00 50%, #2979FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* CTA Buttons — Hybrid Strategy (WCAG AA Validated) */
+.cta-empresa {
+  background: var(--color-leaf);
+  color: var(--color-paper);
+  border: 2px solid transparent;
+  transition: all var(--duration-hover) var(--ease-out);
+}
+.cta-empresa:hover,
+.cta-empresa:focus-visible {
+  background: transparent;
+  border-image: var(--gradient-verde-aurora) 1;
+  color: var(--color-leaf);
+  box-shadow: var(--shadow-glow-verde);
+}
+
+.cta-prefeitura {
+  background: var(--color-atlantic);
+  color: var(--color-ink);
+  border: 2px solid transparent;
+  transition: all var(--duration-hover) var(--ease-out);
+}
+.cta-prefeitura:hover,
+.cta-prefeitura:focus-visible {
+  background: transparent;
+  border-image: var(--gradient-azul-aurora) 1;
+  color: var(--color-atlantic);
+  box-shadow: var(--shadow-glow-azul);
+}
+
+.cta-ods {
+  background: var(--color-sun);
+  color: var(--color-paper);
+  border: 2px solid transparent;
+  transition: all var(--duration-hover) var(--ease-out);
+}
+.cta-ods:hover,
+.cta-ods:focus-visible {
+  background: transparent;
+  border-image: var(--gradient-amarelo-aurora) 1;
+  color: var(--color-sun);
+  box-shadow: var(--shadow-glow-amarelo);
+}
+
+/* Reveal Animation — Scroll-triggered */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--duration-reveal) var(--ease-spring),
+    transform var(--duration-reveal) var(--ease-spring);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ODS Ring Animation */
+@keyframes ringIn {
+  from { opacity: 0; transform: scale(0.82); }
+  to { opacity: 0.9; transform: scale(1); }
+}
+.animate-ring-in {
+  animation: ringIn 1.4s var(--ease-spring) both;
+}
+
+/* Glow Pulse */
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+.animate-glow {
+  animation: glowPulse 8s ease-in-out infinite;
+}
+
+/* Grain Overlay — Atmospheric texture */
+.grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--color-ink-4);
+  border-radius: 20px;
+}
+
+/* Hide Scrollbar */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Smooth Scroll */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus Visible */
+:focus-visible {
+  outline: 2px solid var(--color-sun);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-sun);
+  color: var(--color-paper);
+}

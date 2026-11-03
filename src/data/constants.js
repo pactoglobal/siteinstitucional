@@ -16,7 +16,8 @@ export const ROUTES = {
   cop:  '#/cop',
   ambicao: '#/ambicao',
   governanca: '#/governanca',
-  esgOds: '#/esg-ods',
+  esg: '#/esg',
+  ods: '#/ods',
 };
 
 /**
@@ -208,19 +209,34 @@ export const MENU_EXPLORAR = [
     icon: Globe,
     subItems: [
       { id: "agenda", label: "10 Princípios" },
-      { id: "agenda", label: "ODS" },
+      { id: "ods", label: "ODS" },
       { id: "plataformas", label: "Plataformas de Ação" }
     ]
   },
   {
-    label: "ESG e ODS",
-    id: "esgOds",
+    label: "ESG",
+    id: "esg",
     icon: BookOpen,
     subItems: [
-      { id: "esgOds", label: "O que é ESG" },
-      { id: "esgOds", label: "OS 18 ODS" },
-      { id: "esgOds", label: "Ferramentas e Metas" },
-      { id: "esgOds", label: "Mercado ESG" }
+      { id: "esg", label: "O que é ESG" },
+      { id: "esg", label: "Pilares E, S e G" },
+      { id: "esg", label: "Timeline ESG" },
+      { id: "esg", label: "Ferramentas e Metas" },
+      { id: "esg", label: "Mercado ESG" },
+      { id: "esg", label: "Regulação no Brasil" }
+    ]
+  },
+  {
+    label: "ODS",
+    id: "ods",
+    icon: Target,
+    subItems: [
+      { id: "ods", label: "Os 18 ODS" },
+      { id: "ods", label: "ODS 18 — Igualdade Étnico-Racial" },
+      { id: "ods", label: "Timeline ODS" },
+      { id: "ods", label: "Conexão ESG ↔ ODS" },
+      { id: "ods", label: "Movimentos da Ambição 2030" },
+      { id: "ods", label: "Metas por ODS" }
     ]
   },
   {

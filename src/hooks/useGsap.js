@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useLayoutEffect } from 'react';
 import { loadGsap } from '../lib/animation';
 
 /**
@@ -17,7 +17,10 @@ export function useGsap(montar, deps = []) {
   const raizRef = useRef(null);
   // Mantém o callback fresco sem re-rodar o efeito a cada render.
   const montarRef = useRef(montar);
-  montarRef.current = montar;
+  
+  useLayoutEffect(() => {
+    montarRef.current = montar;
+  }, [montar]);
 
   useEffect(() => {
     let ctx;

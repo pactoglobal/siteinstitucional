@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, Search, ChevronDown, User } from 'lucide-react';
+import { Menu, Search, ChevronDown, User, Leaf } from 'lucide-react';
 import { cn } from '../../utils/cn';
 import { Button } from '../ui/Button';
 import { SuperMenu } from './SuperMenu';
@@ -37,7 +37,6 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute, routeParam }) => {
         }}
       >
         <div className="container mx-auto px-4 md:px-8 lg:px-12 flex items-center justify-between">
-          
           {/* Logo e Menu Esquerda */}
           <div className="flex items-center gap-4 md:gap-6 w-1/4 xl:w-1/4">
             <button
@@ -63,37 +62,44 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute, routeParam }) => {
               style={themeEntity ? { backgroundColor: `${themeEntity.color}80` } : undefined}
             >
               {/* Links Simples */}
-              <button 
-                onClick={() => onRouteChange && onRouteChange('sobre')} 
+              <button
+                onClick={() => onRouteChange && onRouteChange('sobre')}
                 className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer ${currentRoute === 'sobre' ? 'underline decoration-2' : ''}`}
               >
                 Sobre Nós
               </button>
-              
-              <button 
-                onClick={() => onRouteChange && onRouteChange('ambicao')} 
+
+              <button
+                onClick={() => onRouteChange && onRouteChange('ambicao')}
                 className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer ${currentRoute === 'ambicao' ? 'underline decoration-2' : ''}`}
               >
                 Ambição 2030
               </button>
 
-              <button 
-                onClick={() => onRouteChange && onRouteChange('esgOds')} 
-                className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer ${currentRoute === 'esgOds' ? 'underline decoration-2' : ''}`}
+              <button
+                onClick={() => onRouteChange && onRouteChange('esg')}
+                className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer ${currentRoute === 'esg' ? 'underline decoration-2' : ''}`}
               >
-                ESG e ODS
+                ESG
               </button>
 
-              <button 
-                onClick={() => onRouteChange && onRouteChange('plataformas')} 
+              <button
+                onClick={() => onRouteChange && onRouteChange('ods')}
+                className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer ${currentRoute === 'ods' ? 'underline decoration-2' : ''}`}
+              >
+                ODS
+              </button>
+
+              <button
+                onClick={() => onRouteChange && onRouteChange('plataformas')}
                 className={`text-white hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer ${currentRoute === 'plataformas' || currentRoute === 'plataforma' ? 'underline decoration-2' : ''}`}
               >
                 Plataformas
               </button>
-              
+
               {/* Dropdown Programas */}
               <div className="relative group">
-                <button 
+                <button
                   onClick={() => onRouteChange && onRouteChange('programas')}
                   className={`flex items-center gap-1 text-white group-hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors py-1.5 whitespace-nowrap ${currentRoute === 'programas' ? 'underline decoration-2' : ''}`}
                 >
@@ -114,7 +120,7 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute, routeParam }) => {
 
               {/* Dropdown Conhecimento */}
               <div className="relative group">
-                <button 
+                <button
                   onClick={() => onRouteChange && onRouteChange('conhecimento')}
                   className={`flex items-center gap-1 text-white group-hover:opacity-80 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-colors py-1.5 whitespace-nowrap ${currentRoute === 'conhecimento' ? 'underline decoration-2' : ''}`}
                 >
@@ -172,7 +178,6 @@ export const CapsuleHeader = ({ onRouteChange, currentRoute, routeParam }) => {
               </Button>
             )}
           </div>
-
         </div>
       </header>
     </>
