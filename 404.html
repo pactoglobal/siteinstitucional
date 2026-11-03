@@ -7,20 +7,35 @@
   <link rel="apple-touch-icon" href="/siteinstitucional/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pacto Global da ONU - Rede Brasil</title>
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-    rel="stylesheet">
-
-  <script type="module" crossorigin src="/siteinstitucional/assets/index-Crx0lTqM-1792445189066.js"></script>
-  <link rel="stylesheet" crossorigin href="/siteinstitucional/assets/index-Dp9GxGdZ-1792445189066.css">
+  <script>
+    // GitHub Pages SPA fallback for hash-based routing
+    // Converte paths sem hash para hash-based routing
+    (function() {
+      var path = window.location.pathname;
+      var hash = window.location.hash;
+      
+      // Remove prefixo /siteinstitucional se presente
+      var cleanPath = path.replace('/siteinstitucional', '');
+      
+      if (hash) {
+        // Já tem hash, redireciona preservando
+        window.location.replace('/siteinstitucional/' + hash);
+      } else if (cleanPath && cleanPath !== '/' && cleanPath !== '') {
+        // Path sem hash - converte para hash-based routing
+        // Ex: /siteinstitucional/esg -> /siteinstitucional/#/esg
+        window.location.replace('/siteinstitucional/#' + cleanPath);
+      } else {
+        // Raiz ou vazio, redireciona para home
+        window.location.replace('/siteinstitucional/');
+      }
+    })();
+  </script>
 </head>
 
 <body>
   <div id="root"></div>
+  <script type="module" crossorigin src="/siteinstitucional/assets/index-CLyMK7mY.js"></script>
+  <link rel="stylesheet" crossorigin href="/siteinstitucional/assets/index-D7B2c-gF.css">
 </body>
 
 </html>
