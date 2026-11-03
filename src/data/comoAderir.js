@@ -106,7 +106,7 @@ export const BENEFICIOS_ADESAO = [
 export const REQUISITOS_MINIMOS = [
   "Possuir a partir de 10 funcionários",
   "Ser empresa, privada ou pública (não OSC, OSCIP ou pessoa física — exceto hospitais e escolas com característica empresarial)",
-  "Não ser órgão de governo federal, estadual ou municipal — empresas públicas, como o BNDES, podem aderir",
+  "Não ser órgão de governo federal, estadual ou municipal",
   "Não ter sanções da ONU nem constar na Lista de Fornecedores Inelegíveis por questões éticas",
   "Não ter receita de armas letais, minas terrestres, bombas de fragmentação ou tabaco",
 ];
@@ -288,7 +288,7 @@ export const FAQ_ADESAO = [
   },
   {
     pergunta: "2. Quais organizações podem aderir ao Pacto Global da ONU?",
-    resposta: "O Pacto Global da ONU – Rede Brasil reúne empresas privadas e públicas, como o BNDES, de todos os portes e setores, a partir de 10 funcionários. Hospitais e escolas com característica empresarial também podem aderir. Não aderem pessoas físicas, OSCs, OSCIPs nem órgãos de governo. A candidatura passa ainda pela análise de diligência reputacional da ONU."
+    resposta: "O Pacto Global da ONU – Rede Brasil reúne empresas privadas e públicas de todos os portes e setores, a partir de 10 funcionários. Hospitais e escolas com característica empresarial também podem aderir. Não aderem pessoas físicas, OSCs, OSCIPs nem órgãos de governo. A candidatura passa ainda pela análise de diligência reputacional da ONU."
   },
   {
     pergunta: "3. Quem deve assinar a Carta de Compromisso institucional?",
