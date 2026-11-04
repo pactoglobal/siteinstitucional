@@ -1,6 +1,8 @@
 import React from 'react';
 import { cn } from '../../utils/cn';
-import { CONTEXTO_REGULATORIO } from '../../data/esgOds';
+import { CONTEXTO_REGULATORIO, TEXTOS_ESG } from '../../data/esgOds';
+
+const { regulacao } = TEXTOS_ESG;
 
 // "Vigente" em verde (confirmação); os que dependem do perfil da empresa
 // ("Aplicável a ...") em azul (informação). Preenchimento com texto branco,
@@ -13,12 +15,12 @@ export const RegulacaoFaixa = () => (
       <div className="lg:col-span-4">
         <div className="lg:sticky lg:top-28">
           <span className="mb-5 inline-block rounded-sm border border-white/20 bg-white/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] md:text-xs">
-            Regulação
+            {regulacao.selo}
           </span>
           <h2 className="font-display text-3xl font-black uppercase leading-[1.1] tracking-tight md:text-4xl">
-            Do voluntarismo à exigência de mercado
+            {regulacao.titulo}
           </h2>
-          <p className="mt-5 text-sm leading-relaxed text-slate-300 md:text-base">{CONTEXTO_REGULATORIO.intro}</p>
+          <p className="mt-5 text-sm leading-relaxed text-slate-300 md:text-base">{regulacao.texto}</p>
         </div>
       </div>
 

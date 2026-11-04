@@ -1,6 +1,6 @@
 /**
- * Apresentação dos três pilares ESG. O conteúdo (subtemas, métricas) vem de
- * ESG_DEFINICAO_DETALHADA.pilares; aqui fica só o que é visual.
+ * Apresentação dos três pilares ESG. O texto (pergunta, temas, como se mede)
+ * vem de PILARES_ESG, em data/esgOds.js; aqui fica só o que é visual.
  *
  * Cores pelo papel definido na Como Aderir (adesao/cores.js): verde para
  * sustentabilidade, roxo para pessoas, azul para dados e informação. Sobre o
@@ -38,6 +38,3 @@ export const PILARES_VISUAL = {
     principios: [{ nome: 'Anticorrupção', icone: 'anticorrupcao', faixa: 'Princípio 10' }],
   },
 };
-
-/** "Mudança climática: emissões GEE..." -> "Mudança climática" */
-export const tituloSubtema = (subtema) => subtema.split(':')[0];

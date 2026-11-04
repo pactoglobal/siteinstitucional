@@ -1,7 +1,7 @@
 import React from 'react';
 import { Check, ExternalLink } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
-import { FERRAMENTAS_ESG } from '../../data/esgOds';
+import { FERRAMENTAS_ODS, TEXTOS_ODS } from '../../data/esgOds';
 
 const LinkExterno = ({ link }) => (
   <a
@@ -14,20 +14,22 @@ const LinkExterno = ({ link }) => (
   </a>
 );
 
-const [SDG_COMPASS, AMBICAO_PELOS_ODS] = FERRAMENTAS_ESG;
+const { sdgCompass: SDG_COMPASS, ambicaoPelosOds: AMBICAO_PELOS_ODS } = FERRAMENTAS_ODS;
+const { ferramentas } = TEXTOS_ODS;
 
 export const FerramentasOds = () => (
   <section className="bg-white py-16 md:py-24">
     <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
       <SectionHeader
-        badge="Ferramentas do Pacto Global"
-        title="Como levar os ODS para a estratégia"
+        badge={ferramentas.selo}
+        title={ferramentas.titulo}
+        description={ferramentas.descricao}
         className="mb-10 md:mb-12"
       />
 
       <div className="grid gap-6 lg:grid-cols-2">
         <article className="flex flex-col rounded-3xl border border-slate-200/90 p-6 sm:p-8">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-un-green">Guia metodológico</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-un-green">{SDG_COMPASS.tipo}</p>
           <h3 className="mt-2 font-display text-2xl font-black uppercase tracking-tight text-slate-900">{SDG_COMPASS.titulo}</h3>
           <p className="mt-3 text-sm leading-relaxed text-slate-600">{SDG_COMPASS.descricao}</p>
           <ol className="mt-6 grid gap-2 sm:grid-cols-5">
@@ -44,7 +46,7 @@ export const FerramentasOds = () => (
         </article>
 
         <article className="flex flex-col rounded-3xl border border-slate-200/90 p-6 sm:p-8">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-un-purple">Programa de aceleração</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-un-purple">{AMBICAO_PELOS_ODS.tipo}</p>
           <h3 className="mt-2 font-display text-2xl font-black uppercase tracking-tight text-slate-900">{AMBICAO_PELOS_ODS.titulo}</h3>
           <p className="mt-3 text-sm leading-relaxed text-slate-600">{AMBICAO_PELOS_ODS.descricao}</p>
           <ul className="mt-6 grid gap-2 sm:grid-cols-2">

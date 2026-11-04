@@ -1,13 +1,13 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../../utils/cn';
-import { ESG_CTA } from '../../data/esgOds';
 
 /**
- * Fechamento das páginas ESG e ODS. `outraPagina` ({ href, rotulo }) liga
- * uma página à outra, já que o conteúdo foi dividido em duas rotas.
+ * Fechamento das páginas ESG e ODS. `conteudo` vem de TEXTOS_ESG.cta ou
+ * TEXTOS_ODS.cta; `outraPagina` é o href da outra página, cujo rótulo está
+ * em `conteudo.outraPagina`.
  */
-export const CtaFinal = ({ outraPagina }) => (
+export const CtaFinal = ({ conteudo, outraPagina }) => (
   <section className="py-12 md:py-20 bg-un-surface">
     <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
       <div className="rounded-3xl p-8 sm:p-12 bg-un-blue text-white text-center relative overflow-hidden">
@@ -16,16 +16,16 @@ export const CtaFinal = ({ outraPagina }) => (
 
         <div className="relative z-10 max-w-3xl mx-auto">
           <span className="inline-block px-4 py-1.5 bg-un-gold/20 border border-un-gold/30 text-un-gold text-[10px] font-bold uppercase tracking-widest rounded-full mb-6">
-            Próximos Passos
+            {conteudo.selo}
           </span>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-display font-black uppercase tracking-tight mb-4">
-            {ESG_CTA.titulo}
+            {conteudo.titulo}
           </h2>
           <p className="text-slate-200 text-base sm:text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
-            {ESG_CTA.descricao}
+            {conteudo.descricao}
           </p>
           <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4">
-            {ESG_CTA.botoes.map((btn) => (
+            {conteudo.botoes.map((btn) => (
               <a
                 key={btn.label}
                 href={btn.href}
@@ -43,10 +43,10 @@ export const CtaFinal = ({ outraPagina }) => (
           </div>
           {outraPagina && (
             <a
-              href={outraPagina.href}
+              href={outraPagina}
               className="inline-flex items-center gap-2 mt-8 text-sm font-medium text-un-blue-3 hover:text-white underline underline-offset-4 decoration-un-gold transition-colors"
             >
-              {outraPagina.rotulo} <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              {conteudo.outraPagina} <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </a>
           )}
         </div>

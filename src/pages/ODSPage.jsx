@@ -6,6 +6,7 @@ import { MovimentosGrade } from '../components/esg-ods/MovimentosGrade';
 import { FerramentasOds } from '../components/esg-ods/FerramentasOds';
 import { CtaFinal } from '../components/esg-ods/CtaFinal';
 import { routeHref } from '../hooks/useHashRoute';
+import { TEXTOS_ODS } from '../data/esgOds';
 
 export const ODSPage = () => (
   <div className="animate-fade-in min-h-screen bg-un-surface">
@@ -14,6 +15,6 @@ export const ODSPage = () => (
     <Ods18Faixa />
     <MovimentosGrade />
     <FerramentasOds />
-    <CtaFinal outraPagina={{ href: routeHref('esg'), rotulo: 'Entenda o que é ESG e como ele se conecta aos ODS' }} />
+    <CtaFinal conteudo={TEXTOS_ODS.cta} outraPagina={routeHref('esg')} />
   </div>
 );

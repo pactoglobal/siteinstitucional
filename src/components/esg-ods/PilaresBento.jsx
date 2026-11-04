@@ -2,8 +2,10 @@ import React from 'react';
 import { cn } from '../../utils/cn';
 import { SectionHeader } from '../ui/SectionHeader';
 import { FotoFundo } from '../adesao/FotoFundo';
-import { ESG_DEFINICAO_DETALHADA } from '../../data/esgOds';
-import { PILARES_VISUAL, tituloSubtema } from './pilares';
+import { PILARES_ESG, TEXTOS_ESG } from '../../data/esgOds';
+import { PILARES_VISUAL } from './pilares';
+
+const { pilares: textos } = TEXTOS_ESG;
 
 const ICONES_BASE = `${import.meta.env.BASE_URL}icons/`;
 
@@ -36,21 +38,23 @@ const CardPilar = ({ pilar }) => {
         </h3>
       </div>
 
-      <ul className="mt-6 flex flex-wrap gap-2" aria-label={`Temas do pilar ${visual.nome}`}>
-        {pilar.subtemas.map((subtema) => (
-          <li key={subtema} className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur-sm">
-            {tituloSubtema(subtema)}
+      <p className="mt-5 max-w-xl font-display text-lg font-bold leading-snug sm:text-xl">{pilar.pergunta}</p>
+
+      <ul className="mt-5 flex flex-wrap gap-2" aria-label={`Temas do pilar ${visual.nome}`}>
+        {pilar.temas.map((tema) => (
+          <li key={tema} className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur-sm">
+            {tema}
           </li>
         ))}
       </ul>
 
       <p className="mt-5 text-sm leading-relaxed text-slate-200">
-        <span className="font-bold text-white">Como se mede: </span>
-        {pilar.metricas_chave}
+        <span className="font-bold text-white">{textos.rotuloMedida} </span>
+        {pilar.medida}
       </p>
 
       <div className="mt-6 border-t border-white/15 pt-5">
-        <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-un-blue-3">Dez Princípios relacionados</p>
+        <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-un-blue-3">{textos.rotuloPrincipios}</p>
         <ul className="flex flex-wrap gap-4">
           {visual.principios.map((principio) => (
             <li key={principio.nome} className="flex items-center gap-3">
@@ -75,13 +79,14 @@ export const PilaresBento = () => (
   <section id="pilares" className="scroll-mt-24 bg-white py-16 md:py-24">
     <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
       <SectionHeader
-        badge="Os três pilares"
-        title="O que cada letra cobre"
-        description="Os temas e as métricas que investidores, reguladores e a sociedade acompanham em cada pilar, e as áreas dos Dez Princípios ligadas a eles."
+        badge={textos.selo}
+        title={textos.titulo}
+        titleAccent={textos.destaque}
+        description={textos.descricao}
         className="mb-10 md:mb-12"
       />
       <div className="grid gap-5 lg:grid-cols-12">
-        {ESG_DEFINICAO_DETALHADA.pilares.map((pilar) => (
+        {PILARES_ESG.map((pilar) => (
           <CardPilar key={pilar.letra} pilar={pilar} />
         ))}
       </div>

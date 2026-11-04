@@ -3,7 +3,7 @@ import { ArrowRight, Check, Target } from 'lucide-react';
 import { cn } from '../../utils/cn';
 import { SectionHeader } from '../ui/SectionHeader';
 import { routeHref } from '../../hooks/useHashRoute';
-import { ODS_LIST, METAS_AMBICAO_ODS } from '../../data/esgOds';
+import { ODS_LIST, METAS_AMBICAO_ODS, TEXTOS_ODS } from '../../data/esgOds';
 import { MOVIMENTOS } from '../../data/ambicao2030';
 import { PLATAFORMAS } from '../../data/plataformas';
 import { iconeOds, logoMovimento } from './navegacao';
@@ -12,6 +12,7 @@ import { iconeOds, logoMovimento } from './navegacao';
 // 18 opções.
 const ODS_INICIAL = 18;
 const PAINEL_ID = 'painel-ods';
+const { explorador: textos } = TEXTOS_ODS;
 const BREAKPOINT_LG = 1024;
 
 // Tudo derivado dos campos `ods` de movimentos e plataformas. A plataforma
@@ -38,7 +39,7 @@ const Painel = ({ ods }) => {
         </div>
 
         <div className="mt-8">
-          <h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-500">Movimentos da Ambição 2030</h4>
+          <h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-500">{textos.rotuloMovimentos}</h4>
           {movimentos.length > 0 ? (
             <ul className="grid gap-2">
               {movimentos.map((m) => (
@@ -58,13 +59,13 @@ const Painel = ({ ods }) => {
             </ul>
           ) : (
             <p className="text-sm leading-relaxed text-slate-600">
-              Nenhum movimento tem este ODS como foco principal. Ele é trabalhado nas Plataformas de Ação abaixo.
+              {textos.semMovimento}
             </p>
           )}
         </div>
 
         <div className="mt-8">
-          <h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-500">Plataformas de Ação</h4>
+          <h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-500">{textos.rotuloPlataformas}</h4>
           <ul className="flex flex-wrap gap-2">
             {plataformas.map((p) => (
               <li key={p.slug}>
@@ -83,7 +84,7 @@ const Painel = ({ ods }) => {
         {meta && (
           <div className="mt-8 rounded-2xl bg-un-surface p-5">
             <h4 className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-un-green">
-              <Target className="h-4 w-4" aria-hidden="true" /> Exemplo de meta · Ambição pelos ODS
+              <Target className="h-4 w-4" aria-hidden="true" /> {textos.rotuloMeta}
             </h4>
             <p className="text-sm leading-relaxed text-slate-700">{meta.meta}</p>
           </div>
@@ -139,9 +140,9 @@ export const ExploradorOds = () => {
     <section id="explorador" className="scroll-mt-24 bg-white py-16 md:py-24">
       <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
         <SectionHeader
-          badge="Explorador de ODS"
-          title="Escolha um objetivo"
-          description="Para cada ODS, os movimentos da Ambição 2030 e as Plataformas de Ação em que a Rede Brasil trabalha o tema com as empresas participantes."
+          badge={textos.selo}
+          title={textos.titulo}
+          description={textos.descricao}
           className="mb-10 md:mb-12"
         />
 

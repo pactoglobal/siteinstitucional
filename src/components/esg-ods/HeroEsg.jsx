@@ -3,8 +3,11 @@ import { ArrowDown, ArrowRight } from 'lucide-react';
 import { cn } from '../../utils/cn';
 import { OdsFaixa } from '../ui/OdsFaixa';
 import { routeHref } from '../../hooks/useHashRoute';
+import { TEXTOS_ESG } from '../../data/esgOds';
 import { PILARES_VISUAL } from './pilares';
 import { rolarPara } from './navegacao';
+
+const { hero } = TEXTOS_ESG;
 
 /**
  * Hero tipográfico: as três letras são o próprio conteúdo da página, então
@@ -19,18 +22,16 @@ export const HeroEsg = () => (
       <div className="grid items-end gap-12 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <span className="mb-6 inline-block rounded-full border border-white/15 bg-white/10 px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-un-blue-3 sm:text-xs">
-            Estratégia empresarial
+            {hero.selo}
           </span>
           <h1 className="font-display text-6xl font-black uppercase leading-[0.9] tracking-tight sm:text-7xl md:text-8xl">
-            ESG
+            {hero.titulo}
             <span className="mt-3 block text-xl font-bold normal-case tracking-normal text-un-blue-3 sm:text-2xl md:text-3xl">
-              Ambiental, Social e Governança na prática
+              {hero.subtitulo}
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-base font-light leading-relaxed text-slate-200 md:text-lg">
-            O conjunto de práticas, políticas e métricas com que uma empresa gere seus impactos
-            socioambientais e sua governança. Veja o que cada pilar cobre e como o Pacto Global
-            ajuda a transformar compromisso em resultado.
+            {hero.texto}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <button
@@ -38,13 +39,13 @@ export const HeroEsg = () => (
               onClick={() => rolarPara('pilares')}
               className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-un-gold px-6 text-xs font-bold uppercase tracking-wider text-un-blue transition-colors hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-un-blue md:text-sm"
             >
-              Conheça os pilares <ArrowDown className="h-4 w-4" aria-hidden="true" />
+              {hero.acao} <ArrowDown className="h-4 w-4" aria-hidden="true" />
             </button>
             <a
               href={routeHref('ods')}
               className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border-2 border-white/30 px-6 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-un-gold md:text-sm"
             >
-              Ver os 18 ODS <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              {hero.link} <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </a>
           </div>
         </div>
