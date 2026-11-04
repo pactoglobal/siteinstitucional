@@ -9,6 +9,7 @@ import { Reveal } from '../components/ui/Reveal';
 import { DotGrid, Grain } from '../components/ui/Texture';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { getNoticia, getRelacionadas, corDaCategoria } from '../data/noticias';
+import { INSTITUTIONAL_STATS } from '../data/constants';
 import { formatDateLong } from '../utils/date';
 
 const NaoEncontrada = ({ navigate }) => (
@@ -200,7 +201,7 @@ export const NoticiaPage = ({ slug, navigate }) => {
             Sua empresa também pode fazer parte
           </h2>
           <p className="mx-auto mb-8 max-w-xl text-base font-light text-white/70">
-            Junte-se às mais de 1.900 empresas participantes do Pacto Global da ONU no Brasil.
+            Junte-se às mais de {INSTITUTIONAL_STATS.brasilParticipants} empresas participantes do Pacto Global da ONU no Brasil.
           </p>
           <div className="flex justify-center">
             <Button variant="primary" icon={ArrowRight} onClick={() => navigate('participar')}>

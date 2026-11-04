@@ -55,7 +55,7 @@ export const ESG_TIMELINE = [
   {
     ano: '2004',
     titulo: 'Publicação "Who Cares Wins"',
-    descricao: 'Pacto Global + Banco Mundial cunham o termo ESG em resposta ao desafio de Kofi Annan a 50 CEOs: integrar fatores sociais, ambientais e de governança ao mercado de capitais.',
+    descricao: 'Relatório do Pacto Global da ONU, com apoio da IFC (Grupo Banco Mundial) e do governo suíço, cunha o termo ESG. Partiu de um convite de Kofi Annan a mais de 50 CEOs de instituições financeiras; cerca de 20 delas, de 9 países, endossaram o texto.',
     icone: 'FileText',
     destaque: true,
   },
@@ -164,7 +164,7 @@ export const ODS_TIMELINE = [
 export const ESG_DEFINICAO_DETALHADA = {
   titulo: 'O que é ESG — Definição Completa',
   intro: 'ESG é uma sigla em inglês que significa Environmental, Social and Governance (Ambiental, Social e Governança). Corresponde ao conjunto de práticas, políticas e métricas que uma organização adota para gerir seus impactos socioambientais e sua governança corporativa.',
-  origem: 'O termo foi cunhado em <strong>2004</strong> na publicação <em>"Who Cares Wins"</em>, iniciativa do Pacto Global da ONU em parceria com o Banco Mundial (IFC). Surgiu de uma provocação do secretário-geral da ONU <strong>Kofi Annan</strong> a 50 CEOs das maiores instituições financeiras globais: "como integrar fatores sociais, ambientais e de governança no mercado de capitais?".',
+  origem: 'O termo foi cunhado em <strong>2004</strong> no relatório <em>"Who Cares Wins"</em>, iniciativa do Pacto Global da ONU com apoio da IFC (Grupo Banco Mundial) e do governo suíço. Partiu de um convite do secretário-geral da ONU <strong>Kofi Annan</strong> a mais de 50 CEOs de grandes instituições financeiras, para que propusessem como integrar fatores ambientais, sociais e de governança à análise de investimentos. Cerca de 20 instituições, de 9 países, endossaram o relatório.',
   evolucao: 'Inicialmente focado em investimento responsável (screening negativo), o ESG evoluiu para abordagem de <strong>criação de valor</strong> — gestão de riscos físicos e de transição, inovação em produtos de baixo carbono, atração de talentos, acesso a capital mais barato, licença social para operar.',
   pilares: [
     {

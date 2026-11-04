@@ -317,6 +317,6 @@ export const HEADER_CONHECIMENTO = [
 export const INSTITUTIONAL_STATS = {
   globalParticipants: '25k+',
   localNetworks: '67',
-  brasilParticipants: '1.900',
+  brasilParticipants: '2.000',
   brasilInitiatives: '50'
 };
