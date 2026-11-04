@@ -67,6 +67,9 @@ const ROTULO_CLASSES = 'text-xs font-bold uppercase tracking-wider text-slate-70
 const CAMPO_CLASSES =
   'w-full min-h-[44px] px-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-un-blue transition-colors';
 
+// Texto em português de um valor do Pardot, para o e-mail de contato
+const rotuloDe = (opcoes, valor) => opcoes.find((opcao) => opcao.valor === valor)?.rotulo ?? valor;
+
 // Cor de cada item (papéis em components/adesao/cores.js)
 const STATS_CORES = ['dourado', 'verde', 'roxo'];
 const EVIDENCIA_CORES = ['verde', 'roxo', 'azul', 'dourado'];
@@ -123,13 +126,13 @@ export const ParticiparPage = ({ navigate }) => {
     sobrenome: '',
     email: '',
     telefone: '',
-    pais: 'Brasil',
+    pais: 'Brazil',
     cargo: '',
     nivel: '',
     empresa: '',
-    tipoOrganizacao: 'Empresa',
+    tipoOrganizacao: 'Company',
     funcionarios: '',
-    optIn: '',
+    fazParte: '',
     mensagem: '',
     lgpd: false
   });
@@ -183,12 +186,12 @@ export const ParticiparPage = ({ navigate }) => {
     };
   }, [tipoOrg, selectedFaixaIndex]);
 
-  // Não há backend neste site (build estático no GitHub Pages). O envio abre o
-  // cliente de e-mail da pessoa com tudo preenchido, para o mesmo endereço que
-  // a página já divulga em outros três pontos. Sem isso o formulário colhia
-  // dado pessoal com consentimento LGPD, descartava tudo e ainda prometia
-  // retorno em 2 dias úteis.
+  // Com a URL do form handler preenchida, o formulário faz o POST nativo para
+  // o Pardot (os atributos name batem com os campos externos). Sem ela, como
+  // o site é estático, o envio abre o cliente de e-mail da pessoa com tudo
+  // preenchido, para o endereço de contato que a página já divulga.
   const handleFormSubmit = (e) => {
+    if (FORMULARIO_ADESAO.formHandlerUrl) return;
     e.preventDefault();
     if (!formData.nome || !formData.email || !formData.empresa) return;
 
@@ -198,18 +201,18 @@ export const ParticiparPage = ({ navigate }) => {
       `Sobrenome: ${formData.sobrenome}`,
       `E-mail corporativo: ${formData.email}`,
       `Telefone: +55 ${formData.telefone}`,
-      `País: ${formData.pais}`,
+      `País: ${rotuloDe(PAISES, formData.pais)}`,
       `Cargo: ${formData.cargo}`,
-      `Nível hierárquico: ${formData.nivel}`,
+      `Nível hierárquico: ${rotuloDe(FORMULARIO_ADESAO.niveisHierarquicos, formData.nivel)}`,
       `Organização: ${formData.empresa}`,
-      `Tipo de organização: ${formData.tipoOrganizacao}`,
-      `Número de funcionários: ${formData.funcionarios}`,
-      `${FORMULARIO_ADESAO.optInPergunta} ${formData.optIn === 'Yes' ? 'Sim' : 'Não'}`,
+      `Tipo de organização: ${rotuloDe(FORMULARIO_ADESAO.tiposOrganizacao, formData.tipoOrganizacao)}`,
+      `Número de funcionários: ${rotuloDe(FORMULARIO_ADESAO.numeroFuncionarios, formData.funcionarios)}`,
+      `${FORMULARIO_ADESAO.fazParte.pergunta} ${formData.fazParte}`,
       '',
-      'Mensagem:',
+      'Perguntas e dúvidas:',
       formData.mensagem || '—',
       '',
-      'Consentimento LGPD: concedido no formulário do site.',
+      'Consentimento LGPD e opt-in de comunicações: concedidos no formulário do site.',
     ].join('\n');
 
     window.location.href =
@@ -886,7 +889,12 @@ export const ParticiparPage = ({ navigate }) => {
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-4">
+                <form
+                  onSubmit={handleFormSubmit}
+                  action={FORMULARIO_ADESAO.formHandlerUrl || undefined}
+                  method="post"
+                  className="space-y-4"
+                >
                   <div className="border-b border-slate-100 pb-4 mb-2">
                     <h3 className="text-lg font-display font-black uppercase text-slate-900">
                       Cadastro de Interesse & Informações
@@ -901,6 +909,7 @@ export const ParticiparPage = ({ navigate }) => {
                       </label>
                       <input
                         id="contato-nome"
+                        name={FORMULARIO_ADESAO.campos.nome}
                         type="text"
                         required
                         placeholder="Seu primeiro nome"
@@ -915,6 +924,7 @@ export const ParticiparPage = ({ navigate }) => {
                       </label>
                       <input
                         id="contato-sobrenome"
+                        name={FORMULARIO_ADESAO.campos.sobrenome}
                         type="text"
                         required
                         placeholder="Seu sobrenome"
@@ -932,6 +942,7 @@ export const ParticiparPage = ({ navigate }) => {
                       </label>
                       <input
                         id="contato-email"
+                        name={FORMULARIO_ADESAO.campos.email}
                         type="email"
                         required
                         placeholder="nome@empresa.com.br"
@@ -946,6 +957,7 @@ export const ParticiparPage = ({ navigate }) => {
                       </label>
                       <CampoTelefone
                         id="contato-telefone"
+                        name={FORMULARIO_ADESAO.campos.telefone}
                         value={formData.telefone}
                         onChange={(telefone) => setFormData({ ...formData, telefone })}
                         className={CAMPO_CLASSES}
@@ -960,13 +972,14 @@ export const ParticiparPage = ({ navigate }) => {
                       </label>
                       <select
                         id="contato-pais"
+                        name={FORMULARIO_ADESAO.campos.pais}
                         required
                         value={formData.pais}
                         onChange={(e) => setFormData({ ...formData, pais: e.target.value })}
                         className={cn(CAMPO_CLASSES, 'cursor-pointer')}
                       >
-                        {PAISES.map((opcao) => (
-                          <option key={opcao} value={opcao}>{opcao}</option>
+                        {PAISES.map(({ valor, rotulo }) => (
+                          <option key={valor} value={valor}>{rotulo}</option>
                         ))}
                       </select>
                     </div>
@@ -976,6 +989,7 @@ export const ParticiparPage = ({ navigate }) => {
                       </label>
                       <input
                         id="contato-cargo"
+                        name={FORMULARIO_ADESAO.campos.cargo}
                         type="text"
                         required
                         placeholder="Ex.: Diretora de Sustentabilidade"
@@ -993,14 +1007,15 @@ export const ParticiparPage = ({ navigate }) => {
                       </label>
                       <select
                         id="contato-nivel"
+                        name={FORMULARIO_ADESAO.campos.nivel}
                         required
                         value={formData.nivel}
                         onChange={(e) => setFormData({ ...formData, nivel: e.target.value })}
                         className={cn(CAMPO_CLASSES, 'cursor-pointer')}
                       >
                         <option value="" disabled>Selecione</option>
-                        {FORMULARIO_ADESAO.niveisHierarquicos.map((opcao) => (
-                          <option key={opcao} value={opcao}>{opcao}</option>
+                        {FORMULARIO_ADESAO.niveisHierarquicos.map(({ valor, rotulo }) => (
+                          <option key={valor} value={valor}>{rotulo}</option>
                         ))}
                       </select>
                     </div>
@@ -1010,6 +1025,7 @@ export const ParticiparPage = ({ navigate }) => {
                       </label>
                       <input
                         id="contato-empresa"
+                        name={FORMULARIO_ADESAO.campos.empresa}
                         type="text"
                         required
                         placeholder="Razão social ou nome fantasia"
@@ -1027,13 +1043,14 @@ export const ParticiparPage = ({ navigate }) => {
                       </label>
                       <select
                         id="contato-tipo"
+                        name={FORMULARIO_ADESAO.campos.tipoOrganizacao}
                         required
                         value={formData.tipoOrganizacao}
                         onChange={(e) => setFormData({ ...formData, tipoOrganizacao: e.target.value })}
                         className={cn(CAMPO_CLASSES, 'cursor-pointer')}
                       >
-                        {FORMULARIO_ADESAO.tiposOrganizacao.map((opcao) => (
-                          <option key={opcao} value={opcao}>{opcao}</option>
+                        {FORMULARIO_ADESAO.tiposOrganizacao.map(({ valor, rotulo }) => (
+                          <option key={valor} value={valor}>{rotulo}</option>
                         ))}
                       </select>
                     </div>
@@ -1043,31 +1060,32 @@ export const ParticiparPage = ({ navigate }) => {
                       </label>
                       <select
                         id="contato-funcionarios"
+                        name={FORMULARIO_ADESAO.campos.funcionarios}
                         required
                         value={formData.funcionarios}
                         onChange={(e) => setFormData({ ...formData, funcionarios: e.target.value })}
                         className={cn(CAMPO_CLASSES, 'cursor-pointer')}
                       >
                         <option value="" disabled>Selecione</option>
-                        {FORMULARIO_ADESAO.numeroFuncionarios.map((opcao) => (
-                          <option key={opcao} value={opcao}>{opcao}</option>
+                        {FORMULARIO_ADESAO.numeroFuncionarios.map(({ valor, rotulo }) => (
+                          <option key={valor} value={valor}>{rotulo}</option>
                         ))}
                       </select>
                     </div>
                   </div>
 
                   <fieldset>
-                      <legend className={ROTULO_CLASSES}>{FORMULARIO_ADESAO.optInPergunta}*</legend>
+                      <legend className={ROTULO_CLASSES}>{FORMULARIO_ADESAO.fazParte.pergunta}*</legend>
                       <div className="flex min-h-[44px] items-center gap-6">
-                        {[['Yes', 'Sim'], ['No', 'Não']].map(([valor, rotulo]) => (
+                        {FORMULARIO_ADESAO.fazParte.opcoes.map(({ valor, rotulo }) => (
                           <label key={valor} className="inline-flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer">
                             <input
                               type="radio"
-                              name="contato-optin"
+                              name={FORMULARIO_ADESAO.campos.fazParte}
                               value={valor}
                               required
-                              checked={formData.optIn === valor}
-                              onChange={(e) => setFormData({ ...formData, optIn: e.target.value })}
+                              checked={formData.fazParte === valor}
+                              onChange={(e) => setFormData({ ...formData, fazParte: e.target.value })}
                               className="h-4 w-4 cursor-pointer text-un-blue focus:ring-un-blue"
                             />
                             {rotulo}
@@ -1078,10 +1096,11 @@ export const ParticiparPage = ({ navigate }) => {
 
                   <div>
                     <label className={ROTULO_CLASSES} htmlFor="contato-mensagem">
-                      Dúvida ou mensagem
+                      Perguntas e dúvidas
                     </label>
                     <textarea 
                       id="contato-mensagem"
+                      name={FORMULARIO_ADESAO.campos.duvidas}
                       rows={3}
                       placeholder="Como podemos apoiar o processo de adesão da sua empresa?"
                       value={formData.mensagem}
@@ -1094,6 +1113,8 @@ export const ParticiparPage = ({ navigate }) => {
                     <input 
                       type="checkbox"
                       id="lgpd"
+                      name={FORMULARIO_ADESAO.campos.optIn}
+                      value={FORMULARIO_ADESAO.optInValor}
                       required
                       checked={formData.lgpd}
                       onChange={(e) => setFormData({ ...formData, lgpd: e.target.checked })}
@@ -1108,8 +1129,8 @@ export const ParticiparPage = ({ navigate }) => {
                         className="font-semibold text-un-blue underline hover:text-un-purple"
                       >
                         Política de Privacidade
-                      </a>
-                      .
+                      </a>{' '}
+                      e aceito receber notícias, atualizações e insights do Pacto Global da ONU – Rede Brasil.
                     </label>
                   </div>
 

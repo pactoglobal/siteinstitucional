@@ -21,9 +21,9 @@ const formatarTelefone = (valor) => {
 
 /**
  * Telefone com bandeira do Brasil e DDI +55 fixos. O valor guardado é o
- * número formatado, sem o +55 (que entra no envio).
+ * número formatado, sem o +55; o campo oculto `name` envia o número com o DDI.
  */
-export const CampoTelefone = ({ id, value, onChange, className }) => (
+export const CampoTelefone = ({ id, name, value, onChange, className }) => (
   <div
     className={cn(
       'flex items-center overflow-hidden focus-within:border-un-blue',
@@ -47,5 +47,6 @@ export const CampoTelefone = ({ id, value, onChange, className }) => (
       onChange={(e) => onChange(formatarTelefone(e.target.value))}
       className="min-w-0 flex-1 bg-transparent py-3 pl-3 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none"
     />
+    {name && <input type="hidden" name={name} value={value ? `+55 ${value}` : ''} />}
   </div>
 );
