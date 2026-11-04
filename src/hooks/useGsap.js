@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { loadGsap } from '../lib/animation';
 
 /**
@@ -15,9 +15,13 @@ import { loadGsap } from '../lib/animation';
  */
 export function useGsap(montar, deps = []) {
   const raizRef = useRef(null);
-  // Mantém o callback fresco sem re-rodar o efeito a cada render.
+  // Mantém o callback fresco sem re-rodar o efeito a cada render. A cópia
+  // fica num layout effect porque escrever em ref durante o render quebra a
+  // regra react-hooks/refs; ele roda antes do useEffect abaixo no mesmo commit.
   const montarRef = useRef(montar);
-  montarRef.current = montar;
+  useLayoutEffect(() => {
+    montarRef.current = montar;
+  });
 
   useEffect(() => {
     let ctx;
