@@ -1,12 +1,36 @@
 /**
- * Dados da página ESG e ODS — Pacto Global da ONU - Rede Brasil
- * Baseado em: https://www.pactoglobal.org.br/esg/ + NotebookLM Brasil Sustenta (Brand Bible)
- * Fonte única de copy — nenhum texto institucional direto no JSX
+ * Textos das páginas ESG (#/esg) e ODS (#/ods) — Pacto Global da ONU – Rede Brasil.
+ *
+ * Toda a copy das duas páginas fica aqui, para ser revisada num lugar só. Os
+ * componentes de src/components/esg-ods só montam o layout.
+ *
+ * Roteiro da página ESG:
+ *   1. Origem: a pergunta que o Pacto Global fez ao mercado em 2004.
+ *   2. O que cada letra cobre: uma pergunta por pilar.
+ *   3. Por que agora: de escolha voluntária a exigência de mercado.
+ *   4. O que a empresa faz na Rede Brasil: aprender, assumir metas, prestar contas.
+ *   5. Dúvidas frequentes.
+ *   6. Próximo passo.
+ *
+ * Roteiro da página ODS:
+ *   1. O acordo de 2015 e o 18º objetivo.
+ *   2. Onde a Rede Brasil atua em cada ODS (explorador).
+ *   3. O ODS 18.
+ *   4. Da agenda à meta: os movimentos da Ambição 2030.
+ *   5. Por onde começar: ferramentas do Pacto Global.
+ *   6. Próximo passo.
+ *
+ * Regras de copy que valem aqui:
+ * - ODS 18: "proposição brasileira, implementada pelo Pacto Global em 2025".
+ *   Não trocar o ator nem a data.
+ * - "Participantes", nunca "signatários"; "Dez Princípios" por extenso.
+ * - O Pacto Global é "a maior iniciativa de sustentabilidade corporativa do
+ *   mundo". Aderir não exige cumprir tudo antes, e o Pacto não certifica.
  */
 
-import { ODS_COLORS, ODS_NAMES } from './constants';
+import { ODS_COLORS, ODS_NAMES, INSTITUTIONAL_STATS } from './constants';
 
-/** Lista dos 17 ODS + ODS 18 (Brasil) para uso em grids/badges */
+/** Lista dos 17 ODS + ODS 18 para grades e badges */
 export const ODS_LIST = Array.from({ length: 18 }, (_, i) => ({
   id: i + 1,
   name: ODS_NAMES[i],
@@ -14,400 +38,160 @@ export const ODS_LIST = Array.from({ length: 18 }, (_, i) => ({
   image: `/siteinstitucional/ods/ods-${i + 1}.jpg`,
 }));
 
-/** Fundamentação conceitual: ODS vs ESG */
-export const FUNDAMENTACAO_CONCEITUAL = {
-  titulo: 'ODS e ESG: Conceitos Complementares',
-  intro: 'A página institucional esclarece de forma definitiva a diferença e a complementaridade entre os dois conceitos, superando a confusão comum no mercado.',
-  ods: {
-    titulo: 'ODS (Agenda 2030)',
-    descricao: 'Trata-se de uma agenda normativa global pactuada em 2015 por 193 países-membros da ONU, composta por 17 Objetivos e 169 metas. Define as necessidades prioritárias da sociedade e do planeta — "o que a humanidade precisa resolver".',
-  },
-  esg: {
-    titulo: 'Fatores ESG (Environmental, Social, Governance)',
-    descricao: 'Constituem uma abordagem analítica e operacional de gestão e investimentos. Traduzem externalidades socioambientais em métricas de risco, oportunidade e geração de valor de longo prazo para as corporações — "como a empresa opera e mede seu impacto".',
-  },
-  sinergia: {
-    titulo: 'Dinâmica Causal e Dupla Materialidade',
-    descricao: 'A relação entre eles opera de forma indissociável: enquanto os ODS estabelecem as metas macroeconômicas de sustentabilidade, as práticas ESG funcionam como o motor microeconômico e operacional corporativo para alcançá-las. Organizações que adotam critérios ESG estruturados reduzem riscos e geram contribuições diretas e auditáveis para as metas dos ODS.',
-  },
-};
+const PARTICIPANTES = INSTITUTIONAL_STATS.brasilParticipants;
 
-/** Timeline ESG */
-export const ESG_TIMELINE = [
-  {
-    ano: '1987',
-    titulo: 'Relatório Brundtland',
-    descricao: 'Comissão Mundial sobre Meio Ambiente e Desenvolvimento define "desenvolvimento sustentável" como atender necessidades presentes sem comprometer futuras gerações.',
-    icone: 'Globe',
-  },
-  {
-    ano: '1992',
-    titulo: 'Cúpula da Terra (Rio-92)',
-    descricao: 'Agenda 21 e Convenção-Quadro sobre Mudança do Clima estabelecem bases para governança ambiental global.',
-    icone: 'Users',
-  },
-  {
-    ano: '2000',
-    titulo: 'Objetivos de Desenvolvimento do Milênio (ODM)',
-    descricao: 'ONU estabelece 8 metas para 2015 — predecessor dos ODS, focado em erradicação da pobreza extrema.',
-    icone: 'Target',
-  },
-  {
-    ano: '2004',
-    titulo: 'Publicação "Who Cares Wins"',
-    descricao: 'Pacto Global + Banco Mundial cunham o termo ESG em resposta ao desafio de Kofi Annan a 50 CEOs: integrar fatores sociais, ambientais e de governança ao mercado de capitais.',
-    icone: 'FileText',
-    destaque: true,
-  },
-  {
-    ano: '2006',
-    titulo: 'Princípios para Investimento Responsável (PRI)',
-    descricao: 'Lançamento da iniciativa PRI da ONU — hoje com mais de 5.000 signatários e US$ 120 trilhões em ativos sob gestão.',
-    icone: 'TrendingUp',
-  },
-  {
-    ano: '2011',
-    titulo: 'Princípios Orientadores ONU sobre Empresas e Direitos Humanos',
-    descricao: 'Framework "Proteger, Respeitar, Reparar" — base para o pilar S do ESG e due diligence de direitos humanos.',
-    icone: 'Scale',
-  },
-  {
-    ano: '2015',
-    titulo: 'Agenda 2030 e 17 ODS + Acordo de Paris',
-    descricao: '193 países aprovam os Objetivos de Desenvolvimento Sustentável. ODS tornam-se a bússola normativa global para ESG corporativo.',
-    icone: 'Target',
-  },
-  {
-    ano: '2017',
-    titulo: 'TCFD — Task Force on Climate-related Financial Disclosures',
-    descricao: 'Recomendações voluntárias para divulgação de riscos climáticos — base para IFRS S2 e regulações globais.',
-    icone: 'FileText',
-  },
-  {
-    ano: '2021',
-    titulo: 'ISSB — International Sustainability Standards Board',
-    descricao: 'Criação do padrão global único para divulgação de sustentabilidade (IFRS S1 e S2) — fim da fragmentação de frameworks.',
-    icone: 'Globe',
-  },
-  {
-    ano: '2022',
-    titulo: 'Lançamento Ambição 2030 (Rede Brasil)',
-    descricao: 'Pacto Global Brasil lança 10 Movimentos de aceleração com metas públicas auditáveis — maior iniciativa de impacto empresarial do país.',
-    icone: 'Flag',
-    destaque: true,
-  },
-  {
-    ano: '2024-2026',
-    titulo: 'Regulação Obrigatória no Brasil (CVM 193/244, CMN 5.185)',
-    descricao: 'Brasil internaliza padrões ISSB (IFRS S1/S2) para companhias abertas e instituições financeiras — ESG deixa de ser voluntário.',
-    icone: 'Gavel',
-  },
+const ORIGEM_ESG =
+  'O termo foi cunhado em <strong>2004</strong> no relatório <em>"Who Cares Wins"</em>, iniciativa do Pacto Global da ONU com apoio da IFC (Grupo Banco Mundial) e do governo suíço. Partiu de um convite do secretário-geral da ONU <strong>Kofi Annan</strong> a mais de 50 CEOs de grandes instituições financeiras, para que propusessem como integrar fatores ambientais, sociais e de governança à análise de investimentos. Cerca de 20 instituições, de 9 países, endossaram o relatório.';
+
+const BOTOES_CTA = [
+  { label: 'Como aderir', href: '#/como-aderir', variant: 'primary' },
+  { label: 'Conheça a Ambição 2030', href: '#/ambicao', variant: 'secondary' },
+  { label: 'Ver Plataformas de Ação', href: '#/plataformas', variant: 'secondary' },
 ];
 
-/** Timeline ODS */
-export const ODS_TIMELINE = [
-  {
-    ano: '2000',
-    evento: 'Cúpula do Milênio — 8 ODM estabelecidos para 2015',
-    icone: 'Target',
-  },
-  {
-    ano: '2012',
-    evento: 'Rio+20 — Decisão de criar agenda pós-2015 com objetivos universais',
-    icone: 'Globe',
-  },
-  {
-    ano: '2013-2015',
-    evento: 'Processo intergovernamental aberto (OWG) — 13 sessões de negociação',
-    icone: 'Users',
-  },
-  {
-    ano: 'Set 2015',
-    evento: 'Cúpula da ONU aprova Agenda 2030 — 17 ODS + 169 metas (vigência 2016-2030)',
-    icone: 'FileText',
-    destaque: true,
-  },
-  {
-    ano: '2016-2019',
-    evento: 'Implementação inicial — indicadores globais (IAEG-SDGs) e linha de base',
-    icone: 'BarChart3',
-  },
-  {
-    ano: '2019',
-    evento: 'Primeiro Quadriênio — Relatório do Secretário-Geral: progresso insuficiente',
-    icone: 'AlertTriangle',
-  },
-  {
-    ano: '2020',
-    evento: 'Década da Ação — Lançamento pelo Sec-Geral António Guterres; COVID-19 retarda progresso',
-    icone: 'Clock',
-  },
-  {
-    ano: '2023',
-    evento: 'Cúpula dos ODS (Midpoint) — Declaração Política: acelerar implementação',
-    icone: 'TrendingUp',
-  },
-  {
-    ano: '2025',
-    evento: 'Brasil propõe e Pacto Global implementa ODS 18 — Igualdade Étnico-Racial',
-    icone: 'Award',
-    destaque: true,
-  },
-  {
-    ano: '2030',
-    evento: 'Prazo final da Agenda 2030 — Metas globais de desenvolvimento sustentável',
-    icone: 'Flag',
-  },
-];
+/* ------------------------------------------------------------------ */
+/* Página ESG                                                           */
+/* ------------------------------------------------------------------ */
 
-/** Definição detalhada de ESG */
-export const ESG_DEFINICAO_DETALHADA = {
-  titulo: 'O que é ESG — Definição Completa',
-  intro: 'ESG é uma sigla em inglês que significa Environmental, Social and Governance (Ambiental, Social e Governança). Corresponde ao conjunto de práticas, políticas e métricas que uma organização adota para gerir seus impactos socioambientais e sua governança corporativa.',
-  origem: 'O termo foi cunhado em <strong>2004</strong> na publicação <em>"Who Cares Wins"</em>, iniciativa do Pacto Global da ONU em parceria com o Banco Mundial (IFC). Surgiu de uma provocação do secretário-geral da ONU <strong>Kofi Annan</strong> a 50 CEOs das maiores instituições financeiras globais: "como integrar fatores sociais, ambientais e de governança no mercado de capitais?".',
-  evolucao: 'Inicialmente focado em investimento responsável (screening negativo), o ESG evoluiu para abordagem de <strong>criação de valor</strong> — gestão de riscos físicos e de transição, inovação em produtos de baixo carbono, atração de talentos, acesso a capital mais barato, licença social para operar.',
-  pilares: [
-    {
-      letra: 'E',
-      nome: 'Environmental (Ambiental)',
-      cor: '#297D6D',
-      icone: 'Globe',
-      subtemas: [
-        'Mudança climática: emissões GEE (Escopos 1, 2, 3), metas Net Zero, SBTi',
-        'Energia: eficiência, renováveis, transição justa',
-        'Água: eficiência hídrica, gestão de bacias, saneamento',
-        'Biodiversidade: desmatamento zero, restauração, bioeconomia',
-        'Economia circular: ecodesign, logística reversa, zero aterro',
-        'Poluição: qualidade do ar, gestão de químicos, plásticos',
-      ],
-      metricas_chave: 'tCO₂e, % energia renovável, m³ água/ton, % resíduos valorizados, hectares restaurados',
+export const TEXTOS_ESG = {
+  hero: {
+    selo: 'Desde 2004',
+    titulo: 'ESG',
+    subtitulo: 'Ambiental, Social e Governança',
+    texto:
+      'Em 2004, o Pacto Global da ONU perguntou ao mercado financeiro como levar em conta o planeta, as pessoas e a ética na hora de investir. A resposta ganhou três letras e mudou a forma como as empresas são avaliadas. Veja o que cada uma cobre e como a Rede Brasil ajuda sua empresa a passar do compromisso ao resultado.',
+    acao: 'Conheça os pilares',
+    link: 'Ver os 18 ODS',
+  },
+
+  pilares: {
+    selo: 'O que cada letra cobre',
+    titulo: 'Três perguntas',
+    destaque: 'que toda empresa precisa responder',
+    descricao:
+      'Investidores, clientes, reguladores e a sociedade fazem as mesmas perguntas a qualquer empresa. Os temas mostram onde procurar a resposta; os indicadores, como comprová-la.',
+    rotuloMedida: 'Como se mede:',
+    rotuloPrincipios: 'Dez Princípios relacionados',
+  },
+
+  regulacao: {
+    selo: 'Por que agora',
+    titulo: 'De escolha a exigência',
+    texto:
+      'Por quase duas décadas, o ESG foi uma decisão voluntária. Hoje ele está nas regras do mercado de capitais brasileiro e nas exigências de quem compra do Brasil. Participar do Pacto Global prepara a empresa para essa conversa.',
+  },
+
+  emAcao: {
+    selo: 'Do compromisso à prática',
+    titulo: 'A adesão é o começo',
+    descricao:
+      'Ao aderir ao Pacto Global da ONU – Rede Brasil, a empresa assume os Dez Princípios e passa a contar com três frentes para transformar compromisso em resultado.',
+    etapas: {
+      plataformas: {
+        verbo: 'Aprender junto',
+        titulo: 'Plataformas de Ação',
+        texto: (total) =>
+          `${total} plataformas temáticas em que as empresas participantes trocam práticas, constroem soluções em conjunto e aprofundam as agendas ambiental, social e de governança.`,
+        acao: 'Ver as plataformas',
+      },
+      ambicao: {
+        verbo: 'Assumir metas públicas',
+        titulo: 'Ambição 2030',
+        texto: (total) =>
+          `${total} movimentos com metas públicas e mensuráveis até 2030. A empresa escolhe em quais entrar e assume o compromisso diante do mercado.`,
+        acao: 'Conhecer a Ambição 2030',
+      },
+      cop: {
+        verbo: 'Prestar contas',
+        titulo: 'Comunicação de Progresso',
+        texto:
+          'Todo ano, a empresa relata o que fez para aplicar os Dez Princípios e contribuir com os ODS. É o registro do avanço de cada participante, ano após ano.',
+        acao: 'Entender a CoP',
+      },
     },
-    {
-      letra: 'S',
-      nome: 'Social',
-      cor: '#1E3250',
-      icone: 'Users',
-      subtemas: [
-        'Capital humano: diversidade, equidade, inclusão (DEI), salário digno',
-        'Saúde e segurança: taxa de acidentes, bem-estar, saúde mental',
-        'Direitos humanos: due diligence, trabalho forçado/infantil, povos indígenas',
-        'Relações trabalhistas: liberdade sindical, negociação coletiva',
-        'Comunidades: consentimento livre, prévio e informado (CLPI), investimento social',
-        'Cadeia de valor: due diligence em fornecedores, trabalho decente',
-      ],
-      metricas_chave: '% mulheres em liderança, % negros/indígenas em liderança, salário digno %, taxa acidentes, horas treinamento',
-    },
-    {
-      letra: 'G',
-      nome: 'Governance (Governança)',
-      cor: '#6E417A',
-      icone: 'ShieldCheck',
-      subtemas: [
-        'Conselho: independência, diversidade, comitês ESG, competências climáticas',
-        'Remuneração: variável atrelada a metas ESG (KPIs climáticos, DEI)',
-        'Anticorrupção: compliance, canal denúncias, proteção whistleblower',
-        'Transparência: divulgação IFRS S1/S2, GRI, TCFD, asseveração terceira parte',
-        'Ética e integridade: código conduta, conflitos de interesse, lobby responsável',
-        'Direitos acionistas: voto, assembleias, proteção minoritários',
-      ],
-      metricas_chave: '% conselheiros independentes, % mulheres no conselho, remuneração ESG %, casos corrupção, asseveração %',
-    },
-  ],
+  },
+
+  perguntas: {
+    selo: 'Dúvidas frequentes',
+    titulo: 'ESG, ODS e o Pacto Global',
+    texto:
+      'Os dois conceitos aparecem juntos o tempo todo. Em uma frase: os ODS dizem o que o mundo precisa resolver até 2030; o ESG mostra como cada empresa contribui e como comprova isso.',
+    itens: [
+      {
+        id: 'esg',
+        pergunta: 'O que é ESG, em uma frase?',
+        resposta:
+          'É a forma de avaliar como uma empresa lida com o meio ambiente, com as pessoas e com a própria gestão, e o quanto isso afeta o valor dela e a sociedade. Não é selo nem certificação: nenhuma empresa "é ESG". Ela tem práticas e resultados melhores ou piores em cada tema.',
+      },
+      { id: 'origem', pergunta: 'De onde vem o termo?', resposta: ORIGEM_ESG, html: true },
+      {
+        id: 'conexao',
+        pergunta: 'Como ESG e ODS se conectam?',
+        resposta:
+          'Os ODS são a agenda: 17 objetivos acordados em 2015 pelos 193 países-membros da ONU, mais o ODS 18, Igualdade Étnico-Racial, uma proposição brasileira implementada pelo Pacto Global em 2025. O ESG é a gestão: os temas, as metas e os indicadores com que a empresa mostra o que faz por essa agenda, e também os impactos negativos que precisa reduzir.',
+      },
+      {
+        id: 'obrigatorio',
+        pergunta: 'ESG é obrigatório?',
+        resposta:
+          'Para companhias abertas e instituições financeiras, a divulgação de informações de sustentabilidade já está nas regras da CVM e do Conselho Monetário Nacional. Para as demais empresas, a exigência costuma chegar pela cadeia de valor: grandes clientes, investidores, bancos e mercados de exportação pedem dados ESG a quem fornece para eles.',
+      },
+      {
+        id: 'evolucao',
+        pergunta: 'Como o ESG evoluiu?',
+        resposta:
+          'Começou no mercado financeiro, como critério para excluir setores problemáticos das carteiras de investimento. Hoje orienta a <strong>estratégia</strong> das empresas: gestão de riscos climáticos, inovação em produtos de baixo carbono, atração de talentos, acesso a crédito e a confiança da sociedade para operar.',
+        html: true,
+      },
+      {
+        id: 'adesao',
+        pergunta: 'A empresa precisa cumprir tudo antes de aderir ao Pacto Global?',
+        resposta:
+          'Não. A adesão é um compromisso público de aplicar os Dez Princípios, contribuir com os ODS e relatar o progresso todo ano, na Comunicação de Progresso. O Pacto Global é uma iniciativa voluntária: não certifica nem classifica empresas. <a href="#/como-aderir" class="font-bold text-un-blue underline decoration-un-gold underline-offset-4 hover:text-un-blue-1">Veja como aderir</a>.',
+        html: true,
+      },
+    ],
+  },
+
+  cta: {
+    selo: 'Próximo passo',
+    titulo: 'Sua empresa pode começar agora',
+    descricao: `O Pacto Global da ONU é a maior iniciativa de sustentabilidade corporativa do mundo. No Brasil, são mais de ${PARTICIPANTES} participantes trocando práticas, assumindo metas e prestando contas.`,
+    botoes: BOTOES_CTA,
+    outraPagina: 'Veja os 18 ODS e onde a Rede Brasil atua em cada um',
+  },
 };
 
-/** Conexão ESG ↔ ODS */
-export const ESG_ODS_CONEXAO = {
-  titulo: 'ESG e os ODS: uma conexão inseparável',
-  descricao: 'Os critérios ESG estão totalmente relacionados aos ODS, realidade nas discussões no mercado de capitais. Os 17 Objetivos de Desenvolvimento Sustentável reúnem os grandes desafios e vulnerabilidades da sociedade como um todo. Com isso, apontam os principais itens a serem acompanhados de perto.',
-  textoApoio: 'Segundo o Climate Change and Sustainability Services, da Ernest Young, as informações ESG são essenciais hoje para a tomada de decisões dos investidores. ESG nada mais é do que a própria sustentabilidade empresarial. Uma empresa que está em conformidade com práticas ESG entende quais são seus impactos negativos e positivos na sociedade e consegue agir sobre eles.',
-  matriz: [
-    { pilar: 'E', ods: [6, 7, 12, 13, 14, 15], descricao: 'Clima, água, circularidade, oceanos, vida terrestre' },
-    { pilar: 'S', ods: [1, 3, 4, 5, 8, 10, 18], descricao: 'Pobreza, saúde, educação, gênero, trabalho, desigualdades, igualdade étnico-racial' },
-    { pilar: 'G', ods: [16, 17], descricao: 'Instituições eficazes, parcerias, transparência, anticorrupção' },
-  ],
-};
-
-/** 10 Movimentos da Ambição 2030 */
-export const MOVIMENTOS_AMBICAO_2030 = [
+/**
+ * Os três pilares. A ordem é a do bento (E em destaque). O visual de cada um
+ * (cor, foto, áreas dos Dez Princípios) fica em components/esg-ods/pilares.js.
+ */
+export const PILARES_ESG = [
   {
-    id: 'net-zero',
-    pilar: 'E',
-    pilarNome: 'Ambiental',
-    movimento: 'Ambição Net Zero',
-    ods: 13,
-    logo: '/siteinstitucional/movimentos/net-zero.png',
-    cor: '#2E8B57',
-    metas: 'Inventário GEE (Escopos 1, 2, 3) anual, metas baseadas na ciência (SBTi) para limitar o aquecimento a 1,5°C e redução acumulada de 2 Gt CO₂e',
-    descricao: 'Engajar o setor empresarial para estabelecer metas climáticas baseadas na ciência com ambição coletiva de contribuir para limitar as emissões líquidas nacionais.',
-    empresas: 129,
-    pilares_mov: [
-      { titulo: 'Inventário & Transparência', desc: 'Publicação de inventários de emissões dos Escopos 1, 2 e 3 auditados.' },
-      { titulo: 'Metas Alinhadas à Ciência (SBTi)', desc: 'Formalização de metas de redução validadas pela iniciativa SBTi.' },
-      { titulo: 'Transição Justa', desc: 'Garantia de que a descarbonização promova inclusão e empregos verdes.' },
-    ],
+    letra: 'E',
+    pergunta: 'Qual é o impacto da empresa no planeta, e do planeta na empresa?',
+    temas: ['Mudança climática', 'Energia', 'Água', 'Biodiversidade', 'Economia circular', 'Poluição'],
+    medida:
+      'emissões de gases de efeito estufa (escopos 1, 2 e 3), participação de energia renovável, consumo de água por unidade produzida, resíduos reaproveitados e área restaurada.',
   },
   {
-    id: 'mais-agua',
-    pilar: 'E',
-    pilarNome: 'Ambiental',
-    movimento: '+ Água',
-    ods: 6,
-    logo: '/siteinstitucional/movimentos/mais-agua.png',
-    cor: '#009EDB',
-    metas: 'Eficiência hídrica operacional, neutralidade de água em regiões estressadas e resiliência em saneamento para impactar 100 milhões de pessoas',
-    descricao: 'Acelerar a universalização do saneamento e a resiliência hídrica do Brasil até 2033.',
-    empresas: 77,
-    pilares_mov: [
-      { titulo: 'Universalização do Saneamento', desc: 'Aceleração de investimentos e tecnologias para 99% de água e 90% de esgoto.' },
-      { titulo: 'Segurança Hídrica & Bacias', desc: 'Recuperação de vazões e qualidade em bacias hidrográficas sob estresse crítico.' },
-      { titulo: 'Eficiência Operacional', desc: 'Redução do consumo e reúso de água em processos industriais e agronegócio.' },
-      { titulo: 'Governança & Políticas Públicas', desc: 'Articulação entre setor privado, agências reguladoras e prefeituras.' },
-    ],
+    letra: 'S',
+    pergunta: 'Como a empresa trata as pessoas, dentro e fora dela?',
+    temas: ['Diversidade e inclusão', 'Saúde e segurança', 'Direitos humanos', 'Relações de trabalho', 'Comunidades', 'Cadeia de valor'],
+    medida:
+      'mulheres e pessoas negras e indígenas na liderança, salário digno, taxa de acidentes, horas de treinamento e fornecedores avaliados em direitos humanos.',
   },
   {
-    id: 'conexao-circular',
-    pilar: 'E',
-    pilarNome: 'Ambiental',
-    movimento: 'Conexão Circular',
-    ods: 12,
-    logo: '/siteinstitucional/movimentos/conexao-circular.png',
-    cor: '#B8922A',
-    metas: 'Implementação de ecodesign, modelos de negócios circulares e aceleração da meta de zero resíduos em aterros até 2030',
-    descricao: 'Eliminando resíduos e promovendo a transição para modelos de negócios 100% circulares.',
-    empresas: 74,
-    pilares_mov: [
-      { titulo: 'Design para Circularidade', desc: 'Revisão de embalagens e produtos para eliminação de resíduos na fonte.' },
-      { titulo: 'Logística Reversa & Reciclagem', desc: 'Desenvolvimento de cadeias de logística reversa inclusiva com cooperativas.' },
-      { titulo: 'Zero Aterro & Orgânicos', desc: 'Compostagem e valorização de 33% dos resíduos orgânicos industriais.' },
-    ],
-  },
-  {
-    id: 'impacto-biomas',
-    pilar: 'E',
-    pilarNome: 'Ambiental',
-    movimento: 'Impacto Biomas',
-    ods: 15,
-    logo: '/siteinstitucional/movimentos/impacto-biomas.png',
-    cor: '#1A6B3C',
-    metas: 'Rastreabilidade total das cadeias de suprimento e garantia de desmatamento zero',
-    descricao: 'Zerar o desmatamento nas cadeias produtivas e promover a bioeconomia nos biomas nacionais.',
-    empresas: 28,
-    pilares_mov: [
-      { titulo: 'Desmatamento Zero', desc: 'Eliminação da degradação florestal nas cadeias diretas e indiretas.' },
-      { titulo: 'Restauração Florestal', desc: 'Projetos integrados para recuperação de hectares na Amazônia e Cerrado.' },
-      { titulo: 'Valorização da Bioeconomia', desc: 'Fomento a negócios sustentáveis com comunidades tradicionais.' },
-    ],
-  },
-  {
-    id: 'elas-lideram',
-    pilar: 'S',
-    pilarNome: 'Social',
-    movimento: 'Elas Lideram 2030',
-    ods: 5,
-    logo: '/siteinstitucional/movimentos/elas-lideram.png',
-    cor: '#DD1367',
-    metas: '30% de mulheres em cargos de alta liderança até 2025 e 50% até 2030',
-    descricao: 'Promover a igualdade de gênero nas posições de liderança corporativa brasileira.',
-    empresas: 85,
-    pilares_mov: [
-      { titulo: 'Liderança Feminina', desc: 'Metas de representação em conselhos, C-level e gerência sênior.' },
-      { titulo: 'Equidade Salarial', desc: 'Eliminação do gap salarial por gênero em funções equivalentes.' },
-      { titulo: 'Políticas de Cuidado', desc: 'Licenças parentais igualitárias, creches, flexibilidade.' },
-    ],
-  },
-  {
-    id: 'raca-prioridade',
-    pilar: 'S',
-    pilarNome: 'Social',
-    movimento: 'Raça é Prioridade',
-    ods: 10,
-    odsExtra: 18,
-    logo: '/siteinstitucional/movimentos/raca-prioridade.png',
-    cor: '#EC3740',
-    metas: '30% de pessoas negras/indígenas em posições de liderança até 2025 e 50% até 2030',
-    descricao: 'Promover a equidade racial e combater o racismo estrutural no ambiente corporativo.',
-    empresas: 42,
-    pilares_mov: [
-      { titulo: 'Representatividade', desc: 'Metas de contratação e promoção de talentos negros e indígenas.' },
-      { titulo: 'Educação Antirracista', desc: 'Formação continuada para lideranças e equipes.' },
-      { titulo: 'Fornecedores Diversos', desc: 'Programas de desenvolvimento de empreendedores negros/indígenas.' },
-    ],
-  },
-  {
-    id: 'salario-digno',
-    pilar: 'S',
-    pilarNome: 'Social',
-    movimento: 'Salário Digno',
-    ods: 1,
-    odsExtra: 8,
-    logo: '/siteinstitucional/movimentos/salario-digno.png',
-    cor: '#FD6925',
-    metas: '100% de salário digno a funcionários diretos e terceirizados até 2030 e engajamento da cadeia de suprimentos',
-    descricao: 'Assegurar remuneração digna para todos os trabalhadores nas operações e cadeia de valor.',
-    empresas: 38,
-    pilares_mov: [
-      { titulo: 'Piso Salarial', desc: 'Cálculo de living wage por região e setor (metodologia Anker).' },
-      { titulo: 'Terceirizados', desc: 'Extensão do salário digno a prestadores de serviço.' },
-      { titulo: 'Cadeia de Valor', desc: 'Engajamento de fornecedores estratégicos.' },
-    ],
-  },
-  {
-    id: 'mente-foco',
-    pilar: 'S',
-    pilarNome: 'Social',
-    movimento: 'Mente em Foco',
-    ods: 3,
-    logo: '/siteinstitucional/movimentos/mente-foco.png',
-    cor: '#4C9F38',
-    metas: 'Saúde mental na pauta estratégica da alta liderança, redução do estigma e programas de prevenção permanentes',
-    descricao: 'Colocar a saúde mental como prioridade estratégica nas organizações.',
-    empresas: 31,
-    pilares_mov: [
-      { titulo: 'Liderança Engajada', desc: 'CEOs e C-levels como patrocinadores da agenda.' },
-      { titulo: 'Prevenção Primária', desc: 'Gestão de riscos psicossociais (ISO 45003).' },
-      { titulo: 'Cultura de Cuidado', desc: 'Programas de apoio, escuta ativa, redução de estigma.' },
-    ],
-  },
-  {
-    id: 'educa-2030',
-    pilar: 'S',
-    pilarNome: 'Social',
-    movimento: 'Educa 2030',
-    ods: 4,
-    logo: '/siteinstitucional/movimentos/educa2030.png',
-    cor: '#FCC30B',
-    metas: 'Capacitação técnica inclusiva e formação em áreas STEM para empregabilidade',
-    descricao: 'Promover educação de qualidade e formação técnica para a empregabilidade do futuro.',
-    empresas: 29,
-    pilares_mov: [
-      { titulo: 'STEM Inclusivo', desc: 'Bolsas e mentorias para grupos sub-representados em tech.' },
-      { titulo: 'Requalificação', desc: 'Programas de upskilling/reskilling para transição justa.' },
-      { titulo: 'Parcerias Educacionais', desc: 'Colaboração com universidades, institutos técnicos, Sistema S.' },
-    ],
-  },
-  {
-    id: 'transparencia-100',
-    pilar: 'G',
-    pilarNome: 'Governança',
-    movimento: 'Transparência 100%',
-    ods: 16,
-    logo: '/siteinstitucional/movimentos/transparencia.png',
-    cor: '#006080',
-    metas: '100% de transparência nas relações com o poder público, mecanismos anticorrupção e proteção efetiva a denunciantes',
-    descricao: 'Fortalecer a integridade corporativa, anticorrupção e transparência radical em todos os níveis.',
-    empresas: 81,
-    pilares_mov: [
-      { titulo: 'Interação com Setor Público', desc: '100% de transparência em reuniões, doações, relações com governos.' },
-      { titulo: 'Integridade na Alta Direção', desc: 'Governança clara sobre remuneração, bônus, conflitos de interesse.' },
-      { titulo: 'Treinamento da Cadeia de Risco', desc: 'Capacitação obrigatória em compliance para fornecedores de alto risco.' },
-    ],
+    letra: 'G',
+    pergunta: 'Quem decide, com que regras e com quanta transparência?',
+    temas: ['Conselho', 'Remuneração', 'Anticorrupção', 'Transparência', 'Ética e integridade', 'Direitos dos acionistas'],
+    medida:
+      'conselheiros independentes, mulheres no conselho, remuneração variável ligada a metas ESG, casos de corrupção apurados e relato com asseguração independente.',
   },
 ];
 
 /** Contexto regulatório no Brasil */
 export const CONTEXTO_REGULATORIO = {
-  titulo: 'Contexto Regulatório no Brasil: do Voluntarismo à Exigência de Mercado',
-  intro: 'O Pacto Global posiciona-se como aliado das empresas na conformidade regulatória perante o mercado de capitais.',
   resolucoes: [
     {
       nome: 'Resolução CVM 59/2021',
@@ -437,35 +221,72 @@ export const CONTEXTO_REGULATORIO = {
   ],
 };
 
-/** Casos inspiradores */
-export const CASOS_INSPIRADORES = [
-  {
-    empresa: 'Claro Brasil',
-    destaque: 'Aderiu a 7 Movimentos simultaneamente da Ambição 2030',
-    descricao: 'Exemplo de engajamento transversal nos pilares E, S e G — Net Zero, +Água, Elas Lideram, Raça é Prioridade, Mente em Foco, Educa 2030, Transparência 100%.',
-    logo: '/siteinstitucional/movimentos/elas-lideram.png',
-  },
-  {
-    empresa: 'ENGIE Brasil',
-    destaque: 'Liderança em Ambição Net Zero e Transparência 100%',
-    descricao: 'Referência em metas climáticas baseadas na ciência (SBTi aprovado), inventário completo Escopo 3, governança climática no conselho.',
-    logo: '/siteinstitucional/movimentos/net-zero.png',
-  },
-  {
-    empresa: 'Iguá Saneamento',
-    destaque: 'Protagonista no Movimento + Água',
-    descricao: 'Impulsionando universalização do saneamento e segurança hídrica — metas de eficiência hídrica, redução de perdas, saneamento rural.',
-    logo: '/siteinstitucional/movimentos/mais-agua.png',
-  },
-];
+/* ------------------------------------------------------------------ */
+/* Página ODS                                                           */
+/* ------------------------------------------------------------------ */
 
-/** Ferramentas práticas */
-export const FERRAMENTAS_ESG = [
-  {
-    id: 'sdg-compass',
+export const TEXTOS_ODS = {
+  hero: {
+    selo: 'Agenda 2030',
+    titulo: 'Os 18 ODS',
+    subtitulo: '17 objetivos globais e um brasileiro',
+    texto:
+      'Em 2015, os 193 países-membros da ONU acordaram 17 objetivos para acabar com a pobreza, proteger o planeta e reduzir desigualdades até 2030. O 18º, Igualdade Étnico-Racial, é uma proposição brasileira, implementada pelo Pacto Global em 2025. Escolha um objetivo e veja como as empresas da Rede Brasil trabalham nele.',
+    acao: 'Explorar os ODS',
+    link: 'Entender o ESG',
+  },
+
+  explorador: {
+    selo: 'Escolha um objetivo',
+    titulo: 'Onde a Rede Brasil atua',
+    descricao:
+      'Selecione um ODS para ver os movimentos da Ambição 2030 e as Plataformas de Ação que trabalham o tema com as empresas participantes.',
+    rotuloMovimentos: 'Movimentos da Ambição 2030',
+    rotuloPlataformas: 'Plataformas de Ação',
+    rotuloMeta: 'Exemplo de meta · Ambição pelos ODS',
+    semMovimento:
+      'Nenhum movimento da Ambição 2030 tem este ODS como foco. O tema é trabalhado nas Plataformas de Ação abaixo.',
+  },
+
+  ods18: {
+    selo: 'O 18º objetivo',
+    titulo: 'ODS 18 — Igualdade Étnico-Racial',
+    texto:
+      'Nenhum dos 17 ODS é dedicado à igualdade étnico-racial. O 18º é uma proposição brasileira, implementada pelo Pacto Global em 2025. Na Rede Brasil, o tema é trabalhado pelo movimento Raça é Prioridade.',
+    acaoNota: 'Ler a nota oficial',
+    acaoMovimento: 'Raça é Prioridade',
+  },
+
+  movimentos: {
+    selo: 'Ambição 2030',
+    titulo: 'Da agenda à meta',
+    descricao: (total) =>
+      `${total} movimentos traduzem os ODS em metas públicas e mensuráveis para as empresas até 2030. Cada um tem foco em ODS prioritários.`,
+    acao: 'Conhecer a Ambição 2030',
+  },
+
+  ferramentas: {
+    selo: 'Por onde começar',
+    titulo: 'Como levar os ODS para a estratégia',
+    descricao: 'Duas ferramentas do Pacto Global para sair da intenção e chegar a metas.',
+  },
+
+  cta: {
+    selo: 'Próximo passo',
+    titulo: 'Coloque sua empresa na Agenda 2030',
+    descricao: `Participar do Pacto Global da ONU – Rede Brasil é assumir os Dez Princípios, escolher em quais ODS a empresa vai fazer diferença e trabalhar ao lado de mais de ${PARTICIPANTES} participantes para chegar lá.`,
+    botoes: BOTOES_CTA,
+    outraPagina: 'Entenda o que é ESG e como ele se conecta aos ODS',
+  },
+};
+
+/** Ferramentas do Pacto Global para trabalhar os ODS */
+export const FERRAMENTAS_ODS = {
+  sdgCompass: {
+    tipo: 'Guia metodológico',
     titulo: 'SDG Compass',
-    subtitulo: 'Guia em 5 passos para alinhar estratégia aos ODS',
-    descricao: 'O SDG Compass é um guia do Pacto Global, em cinco passos, que ajuda as empresas a entenderem os seus impactos relacionados aos ODS e a estabelecerem metas compatíveis.',
+    descricao:
+      'Guia do Pacto Global em cinco passos para a empresa entender seus impactos sobre os ODS, escolher prioridades e definir metas compatíveis.',
     passos: [
       'Entender os ODS',
       'Definir prioridades',
@@ -477,73 +298,29 @@ export const FERRAMENTAS_ESG = [
       { label: 'Roadmap "Como trabalhar os ODS"', url: 'https://materiais.pactoglobal.org.br/como-trabalhar-os-ods' },
       { label: 'Publicação completa SDG Compass', url: 'https://materiais.pactoglobal.org.br/sdg-compass' },
     ],
-    imagem: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1600&auto=format&fit=crop',
   },
-  {
-    id: 'ambicao-pelos-ods',
+  ambicaoPelosOds: {
+    tipo: 'Programa de aceleração',
     titulo: 'Ambição pelos ODS (SDG Ambition)',
-    subtitulo: 'Programa de aceleração internacional para metas ODS',
-    descricao: 'O Ambição pelos ODS é um programa de aceleração internacional do Pacto Global que auxilia as empresas no estabelecimento de metas relacionadas aos ODS para integrar uma estratégia ESG em conformidade com padrões exigidos em todo o mundo. Foi lançado em janeiro de 2020 no Fórum Econômico Mundial, em Davos, pelo Secretário-Geral da ONU, António Guterres.',
+    descricao:
+      'Programa internacional do Pacto Global que ajuda as empresas a definir metas ambiciosas ligadas aos ODS e a integrá-las à gestão. Foi lançado em janeiro de 2020, no Fórum Econômico Mundial, em Davos, pelo secretário-geral da ONU, António Guterres.',
     beneficios: [
       'Ir além do progresso incremental',
       'Intensificar a mudança transformadora',
       'Ampliar o valor do negócio',
       'Construir resiliência',
-      'Impulsionar crescimento de longo prazo',
+      'Impulsionar o crescimento de longo prazo',
     ],
     link: { label: 'Saiba mais sobre Ambição pelos ODS', url: 'https://www.pactoglobal.org.br/pg/ambicao-pelos-ods' },
-    imagem: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1600&auto=format&fit=crop',
   },
-];
+};
 
-/** Metas do programa Ambição pelos ODS */
+/** Exemplos de meta do programa Ambição pelos ODS, mostrados no explorador */
 export const METAS_AMBICAO_ODS = [
-  { ods: 13, titulo: 'Ação Contra a Mudança Global do Clima', meta: 'Estabelecer metas de redução de emissões alinhadas à ciência (SBTi) para limitar o aquecimento a 1,5°C.' },
-  { ods: 5, titulo: 'Igualdade de Gênero', meta: 'Alcançar paridade de gênero em cargos de liderança até 2030.' },
-  { ods: 8, titulo: 'Trabalho Decente e Crescimento Econômico', meta: 'Erradicar trabalho forçado, infantil e traficado nas cadeias de valor.' },
-  { ods: 12, titulo: 'Consumo e Produção Responsáveis', meta: 'Eliminar plásticos de uso único e implementar modelos circulares.' },
-  { ods: 10, titulo: 'Redução das Desigualdades', meta: 'Promover equidade salarial e inclusão de grupos sub-representados.' },
-  { ods: 9, titulo: 'Indústria, Inovação e Infraestrutura', meta: 'Acelerar inovação em tecnologias de baixo carbono e infraestrutura resiliente.' },
+  { ods: 13, meta: 'Estabelecer metas de redução de emissões alinhadas à ciência (SBTi) para limitar o aquecimento a 1,5°C.' },
+  { ods: 5, meta: 'Alcançar paridade de gênero em cargos de liderança até 2030.' },
+  { ods: 8, meta: 'Erradicar trabalho forçado, infantil e traficado nas cadeias de valor.' },
+  { ods: 12, meta: 'Eliminar plásticos de uso único e implementar modelos circulares.' },
+  { ods: 10, meta: 'Promover equidade salarial e inclusão de grupos sub-representados.' },
+  { ods: 9, meta: 'Acelerar inovação em tecnologias de baixo carbono e infraestrutura resiliente.' },
 ];
-
-/** Mercado ESG */
-export const MERCADO_ESG = {
-  titulo: 'Oportunidades de mercado e tendências ESG',
-  intro: 'Atuar de acordo com padrões ESG amplia a competitividade do setor empresarial. No mundo atual, no qual as empresas são acompanhadas de perto pelos stakeholders, ESG é indicação de solidez, custos mais baixos, melhor reputação e maior resiliência.',
-  estatisticas: [
-    { valor: '57%', rotulo: 'dos ativos de fundos mútuos na Europa em fundos ESG até 2025', fonte: 'PwC' },
-    { valor: 'US$ 8,9 tri', rotulo: 'em ativos ESG na Europa até 2025', fonte: 'PwC' },
-    { valor: '77%', rotulo: 'dos investidores institucionais planejam parar de comprar produtos não ESG', fonte: 'PwC' },
-    { valor: 'R$ 2,5 bi', rotulo: 'captados por fundos ESG no Brasil em 2020', fonte: 'Morningstar / Capital Reset' },
-  ],
-  casos: [
-    { nome: 'ESG na B3', descricao: 'Índice S&P/B3 Brasil ESG (2020) — critérios ambientais, sociais e de governança; aderência aos 10 Princípios do Pacto Global.', link: { label: 'Conheça o índice', url: 'https://www.b3.com.br' } },
-    { nome: 'ESG no BTG Pactual', descricao: 'ETF ESGB11 replica índice S&P/B3 Brasil ESG — primeiro ETF ESG do Brasil.', link: { label: 'Saiba mais', url: 'https://www.btgpactual.com' } },
-    { nome: 'ESG na BlackRock', descricao: 'Maior gestora global (USD 6+ tri) incluiu métricas ESG transversalmente em todas as análises de risco desde 2020.', link: { label: 'Abordagem ESG', url: 'https://www.blackrock.com' } },
-  ],
-};
-
-/** Por que aderir */
-export const POR_QUE_ADERIR_MOVIMENTOS = {
-  titulo: 'Por que aderir aos Movimentos da Ambição 2030?',
-  descricao: 'Aderir oferece metodologias validadas, capacitação técnica, participação em fóruns da ONU e suporte estruturado para conformidade regulatória com transparência.',
-  beneficios: [
-    'Metodologias práticas e ferramentas de autoavaliação corporativa',
-    'Grupos de trabalho técnicos com pares do mesmo setor',
-    'Workshops exclusivos, guias metodológicos, academias globais (UNGC Academy)',
-    'Participação em fóruns globais de tomada de decisão (COP, Assembleia Geral da ONU)',
-    'Suporte estruturado para conformidade com CVM, ISSB, EUDR, CSRD',
-    'Colaboração pré-competitiva para resolver desafios sistêmicos que nenhuma empresa resolve sozinha',
-  ],
-};
-
-/** CTA Final */
-export const ESG_CTA = {
-  titulo: 'Comece sua jornada ESG com o Pacto Global',
-  descricao: 'O Pacto Global da ONU é a maior iniciativa de sustentabilidade corporativa do mundo. Ao aderir, sua empresa assume os Dez Princípios universais e ganha acesso a ferramentas, redes e metodologias para transformar compromissos em impacto real.',
-  botoes: [
-    { label: 'Como Aderir', href: '#/como-aderir', variant: 'primary' },
-    { label: 'Conheça a Ambição 2030', href: '#/ambicao', variant: 'secondary' },
-    { label: 'Ver Plataformas de Ação', href: '#/plataformas', variant: 'secondary' },
-  ],
-};

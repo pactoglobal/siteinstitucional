@@ -4,21 +4,24 @@ import { SectionHeader } from '../ui/SectionHeader';
 import { routeHref } from '../../hooks/useHashRoute';
 import { MOVIMENTOS } from '../../data/ambicao2030';
 import { ODS_COLORS } from '../../data/constants';
+import { TEXTOS_ODS } from '../../data/esgOds';
 import { logoMovimento } from './navegacao';
+
+const { movimentos: textos } = TEXTOS_ODS;
 
 export const MovimentosGrade = () => (
   <section className="border-y border-slate-200/80 bg-un-surface py-16 md:py-24">
     <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
       <SectionHeader
-        badge="Ambição 2030"
-        title="10 movimentos, metas públicas"
-        description="Cada movimento conecta empresas a ODS prioritários, com metas mensuráveis até 2030."
+        badge={textos.selo}
+        title={textos.titulo}
+        description={textos.descricao(MOVIMENTOS.length)}
         button={
           <a
             href={routeHref('ambicao')}
             className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-un-blue px-6 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-un-blue-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-un-gold focus-visible:ring-offset-2 md:text-sm"
           >
-            Conhecer a Ambição 2030 <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            {textos.acao} <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
         }
         className="mb-10 md:mb-12"

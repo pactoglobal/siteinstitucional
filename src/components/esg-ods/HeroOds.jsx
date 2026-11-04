@@ -2,8 +2,10 @@ import React from 'react';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import { OdsFaixa } from '../ui/OdsFaixa';
 import { routeHref } from '../../hooks/useHashRoute';
-import { ODS_LIST } from '../../data/esgOds';
+import { ODS_LIST, TEXTOS_ODS } from '../../data/esgOds';
 import { iconeOds, rolarPara } from './navegacao';
+
+const { hero } = TEXTOS_ODS;
 
 /**
  * Hero com o mosaico dos 18 ícones oficiais no lugar de foto. O mosaico é
@@ -16,17 +18,16 @@ export const HeroOds = () => (
       <div className="grid items-center gap-12 lg:grid-cols-12">
         <div className="lg:col-span-6">
           <span className="mb-6 inline-block rounded-full border border-white/15 bg-white/10 px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-un-blue-3 sm:text-xs">
-            Agenda 2030
+            {hero.selo}
           </span>
           <h1 className="font-display text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
-            Os 18 ODS
+            {hero.titulo}
             <span className="mt-3 block text-xl font-bold normal-case tracking-normal text-un-blue-3 sm:text-2xl md:text-3xl">
-              17 objetivos globais e um brasileiro
+              {hero.subtitulo}
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-base font-light leading-relaxed text-slate-200 md:text-lg">
-            Os Objetivos de Desenvolvimento Sustentável reúnem os grandes desafios da sociedade e do
-            planeta. Escolha um ODS e veja como o Pacto Global da ONU – Rede Brasil atua nele.
+            {hero.texto}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <button
@@ -34,13 +35,13 @@ export const HeroOds = () => (
               onClick={() => rolarPara('explorador')}
               className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-un-gold px-6 text-xs font-bold uppercase tracking-wider text-un-blue transition-colors hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-un-blue md:text-sm"
             >
-              Explorar os ODS <ArrowDown className="h-4 w-4" aria-hidden="true" />
+              {hero.acao} <ArrowDown className="h-4 w-4" aria-hidden="true" />
             </button>
             <a
               href={routeHref('esg')}
               className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border-2 border-white/30 px-6 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-un-gold md:text-sm"
             >
-              Entender o ESG <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              {hero.link} <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </a>
           </div>
         </div>
