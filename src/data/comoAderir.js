@@ -369,32 +369,65 @@ export const CEO_STUDY_STATS = [
 ];
 
 /**
- * Campos do formulário de interesse, conforme o documento "Formulário - em
- * português" da equipe de Adesão (campos obrigatórios integrados ao
- * Salesforce/Pardot). Os valores das listas são exatos: o Pardot diferencia
- * maiúsculas e minúsculas. O telefone é campo oculto no documento e fica
- * de fora.
+ * Campos do formulário de interesse, conforme o mapeamento do form handler do
+ * Pardot passado pela Julianne Maia. `nome` é o "nome do campo externo" e vai
+ * no atributo name do HTML; `valor` é o que o Pardot grava e precisa ser
+ * idêntico ao cadastrado (o Pardot diferencia maiúsculas e minúsculas);
+ * `rotulo` é o texto que a pessoa vê. País fica em utils/paises.js.
  */
 export const FORMULARIO_ADESAO = {
+  // URL do form handler. Vazia, o envio cai no e-mail de contato (mailto).
+  formHandlerUrl: "",
+  campos: {
+    nome: "nome",
+    sobrenome: "sobrenome",
+    email: "email",
+    telefone: "telefone",
+    pais: "pais",
+    cargo: "cargo",
+    nivel: "nivelhierarquico",
+    empresa: "empresa",
+    tipoOrganizacao: "tipoorganizacao",
+    funcionarios: "numerofuncionarios",
+    fazParte: "fazparte",
+    optIn: "optin",
+    // Ainda não existe no form handler: a Julianne precisa criá-lo com este nome.
+    duvidas: "duvidas",
+  },
   niveisHierarquicos: [
-    "C-Level (Alta liderança)",
-    "Diretor(a) / Head",
-    "Gerente / Gerente Sênior",
-    "Analista / Associado(a)",
-    "Consultor(a)",
-    "Estudante / Pesquisador(a)",
-    "Outro",
+    { valor: "C-Suite", rotulo: "C-Level (Alta liderança)" },
+    { valor: "Director / Head", rotulo: "Diretor(a) / Head" },
+    { valor: "Manager / Sr. Manager", rotulo: "Gerente / Gerente Sênior" },
+    { valor: "Associate", rotulo: "Analista / Associado(a)" },
+    { valor: "Consultant", rotulo: "Consultor(a)" },
+    { valor: "Student / Researcher", rotulo: "Estudante / Pesquisador(a)" },
+    { valor: "Other", rotulo: "Outro" },
   ],
   tiposOrganizacao: [
-    "Empresa",
-    "Associação empresarial",
-    "Organização sem fins lucrativos / ONG",
-    "Governo",
-    "Entidade da ONU",
-    "Rede Local do Pacto Global",
-    "Instituição acadêmica",
-    "Outro",
+    { valor: "Company", rotulo: "Empresa" },
+    { valor: "Business Association", rotulo: "Associação Empresarial" },
+    { valor: "Nonprofit / NGO", rotulo: "Organização sem fins lucrativos" },
+    { valor: "Government", rotulo: "Governo" },
+    { valor: "UN Entity", rotulo: "Entidade da ONU" },
+    { valor: "Global Compact Local Network", rotulo: "Rede Local do Pacto Global" },
+    { valor: "Academic", rotulo: "Instituição Acadêmica" },
+    { valor: "Other", rotulo: "Outro" },
   ],
-  numeroFuncionarios: ["1 - 10", "10 - 250", "250 - 1000", "1000 - 10,000", "10,000+"],
-  optInPergunta: "Você deseja receber notícias, atualizações e insights do Pacto Global da ONU?",
+  numeroFuncionarios: [
+    { valor: "1 - 10", rotulo: "1 a 10" },
+    { valor: "10 - 250", rotulo: "10 a 250" },
+    { valor: "250 - 1000", rotulo: "250 a 1.000" },
+    { valor: "1000 - 10,000", rotulo: "1.000 a 10.000" },
+    { valor: "10,000+", rotulo: "Mais de 10.000" },
+  ],
+  fazParte: {
+    pergunta: "Sua empresa faz parte do Pacto Global da ONU – Rede Brasil?",
+    opcoes: [
+      { valor: "Sim", rotulo: "Sim" },
+      { valor: "Não", rotulo: "Não" },
+    ],
+  },
+  // O opt-in de comunicações vai junto do consentimento LGPD, num checkbox só:
+  // no Pardot é um campo único.
+  optInValor: "Yes",
 };
