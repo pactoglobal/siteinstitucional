@@ -330,14 +330,7 @@ export const CONTATO_ENGAJAMENTO = {
   kitMidiaUrl: "https://unglobalcompact.org/library/1831",
   // 12º UN Global Compact–Accenture CEO Study (2023)
   estudoCeoUrl: "https://unglobalcompact.org/library/6103",
-  horario: "Segunda a Sexta, das 9h às 18h (Brasília)",
-  // WhatsApp do Contato de Adesão (Barbara), só dígitos com DDI e DDD. Usado
-  // só pelo botão flutuante: o card com o contato dela saiu da página.
-  // Vazio + whatsappPrevia = o botão aparece em modo prévia e leva ao
-  // formulário; vazio sem prévia = o botão não aparece.
-  whatsapp: "5511963110743",
-  whatsappPrevia: false,
-  whatsappMensagem: "Olá Bárbara, tudo bem? Estou entrando em contato, pois visitei o site e gostaria de fazer parte do Pacto Global da ONU - Brasil."
+  horario: "Segunda a Sexta, das 9h às 18h (Brasília)"
 };
 
 // Dados Oficiais do UN Global Compact & Accenture CEO Study
