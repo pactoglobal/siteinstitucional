@@ -38,7 +38,6 @@ import {
 } from 'lucide-react';
 import { AdesaoHero } from '../components/adesao/AdesaoHero';
 import { BeneficiosBento } from '../components/adesao/BeneficiosBento';
-import { EquipeAdesao } from '../components/adesao/EquipeAdesao';
 import { WhatsAppFab } from '../components/adesao/WhatsAppFab';
 import { CampoTelefone } from '../components/adesao/CampoTelefone';
 import { FotoFundo } from '../components/adesao/FotoFundo';
@@ -1221,10 +1220,6 @@ export const ParticiparPage = ({ navigate }) => {
 
         </div>
       </section>
-
-      {/* 9. DOCK FLUTUANTE DE NAVEGAÇÃO RÁPIDA (DISCRETO & 100% IN-PAGE) */}
-      {/* 9. PERFIS DA ÁREA DE ADESÃO (some enquanto não houver contatos cadastrados) */}
-      <EquipeAdesao />
 
       {/* Fecho da página com a assinatura dos ODS, logo acima do rodapé */}
       <OdsFaixa className="h-2" />
