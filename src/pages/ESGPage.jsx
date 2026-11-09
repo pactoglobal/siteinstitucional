@@ -1,20 +1,31 @@
 import React from 'react';
-import { HeroEsg } from '../components/esg-ods/HeroEsg';
-import { PilaresBento } from '../components/esg-ods/PilaresBento';
-import { EsgEmAcao } from '../components/esg-ods/EsgEmAcao';
-import { RegulacaoFaixa } from '../components/esg-ods/RegulacaoFaixa';
-import { PerguntasEsgOds } from '../components/esg-ods/PerguntasEsgOds';
+import { Dossie, DossieAbertura } from '../components/esg-ods/Dossie';
+import {
+  EsgDuasPerguntas,
+  EsgDuvidas,
+  EsgOQueE,
+  EsgOrigem,
+  EsgPorQueImporta,
+  EsgRedeBrasil,
+  EsgTresLetras,
+  LetrasEsg,
+} from '../components/esg-ods/CapitulosEsg';
 import { CtaFinal } from '../components/esg-ods/CtaFinal';
 import { routeHref } from '../hooks/useHashRoute';
-import { TEXTOS_ESG } from '../data/esgOds';
+import { CAPITULOS_ESG, TEXTOS_ESG } from '../data/esgOds';
 
 export const ESGPage = () => (
-  <div className="animate-fade-in min-h-screen bg-un-surface">
-    <HeroEsg />
-    <PilaresBento />
-    <RegulacaoFaixa />
-    <EsgEmAcao />
-    <PerguntasEsgOds />
+  <div className="animate-fade-in min-h-screen bg-white">
+    <DossieAbertura textos={TEXTOS_ESG.hero} capitulos={CAPITULOS_ESG} visual={<LetrasEsg />} />
+    <Dossie capitulos={CAPITULOS_ESG}>
+      <EsgOQueE />
+      <EsgOrigem />
+      <EsgDuasPerguntas />
+      <EsgTresLetras />
+      <EsgPorQueImporta />
+      <EsgRedeBrasil />
+      <EsgDuvidas />
+    </Dossie>
     <CtaFinal conteudo={TEXTOS_ESG.cta} outraPagina={routeHref('ods')} />
   </div>
 );

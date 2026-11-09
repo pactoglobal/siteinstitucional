@@ -1,9 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { ArrowRight, Check, Target } from 'lucide-react';
 import { cn } from '../../utils/cn';
-import { SectionHeader } from '../ui/SectionHeader';
 import { routeHref } from '../../hooks/useHashRoute';
-import { ODS_LIST, METAS_AMBICAO_ODS, TEXTOS_ODS } from '../../data/esgOds';
+import { ODS_BUSCA, ODS_LIST, METAS_AMBICAO_ODS, TEXTOS_ODS } from '../../data/esgOds';
 import { MOVIMENTOS } from '../../data/ambicao2030';
 import { PLATAFORMAS } from '../../data/plataformas';
 import { iconeOds, logoMovimento } from './navegacao';
@@ -12,8 +11,8 @@ import { iconeOds, logoMovimento } from './navegacao';
 // 18 opções.
 const ODS_INICIAL = 18;
 const PAINEL_ID = 'painel-ods';
-const { explorador: textos } = TEXTOS_ODS;
-const BREAKPOINT_LG = 1024;
+const { objetivos: textos } = TEXTOS_ODS;
+const BREAKPOINT_XL = 1280;
 
 // Tudo derivado dos campos `ods` de movimentos e plataformas. A plataforma
 // que cobre os 17 ODS (comunicar e engajar) vai para o fim da lista, depois
@@ -27,7 +26,7 @@ const atuacaoNoOds = (numero) => ({
 const Painel = ({ ods }) => {
   const { movimentos, plataformas, meta } = atuacaoNoOds(ods.id);
   return (
-    <div className="overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-xl">
+    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg shadow-slate-200/60">
       <div className="h-2" style={{ backgroundColor: ods.color }} aria-hidden="true" />
       <div className="p-6 sm:p-8">
         <div className="flex items-center gap-4">
@@ -36,6 +35,11 @@ const Painel = ({ ods }) => {
             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">ODS {ods.id}</p>
             <h3 className="font-display text-xl font-black uppercase leading-tight tracking-tight text-slate-900 sm:text-2xl">{ods.name}</h3>
           </div>
+        </div>
+
+        <div className="mt-6">
+          <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-500">{textos.rotuloBusca}</h4>
+          <p className="font-serif text-lg leading-snug text-slate-800">{ODS_BUSCA[ods.id]}</p>
         </div>
 
         <div className="mt-8">
@@ -109,7 +113,7 @@ export const ExploradorOds = () => {
   // para a tela se ele estiver fora dela.
   const aoClicar = (numero) => {
     selecionar(numero);
-    if (window.innerWidth >= BREAKPOINT_LG) return;
+    if (window.innerWidth >= BREAKPOINT_XL) return;
     requestAnimationFrame(() => {
       const painel = painelRef.current;
       if (painel && painel.getBoundingClientRect().top > window.innerHeight * 0.6) {
@@ -137,61 +141,50 @@ export const ExploradorOds = () => {
   };
 
   return (
-    <section id="explorador" className="scroll-mt-24 bg-white py-16 md:py-24">
-      <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-        <SectionHeader
-          badge={textos.selo}
-          title={textos.titulo}
-          description={textos.descricao}
-          className="mb-10 md:mb-12"
-        />
-
-        <div className="grid items-start gap-8 lg:grid-cols-12">
-          <div role="tablist" aria-label="Objetivos de Desenvolvimento Sustentável" className="grid grid-cols-6 gap-1.5 sm:gap-2.5 lg:col-span-7">
-            {ODS_LIST.map((item) => {
-              const ativo = item.id === selecionado;
-              return (
-                <button
-                  key={item.id}
-                  ref={(el) => { abasRef.current[item.id - 1] = el; }}
-                  type="button"
-                  role="tab"
-                  id={`aba-ods-${item.id}`}
-                  aria-selected={ativo}
-                  aria-controls={PAINEL_ID}
-                  aria-label={`ODS ${item.id} — ${item.name}`}
-                  tabIndex={ativo ? 0 : -1}
-                  onClick={() => aoClicar(item.id)}
-                  onKeyDown={(event) => aoTeclar(event, item.id)}
-                  className={cn(
-                    'relative aspect-square overflow-hidden rounded-lg transition-all sm:rounded-xl duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-un-blue focus-visible:ring-offset-2 motion-reduce:transition-none',
-                    ativo
-                      ? 'scale-[1.04] shadow-xl ring-[3px] ring-un-gold ring-offset-2 sm:ring-4'
-                      : 'opacity-80 shadow-sm hover:-translate-y-0.5 hover:opacity-100 hover:shadow-lg',
-                  )}
-                >
-                  <img src={iconeOds(item.id)} alt="" width={160} height={160} loading="lazy" className="h-full w-full object-cover" />
-                  {ativo && (
-                    <span className="absolute right-0.5 top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-un-gold text-un-blue shadow sm:right-1.5 sm:top-1.5 sm:h-6 sm:w-6" aria-hidden="true">
-                      <Check className="h-3 w-3 sm:h-4 sm:w-4" strokeWidth={3} />
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-
-          <div
-            ref={painelRef}
-            id={PAINEL_ID}
-            role="tabpanel"
-            aria-labelledby={`aba-ods-${selecionado}`}
-            className="scroll-mt-24 lg:sticky lg:top-28 lg:col-span-5"
-          >
-            <Painel ods={ods} />
-          </div>
-        </div>
+    <div className="grid items-start gap-8 xl:grid-cols-12">
+      <div role="tablist" aria-label="Objetivos de Desenvolvimento Sustentável" className="grid grid-cols-6 gap-1.5 sm:gap-2.5 xl:col-span-6">
+        {ODS_LIST.map((item) => {
+          const ativo = item.id === selecionado;
+          return (
+            <button
+              key={item.id}
+              ref={(el) => { abasRef.current[item.id - 1] = el; }}
+              type="button"
+              role="tab"
+              id={`aba-ods-${item.id}`}
+              aria-selected={ativo}
+              aria-controls={PAINEL_ID}
+              aria-label={`ODS ${item.id} — ${item.name}`}
+              tabIndex={ativo ? 0 : -1}
+              onClick={() => aoClicar(item.id)}
+              onKeyDown={(event) => aoTeclar(event, item.id)}
+              className={cn(
+                'relative aspect-square overflow-hidden rounded-lg transition-all sm:rounded-xl duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-un-blue focus-visible:ring-offset-2 motion-reduce:transition-none',
+                ativo
+                  ? 'scale-[1.04] shadow-xl ring-[3px] ring-un-gold ring-offset-2 sm:ring-4'
+                  : 'opacity-80 shadow-sm hover:-translate-y-0.5 hover:opacity-100 hover:shadow-lg',
+              )}
+            >
+              <img src={iconeOds(item.id)} alt="" width={160} height={160} loading="lazy" className="h-full w-full object-cover" />
+              {ativo && (
+                <span className="absolute right-0.5 top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-un-gold text-un-blue shadow sm:right-1.5 sm:top-1.5 sm:h-6 sm:w-6" aria-hidden="true">
+                  <Check className="h-3 w-3 sm:h-4 sm:w-4" strokeWidth={3} />
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
-    </section>
+
+      <div
+        ref={painelRef}
+        id={PAINEL_ID}
+        role="tabpanel"
+        aria-labelledby={`aba-ods-${selecionado}`}
+        className="scroll-mt-28 xl:sticky xl:top-28 xl:col-span-6"
+      >
+        <Painel ods={ods} />
+      </div>
+    </div>
   );
 };
