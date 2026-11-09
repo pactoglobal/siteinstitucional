@@ -50,4 +50,57 @@ cp dist/index.html dist/404.html
 # movimentos/ nunca foram publicadas.
 cp -R dist/. .
 
+# Carimbo de tempo da versao que esta no ar (os nomes em assets/ terminam em
+# -<carimbo>, ver vite.config.js). Lido do index.html commitado, porque o da
+# raiz ja foi trocado pelo template e pelo build.
+CARIMBO_NO_AR=$(git show HEAD:index.html 2>/dev/null | grep -oE 'assets/index-[^"]*-[0-9]+\.js' | head -1 | sed -E 's/.*-([0-9]+)\.js$/\1/' || true)
+
+# O cp acima so acrescenta: um arquivo que saiu do build (ex.: foto removida
+# de public/) continuaria publicado. O manifesto guarda a lista do que o
+# ultimo deploy colocou na raiz; o que estava la e nao esta no build novo e
+# apagado. Sem manifesto (primeiro deploy com ele), vale como lista antiga
+# tudo o que ja existe na raiz sob os mesmos nomes de topo do build.
+MANIFESTO=".deploy-manifest"
+# Nunca apagar codigo-fonte ou configuracao, mesmo que um nome desses
+# apareca por engano no build.
+PROTEGIDOS='^(src|public|node_modules|\.git|\.claude|\.vscode|\.vite)(/|$)|^(package\.json|package-lock\.json|pnpm-lock\.yaml|deploy\.sh|vite\.config\.js|tailwind\.config\.js|postcss\.config\.js|eslint\.config\.js|\.gitignore|\.deploy-manifest)$'
+
+NOVO_MANIFESTO=$(cd dist && find . -type f | sed 's|^\./||' | LC_ALL=C sort)
+
+if [ -f "$MANIFESTO" ]; then
+  ANTIGO_MANIFESTO=$(LC_ALL=C sort "$MANIFESTO")
+else
+  ANTIGO_MANIFESTO=$(cd dist && find . -mindepth 1 -maxdepth 1 | sed 's|^\./||' | while IFS= read -r topo; do
+    [ -e "../$topo" ] && (cd .. && find "$topo" -type f)
+  done | LC_ALL=C sort)
+fi
+
+SAIRAM=$(LC_ALL=C comm -23 <(printf '%s\n' "$ANTIGO_MANIFESTO") <(printf '%s\n' "$NOVO_MANIFESTO") | grep -Ev "$PROTEGIDOS" | grep -v '^$' || true)
+
+# Os arquivos da versao no ar ficam por mais um deploy: quem esta com a pagina
+# aberta ainda carrega partes dela sob demanda (ex.: ScrollTrigger). Entram no
+# manifesto novo e saem no deploy seguinte.
+MANTIDOS=""
+if [ -n "$CARIMBO_NO_AR" ]; then
+  MANTIDOS=$(printf '%s\n' "$SAIRAM" | grep -E "^assets/.*-${CARIMBO_NO_AR}\.[a-z0-9]+$" || true)
+fi
+REMOVIDOS=$(LC_ALL=C comm -23 <(printf '%s\n' "$SAIRAM" | LC_ALL=C sort) <(printf '%s\n' "$MANTIDOS" | LC_ALL=C sort) | grep -v '^$' || true)
+
+if [ -n "$REMOVIDOS" ]; then
+  echo "→ Removendo da raiz o que saiu do build:"
+  printf '%s\n' "$REMOVIDOS" | while IFS= read -r arquivo; do
+    echo "   - $arquivo"
+    rm -f -- "$arquivo"
+    # Remove as pastas que ficaram vazias, subindo ate a raiz.
+    pasta=$(dirname -- "$arquivo")
+    while [ "$pasta" != "." ] && [ -d "$pasta" ] && [ -z "$(ls -A -- "$pasta")" ]; do
+      rmdir -- "$pasta"
+      pasta=$(dirname -- "$pasta")
+    done
+  done
+fi
+
+printf '%s\n%s\n' "$NOVO_MANIFESTO" "$MANTIDOS" | grep -v '^$' | LC_ALL=C sort -u > "$MANIFESTO"
+
 echo "✓ Build concluído. Pronto para commit e push."
+echo "  Use git add -A no commit de deploy, para levar também as remoções."
