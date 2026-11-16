@@ -37,7 +37,9 @@ export const Footer = () => (
           <li><a href="#/sobre" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Sobre Nós</a></li>
           <li><a href="#/governanca" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-medium text-un-gold">Governança & Integridade</a></li>
           <li><a href="#/sobre" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Dez Princípios</a></li>
-          <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block leading-relaxed">Objetivos de<br/>Desenvolvimento<br/>Sustentável</a></li>
+          <li><a href="#/acoes-coletivas" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Ações Coletivas Anticorrupção</a></li>
+          <li><a href="#/materiais-anticorrupcao" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Materiais e Guias Úteis</a></li>
+          <li><a href="#/ods" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block leading-relaxed">Objetivos de<br/>Desenvolvimento<br/>Sustentável</a></li>
           <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Saiba quem já faz parte</a></li>
           <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Como aderir</a></li>
           <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">Comunicação de Progresso</a></li>

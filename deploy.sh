@@ -7,6 +7,11 @@ set -e
 echo "→ Lint..."
 npm run lint
 
+# Restaura index.html fonte para o Vite compilar sem erros de bundles anteriores
+if [ -f index.source.html ]; then
+  cp index.source.html index.html
+fi
+
 # Build
 npm run build
 
@@ -17,7 +22,9 @@ CSS_ASSET=$(grep -o 'assets/index-[^"]*\.css' dist/index.html | head -1 | sed 's
 echo "→ Assets detectados: JS=$JS_ASSET, CSS=$CSS_ASSET"
 
 # Gera 404.html APÓS o build com os hashes CORRETOS
-cat > dist/404.html << EOF
+# O 404.html precisa converter paths sem hash (ex: /siteinstitucional/esg) 
+# para hash-based routing (/#/esg) para GitHub Pages SPA
+cat > dist/404.html << 'EOF'
 <!doctype html>
 <html lang="pt-BR">
 
@@ -29,15 +36,23 @@ cat > dist/404.html << EOF
   <title>Pacto Global da ONU - Rede Brasil</title>
   <script>
     // GitHub Pages SPA fallback for hash-based routing
-    // Redirects 404 to index.html with the hash preserved
+    // Converte paths sem hash para hash-based routing
     (function() {
       var path = window.location.pathname;
       var hash = window.location.hash;
+      
+      // Remove prefixo /siteinstitucional se presente
+      var cleanPath = path.replace('/siteinstitucional', '');
+      
       if (hash) {
-        // Already has hash, let index.html handle it
+        // Já tem hash, redireciona preservando
         window.location.replace('/siteinstitucional/' + hash);
-      } else if (path !== '/siteinstitucional/') {
-        // No hash, redirect to root
+      } else if (cleanPath && cleanPath !== '/' && cleanPath !== '') {
+        // Path sem hash - converte para hash-based routing
+        // Ex: /siteinstitucional/esg -> /siteinstitucional/#/esg
+        window.location.replace('/siteinstitucional/#' + cleanPath);
+      } else {
+        // Raiz ou vazio, redireciona para home
         window.location.replace('/siteinstitucional/');
       }
     })();
@@ -46,12 +61,25 @@ cat > dist/404.html << EOF
 
 <body>
   <div id="root"></div>
-  <script type="module" crossorigin src="/siteinstitucional/assets/$JS_ASSET"></script>
-  <link rel="stylesheet" crossorigin href="/siteinstitucional/assets/$CSS_ASSET">
+  <script type="module" crossorigin src="/siteinstitucional/assets/__JS_ASSET__"></script>
+  <link rel="stylesheet" crossorigin href="/siteinstitucional/assets/__CSS_ASSET__">
 </body>
 
 </html>
 EOF
+
+# Substitui placeholders pelos hashes reais usando Python (mais confiável que sed)
+python3 -c "
+import sys
+js_asset = sys.argv[1]
+css_asset = sys.argv[2]
+with open('dist/404.html', 'r') as f:
+    content = f.read()
+content = content.replace('__JS_ASSET__', js_asset)
+content = content.replace('__CSS_ASSET__', css_asset)
+with open('dist/404.html', 'w') as f:
+    f.write(content)
+" "$JS_ASSET" "$CSS_ASSET"
 
 # Copia os arquivos compilados para a raiz (gh-pages)
 mkdir -p assets

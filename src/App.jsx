@@ -37,6 +37,8 @@ import { PlataformasPage } from './pages/PlataformasPage';
 import { GovernancaPage } from './pages/GovernancaPage';
 import { ESGPage } from './pages/ESGPage';
 import { ODSPage } from './pages/ODSPage';
+import { AcoesColetivasPage } from './pages/AcoesColetivasPage';
+import { MateriaisAnticorrupcaoPage } from './pages/MateriaisAnticorrupcaoPage';
 
 const App = () => {
   const { currentRoute, routeParam, navigate } = useHashRoute('home');
@@ -74,6 +76,8 @@ const App = () => {
         {currentRoute === 'movimento' && <MovimentoPage slug={routeParam} navigate={navigate} />}
         {currentRoute === 'esg' && <ESGPage />}
         {currentRoute === 'ods' && <ODSPage />}
+        {currentRoute === 'acoesColetivas' && <AcoesColetivasPage navigate={navigate} />}
+        {currentRoute === 'materiaisAnticorrupcao' && <MateriaisAnticorrupcaoPage navigate={navigate} />}
       </main>
 
       <Footer />

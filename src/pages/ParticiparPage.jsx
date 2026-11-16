@@ -93,7 +93,7 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
     email: '',
     empresa: '',
     cargo: '',
-    porte: 'PME (< USD 25M)',
+    porte: '1 - 10',
     mensagem: '',
     lgpd: true
   });
@@ -1315,18 +1315,18 @@ export const ParticiparPage = ({ navigate: _navigate }) => {
                     </div>
                     <div>
                       <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">
-                        Porte / Faixa Estimada:
+                        Número de Funcionários:
                       </label>
                       <select
                         value={formData.porte}
                         onChange={(e) => setFormData({ ...formData, porte: e.target.value })}
                         className="w-full min-h-[44px] px-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-un-blue transition-colors cursor-pointer"
                       >
-                        <option value="PME (< USD 25M)">PME (Receita até USD 25M)</option>
-                        <option value="Média Empresa (USD 25M a 250M)">Média Empresa (USD 25M a 250M)</option>
-                        <option value="Grande Empresa (> USD 250M)">Grande Empresa (&gt; USD 250M)</option>
-                        <option value="Subsidiária Estrangeira">Subsidiária de Multinacional Estrangeira</option>
-                        <option value="Não Empresarial (ONG / Universidade)">Não Empresarial (ONG / Academia / Setor Público)</option>
+                        <option value="1 - 10">1 - 10</option>
+                        <option value="10 - 250">10 - 250</option>
+                        <option value="250 - 1000">250 - 1000</option>
+                        <option value="1000 - 10,000">1000 - 10,000</option>
+                        <option value="10,000+">10,000+</option>
                       </select>
                     </div>
                   </div>

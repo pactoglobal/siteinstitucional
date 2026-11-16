@@ -18,6 +18,8 @@ export const ROUTES = {
   governanca: '#/governanca',
   esg: '#/esg',
   ods: '#/ods',
+  acoesColetivas: '#/acoes-coletivas',
+  materiaisAnticorrupcao: '#/materiais-anticorrupcao',
 };
 
 /**
@@ -210,7 +212,8 @@ export const MENU_EXPLORAR = [
     subItems: [
       { id: "agenda", label: "10 Princípios" },
       { id: "ods", label: "ODS" },
-      { id: "plataformas", label: "Plataformas de Ação" }
+      { id: "plataformas", label: "Plataformas de Ação" },
+      { id: "acoesColetivas", label: "Ações Coletivas Anticorrupção" }
     ]
   },
   {
@@ -257,6 +260,7 @@ export const MENU_EXPLORAR = [
     icon: BookOpen,
     subItems: [
       { id: "publicacoes", label: "Publicações" },
+      { id: "materiaisAnticorrupcao", label: "Materiais e Guias Úteis" },
       { id: "conhecimento", label: "Academy" },
       { id: "conhecimento", label: "Cursos & Workshops" },
       { id: "conhecimento", label: "ESG e Sustentabilidade" },
@@ -312,18 +316,19 @@ export const MENU_PARTICIPAR = [
 
 // Header Menu Constants
 export const HEADER_PROGRAMAS = [
-  'HUBs ODS & Multiplicadores', 
-  'Liderança de Impacto', 
-  'Diálogos DH & DEI', 
-  'CFO Coalition', 
-  'COPs'
+  { label: 'HUBs ODS & Multiplicadores', route: 'programas' },
+  { label: 'Liderança de Impacto', route: 'programas' },
+  { label: 'Diálogos DH & DEI', route: 'programas' },
+  { label: 'CFO Coalition', route: 'programas' },
+  { label: 'COPs', route: 'cop' },
 ];
 
 export const HEADER_CONHECIMENTO = [
-  'Publicações', 
-  'Academy', 
-  'Cursos & Workshops', 
-  'Guias e Relatórios'
+  { label: 'Publicações', route: 'publicacoes' },
+  { label: 'Materiais e Guias Úteis', route: 'materiaisAnticorrupcao' },
+  { label: 'Academy', route: 'conhecimento' },
+  { label: 'Cursos & Workshops', route: 'conhecimento' },
+  { label: 'Guias e Relatórios', route: 'publicacoes' },
 ];
 
 // Institutional Stats

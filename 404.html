@@ -9,15 +9,23 @@
   <title>Pacto Global da ONU - Rede Brasil</title>
   <script>
     // GitHub Pages SPA fallback for hash-based routing
-    // Redirects 404 to index.html with the hash preserved
+    // Converte paths sem hash para hash-based routing
     (function() {
       var path = window.location.pathname;
       var hash = window.location.hash;
+      
+      // Remove prefixo /siteinstitucional se presente
+      var cleanPath = path.replace('/siteinstitucional', '');
+      
       if (hash) {
-        // Already has hash, let index.html handle it
+        // Já tem hash, redireciona preservando
         window.location.replace('/siteinstitucional/' + hash);
-      } else if (path !== '/siteinstitucional/') {
-        // No hash, redirect to root
+      } else if (cleanPath && cleanPath !== '/' && cleanPath !== '') {
+        // Path sem hash - converte para hash-based routing
+        // Ex: /siteinstitucional/esg -> /siteinstitucional/#/esg
+        window.location.replace('/siteinstitucional/#' + cleanPath);
+      } else {
+        // Raiz ou vazio, redireciona para home
         window.location.replace('/siteinstitucional/');
       }
     })();
@@ -26,8 +34,8 @@
 
 <body>
   <div id="root"></div>
-  <script type="module" crossorigin src="/siteinstitucional/assets/index-CLyMK7mY.js"></script>
-  <link rel="stylesheet" crossorigin href="/siteinstitucional/assets/index-D7B2c-gF.css">
+  <script type="module" crossorigin src="/siteinstitucional/assets/index-DPEsOWNk.js"></script>
+  <link rel="stylesheet" crossorigin href="/siteinstitucional/assets/index-CjmU5LxS.css">
 </body>
 
 </html>

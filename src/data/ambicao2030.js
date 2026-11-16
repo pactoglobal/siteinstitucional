@@ -482,6 +482,7 @@ export const MOVIMENTOS = [
       { title: 'Treinamento da Cadeia de Risco', desc: 'Capacitação obrigatória em compliance para fornecedores de alto risco.' }
     ],
     comiteConsultivo: [
+      { nome: 'Daniel Lança', org: 'Especialista em Compliance & Governança' },
       { nome: 'Modesto Carvalhosa', org: 'Jurista & Autor' },
       { nome: 'Bruno Brandão', org: 'Transparência Internacional Brasil' }
     ],
@@ -501,7 +502,8 @@ export const MOVIMENTOS = [
       { nome: 'Eletrobras', data: '10/06/2022' }
     ],
     recursos: [
-      { titulo: 'Guia Prático de Transparência em Canais de Denúncia', url: 'https://www.pactoglobal.org.br' }
+      { titulo: 'Guia Prático de Transparência em Canais de Denúncia', url: 'https://www.pactoglobal.org.br' },
+      { titulo: 'Gabarito de Indicadores 2025 – Movimento Transparência 100%', url: 'https://pactoglobal.org.br', badge: 'Gabarito de Metas' }
     ],
     compromissos: [
       '100% de transparência nas interações com a administração pública.',

@@ -255,7 +255,7 @@ export const PlataformaPage = ({ slug, navigate }) => {
                     {plat.numeros.empresas}
                   </span>
                   <span className="text-[10px] uppercase font-bold tracking-wider text-white/80">
-                    Empresas Conectadas
+                    {plat.numeros.empresasLabel || 'Empresas Conectadas'}
                   </span>
                 </div>
                 <div className="w-px h-10 bg-white/20" />
@@ -264,7 +264,7 @@ export const PlataformaPage = ({ slug, navigate }) => {
                     {plat.numeros.iniciativas}
                   </span>
                   <span className="text-[10px] uppercase font-bold tracking-wider text-white/80">
-                    Grandes Frentes / GTs
+                    {plat.numeros.iniciativasLabel || 'Grandes Frentes / GTs'}
                   </span>
                 </div>
                 <div className="w-px h-10 bg-white/20" />
@@ -273,7 +273,7 @@ export const PlataformaPage = ({ slug, navigate }) => {
                     {plat.numeros.destaque}
                   </span>
                   <span className="text-[10px] uppercase font-bold tracking-wider text-white/80">
-                    Foco Estratégico
+                    {plat.numeros.destaqueLabel || 'Foco Estratégico'}
                   </span>
                 </div>
               </div>
@@ -389,8 +389,8 @@ export const PlataformaPage = ({ slug, navigate }) => {
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <SectionHeader
             badge="Frentes de Ação"
-            title="Projetos, Iniciativas"
-            titleAccent="& GTs"
+            title={plat.projetosTitle || "Projetos, Iniciativas"}
+            titleAccent={plat.projetosTitleAccent || "& GTs"}
             description="Conheça os programas de aceleração, grupos de trabalho exclusivos e ferramentas práticas desenvolvidos dentro desta plataforma."
           />
 
@@ -425,14 +425,24 @@ export const PlataformaPage = ({ slug, navigate }) => {
                           </p>
                         </div>
 
-                        <div className="mt-8 pt-6 border-t border-white/20 flex items-center justify-between text-xs md:text-sm">
+                        <div className="mt-8 pt-6 border-t border-white/20 flex flex-wrap items-center justify-between gap-4 text-xs md:text-sm">
                           <span className="text-white/90 font-medium">Iniciativa Âncora</span>
-                          <button
-                            onClick={() => navigate('participar')}
-                            className="inline-flex items-center gap-1.5 font-bold uppercase tracking-wider text-xs text-white hover:underline cursor-pointer"
-                          >
-                            Engajar Empresa <ArrowRight className="w-3.5 h-3.5" />
-                          </button>
+                          <div className="flex items-center gap-3">
+                            {proj.linkRoute && (
+                              <button
+                                onClick={() => navigate(proj.linkRoute, proj.linkParam)}
+                                className="inline-flex items-center gap-1.5 font-bold uppercase tracking-wider text-xs text-white bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full border border-white/30 transition-all cursor-pointer shadow-sm"
+                              >
+                                {proj.linkText || 'Conhecer'} <ArrowRight className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                            <button
+                              onClick={() => navigate('participar')}
+                              className="inline-flex items-center gap-1.5 font-bold uppercase tracking-wider text-xs text-white hover:underline cursor-pointer"
+                            >
+                              Engajar Empresa <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
                         </div>
                       </div>
 
@@ -462,9 +472,16 @@ export const PlataformaPage = ({ slug, navigate }) => {
                         >
                           <IconComponent className="w-6 h-6" style={{ color: plat.color }} />
                         </div>
-                        <span className="font-display font-black text-[11px] tracking-wider uppercase px-3.5 py-1 rounded-full bg-slate-100 text-slate-700">
-                          {proj.tipo}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          {proj.badge && (
+                            <span className="text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+                              {proj.badge}
+                            </span>
+                          )}
+                          <span className="font-display font-black text-[11px] tracking-wider uppercase px-3.5 py-1 rounded-full bg-slate-100 text-slate-700">
+                            {proj.tipo}
+                          </span>
+                        </div>
                       </div>
 
                       <h3 className="font-display font-black text-xl md:text-2xl text-slate-900 mb-3 group-hover:text-un-blue transition-colors">
@@ -477,7 +494,18 @@ export const PlataformaPage = ({ slug, navigate }) => {
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between text-xs">
-                      <span className="text-slate-400 font-medium">Plataforma de Ação</span>
+                      {proj.linkRoute ? (
+                        <button
+                          onClick={() => navigate(proj.linkRoute, proj.linkParam)}
+                          className="inline-flex items-center gap-1.5 font-bold uppercase tracking-wider text-xs hover:underline cursor-pointer transition-colors"
+                          style={{ color: plat.color }}
+                        >
+                          <span>{proj.linkText || 'Saiba Mais'}</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                      ) : (
+                        <span className="text-slate-400 font-medium">Plataforma de Ação</span>
+                      )}
                       <span
                         className="font-bold uppercase tracking-wider text-xs"
                         style={{ color: plat.color }}
@@ -509,13 +537,22 @@ export const PlataformaPage = ({ slug, navigate }) => {
             </span>
           </div>
           <h2 className="text-3xl md:text-6xl font-display font-black uppercase tracking-tight text-slate-900 mb-6 max-w-4xl">
-            Como atuamos na <span style={{ color: plat.color }}>{plat.shortName}</span>
+            {plat.comoAtuamosTitle ? (
+              plat.comoAtuamosTitle
+            ) : (
+              <>Como atuamos na <span style={{ color: plat.color }}>{plat.shortName}</span></>
+            )}
           </h2>
           <p className="text-slate-500 text-base md:text-xl font-light max-w-3xl mb-16">
             Uma abordagem sistêmica e auditável que conduz as empresas participantes do diagnóstico à liderança de mercado.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className={cn(
+            'grid gap-8',
+            plat.comoFunciona.length === 4
+              ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+              : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+          )}>
             {plat.comoFunciona.map((step, i) => {
               const lead = i === 0;
               return (
@@ -578,8 +615,8 @@ export const PlataformaPage = ({ slug, navigate }) => {
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <SectionHeader
             badge="Diferenciais da Plataforma"
-            title="Por que fazer parte da"
-            titleAccent={plat.shortName}
+            title={plat.vantagensTitle || "Por que fazer parte da"}
+            titleAccent={plat.vantagensTitleAccent || plat.shortName}
             description="Benefícios estratégicos e contrapartidas exclusivas para as empresas participantes do Pacto Global da ONU."
           />
 

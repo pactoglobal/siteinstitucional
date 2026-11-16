@@ -114,6 +114,50 @@ export const PUBLICACOES = [
     featured: true,
   },
   {
+    slug: 'gabarito-indicadores-2025-movimento-transparencia-100',
+    title: 'Gabarito de Indicadores 2025 – Movimento Transparência 100%',
+    summary:
+      'Critérios técnicos, parâmetros de reporte e evidências para o cumprimento das 5 Metas Públicas do Movimento Transparência 100%.',
+    themes: ['Corrupção', 'Executivo'],
+    type: 'Guia',
+    language: 'Português',
+    date: '2026-03-01',
+    pages: 24,
+    fileUrl: '#',
+    cover:
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop',
+    featured: true,
+  },
+  {
+    slug: 'guia-pratico-transparencia-canais-denuncia',
+    title: 'Guia Prático de Transparência em Canais de Denúncia',
+    summary:
+      'Diretrizes para gestão independente, acolhimento de relatos, proteção a denunciantes e transparência de desfechos.',
+    themes: ['Corrupção'],
+    type: 'Guia',
+    language: 'Português',
+    date: '2026-02-15',
+    pages: 48,
+    fileUrl: '#',
+    cover:
+      'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop',
+    featured: true,
+  },
+  {
+    slug: 'guia-boas-praticas-anticorrupcao-agroindustria',
+    title: 'Guia de Boas Práticas Anticorrupção da Agroindústria',
+    summary:
+      'Princípios éticos e mecanismos de conformidade para o agronegócio. Premiada no Anti-Corruption Collective Action Awards 2024 pelo Basel Institute.',
+    themes: ['Corrupção', 'Agro'],
+    type: 'Guia',
+    language: 'Português',
+    date: '2026-01-20',
+    pages: 64,
+    fileUrl: '#',
+    cover:
+      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=800&auto=format&fit=crop',
+  },
+  {
     slug: 'manual-integridade-cadeia-de-valor',
     title: 'Manual de Integridade na Cadeia de Valor',
     summary:

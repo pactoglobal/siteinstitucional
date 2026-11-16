@@ -464,7 +464,7 @@ export const MovimentoRecursos = ({ mov }) => {
                       {/* Badge do Tipo de Material */}
                       <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-slate-900 text-[10px] font-black uppercase tracking-wider shadow-md">
                         <FileText className="w-3.5 h-3.5" style={{ color: mov.color }} />
-                        <span>{r.tipo || 'Publicação Oficial'}</span>
+                        <span>{r.badge || r.tipo || 'Publicação Oficial'}</span>
                       </div>
 
                       {/* Identificação do Movimento no rodapé da capa */}

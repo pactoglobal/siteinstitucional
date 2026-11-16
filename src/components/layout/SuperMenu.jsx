@@ -134,9 +134,14 @@ export const SuperMenu = ({ isOpen, onClose, onRouteChange }) => {
       <div className="p-6 md:p-12 border-t border-white/10 bg-un-blue shrink-0">
         <div className="flex flex-col xl:flex-row justify-between items-center gap-6 xl:gap-8">
           <div className="w-full xl:w-auto text-center xl:text-left">
-            <Button variant="outline" className="w-full xl:w-auto px-8 py-4 text-xs font-bold border-white/20 text-white hover:bg-white hover:text-un-blue">
+            <a
+              href="https://unglobalcompact.org/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block w-full xl:w-auto px-8 py-4 text-xs font-bold uppercase tracking-wider rounded-md border border-white/20 text-white hover:bg-white hover:text-un-blue transition-all text-center cursor-pointer"
+            >
               Área do Participante
-            </Button>
+            </a>
           </div>
           <SupporterLogos className="opacity-80 scale-90 md:scale-100" />
           <div className="flex gap-6 text-white/40">
