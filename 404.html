@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/siteinstitucional/favicon.png" />
+  <link rel="apple-touch-icon" href="/siteinstitucional/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pacto Global da ONU - Rede Brasil</title>
+  <script>
+    // GitHub Pages SPA fallback for hash-based routing
+    // Converte paths sem hash para hash-based routing
+    (function() {
+      var path = window.location.pathname;
+      var hash = window.location.hash;
+      
+      // Remove prefixo /siteinstitucional se presente
+      var cleanPath = path.replace('/siteinstitucional', '');
+      
+      if (hash) {
+        // Já tem hash, redireciona preservando
+        window.location.replace('/siteinstitucional/' + hash);
+      } else if (cleanPath && cleanPath !== '/' && cleanPath !== '') {
+        // Path sem hash - converte para hash-based routing
+        // Ex: /siteinstitucional/esg -> /siteinstitucional/#/esg
+        window.location.replace('/siteinstitucional/#' + cleanPath);
+      } else {
+        // Raiz ou vazio, redireciona para home
+        window.location.replace('/siteinstitucional/');
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" crossorigin src="/siteinstitucional/assets/index-Bzm73Em4.js"></script>
+  <link rel="stylesheet" crossorigin href="/siteinstitucional/assets/index-2-s_hW_S.css">
+</body>
+
+</html>
